@@ -1,0 +1,104 @@
+<strings>
+  <string id="AppName">TerminalWatchface</string>
+
+  <string id="FontChoice">Font</string>
+  <string id="FontJetBrainsMono">JetBrains Mono</string>
+  <string id="FontSize">Font Size</string>
+  <string id="FontSizeSmall">Small</string>
+  <string id="FontSizeMedium">Medium</string>
+  <string id="FontSizeLarge">Large</string>
+  <string id="FontSpaceMono">Space Mono</string>
+  <string id="FontFiraCodeMono">Fira Code Mono</string>
+
+  <string id="RotateInterval">Rotate Every</string>
+  <string id="Scanlines">Scanlines</string>
+  <string id="OverlayLines">Overlay Lines</string>
+  <string id="ScanlinesOff">Off</string>
+  <string id="ScanlinesSubtle">Subtle</string>
+  <string id="ScanlinesMedium">Medium</string>
+  <string id="ScanlinesStrong">Strong</string>
+
+  <string id="ColorWhite">White</string>
+  <string id="ColorGreen">Green</string>
+  <string id="ColorCyan">Cyan</string>
+  <string id="ColorYellow">Yellow</string>
+  <string id="ColorOrange">Orange</string>
+  <string id="ColorRed">Red</string>
+  <string id="ColorBlue">Blue</string>
+  <string id="ColorMagenta">Magenta</string>
+  <string id="ColorLightGrey">Light Grey</string>
+
+  <string id="FieldSteps">Steps</string>
+  <string id="FieldHR">Heart Rate</string>
+  <string id="FieldCalories">Calories</string>
+  <string id="FieldBattery">Battery</string>
+  <string id="FieldDistance">Distance</string>
+  <string id="FieldAltitude">Altitude</string>
+  <string id="FieldFloors">Stairs</string>
+  <string id="FieldSpO2">Blood Oxygen</string>
+  <string id="FieldActiveMin">Intensity Mins</string>
+  <string id="FieldNone">None (hidden)</string>
+  <string id="FieldWxTemp">Temperature</string>
+  <string id="FieldWxFeels">Feels Like</string>
+  <string id="FieldWxPrecip">Precipitation</string>
+  <string id="FieldWxWind">Wind</string>
+  <string id="FieldWxUV">UV Index</string>
+  <string id="FieldWxCond">Condition</string>
+  <string id="FieldWxTempCond">Temp + Condition</string>
+  <string id="FieldWxTempMinMax">Temp + Min/Max</string>
+
+  <string id="Line1LabelColor">Time - Label Color</string>
+  <string id="Line1ValueColor">Time - Value Color</string>
+  <string id="Line2LabelColor">Date - Label Color</string>
+  <string id="Line2ValueColor">Date - Value Color</string>
+
+  <string id="Line3Primary">Line 3 - Field</string>
+  <string id="Line3PrimaryLabelColor">Line 3 - Label Color</string>
+  <string id="Line3PrimaryValueColor">Line 3 - Value Color</string>
+  <string id="Line3Secondary">Line 3 - Alt Field 2</string>
+  <string id="Line3SecondaryLabelColor">Line 3 Alt 2 - Label Color</string>
+  <string id="Line3SecondaryValueColor">Line 3 Alt 2 - Value Color</string>
+  <string id="Line3Tertiary">Line 3 - Alt Field 3</string>
+  <string id="Line3TertiaryLabelColor">Line 3 Alt 3 - Label Color</string>
+  <string id="Line3TertiaryValueColor">Line 3 Alt 3 - Value Color</string>
+
+  <string id="Line4Primary">Line 4 - Field</string>
+  <string id="Line4PrimaryLabelColor">Line 4 - Label Color</string>
+  <string id="Line4PrimaryValueColor">Line 4 - Value Color</string>
+  <string id="Line4Secondary">Line 4 - Alt Field 2</string>
+  <string id="Line4SecondaryLabelColor">Line 4 Alt 2 - Label Color</string>
+  <string id="Line4SecondaryValueColor">Line 4 Alt 2 - Value Color</string>
+  <string id="Line4Tertiary">Line 4 - Alt Field 3</string>
+  <string id="Line4TertiaryLabelColor">Line 4 Alt 3 - Label Color</string>
+  <string id="Line4TertiaryValueColor">Line 4 Alt 3 - Value Color</string>
+
+  <string id="Line5Primary">Line 5 - Field</string>
+  <string id="Line5PrimaryLabelColor">Line 5 - Label Color</string>
+  <string id="Line5PrimaryValueColor">Line 5 - Value Color</string>
+  <string id="Line5Secondary">Line 5 - Alt Field 2</string>
+  <string id="Line5SecondaryLabelColor">Line 5 Alt 2 - Label Color</string>
+  <string id="Line5SecondaryValueColor">Line 5 Alt 2 - Value Color</string>
+  <string id="Line5Tertiary">Line 5 - Alt Field 3</string>
+  <string id="Line5TertiaryLabelColor">Line 5 Alt 3 - Label Color</string>
+  <string id="Line5TertiaryValueColor">Line 5 Alt 3 - Value Color</string>
+
+  <string id="Line6Primary">Line 6 - Field</string>
+  <string id="Line6PrimaryLabelColor">Line 6 - Label Color</string>
+  <string id="Line6PrimaryValueColor">Line 6 - Value Color</string>
+  <string id="Line6Secondary">Line 6 - Alt Field 2</string>
+  <string id="Line6SecondaryLabelColor">Line 6 Alt 2 - Label Color</string>
+  <string id="Line6SecondaryValueColor">Line 6 Alt 2 - Value Color</string>
+  <string id="Line6Tertiary">Line 6 - Alt Field 3</string>
+  <string id="Line6TertiaryLabelColor">Line 6 Alt 3 - Label Color</string>
+  <string id="Line6TertiaryValueColor">Line 6 Alt 3 - Value Color</string>
+
+  <string id="Line7Primary">Line 7 - Field</string>
+  <string id="Line7PrimaryLabelColor">Line 7 - Label Color</string>
+  <string id="Line7PrimaryValueColor">Line 7 - Value Color</string>
+  <string id="Line7Secondary">Line 7 - Alt Field 2</string>
+  <string id="Line7SecondaryLabelColor">Line 7 Alt 2 - Label Color</string>
+  <string id="Line7SecondaryValueColor">Line 7 Alt 2 - Value Color</string>
+  <string id="Line7Tertiary">Line 7 - Alt Field 3</string>
+  <string id="Line7TertiaryLabelColor">Line 7 Alt 3 - Label Color</string>
+  <string id="Line7TertiaryValueColor">Line 7 Alt 3 - Value Color</string>
+</strings>

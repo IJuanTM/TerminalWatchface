@@ -1,0 +1,78 @@
+<properties>
+  <!-- Lines 1 (time) and 2 (date) are always fixed fields -->
+  <property id="line1LabelColor" type="number">8</property>
+  <property id="line1ValueColor" type="number">0</property>
+  <property id="line2LabelColor" type="number">8</property>
+  <property id="line2ValueColor" type="number">0</property>
+
+  <!-- Line 3 default: Steps -->
+  <property id="line3Primary"               type="number">0</property>
+  <property id="line3PrimaryLabelColor"     type="number">8</property>
+  <property id="line3PrimaryValueColor"     type="number">0</property>
+  <property id="line3Secondary"             type="number">7</property>
+  <property id="line3SecondaryLabelColor"   type="number">8</property>
+  <property id="line3SecondaryValueColor"   type="number">0</property>
+  <property id="line3Tertiary"              type="number">7</property>
+  <property id="line3TertiaryLabelColor"    type="number">8</property>
+  <property id="line3TertiaryValueColor"    type="number">0</property>
+
+  <!-- Line 4 default: Heart Rate -->
+  <property id="line4Primary"               type="number">1</property>
+  <property id="line4PrimaryLabelColor"     type="number">8</property>
+  <property id="line4PrimaryValueColor"     type="number">0</property>
+  <property id="line4Secondary"             type="number">7</property>
+  <property id="line4SecondaryLabelColor"   type="number">8</property>
+  <property id="line4SecondaryValueColor"   type="number">0</property>
+  <property id="line4Tertiary"              type="number">7</property>
+  <property id="line4TertiaryLabelColor"    type="number">8</property>
+  <property id="line4TertiaryValueColor"    type="number">0</property>
+
+  <!-- Line 5 default: hidden -->
+  <property id="line5Primary"               type="number">7</property>
+  <property id="line5PrimaryLabelColor"     type="number">8</property>
+  <property id="line5PrimaryValueColor"     type="number">0</property>
+  <property id="line5Secondary"             type="number">7</property>
+  <property id="line5SecondaryLabelColor"   type="number">8</property>
+  <property id="line5SecondaryValueColor"   type="number">0</property>
+  <property id="line5Tertiary"              type="number">7</property>
+  <property id="line5TertiaryLabelColor"    type="number">8</property>
+  <property id="line5TertiaryValueColor"    type="number">0</property>
+
+  <!-- Line 6 default: hidden -->
+  <property id="line6Primary"               type="number">7</property>
+  <property id="line6PrimaryLabelColor"     type="number">8</property>
+  <property id="line6PrimaryValueColor"     type="number">0</property>
+  <property id="line6Secondary"             type="number">7</property>
+  <property id="line6SecondaryLabelColor"   type="number">8</property>
+  <property id="line6SecondaryValueColor"   type="number">0</property>
+  <property id="line6Tertiary"              type="number">7</property>
+  <property id="line6TertiaryLabelColor"    type="number">8</property>
+  <property id="line6TertiaryValueColor"    type="number">0</property>
+
+  <!-- Line 7 default: Battery -->
+  <property id="line7Primary"               type="number">3</property>
+  <property id="line7PrimaryLabelColor"     type="number">8</property>
+  <property id="line7PrimaryValueColor"     type="number">0</property>
+  <property id="line7Secondary"             type="number">7</property>
+  <property id="line7SecondaryLabelColor"   type="number">8</property>
+  <property id="line7SecondaryValueColor"   type="number">0</property>
+  <property id="line7Tertiary"              type="number">7</property>
+  <property id="line7TertiaryLabelColor"    type="number">8</property>
+  <property id="line7TertiaryValueColor"    type="number">0</property>
+
+  <!-- Font: 0=JetBrains Mono, 1=Space Mono, 2=Fira Code -->
+  <property id="fontChoice" type="number">0</property>
+  <!-- Font size: 0=Small, 1=Medium, 2=Large -->
+  <property id="fontSizeChoice" type="number">1</property>
+
+  <!-- Rotation interval in seconds -->
+  <property id="rotateInterval" type="number">5</property>
+
+  <!-- Scanline intensity: 0=off, 1=subtle, 2=medium, 3=strong -->
+  <property id="scanlines" type="number">2</property>
+
+  <!-- Overlay line intensity: 0=off, 1=subtle, 2=medium, 3=strong -->
+  <property id="overlayLines" type="number">2</property>
+
+</properties>
+ 
