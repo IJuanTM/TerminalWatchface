@@ -1,11 +1,14 @@
 <resources>
-  <font id="JetBrainsMono_S" filename="JetBrainsMono/JetBrainsMono_S.fnt" antialias="true"/>
-  <font id="JetBrainsMono_M" filename="JetBrainsMono/JetBrainsMono_M.fnt" antialias="true"/>
-  <font id="JetBrainsMono_L" filename="JetBrainsMono/JetBrainsMono_L.fnt" antialias="true"/>
-  <font id="SpaceMono_S" filename="SpaceMono/SpaceMono_S.fnt" antialias="true"/>
-  <font id="SpaceMono_M" filename="SpaceMono/SpaceMono_M.fnt" antialias="true"/>
-  <font id="SpaceMono_L" filename="SpaceMono/SpaceMono_L.fnt" antialias="true"/>
-  <font id="FiraCode_S" filename="FiraCode/FiraCode_S.fnt" antialias="true"/>
-  <font id="FiraCode_M" filename="FiraCode/FiraCode_M.fnt" antialias="true"/>
-  <font id="FiraCode_L" filename="FiraCode/FiraCode_L.fnt" antialias="true"/>
+  <font id="JetBrainsMono_XS" filename="JetBrainsMono/JetBrainsMono_XS.fnt" antialias="true" />
+  <font id="JetBrainsMono_S" filename="JetBrainsMono/JetBrainsMono_S.fnt" antialias="true" />
+  <font id="JetBrainsMono_M" filename="JetBrainsMono/JetBrainsMono_M.fnt" antialias="true" />
+  <font id="JetBrainsMono_L" filename="JetBrainsMono/JetBrainsMono_L.fnt" antialias="true" />
+  <font id="SpaceMono_XS" filename="SpaceMono/SpaceMono_XS.fnt" antialias="true" />
+  <font id="SpaceMono_S" filename="SpaceMono/SpaceMono_S.fnt" antialias="true" />
+  <font id="SpaceMono_M" filename="SpaceMono/SpaceMono_M.fnt" antialias="true" />
+  <font id="SpaceMono_L" filename="SpaceMono/SpaceMono_L.fnt" antialias="true" />
+  <font id="FiraCode_XS" filename="FiraCode/FiraCode_XS.fnt" antialias="true" />
+  <font id="FiraCode_S" filename="FiraCode/FiraCode_S.fnt" antialias="true" />
+  <font id="FiraCode_M" filename="FiraCode/FiraCode_M.fnt" antialias="true" />
+  <font id="FiraCode_L" filename="FiraCode/FiraCode_L.fnt" antialias="true" />
 </resources>

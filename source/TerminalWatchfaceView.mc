@@ -8,7 +8,6 @@ import Toybox.Time;
 import Toybox.Time.Gregorian;
 import Toybox.WatchUi;
 import Toybox.Math;
-import Toybox.Timer;
 import Toybox.Weather;
 
 const FIELD_STEPS = 0;
@@ -29,6 +28,8 @@ const FIELD_WX_UV = 15;
 const FIELD_WX_COND = 16;
 const FIELD_WX_TEMP_COND = 17;
 const FIELD_WX_TEMP_MINMAX = 18;
+const FIELD_WX_COND_PRECIP = 19;
+const FIELD_WX_TEMP_WIND = 20;
 
 // Index 0 = white (value default), 8 = light grey (label default). Colon matches label color.
 const COLORS =
@@ -44,10 +45,8 @@ const COLORS =
         0xcccccc, // 8 light grey
     ] as Array<Number>;
 
-// Default primary field for configurable lines 3-7 (index = lineNum - 3)
-const LINE_DEFAULTS =
-    [FIELD_STEPS, FIELD_HR, FIELD_CALORIES, FIELD_DISTANCE, FIELD_BATTERY] as
-    Array<Number>;
+// Default primary field for screen 1 configurable lines 3-5 (index = lineNum - 3)
+const LINE_DEFAULTS = [FIELD_STEPS, FIELD_HR, FIELD_BATTERY] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
 // Overlay color per intensity (0=off handled separately, 1=subtle, 2=medium, 3=strong)
@@ -83,6 +82,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _lastPhase as Number = -1;
     private var _lastFontChoice as Number = -1;
     private var _font as Graphics.FontType = Graphics.FONT_SMALL;
+    private var _fontSmall as Graphics.FontType = Graphics.FONT_TINY;
     private var _cursorOn as Boolean = true;
     private var _cursorX as Number = 0;
     private var _cursorY as Number = 0;
@@ -105,11 +105,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _arrowH as Number = 16;
     private var _boltH as Number = 20;
     private var _degW as Number = 8;
-    private var _overlayOffset as Number = 0;
-    private var _overlaySpacings as Array<Number> = [300, 300, 300] as Array<Number>;
-    private var _overlayTotal as Number = 900;
-    private var _overlayTimer as Timer.Timer? = null;
     private var _wxUnit as String = "C";
+    private var _currentScreen as Number = 0;
+    private var _tabY as Number = 0;
+    private var _tabH as Number = 0;
+    private var _tabW as Number = 0;
+    private var _tab1X as Number = -1;
+    private var _tab2X as Number = -1;
+    private var _tab3X as Number = -1;
 
     public function initialize() {
         WatchFace.initialize();
@@ -151,6 +154,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 res = $.Rez.Fonts.JetBrainsMono_M;
             }
             _font = WatchUi.loadResource(res) as Graphics.FontDefinition;
+        } catch (e instanceof Lang.Exception) {}
+        try {
+            var xsRes;
+            if (choice == 1) {
+                xsRes = $.Rez.Fonts.SpaceMono_XS;
+            } else if (choice == 2) {
+                xsRes = $.Rez.Fonts.FiraCode_XS;
+            } else {
+                xsRes = $.Rez.Fonts.JetBrainsMono_XS;
+            }
+            _fontSmall = WatchUi.loadResource(xsRes) as Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
         try {
             if (size == 0) {
@@ -207,7 +221,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     public function onUpdate(dc as Dc) as Void {
         var now = System.getTimer();
-        var phase = (now / (_getProp("rotateInterval", 5) * 1000)) % 3;
+        var phase = _getPhase();
         _cursorOn = (now / 1000) % 2 == 0;
         _refreshWeather();
 
@@ -223,47 +237,58 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var fh = dc.getFontHeight(_font);
         var step = fh + fh / 3;
         var charW = dc.getTextWidthInPixels("_", _font);
-        var cx = _w / 2 - charW * 6;
+        var cx = _w / 2 - charW * 4;
         _pad = dc.getTextWidthInPixels(": ", _font) / 2;
         _arrowW = dc.getTextWidthInPixels(" > ", _font);
 
+        // Screen 1: configurable lines 3-5 (lines 1&2 are fixed time/date).
+        // Screens 2&3: configurable lines 1-5, no fixed rows.
+        var lnStart = _currentScreen == 0 ? 3 : 1;
         var vis = [false, false, false, false, false] as Array<Boolean>;
-        var visible = 4;
-        for (var ln = 3; ln <= 7; ln++) {
-            vis[ln - 3] = _lineVisible(ln, phase);
-            if (vis[ln - 3]) {
+        var baseVisible = _currentScreen == 0 ? 6 : 4;
+        var visible = baseVisible;
+        for (var ln = lnStart; ln <= 5; ln++) {
+            var v = _lineVisible(ln, phase);
+            vis[ln - lnStart] = v;
+            if (v) {
                 visible++;
             }
         }
 
-        var y = (_h - step * (visible - 1) - fh) / 2;
-        var row = 0;
+        var s2En = _getProp("screen2Enabled", 0) != 0;
+        var s3En = _getProp("screen3Enabled", 0) != 0;
+        visible += 2;
 
+        var y = (_h - step * (visible - 1) - fh) / 2;
+        var row = 2;
+
+        _drawHeader(dc, y, step);
         _drawPromptLine(dc, cx, y + step * row, ".\\watch.bat");
         row++;
 
-        _drawRow(
-            dc,
-            cx,
-            y + step * row,
-            _timeParts(),
-            _getProp("line1LabelColor", 8),
-            _getProp("line1ValueColor", 0)
-        );
-        row++;
+        if (_currentScreen == 0) {
+            _drawRow(
+                dc,
+                cx,
+                y + step * row,
+                _timeParts(),
+                _getProp("line1LabelColor", 8),
+                _getProp("line1ValueColor", 0)
+            );
+            row++;
+            _drawRow(
+                dc,
+                cx,
+                y + step * row,
+                _dateParts(),
+                _getProp("line2LabelColor", 8),
+                _getProp("line2ValueColor", 0)
+            );
+            row++;
+        }
 
-        _drawRow(
-            dc,
-            cx,
-            y + step * row,
-            _dateParts(),
-            _getProp("line2LabelColor", 8),
-            _getProp("line2ValueColor", 0)
-        );
-        row++;
-
-        for (var ln = 3; ln <= 7; ln++) {
-            if (vis[ln - 3]) {
+        for (var ln = lnStart; ln <= 5; ln++) {
+            if (vis[ln - lnStart]) {
                 _drawLineRow(dc, cx, y + step * row, ln, phase);
                 row++;
             }
@@ -271,7 +296,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         var splitX = cx + _pad;
         var footerY = y + step * row;
-
         _cursorX = splitX;
         _cursorY = footerY;
         _cursorCharW = charW;
@@ -290,20 +314,131 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (_cursorOn) {
             dc.fillRectangle(splitX, footerY, charW, fh);
         }
-        _drawOverlayScanlines(dc);
+        _drawScreenIndicator(dc, footerY + step + fh);
     }
 
-    private function _drawOverlayScanlines(dc as Dc) as Void {
-        var intensity = _getProp("overlayLines", 2);
-        if (intensity <= 0) { return; }
-        var colors = [0x000000, 0x080808, 0x0D0D0D, 0x151515] as Array<Number>;
-        dc.setColor(colors[intensity], Graphics.COLOR_TRANSPARENT);
-        var cumOffset = 0;
-        for (var i = 0; i < _overlaySpacings.size(); i++) {
-            var y = (_overlayOffset + cumOffset) % _overlayTotal;
-            if (y < _h) { dc.drawLine(0, y, _w - 1, y); }
-            cumOffset += _overlaySpacings[i];
+    private function _drawHeader(
+        dc as Dc,
+        y as Number,
+        step as Number
+    ) as Void {
+        var fh = dc.getFontHeight(_fontSmall);
+        var fhMain = dc.getFontHeight(_font);
+        var lineY = y + step * 2 - (2 * fhMain) / 3;
+        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(0, lineY, _w - 1, lineY);
+
+        var notifCount = System.getDeviceSettings().notificationCount;
+        if (notifCount == null || (notifCount as Number) == 0) {
+            return;
         }
+        var textY = lineY - (2 * fhMain) / 3 - fh;
+        var label = "[" + (notifCount as Number).toString() + "]";
+        dc.setColor(_colorFromIdx(2), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            _w / 2,
+            textY,
+            _fontSmall,
+            label,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+    }
+
+    private function _drawScreenIndicator(dc as Dc, y as Number) as Void {
+        var s2En = _getProp("screen2Enabled", 0) != 0;
+        var s3En = _getProp("screen3Enabled", 0) != 0;
+        _tab1X = -1;
+        _tab2X = -1;
+        _tab3X = -1;
+        var fh = dc.getFontHeight(_fontSmall);
+        var fhMain = dc.getFontHeight(_font);
+        var lineY = y - (2 * fhMain) / 3;
+        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(0, lineY, _w - 1, lineY);
+        if (!s2En && !s3En) {
+            return;
+        }
+
+        var tabW = dc.getTextWidthInPixels("[1]", _fontSmall);
+        var spaceW = dc.getTextWidthInPixels(" ", _fontSmall);
+        var tabCount = 1 + (s2En ? 1 : 0) + (s3En ? 1 : 0);
+        var totalW = tabW * tabCount + spaceW * (tabCount - 1);
+        var x = (_w - totalW) / 2;
+
+        _tabY = y;
+        _tabH = fh;
+        _tabW = tabW;
+
+        _tab1X = x;
+        var a1 = _currentScreen == 0;
+        dc.setColor(_colorFromIdx(a1 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            x,
+            y,
+            _fontSmall,
+            a1 ? "<1>" : "[1]",
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+        x += tabW;
+        if (s2En) {
+            x += spaceW;
+            _tab2X = x;
+            var a2 = _currentScreen == 1;
+            dc.setColor(_colorFromIdx(a2 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                x,
+                y,
+                _fontSmall,
+                a2 ? "<2>" : "[2]",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            x += tabW;
+        }
+        if (s3En) {
+            x += spaceW;
+            _tab3X = x;
+            var a3 = _currentScreen == 2;
+            dc.setColor(_colorFromIdx(a3 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                x,
+                y,
+                _fontSmall,
+                a3 ? "<3>" : "[3]",
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+        }
+    }
+
+    public function tapAt(x as Number, y as Number) as Boolean {
+        if (_tab1X < 0) {
+            return false;
+        }
+        // Generous vertical hit area (2x font height)
+        if (y < _tabY - _tabH || y > _tabY + _tabH * 2) {
+            return false;
+        }
+        if (x >= _tab1X && x < _tab1X + _tabW) {
+            if (_currentScreen != 0) {
+                _currentScreen = 0;
+                WatchUi.requestUpdate();
+            }
+            return true;
+        }
+        if (_tab2X >= 0 && x >= _tab2X && x < _tab2X + _tabW) {
+            if (_currentScreen != 1) {
+                _currentScreen = 1;
+                WatchUi.requestUpdate();
+            }
+            return true;
+        }
+        if (_tab3X >= 0 && x >= _tab3X && x < _tab3X + _tabW) {
+            if (_currentScreen != 2) {
+                _currentScreen = 2;
+                WatchUi.requestUpdate();
+            }
+            return true;
+        }
+        return false;
     }
 
     private function _drawScanlines(dc as Dc, color as Number) as Void {
@@ -342,24 +477,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         lineNum as Number,
         phase as Number
     ) as Boolean {
+        var p = _screenPrefix();
+        var def = _currentScreen == 0 ? LINE_DEFAULTS[lineNum - 3] : FIELD_NONE;
         if (
             phase == 1 &&
-            _getProp("line" + lineNum + "Secondary", FIELD_NONE) != FIELD_NONE
+            _getProp(p + lineNum + "Secondary", FIELD_NONE) != FIELD_NONE
         ) {
             return true;
         }
         if (
             phase == 2 &&
-            _getProp("line" + lineNum + "Tertiary", FIELD_NONE) != FIELD_NONE
+            _getProp(p + lineNum + "Tertiary", FIELD_NONE) != FIELD_NONE
         ) {
             return true;
         }
-        return (
-            _getProp(
-                "line" + lineNum + "Primary",
-                LINE_DEFAULTS[lineNum - 3]
-            ) != FIELD_NONE
-        );
+        return _getProp(p + lineNum + "Primary", def) != FIELD_NONE;
     }
 
     private function _drawLineRow(
@@ -369,13 +501,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         lineNum as Number,
         phase as Number
     ) as Void {
-        var sec = _getProp("line" + lineNum + "Secondary", FIELD_NONE);
-        var ter = _getProp("line" + lineNum + "Tertiary", FIELD_NONE);
+        var p = _screenPrefix();
+        var def = _currentScreen == 0 ? LINE_DEFAULTS[lineNum - 3] : FIELD_NONE;
+        var sec = _getProp(p + lineNum + "Secondary", FIELD_NONE);
+        var ter = _getProp(p + lineNum + "Tertiary", FIELD_NONE);
         var s = "Primary";
-        var field = _getProp(
-            "line" + lineNum + "Primary",
-            LINE_DEFAULTS[lineNum - 3]
-        );
+        var field = _getProp(p + lineNum + "Primary", def);
         if (phase == 1 && sec != FIELD_NONE) {
             s = "Secondary";
             field = sec;
@@ -384,8 +515,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             field = ter;
         }
 
-        var labelColor = _getProp("line" + lineNum + s + "LabelColor", 8);
-        var valueColor = _getProp("line" + lineNum + s + "ValueColor", 0);
+        var labelColor = _getProp(p + lineNum + s + "LabelColor", 8);
+        var valueColor = _getProp(p + lineNum + s + "ValueColor", 0);
         if (field == FIELD_BATTERY) {
             _drawBatteryRow(dc, cx, y, labelColor, valueColor);
             return;
@@ -437,6 +568,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
+        if (field == FIELD_WX_TEMP_WIND) {
+            _drawTempRow(
+                dc,
+                cx,
+                y,
+                "Temp",
+                _wxTemp,
+                " " + _wxWind,
+                labelColor,
+                valueColor
+            );
+            return;
+        }
         var tag = "";
         var tagColor = 0;
         var parts;
@@ -482,7 +626,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         } else if (bat >= 100.0) {
             vColor = 1;
         }
-        var valStr = bat.format("%.0f") + "%";
+        var fmt = _getProp("batteryFormat", 0);
+        var valStr;
+        if (fmt == 1) {
+            var days = stats.batteryInDays;
+            valStr =
+                days != null
+                    ? days.format("%.0f") + "d"
+                    : bat.format("%.0f") + "%";
+        } else if (fmt == 2) {
+            var days = stats.batteryInDays;
+            var pct = bat.format("%.0f") + "%";
+            valStr = days != null ? pct + " " + days.format("%.0f") + "d" : pct;
+        } else {
+            valStr = bat.format("%.0f") + "%";
+        }
         _drawRow(
             dc,
             cx,
@@ -679,6 +837,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     "Temp",
                     _wxTemp + _wxUnit + " [" + _wxLow + "-" + _wxHigh + "]",
                 ];
+            case FIELD_WX_COND_PRECIP:
+                return ["Cond", _wxCond + " " + _wxPrecip];
+            case FIELD_WX_TEMP_WIND:
+                return ["Temp", _wxTemp + _wxUnit + " " + _wxWind];
             default:
                 return ["", ""];
         }
@@ -702,14 +864,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _dateParts() as Array<String> {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        return [
-            "Date",
-            DAY_NAMES[info.day_of_week - 1] +
+        var fmt = _getProp("dateFormat", 0);
+        var value;
+        if (fmt == 1) {
+            value =
+                info.year.format("%04d") +
+                "-" +
+                info.month.format("%02d") +
+                "-" +
+                info.day.format("%02d");
+        } else if (fmt == 2) {
+            value =
+                info.day.format("%02d") +
+                "-" +
+                info.month.format("%02d") +
+                "-" +
+                info.year.format("%04d");
+        } else if (fmt == 3) {
+            value =
+                info.month.format("%02d") +
+                "-" +
+                info.day.format("%02d") +
+                "-" +
+                info.year.format("%04d");
+        } else {
+            value =
+                DAY_NAMES[info.day_of_week - 1] +
                 ", " +
                 info.day +
                 " " +
-                MONTH_NAMES[info.month - 1],
-        ];
+                MONTH_NAMES[info.month - 1];
+        }
+        return ["Date", value];
     }
 
     private function _partsHR() as Array<String> {
@@ -842,11 +1028,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return "[PCLOUD]";
             case Weather.CONDITION_MOSTLY_CLOUDY:
             case Weather.CONDITION_CLOUDY:
+            case Weather.CONDITION_THIN_CLOUDS:
                 return "[CLOUDY]";
             case Weather.CONDITION_RAIN:
             case Weather.CONDITION_LIGHT_RAIN:
             case Weather.CONDITION_HEAVY_RAIN:
             case Weather.CONDITION_SCATTERED_SHOWERS:
+            case Weather.CONDITION_SHOWERS:
+            case Weather.CONDITION_LIGHT_SHOWERS:
+            case Weather.CONDITION_HEAVY_SHOWERS:
+            case Weather.CONDITION_DRIZZLE:
                 return "[RAIN]";
             case Weather.CONDITION_SNOW:
             case Weather.CONDITION_LIGHT_SNOW:
@@ -862,16 +1053,53 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             case Weather.CONDITION_HEAVY_RAIN_SNOW:
             case Weather.CONDITION_RAIN_SNOW:
             case Weather.CONDITION_FREEZING_RAIN:
+            case Weather.CONDITION_ICE:
                 return "[MIX]";
             case Weather.CONDITION_FOG:
+            case Weather.CONDITION_MIST:
                 return "[FOG]";
             case Weather.CONDITION_HAZY:
+            case Weather.CONDITION_SMOKE:
+            case Weather.CONDITION_DUST:
                 return "[HAZY]";
             case Weather.CONDITION_HAIL:
                 return "[HAIL]";
+            case Weather.CONDITION_TORNADO:
+                return "[TORN]";
             default:
                 return "[?]";
         }
+    }
+
+    private function _getPhase() as Number {
+        return (System.getTimer() / (_getProp("rotateInterval", 5) * 1000)) % 3;
+    }
+
+    private function _screenPrefix() as String {
+        if (_currentScreen == 1) {
+            return "s2Line";
+        }
+        if (_currentScreen == 2) {
+            return "s3Line";
+        }
+        return "line";
+    }
+
+    public function advanceScreen(dir as Number) as Void {
+        var s2En = _getProp("screen2Enabled", 0) != 0;
+        var s3En = _getProp("screen3Enabled", 0) != 0;
+        if (!s2En && !s3En) {
+            return;
+        }
+        var next = _currentScreen;
+        for (var i = 0; i < 3; i++) {
+            next = (next + dir + 3) % 3;
+            if (next == 0 || (next == 1 && s2En) || (next == 2 && s3En)) {
+                break;
+            }
+        }
+        _currentScreen = next;
+        WatchUi.requestUpdate();
     }
 
     private function _getProp(key as String, defaultVal as Number) as Number {
@@ -886,7 +1114,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // redraws. On phase change, triggers a full onUpdate to flip the alt-field display.
     public function onPartialUpdate(dc as Dc) as Void {
         var now = System.getTimer();
-        var phase = (now / (_getProp("rotateInterval", 5) * 1000)) % 3;
+        var phase = _getPhase();
         if (phase != _lastPhase) {
             _lastPhase = phase;
             WatchUi.requestUpdate();
@@ -919,25 +1147,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         dc.clearClip();
-    }
-
-    public function onShow() as Void {
-        var s0 = 140 + (Math.rand().abs() % 13).toNumber() * 10;
-        var s1 = 140 + (Math.rand().abs() % 13).toNumber() * 10;
-        var s2 = 140 + (Math.rand().abs() % 13).toNumber() * 10;
-        _overlaySpacings = [s0, s1, s2] as Array<Number>;
-        _overlayTotal = s0 + s1 + s2;
-        _overlayTimer = new Timer.Timer();
-        (_overlayTimer as Timer.Timer).start(method(:_onOverlayTick), 33, true);
-    }
-
-    public function onHide() as Void {
-        if (_overlayTimer != null) { (_overlayTimer as Timer.Timer).stop(); _overlayTimer = null; }
-    }
-
-    public function _onOverlayTick() as Void {
-        _overlayOffset = (_overlayOffset + 1) % _overlayTotal;
-        WatchUi.requestUpdate();
     }
 
     public function onEnterSleep() as Void {

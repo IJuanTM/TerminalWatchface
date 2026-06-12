@@ -1,5 +1,6 @@
 <settings>
 
+  <!-- Appearance -->
   <setting propertyKey="@Properties.fontChoice" title="@Strings.FontChoice">
     <settingConfig type="list">
       <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
@@ -7,7 +8,6 @@
       <listEntry value="2">@Strings.FontFiraCodeMono</listEntry>
     </settingConfig>
   </setting>
-
   <setting propertyKey="@Properties.fontSizeChoice" title="@Strings.FontSize">
     <settingConfig type="list">
       <listEntry value="0">@Strings.FontSizeSmall</listEntry>
@@ -15,7 +15,6 @@
       <listEntry value="2">@Strings.FontSizeLarge</listEntry>
     </settingConfig>
   </setting>
-
   <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ScanlinesOff</listEntry>
@@ -25,15 +24,22 @@
     </settingConfig>
   </setting>
 
-  <setting propertyKey="@Properties.overlayLines" title="@Strings.OverlayLines">
+  <!-- Screen 1: display options -->
+  <setting propertyKey="@Properties.dateFormat" title="@Strings.DateFormat">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ScanlinesOff</listEntry>
-      <listEntry value="1">@Strings.ScanlinesSubtle</listEntry>
-      <listEntry value="2">@Strings.ScanlinesMedium</listEntry>
-      <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
+      <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
+      <listEntry value="1">@Strings.DateFormatYMD</listEntry>
+      <listEntry value="2">@Strings.DateFormatDMY</listEntry>
+      <listEntry value="3">@Strings.DateFormatMDY</listEntry>
     </settingConfig>
   </setting>
-
+  <setting propertyKey="@Properties.batteryFormat" title="@Strings.BatteryFormat">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.BatteryFormatPct</listEntry>
+      <listEntry value="1">@Strings.BatteryFormatDays</listEntry>
+      <listEntry value="2">@Strings.BatteryFormatPctDays</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.rotateInterval" title="@Strings.RotateInterval">
     <settingConfig type="list">
       <listEntry value="3">3 seconds</listEntry>
@@ -45,6 +51,7 @@
     </settingConfig>
   </setting>
 
+  <!-- Screen 1: time row -->
   <setting propertyKey="@Properties.line1LabelColor" title="@Strings.Line1LabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -58,7 +65,6 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-
   <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -73,6 +79,7 @@
     </settingConfig>
   </setting>
 
+  <!-- Screen 1: date row -->
   <setting propertyKey="@Properties.line2LabelColor" title="@Strings.Line2LabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -86,7 +93,6 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-
   <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -101,7 +107,7 @@
     </settingConfig>
   </setting>
 
-  <!-- Line 3 -->
+  <!-- Screen 1: line 3 -->
   <setting propertyKey="@Properties.line3Primary" title="@Strings.Line3Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -112,7 +118,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -123,6 +128,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -161,7 +168,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -172,6 +178,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
@@ -210,7 +218,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -221,6 +228,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
@@ -250,7 +259,7 @@
     </settingConfig>
   </setting>
 
-  <!-- Line 4 -->
+  <!-- Screen 1: line 4 -->
   <setting propertyKey="@Properties.line4Primary" title="@Strings.Line4Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -261,7 +270,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -272,6 +280,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -310,7 +320,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -321,6 +330,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
@@ -359,7 +370,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -370,6 +380,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
@@ -399,7 +411,7 @@
     </settingConfig>
   </setting>
 
-  <!-- Line 5 -->
+  <!-- Screen 1: line 5 -->
   <setting propertyKey="@Properties.line5Primary" title="@Strings.Line5Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -410,7 +422,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -421,6 +432,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -459,7 +472,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -470,6 +482,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
@@ -508,7 +522,6 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -519,6 +532,8 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
@@ -547,168 +562,25 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-
-  <!-- Line 6 -->
-  <setting propertyKey="@Properties.line6Primary" title="@Strings.Line6Primary">
+  <!-- Screen 2 -->
+  <setting propertyKey="@Properties.screen2Enabled" title="@Strings.Screen2Enabled">
     <settingConfig type="list">
-      <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="0">@Strings.FieldSteps</listEntry>
-      <listEntry value="1">@Strings.FieldHR</listEntry>
-      <listEntry value="2">@Strings.FieldCalories</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
-      <listEntry value="4">@Strings.FieldDistance</listEntry>
-      <listEntry value="5">@Strings.FieldAltitude</listEntry>
-      <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
-      <listEntry value="9">@Strings.FieldSpO2</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-      <listEntry value="14">@Strings.FieldWxWind</listEntry>
-      <listEntry value="15">@Strings.FieldWxUV</listEntry>
-      <listEntry value="16">@Strings.FieldWxCond</listEntry>
-      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6PrimaryLabelColor" title="@Strings.Line6PrimaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6PrimaryValueColor" title="@Strings.Line6PrimaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6Secondary" title="@Strings.Line6Secondary">
-    <settingConfig type="list">
-      <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="0">@Strings.FieldSteps</listEntry>
-      <listEntry value="1">@Strings.FieldHR</listEntry>
-      <listEntry value="2">@Strings.FieldCalories</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
-      <listEntry value="4">@Strings.FieldDistance</listEntry>
-      <listEntry value="5">@Strings.FieldAltitude</listEntry>
-      <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
-      <listEntry value="9">@Strings.FieldSpO2</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-      <listEntry value="14">@Strings.FieldWxWind</listEntry>
-      <listEntry value="15">@Strings.FieldWxUV</listEntry>
-      <listEntry value="16">@Strings.FieldWxCond</listEntry>
-      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6SecondaryLabelColor" title="@Strings.Line6SecondaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6SecondaryValueColor" title="@Strings.Line6SecondaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6Tertiary" title="@Strings.Line6Tertiary">
-    <settingConfig type="list">
-      <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="0">@Strings.FieldSteps</listEntry>
-      <listEntry value="1">@Strings.FieldHR</listEntry>
-      <listEntry value="2">@Strings.FieldCalories</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
-      <listEntry value="4">@Strings.FieldDistance</listEntry>
-      <listEntry value="5">@Strings.FieldAltitude</listEntry>
-      <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
-      <listEntry value="9">@Strings.FieldSpO2</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-      <listEntry value="14">@Strings.FieldWxWind</listEntry>
-      <listEntry value="15">@Strings.FieldWxUV</listEntry>
-      <listEntry value="16">@Strings.FieldWxCond</listEntry>
-      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6TertiaryLabelColor" title="@Strings.Line6TertiaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line6TertiaryValueColor" title="@Strings.Line6TertiaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="1">@Strings.Screen2EnabledOn</listEntry>
+      <listEntry value="0">@Strings.Screen2EnabledOff</listEntry>
     </settingConfig>
   </setting>
 
-  <!-- Line 7 (no tertiary) -->
-  <setting propertyKey="@Properties.line7Primary" title="@Strings.Line7Primary">
+  <!-- Screen 2 Line 1 -->
+  <setting propertyKey="@Properties.s2Line1Primary" title="@Strings.S2Line1Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="0">@Strings.FieldSteps</listEntry>
       <listEntry value="1">@Strings.FieldHR</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -719,9 +591,11 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7PrimaryLabelColor" title="@Strings.Line7PrimaryLabelColor">
+  <setting propertyKey="@Properties.s2Line1PrimaryLabelColor" title="@Strings.S2Line1PrimaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -734,7 +608,7 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7PrimaryValueColor" title="@Strings.Line7PrimaryValueColor">
+  <setting propertyKey="@Properties.s2Line1PrimaryValueColor" title="@Strings.S2Line1PrimaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -747,17 +621,16 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7Secondary" title="@Strings.Line7Secondary">
+  <setting propertyKey="@Properties.s2Line1Secondary" title="@Strings.S2Line1Secondary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="0">@Strings.FieldSteps</listEntry>
       <listEntry value="1">@Strings.FieldHR</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -768,9 +641,11 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7SecondaryLabelColor" title="@Strings.Line7SecondaryLabelColor">
+  <setting propertyKey="@Properties.s2Line1SecondaryLabelColor" title="@Strings.S2Line1SecondaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -783,7 +658,7 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7SecondaryValueColor" title="@Strings.Line7SecondaryValueColor">
+  <setting propertyKey="@Properties.s2Line1SecondaryValueColor" title="@Strings.S2Line1SecondaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -796,17 +671,16 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7Tertiary" title="@Strings.Line7Tertiary">
+  <setting propertyKey="@Properties.s2Line1Tertiary" title="@Strings.S2Line1Tertiary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
-      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="0">@Strings.FieldSteps</listEntry>
       <listEntry value="1">@Strings.FieldHR</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="6">@Strings.FieldFloors</listEntry>
-      <listEntry value="8">@Strings.FieldFloors</listEntry>
       <listEntry value="9">@Strings.FieldSpO2</listEntry>
       <listEntry value="10">@Strings.FieldActiveMin</listEntry>
       <listEntry value="11">@Strings.FieldWxTemp</listEntry>
@@ -817,9 +691,11 @@
       <listEntry value="16">@Strings.FieldWxCond</listEntry>
       <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7TertiaryLabelColor" title="@Strings.Line7TertiaryLabelColor">
+  <setting propertyKey="@Properties.s2Line1TertiaryLabelColor" title="@Strings.S2Line1TertiaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -832,7 +708,7 @@
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line7TertiaryValueColor" title="@Strings.Line7TertiaryValueColor">
+  <setting propertyKey="@Properties.s2Line1TertiaryValueColor" title="@Strings.S2Line1TertiaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -843,7 +719,1373 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 2 Line 2 -->
+  <setting propertyKey="@Properties.s2Line2Primary" title="@Strings.S2Line2Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2PrimaryLabelColor" title="@Strings.S2Line2PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2PrimaryValueColor" title="@Strings.S2Line2PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2Secondary" title="@Strings.S2Line2Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2SecondaryLabelColor" title="@Strings.S2Line2SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2SecondaryValueColor" title="@Strings.S2Line2SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2Tertiary" title="@Strings.S2Line2Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2TertiaryLabelColor" title="@Strings.S2Line2TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line2TertiaryValueColor" title="@Strings.S2Line2TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 2 Line 3 -->
+  <setting propertyKey="@Properties.s2Line3Primary" title="@Strings.S2Line3Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3PrimaryLabelColor" title="@Strings.S2Line3PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3PrimaryValueColor" title="@Strings.S2Line3PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3Secondary" title="@Strings.S2Line3Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3SecondaryLabelColor" title="@Strings.S2Line3SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3SecondaryValueColor" title="@Strings.S2Line3SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3Tertiary" title="@Strings.S2Line3Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3TertiaryLabelColor" title="@Strings.S2Line3TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line3TertiaryValueColor" title="@Strings.S2Line3TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 2 Line 4 -->
+  <setting propertyKey="@Properties.s2Line4Primary" title="@Strings.S2Line4Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4PrimaryLabelColor" title="@Strings.S2Line4PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4PrimaryValueColor" title="@Strings.S2Line4PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4Secondary" title="@Strings.S2Line4Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4SecondaryLabelColor" title="@Strings.S2Line4SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4SecondaryValueColor" title="@Strings.S2Line4SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4Tertiary" title="@Strings.S2Line4Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4TertiaryLabelColor" title="@Strings.S2Line4TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line4TertiaryValueColor" title="@Strings.S2Line4TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 2 Line 5 -->
+  <setting propertyKey="@Properties.s2Line5Primary" title="@Strings.S2Line5Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5PrimaryLabelColor" title="@Strings.S2Line5PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5PrimaryValueColor" title="@Strings.S2Line5PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5Secondary" title="@Strings.S2Line5Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5SecondaryLabelColor" title="@Strings.S2Line5SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5SecondaryValueColor" title="@Strings.S2Line5SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5Tertiary" title="@Strings.S2Line5Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5TertiaryLabelColor" title="@Strings.S2Line5TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s2Line5TertiaryValueColor" title="@Strings.S2Line5TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 3 -->
+  <setting propertyKey="@Properties.screen3Enabled" title="@Strings.Screen3Enabled">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.Screen3EnabledOn</listEntry>
+      <listEntry value="0">@Strings.Screen3EnabledOff</listEntry>
     </settingConfig>
   </setting>
 
+  <!-- Screen 3 Line 1 -->
+  <setting propertyKey="@Properties.s3Line1Primary" title="@Strings.S3Line1Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1PrimaryLabelColor" title="@Strings.S3Line1PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1PrimaryValueColor" title="@Strings.S3Line1PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1Secondary" title="@Strings.S3Line1Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1SecondaryLabelColor" title="@Strings.S3Line1SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1SecondaryValueColor" title="@Strings.S3Line1SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1Tertiary" title="@Strings.S3Line1Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1TertiaryLabelColor" title="@Strings.S3Line1TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line1TertiaryValueColor" title="@Strings.S3Line1TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 3 Line 2 -->
+  <setting propertyKey="@Properties.s3Line2Primary" title="@Strings.S3Line2Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2PrimaryLabelColor" title="@Strings.S3Line2PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2PrimaryValueColor" title="@Strings.S3Line2PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2Secondary" title="@Strings.S3Line2Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2SecondaryLabelColor" title="@Strings.S3Line2SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2SecondaryValueColor" title="@Strings.S3Line2SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2Tertiary" title="@Strings.S3Line2Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2TertiaryLabelColor" title="@Strings.S3Line2TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line2TertiaryValueColor" title="@Strings.S3Line2TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 3 Line 3 -->
+  <setting propertyKey="@Properties.s3Line3Primary" title="@Strings.S3Line3Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3PrimaryLabelColor" title="@Strings.S3Line3PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3PrimaryValueColor" title="@Strings.S3Line3PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3Secondary" title="@Strings.S3Line3Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3SecondaryLabelColor" title="@Strings.S3Line3SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3SecondaryValueColor" title="@Strings.S3Line3SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3Tertiary" title="@Strings.S3Line3Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3TertiaryLabelColor" title="@Strings.S3Line3TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line3TertiaryValueColor" title="@Strings.S3Line3TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 3 Line 4 -->
+  <setting propertyKey="@Properties.s3Line4Primary" title="@Strings.S3Line4Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4PrimaryLabelColor" title="@Strings.S3Line4PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4PrimaryValueColor" title="@Strings.S3Line4PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4Secondary" title="@Strings.S3Line4Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4SecondaryLabelColor" title="@Strings.S3Line4SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4SecondaryValueColor" title="@Strings.S3Line4SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4Tertiary" title="@Strings.S3Line4Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4TertiaryLabelColor" title="@Strings.S3Line4TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line4TertiaryValueColor" title="@Strings.S3Line4TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <!-- Screen 3 Line 5 -->
+  <setting propertyKey="@Properties.s3Line5Primary" title="@Strings.S3Line5Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5PrimaryLabelColor" title="@Strings.S3Line5PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5PrimaryValueColor" title="@Strings.S3Line5PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5Secondary" title="@Strings.S3Line5Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5SecondaryLabelColor" title="@Strings.S3Line5SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5SecondaryValueColor" title="@Strings.S3Line5SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5Tertiary" title="@Strings.S3Line5Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="3">@Strings.FieldBattery</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5TertiaryLabelColor" title="@Strings.S3Line5TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.s3Line5TertiaryValueColor" title="@Strings.S3Line5TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+    </settingConfig>
+  </setting>
 </settings>

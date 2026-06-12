@@ -1,23 +1,181 @@
 <strings>
   <string id="AppName">TerminalWatchface</string>
 
+  <!-- Appearance -->
   <string id="FontChoice">Font</string>
   <string id="FontJetBrainsMono">JetBrains Mono</string>
+  <string id="FontSpaceMono">Space Mono</string>
+  <string id="FontFiraCodeMono">Fira Code Mono</string>
   <string id="FontSize">Font Size</string>
   <string id="FontSizeSmall">Small</string>
   <string id="FontSizeMedium">Medium</string>
   <string id="FontSizeLarge">Large</string>
-  <string id="FontSpaceMono">Space Mono</string>
-  <string id="FontFiraCodeMono">Fira Code Mono</string>
-
-  <string id="RotateInterval">Rotate Every</string>
   <string id="Scanlines">Scanlines</string>
-  <string id="OverlayLines">Overlay Lines</string>
   <string id="ScanlinesOff">Off</string>
   <string id="ScanlinesSubtle">Subtle</string>
   <string id="ScanlinesMedium">Medium</string>
   <string id="ScanlinesStrong">Strong</string>
 
+  <!-- Screen 1: display options -->
+  <string id="DateFormat">Date Format</string>
+  <string id="DateFormatDayMon">Day Month (Mon, 1 Jan)</string>
+  <string id="DateFormatYMD">ISO (YYYY-MM-DD)</string>
+  <string id="DateFormatDMY">DD-MM-YYYY</string>
+  <string id="DateFormatMDY">MM-DD-YYYY</string>
+  <string id="BatteryFormat">Battery Display</string>
+  <string id="BatteryFormatPct">Percentage</string>
+  <string id="BatteryFormatDays">Days Remaining</string>
+  <string id="BatteryFormatPctDays">Percentage + Days</string>
+  <string id="RotateInterval">Rotate Every</string>
+
+  <!-- Screen 1: fixed row colors -->
+  <string id="Line1LabelColor">Time: Label Color</string>
+  <string id="Line1ValueColor">Time: Value Color</string>
+  <string id="Line2LabelColor">Date: Label Color</string>
+  <string id="Line2ValueColor">Date: Value Color</string>
+
+  <!-- Screen 1: configurable lines (R2/R3 = rotation slots 2 and 3) -->
+  <string id="Line3Primary">S1 Line 3: Field</string>
+  <string id="Line3PrimaryLabelColor">S1 Line 3: Label Color</string>
+  <string id="Line3PrimaryValueColor">S1 Line 3: Value Color</string>
+  <string id="Line3Secondary">S1 Line 3: Field (R2)</string>
+  <string id="Line3SecondaryLabelColor">S1 Line 3: Label Color (R2)</string>
+  <string id="Line3SecondaryValueColor">S1 Line 3: Value Color (R2)</string>
+  <string id="Line3Tertiary">S1 Line 3: Field (R3)</string>
+  <string id="Line3TertiaryLabelColor">S1 Line 3: Label Color (R3)</string>
+  <string id="Line3TertiaryValueColor">S1 Line 3: Value Color (R3)</string>
+
+  <string id="Line4Primary">S1 Line 4: Field</string>
+  <string id="Line4PrimaryLabelColor">S1 Line 4: Label Color</string>
+  <string id="Line4PrimaryValueColor">S1 Line 4: Value Color</string>
+  <string id="Line4Secondary">S1 Line 4: Field (R2)</string>
+  <string id="Line4SecondaryLabelColor">S1 Line 4: Label Color (R2)</string>
+  <string id="Line4SecondaryValueColor">S1 Line 4: Value Color (R2)</string>
+  <string id="Line4Tertiary">S1 Line 4: Field (R3)</string>
+  <string id="Line4TertiaryLabelColor">S1 Line 4: Label Color (R3)</string>
+  <string id="Line4TertiaryValueColor">S1 Line 4: Value Color (R3)</string>
+
+  <string id="Line5Primary">S1 Line 5: Field</string>
+  <string id="Line5PrimaryLabelColor">S1 Line 5: Label Color</string>
+  <string id="Line5PrimaryValueColor">S1 Line 5: Value Color</string>
+  <string id="Line5Secondary">S1 Line 5: Field (R2)</string>
+  <string id="Line5SecondaryLabelColor">S1 Line 5: Label Color (R2)</string>
+  <string id="Line5SecondaryValueColor">S1 Line 5: Value Color (R2)</string>
+  <string id="Line5Tertiary">S1 Line 5: Field (R3)</string>
+  <string id="Line5TertiaryLabelColor">S1 Line 5: Label Color (R3)</string>
+  <string id="Line5TertiaryValueColor">S1 Line 5: Value Color (R3)</string>
+
+  <!-- Screen 2 -->
+  <string id="Screen2Enabled">Enable Screen 2</string>
+  <string id="Screen2EnabledOn">Enabled</string>
+  <string id="Screen2EnabledOff">Disabled</string>
+
+  <string id="S2Line1Primary">S2 Line 1: Field</string>
+  <string id="S2Line1PrimaryLabelColor">S2 Line 1: Label Color</string>
+  <string id="S2Line1PrimaryValueColor">S2 Line 1: Value Color</string>
+  <string id="S2Line1Secondary">S2 Line 1: Field (R2)</string>
+  <string id="S2Line1SecondaryLabelColor">S2 Line 1: Label Color (R2)</string>
+  <string id="S2Line1SecondaryValueColor">S2 Line 1: Value Color (R2)</string>
+  <string id="S2Line1Tertiary">S2 Line 1: Field (R3)</string>
+  <string id="S2Line1TertiaryLabelColor">S2 Line 1: Label Color (R3)</string>
+  <string id="S2Line1TertiaryValueColor">S2 Line 1: Value Color (R3)</string>
+
+  <string id="S2Line2Primary">S2 Line 2: Field</string>
+  <string id="S2Line2PrimaryLabelColor">S2 Line 2: Label Color</string>
+  <string id="S2Line2PrimaryValueColor">S2 Line 2: Value Color</string>
+  <string id="S2Line2Secondary">S2 Line 2: Field (R2)</string>
+  <string id="S2Line2SecondaryLabelColor">S2 Line 2: Label Color (R2)</string>
+  <string id="S2Line2SecondaryValueColor">S2 Line 2: Value Color (R2)</string>
+  <string id="S2Line2Tertiary">S2 Line 2: Field (R3)</string>
+  <string id="S2Line2TertiaryLabelColor">S2 Line 2: Label Color (R3)</string>
+  <string id="S2Line2TertiaryValueColor">S2 Line 2: Value Color (R3)</string>
+
+  <string id="S2Line3Primary">S2 Line 3: Field</string>
+  <string id="S2Line3PrimaryLabelColor">S2 Line 3: Label Color</string>
+  <string id="S2Line3PrimaryValueColor">S2 Line 3: Value Color</string>
+  <string id="S2Line3Secondary">S2 Line 3: Field (R2)</string>
+  <string id="S2Line3SecondaryLabelColor">S2 Line 3: Label Color (R2)</string>
+  <string id="S2Line3SecondaryValueColor">S2 Line 3: Value Color (R2)</string>
+  <string id="S2Line3Tertiary">S2 Line 3: Field (R3)</string>
+  <string id="S2Line3TertiaryLabelColor">S2 Line 3: Label Color (R3)</string>
+  <string id="S2Line3TertiaryValueColor">S2 Line 3: Value Color (R3)</string>
+
+  <string id="S2Line4Primary">S2 Line 4: Field</string>
+  <string id="S2Line4PrimaryLabelColor">S2 Line 4: Label Color</string>
+  <string id="S2Line4PrimaryValueColor">S2 Line 4: Value Color</string>
+  <string id="S2Line4Secondary">S2 Line 4: Field (R2)</string>
+  <string id="S2Line4SecondaryLabelColor">S2 Line 4: Label Color (R2)</string>
+  <string id="S2Line4SecondaryValueColor">S2 Line 4: Value Color (R2)</string>
+  <string id="S2Line4Tertiary">S2 Line 4: Field (R3)</string>
+  <string id="S2Line4TertiaryLabelColor">S2 Line 4: Label Color (R3)</string>
+  <string id="S2Line4TertiaryValueColor">S2 Line 4: Value Color (R3)</string>
+
+  <string id="S2Line5Primary">S2 Line 5: Field</string>
+  <string id="S2Line5PrimaryLabelColor">S2 Line 5: Label Color</string>
+  <string id="S2Line5PrimaryValueColor">S2 Line 5: Value Color</string>
+  <string id="S2Line5Secondary">S2 Line 5: Field (R2)</string>
+  <string id="S2Line5SecondaryLabelColor">S2 Line 5: Label Color (R2)</string>
+  <string id="S2Line5SecondaryValueColor">S2 Line 5: Value Color (R2)</string>
+  <string id="S2Line5Tertiary">S2 Line 5: Field (R3)</string>
+  <string id="S2Line5TertiaryLabelColor">S2 Line 5: Label Color (R3)</string>
+  <string id="S2Line5TertiaryValueColor">S2 Line 5: Value Color (R3)</string>
+
+  <!-- Screen 3 -->
+  <string id="Screen3Enabled">Enable Screen 3</string>
+  <string id="Screen3EnabledOn">Enabled</string>
+  <string id="Screen3EnabledOff">Disabled</string>
+
+  <string id="S3Line1Primary">S3 Line 1: Field</string>
+  <string id="S3Line1PrimaryLabelColor">S3 Line 1: Label Color</string>
+  <string id="S3Line1PrimaryValueColor">S3 Line 1: Value Color</string>
+  <string id="S3Line1Secondary">S3 Line 1: Field (R2)</string>
+  <string id="S3Line1SecondaryLabelColor">S3 Line 1: Label Color (R2)</string>
+  <string id="S3Line1SecondaryValueColor">S3 Line 1: Value Color (R2)</string>
+  <string id="S3Line1Tertiary">S3 Line 1: Field (R3)</string>
+  <string id="S3Line1TertiaryLabelColor">S3 Line 1: Label Color (R3)</string>
+  <string id="S3Line1TertiaryValueColor">S3 Line 1: Value Color (R3)</string>
+
+  <string id="S3Line2Primary">S3 Line 2: Field</string>
+  <string id="S3Line2PrimaryLabelColor">S3 Line 2: Label Color</string>
+  <string id="S3Line2PrimaryValueColor">S3 Line 2: Value Color</string>
+  <string id="S3Line2Secondary">S3 Line 2: Field (R2)</string>
+  <string id="S3Line2SecondaryLabelColor">S3 Line 2: Label Color (R2)</string>
+  <string id="S3Line2SecondaryValueColor">S3 Line 2: Value Color (R2)</string>
+  <string id="S3Line2Tertiary">S3 Line 2: Field (R3)</string>
+  <string id="S3Line2TertiaryLabelColor">S3 Line 2: Label Color (R3)</string>
+  <string id="S3Line2TertiaryValueColor">S3 Line 2: Value Color (R3)</string>
+
+  <string id="S3Line3Primary">S3 Line 3: Field</string>
+  <string id="S3Line3PrimaryLabelColor">S3 Line 3: Label Color</string>
+  <string id="S3Line3PrimaryValueColor">S3 Line 3: Value Color</string>
+  <string id="S3Line3Secondary">S3 Line 3: Field (R2)</string>
+  <string id="S3Line3SecondaryLabelColor">S3 Line 3: Label Color (R2)</string>
+  <string id="S3Line3SecondaryValueColor">S3 Line 3: Value Color (R2)</string>
+  <string id="S3Line3Tertiary">S3 Line 3: Field (R3)</string>
+  <string id="S3Line3TertiaryLabelColor">S3 Line 3: Label Color (R3)</string>
+  <string id="S3Line3TertiaryValueColor">S3 Line 3: Value Color (R3)</string>
+
+  <string id="S3Line4Primary">S3 Line 4: Field</string>
+  <string id="S3Line4PrimaryLabelColor">S3 Line 4: Label Color</string>
+  <string id="S3Line4PrimaryValueColor">S3 Line 4: Value Color</string>
+  <string id="S3Line4Secondary">S3 Line 4: Field (R2)</string>
+  <string id="S3Line4SecondaryLabelColor">S3 Line 4: Label Color (R2)</string>
+  <string id="S3Line4SecondaryValueColor">S3 Line 4: Value Color (R2)</string>
+  <string id="S3Line4Tertiary">S3 Line 4: Field (R3)</string>
+  <string id="S3Line4TertiaryLabelColor">S3 Line 4: Label Color (R3)</string>
+  <string id="S3Line4TertiaryValueColor">S3 Line 4: Value Color (R3)</string>
+
+  <string id="S3Line5Primary">S3 Line 5: Field</string>
+  <string id="S3Line5PrimaryLabelColor">S3 Line 5: Label Color</string>
+  <string id="S3Line5PrimaryValueColor">S3 Line 5: Value Color</string>
+  <string id="S3Line5Secondary">S3 Line 5: Field (R2)</string>
+  <string id="S3Line5SecondaryLabelColor">S3 Line 5: Label Color (R2)</string>
+  <string id="S3Line5SecondaryValueColor">S3 Line 5: Value Color (R2)</string>
+  <string id="S3Line5Tertiary">S3 Line 5: Field (R3)</string>
+  <string id="S3Line5TertiaryLabelColor">S3 Line 5: Label Color (R3)</string>
+  <string id="S3Line5TertiaryValueColor">S3 Line 5: Value Color (R3)</string>
+
+  <!-- Shared: color options -->
   <string id="ColorWhite">White</string>
   <string id="ColorGreen">Green</string>
   <string id="ColorCyan">Cyan</string>
@@ -28,6 +186,8 @@
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
 
+  <!-- Shared: data field options -->
+  <string id="FieldNone">None (hidden)</string>
   <string id="FieldSteps">Steps</string>
   <string id="FieldHR">Heart Rate</string>
   <string id="FieldCalories">Calories</string>
@@ -37,68 +197,14 @@
   <string id="FieldFloors">Stairs</string>
   <string id="FieldSpO2">Blood Oxygen</string>
   <string id="FieldActiveMin">Intensity Mins</string>
-  <string id="FieldNone">None (hidden)</string>
-  <string id="FieldWxTemp">Temperature</string>
-  <string id="FieldWxFeels">Feels Like</string>
-  <string id="FieldWxPrecip">Precipitation</string>
-  <string id="FieldWxWind">Wind</string>
-  <string id="FieldWxUV">UV Index</string>
-  <string id="FieldWxCond">Condition</string>
-  <string id="FieldWxTempCond">Temp + Condition</string>
-  <string id="FieldWxTempMinMax">Temp + Min/Max</string>
-
-  <string id="Line1LabelColor">Time - Label Color</string>
-  <string id="Line1ValueColor">Time - Value Color</string>
-  <string id="Line2LabelColor">Date - Label Color</string>
-  <string id="Line2ValueColor">Date - Value Color</string>
-
-  <string id="Line3Primary">Line 3 - Field</string>
-  <string id="Line3PrimaryLabelColor">Line 3 - Label Color</string>
-  <string id="Line3PrimaryValueColor">Line 3 - Value Color</string>
-  <string id="Line3Secondary">Line 3 - Alt Field 2</string>
-  <string id="Line3SecondaryLabelColor">Line 3 Alt 2 - Label Color</string>
-  <string id="Line3SecondaryValueColor">Line 3 Alt 2 - Value Color</string>
-  <string id="Line3Tertiary">Line 3 - Alt Field 3</string>
-  <string id="Line3TertiaryLabelColor">Line 3 Alt 3 - Label Color</string>
-  <string id="Line3TertiaryValueColor">Line 3 Alt 3 - Value Color</string>
-
-  <string id="Line4Primary">Line 4 - Field</string>
-  <string id="Line4PrimaryLabelColor">Line 4 - Label Color</string>
-  <string id="Line4PrimaryValueColor">Line 4 - Value Color</string>
-  <string id="Line4Secondary">Line 4 - Alt Field 2</string>
-  <string id="Line4SecondaryLabelColor">Line 4 Alt 2 - Label Color</string>
-  <string id="Line4SecondaryValueColor">Line 4 Alt 2 - Value Color</string>
-  <string id="Line4Tertiary">Line 4 - Alt Field 3</string>
-  <string id="Line4TertiaryLabelColor">Line 4 Alt 3 - Label Color</string>
-  <string id="Line4TertiaryValueColor">Line 4 Alt 3 - Value Color</string>
-
-  <string id="Line5Primary">Line 5 - Field</string>
-  <string id="Line5PrimaryLabelColor">Line 5 - Label Color</string>
-  <string id="Line5PrimaryValueColor">Line 5 - Value Color</string>
-  <string id="Line5Secondary">Line 5 - Alt Field 2</string>
-  <string id="Line5SecondaryLabelColor">Line 5 Alt 2 - Label Color</string>
-  <string id="Line5SecondaryValueColor">Line 5 Alt 2 - Value Color</string>
-  <string id="Line5Tertiary">Line 5 - Alt Field 3</string>
-  <string id="Line5TertiaryLabelColor">Line 5 Alt 3 - Label Color</string>
-  <string id="Line5TertiaryValueColor">Line 5 Alt 3 - Value Color</string>
-
-  <string id="Line6Primary">Line 6 - Field</string>
-  <string id="Line6PrimaryLabelColor">Line 6 - Label Color</string>
-  <string id="Line6PrimaryValueColor">Line 6 - Value Color</string>
-  <string id="Line6Secondary">Line 6 - Alt Field 2</string>
-  <string id="Line6SecondaryLabelColor">Line 6 Alt 2 - Label Color</string>
-  <string id="Line6SecondaryValueColor">Line 6 Alt 2 - Value Color</string>
-  <string id="Line6Tertiary">Line 6 - Alt Field 3</string>
-  <string id="Line6TertiaryLabelColor">Line 6 Alt 3 - Label Color</string>
-  <string id="Line6TertiaryValueColor">Line 6 Alt 3 - Value Color</string>
-
-  <string id="Line7Primary">Line 7 - Field</string>
-  <string id="Line7PrimaryLabelColor">Line 7 - Label Color</string>
-  <string id="Line7PrimaryValueColor">Line 7 - Value Color</string>
-  <string id="Line7Secondary">Line 7 - Alt Field 2</string>
-  <string id="Line7SecondaryLabelColor">Line 7 Alt 2 - Label Color</string>
-  <string id="Line7SecondaryValueColor">Line 7 Alt 2 - Value Color</string>
-  <string id="Line7Tertiary">Line 7 - Alt Field 3</string>
-  <string id="Line7TertiaryLabelColor">Line 7 Alt 3 - Label Color</string>
-  <string id="Line7TertiaryValueColor">Line 7 Alt 3 - Value Color</string>
+  <string id="FieldWxTemp">Weather: Temperature</string>
+  <string id="FieldWxFeels">Weather: Feels Like</string>
+  <string id="FieldWxPrecip">Weather: Precipitation</string>
+  <string id="FieldWxWind">Weather: Wind</string>
+  <string id="FieldWxUV">Weather: UV Index</string>
+  <string id="FieldWxCond">Weather: Condition</string>
+  <string id="FieldWxTempCond">Weather: Temp + Condition</string>
+  <string id="FieldWxTempMinMax">Weather: Temp + Min/Max</string>
+  <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
+  <string id="FieldWxTempWind">Weather: Temp + Wind</string>
 </strings>
