@@ -34,15 +34,21 @@ const FIELD_WX_TEMP_WIND = 20;
 // Index 0 = white (value default), 8 = light grey (label default). Colon matches label color.
 const COLORS =
     [
-        0xffffff, // 0 white
-        0x44dd88, // 1 green
-        0x55ddff, // 2 cyan
-        0xeedd55, // 3 yellow
-        0xffaa55, // 4 orange
-        0xff5555, // 5 red
-        0x7799ff, // 6 blue
-        0xdd77ff, // 7 magenta
-        0xcccccc, // 8 light grey
+        0xffffff, // 0  white
+        0x44dd88, // 1  green
+        0x55ddff, // 2  cyan
+        0xeedd55, // 3  yellow
+        0xffaa55, // 4  orange
+        0xff5555, // 5  red
+        0x7799ff, // 6  blue
+        0xdd77ff, // 7  magenta
+        0xcccccc, // 8  light grey
+        0xff77cc, // 9  pink
+        0xaaff55, // 10 lime
+        0x33bbaa, // 11 teal
+        0x8844ff, // 12 purple
+        0x888888, // 13 dark grey
+        0x44aaff, // 14 sky blue
     ] as Array<Number>;
 
 // Default primary field for screen 1 configurable lines 3-5 (index = lineNum - 3)
@@ -107,12 +113,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _degW as Number = 8;
     private var _wxUnit as String = "C";
     private var _currentScreen as Number = 0;
-    private var _tabY as Number = 0;
-    private var _tabH as Number = 0;
-    private var _tabW as Number = 0;
-    private var _tab1X as Number = -1;
-    private var _tab2X as Number = -1;
-    private var _tab3X as Number = -1;
+    private var _navY as Number = 0;
+    private var _navH as Number = 0;
+    private var _navW as Number = 0;
+    private var _nav1X as Number = -1;
+    private var _nav2X as Number = -1;
+    private var _nav3X as Number = -1;
 
     public function initialize() {
         WatchFace.initialize();
@@ -236,8 +242,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         var fh = dc.getFontHeight(_font);
         var step = fh + fh / 3;
+        var gap = step - fh;
         var charW = dc.getTextWidthInPixels("_", _font);
-        var cx = _w / 2 - charW * 4;
+        var cx = _w / 2 - charW * 6;
         _pad = dc.getTextWidthInPixels(": ", _font) / 2;
         _arrowW = dc.getTextWidthInPixels(" > ", _font);
 
@@ -255,14 +262,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
 
-        var s2En = _getProp("screen2Enabled", 0) != 0;
-        var s3En = _getProp("screen3Enabled", 0) != 0;
         visible += 2;
 
         var y = (_h - step * (visible - 1) - fh) / 2;
         var row = 2;
 
-        _drawHeader(dc, y, step);
+        _drawHeader(dc, y, gap);
         _drawPromptLine(dc, cx, y + step * row, ".\\watch.bat");
         row++;
 
@@ -314,25 +319,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (_cursorOn) {
             dc.fillRectangle(splitX, footerY, charW, fh);
         }
-        _drawScreenIndicator(dc, footerY + step + fh);
+        _drawFooter(dc, footerY + fh + 3 * gap);
     }
 
-    private function _drawHeader(
-        dc as Dc,
-        y as Number,
-        step as Number
-    ) as Void {
-        var fh = dc.getFontHeight(_fontSmall);
-        var fhMain = dc.getFontHeight(_font);
-        var lineY = y + step * 2 - (2 * fhMain) / 3;
-        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(0, lineY, _w - 1, lineY);
+    private function _drawHeader(dc as Dc, y as Number, gap as Number) as Void {
+        var fh = dc.getFontHeight(_font);
+        var fhSm = dc.getFontHeight(_fontSmall);
 
         var notifCount = System.getDeviceSettings().notificationCount;
         if (notifCount == null || (notifCount as Number) == 0) {
             return;
         }
-        var textY = lineY - (2 * fhMain) / 3 - fh;
+        var textY = y + 2 * fh - gap - fhSm;
         var label = "[" + (notifCount as Number).toString() + "]";
         dc.setColor(_colorFromIdx(2), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
@@ -344,17 +342,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
-    private function _drawScreenIndicator(dc as Dc, y as Number) as Void {
+    private function _drawFooter(dc as Dc, y as Number) as Void {
         var s2En = _getProp("screen2Enabled", 0) != 0;
         var s3En = _getProp("screen3Enabled", 0) != 0;
-        _tab1X = -1;
-        _tab2X = -1;
-        _tab3X = -1;
-        var fh = dc.getFontHeight(_fontSmall);
-        var fhMain = dc.getFontHeight(_font);
-        var lineY = y - (2 * fhMain) / 3;
-        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(0, lineY, _w - 1, lineY);
+        _nav1X = -1;
+        _nav2X = -1;
+        _nav3X = -1;
+        var fhSm = dc.getFontHeight(_fontSmall);
         if (!s2En && !s3En) {
             return;
         }
@@ -365,11 +359,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var totalW = tabW * tabCount + spaceW * (tabCount - 1);
         var x = (_w - totalW) / 2;
 
-        _tabY = y;
-        _tabH = fh;
-        _tabW = tabW;
+        _navY = y;
+        _navH = fhSm;
+        _navW = tabW;
 
-        _tab1X = x;
+        _nav1X = x;
         var a1 = _currentScreen == 0;
         dc.setColor(_colorFromIdx(a1 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
@@ -382,7 +376,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         x += tabW;
         if (s2En) {
             x += spaceW;
-            _tab2X = x;
+            _nav2X = x;
             var a2 = _currentScreen == 1;
             dc.setColor(_colorFromIdx(a2 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
@@ -396,7 +390,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (s3En) {
             x += spaceW;
-            _tab3X = x;
+            _nav3X = x;
             var a3 = _currentScreen == 2;
             dc.setColor(_colorFromIdx(a3 ? 2 : 8), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
@@ -410,28 +404,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function tapAt(x as Number, y as Number) as Boolean {
-        if (_tab1X < 0) {
+        if (_nav1X < 0) {
             return false;
         }
-        // Generous vertical hit area (2x font height)
-        if (y < _tabY - _tabH || y > _tabY + _tabH * 2) {
+        if (y < _navY - _navH * 2 || y > _navY + _navH * 3) {
             return false;
         }
-        if (x >= _tab1X && x < _tab1X + _tabW) {
+        // Expand hit area horizontally so the narrow tab text is easier to tap
+        var hitW = _navW + _navH;
+        if (x >= _nav1X && x < _nav1X + hitW) {
             if (_currentScreen != 0) {
                 _currentScreen = 0;
                 WatchUi.requestUpdate();
             }
             return true;
         }
-        if (_tab2X >= 0 && x >= _tab2X && x < _tab2X + _tabW) {
+        if (_nav2X >= 0 && x >= _nav2X && x < _nav2X + hitW) {
             if (_currentScreen != 1) {
                 _currentScreen = 1;
                 WatchUi.requestUpdate();
             }
             return true;
         }
-        if (_tab3X >= 0 && x >= _tab3X && x < _tab3X + _tabW) {
+        if (_nav3X >= 0 && x >= _nav3X && x < _nav3X + hitW) {
             if (_currentScreen != 2) {
                 _currentScreen = 2;
                 WatchUi.requestUpdate();
@@ -637,7 +632,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         } else if (fmt == 2) {
             var days = stats.batteryInDays;
             var pct = bat.format("%.0f") + "%";
-            valStr = days != null ? pct + " " + days.format("%.0f") + "d" : pct;
+            valStr =
+                days != null ? pct + " [" + days.format("%.0f") + "d]" : pct;
         } else {
             valStr = bat.format("%.0f") + "%";
         }
@@ -827,7 +823,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             case FIELD_WX_WIND:
                 return ["Wind", _wxWind];
             case FIELD_WX_UV:
-                return ["UV", _wxUv];
+                return ["UVIn", _wxUv];
             case FIELD_WX_COND:
                 return ["Cond", _wxCond];
             case FIELD_WX_TEMP_COND:

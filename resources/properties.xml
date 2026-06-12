@@ -52,12 +52,12 @@
   <property id="line5TertiaryValueColor" type="number">0</property>
 
   <!-- Screen 2 -->
-  <property id="screen2Enabled" type="number">0</property>
+  <property id="screen2Enabled" type="number">1</property>
 
-  <!-- Screen 2: line 1 -->
-  <property id="s2Line1Primary" type="number">7</property>
+  <!-- Screen 2: line 1 - weather temp + condition -->
+  <property id="s2Line1Primary" type="number">17</property>
   <property id="s2Line1PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line1PrimaryValueColor" type="number">0</property>
+  <property id="s2Line1PrimaryValueColor" type="number">2</property>
   <property id="s2Line1Secondary" type="number">7</property>
   <property id="s2Line1SecondaryLabelColor" type="number">8</property>
   <property id="s2Line1SecondaryValueColor" type="number">0</property>
@@ -65,8 +65,8 @@
   <property id="s2Line1TertiaryLabelColor" type="number">8</property>
   <property id="s2Line1TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 2: line 2 -->
-  <property id="s2Line2Primary" type="number">7</property>
+  <!-- Screen 2: line 2 - temp min/max -->
+  <property id="s2Line2Primary" type="number">18</property>
   <property id="s2Line2PrimaryLabelColor" type="number">8</property>
   <property id="s2Line2PrimaryValueColor" type="number">0</property>
   <property id="s2Line2Secondary" type="number">7</property>
@@ -76,8 +76,8 @@
   <property id="s2Line2TertiaryLabelColor" type="number">8</property>
   <property id="s2Line2TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 2: line 3 -->
-  <property id="s2Line3Primary" type="number">7</property>
+  <!-- Screen 2: line 3 - wind -->
+  <property id="s2Line3Primary" type="number">14</property>
   <property id="s2Line3PrimaryLabelColor" type="number">8</property>
   <property id="s2Line3PrimaryValueColor" type="number">0</property>
   <property id="s2Line3Secondary" type="number">7</property>
@@ -87,8 +87,8 @@
   <property id="s2Line3TertiaryLabelColor" type="number">8</property>
   <property id="s2Line3TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 2: line 4 -->
-  <property id="s2Line4Primary" type="number">7</property>
+  <!-- Screen 2: line 4 - precipitation -->
+  <property id="s2Line4Primary" type="number">13</property>
   <property id="s2Line4PrimaryLabelColor" type="number">8</property>
   <property id="s2Line4PrimaryValueColor" type="number">0</property>
   <property id="s2Line4Secondary" type="number">7</property>
@@ -98,8 +98,8 @@
   <property id="s2Line4TertiaryLabelColor" type="number">8</property>
   <property id="s2Line4TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 2: line 5 -->
-  <property id="s2Line5Primary" type="number">7</property>
+  <!-- Screen 2: line 5 - UV index -->
+  <property id="s2Line5Primary" type="number">15</property>
   <property id="s2Line5PrimaryLabelColor" type="number">8</property>
   <property id="s2Line5PrimaryValueColor" type="number">0</property>
   <property id="s2Line5Secondary" type="number">7</property>

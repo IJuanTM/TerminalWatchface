@@ -185,6 +185,12 @@
   <string id="ColorBlue">Blue</string>
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
+  <string id="ColorPink">Pink</string>
+  <string id="ColorLime">Lime</string>
+  <string id="ColorTeal">Teal</string>
+  <string id="ColorPurple">Purple</string>
+  <string id="ColorDarkGrey">Dark Grey</string>
+  <string id="ColorSkyBlue">Sky Blue</string>
 
   <!-- Shared: data field options -->
   <string id="FieldNone">None (hidden)</string>
