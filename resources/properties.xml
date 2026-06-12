@@ -5,166 +5,49 @@
   <property id="fontSizeChoice" type="number">1</property>
   <property id="scanlines" type="number">2</property>
 
-  <!-- Screen 1: display options -->
+  <!-- Display options -->
   <property id="dateFormat" type="number">0</property>
-  <property id="batteryFormat" type="number">0</property>
   <property id="rotateInterval" type="number">5</property>
 
-  <!-- Screen 1: time row (always visible) -->
+  <!-- Time row (always visible) -->
   <property id="line1LabelColor" type="number">8</property>
   <property id="line1ValueColor" type="number">0</property>
 
-  <!-- Screen 1: date row (always visible) -->
+  <!-- Date row (always visible) -->
   <property id="line2LabelColor" type="number">8</property>
   <property id="line2ValueColor" type="number">0</property>
 
-  <!-- Screen 1: line 3 (3 rotation slots: primary, secondary, tertiary) -->
-  <property id="line3Primary" type="number">0</property>
-  <property id="line3PrimaryLabelColor" type="number">8</property>
+  <!-- Line 3: Temp+MinMax (primary), Cond+Precip (secondary), blue labels -->
+  <property id="line3Primary" type="number">18</property>
+  <property id="line3PrimaryLabelColor" type="number">6</property>
   <property id="line3PrimaryValueColor" type="number">0</property>
-  <property id="line3Secondary" type="number">7</property>
-  <property id="line3SecondaryLabelColor" type="number">8</property>
+  <property id="line3Secondary" type="number">19</property>
+  <property id="line3SecondaryLabelColor" type="number">6</property>
   <property id="line3SecondaryValueColor" type="number">0</property>
   <property id="line3Tertiary" type="number">7</property>
   <property id="line3TertiaryLabelColor" type="number">8</property>
   <property id="line3TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 1: line 4 -->
-  <property id="line4Primary" type="number">1</property>
-  <property id="line4PrimaryLabelColor" type="number">8</property>
+  <!-- Line 4: Steps (primary), Altitude (secondary), green labels -->
+  <property id="line4Primary" type="number">0</property>
+  <property id="line4PrimaryLabelColor" type="number">1</property>
   <property id="line4PrimaryValueColor" type="number">0</property>
-  <property id="line4Secondary" type="number">7</property>
-  <property id="line4SecondaryLabelColor" type="number">8</property>
+  <property id="line4Secondary" type="number">5</property>
+  <property id="line4SecondaryLabelColor" type="number">1</property>
   <property id="line4SecondaryValueColor" type="number">0</property>
   <property id="line4Tertiary" type="number">7</property>
   <property id="line4TertiaryLabelColor" type="number">8</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
 
-  <!-- Screen 1: line 5 -->
-  <property id="line5Primary" type="number">3</property>
-  <property id="line5PrimaryLabelColor" type="number">8</property>
+  <!-- Line 5: Heart Rate (primary), Calories (secondary), red labels -->
+  <property id="line5Primary" type="number">1</property>
+  <property id="line5PrimaryLabelColor" type="number">5</property>
   <property id="line5PrimaryValueColor" type="number">0</property>
-  <property id="line5Secondary" type="number">7</property>
-  <property id="line5SecondaryLabelColor" type="number">8</property>
+  <property id="line5Secondary" type="number">2</property>
+  <property id="line5SecondaryLabelColor" type="number">5</property>
   <property id="line5SecondaryValueColor" type="number">0</property>
   <property id="line5Tertiary" type="number">7</property>
   <property id="line5TertiaryLabelColor" type="number">8</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 2 -->
-  <property id="screen2Enabled" type="number">1</property>
-
-  <!-- Screen 2: line 1 - weather temp + condition -->
-  <property id="s2Line1Primary" type="number">17</property>
-  <property id="s2Line1PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line1PrimaryValueColor" type="number">2</property>
-  <property id="s2Line1Secondary" type="number">7</property>
-  <property id="s2Line1SecondaryLabelColor" type="number">8</property>
-  <property id="s2Line1SecondaryValueColor" type="number">0</property>
-  <property id="s2Line1Tertiary" type="number">7</property>
-  <property id="s2Line1TertiaryLabelColor" type="number">8</property>
-  <property id="s2Line1TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 2: line 2 - temp min/max -->
-  <property id="s2Line2Primary" type="number">18</property>
-  <property id="s2Line2PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line2PrimaryValueColor" type="number">0</property>
-  <property id="s2Line2Secondary" type="number">7</property>
-  <property id="s2Line2SecondaryLabelColor" type="number">8</property>
-  <property id="s2Line2SecondaryValueColor" type="number">0</property>
-  <property id="s2Line2Tertiary" type="number">7</property>
-  <property id="s2Line2TertiaryLabelColor" type="number">8</property>
-  <property id="s2Line2TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 2: line 3 - wind -->
-  <property id="s2Line3Primary" type="number">14</property>
-  <property id="s2Line3PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line3PrimaryValueColor" type="number">0</property>
-  <property id="s2Line3Secondary" type="number">7</property>
-  <property id="s2Line3SecondaryLabelColor" type="number">8</property>
-  <property id="s2Line3SecondaryValueColor" type="number">0</property>
-  <property id="s2Line3Tertiary" type="number">7</property>
-  <property id="s2Line3TertiaryLabelColor" type="number">8</property>
-  <property id="s2Line3TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 2: line 4 - precipitation -->
-  <property id="s2Line4Primary" type="number">13</property>
-  <property id="s2Line4PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line4PrimaryValueColor" type="number">0</property>
-  <property id="s2Line4Secondary" type="number">7</property>
-  <property id="s2Line4SecondaryLabelColor" type="number">8</property>
-  <property id="s2Line4SecondaryValueColor" type="number">0</property>
-  <property id="s2Line4Tertiary" type="number">7</property>
-  <property id="s2Line4TertiaryLabelColor" type="number">8</property>
-  <property id="s2Line4TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 2: line 5 - UV index -->
-  <property id="s2Line5Primary" type="number">15</property>
-  <property id="s2Line5PrimaryLabelColor" type="number">8</property>
-  <property id="s2Line5PrimaryValueColor" type="number">0</property>
-  <property id="s2Line5Secondary" type="number">7</property>
-  <property id="s2Line5SecondaryLabelColor" type="number">8</property>
-  <property id="s2Line5SecondaryValueColor" type="number">0</property>
-  <property id="s2Line5Tertiary" type="number">7</property>
-  <property id="s2Line5TertiaryLabelColor" type="number">8</property>
-  <property id="s2Line5TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 3 -->
-  <property id="screen3Enabled" type="number">0</property>
-
-  <!-- Screen 3: line 1 -->
-  <property id="s3Line1Primary" type="number">7</property>
-  <property id="s3Line1PrimaryLabelColor" type="number">8</property>
-  <property id="s3Line1PrimaryValueColor" type="number">0</property>
-  <property id="s3Line1Secondary" type="number">7</property>
-  <property id="s3Line1SecondaryLabelColor" type="number">8</property>
-  <property id="s3Line1SecondaryValueColor" type="number">0</property>
-  <property id="s3Line1Tertiary" type="number">7</property>
-  <property id="s3Line1TertiaryLabelColor" type="number">8</property>
-  <property id="s3Line1TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 3: line 2 -->
-  <property id="s3Line2Primary" type="number">7</property>
-  <property id="s3Line2PrimaryLabelColor" type="number">8</property>
-  <property id="s3Line2PrimaryValueColor" type="number">0</property>
-  <property id="s3Line2Secondary" type="number">7</property>
-  <property id="s3Line2SecondaryLabelColor" type="number">8</property>
-  <property id="s3Line2SecondaryValueColor" type="number">0</property>
-  <property id="s3Line2Tertiary" type="number">7</property>
-  <property id="s3Line2TertiaryLabelColor" type="number">8</property>
-  <property id="s3Line2TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 3: line 3 -->
-  <property id="s3Line3Primary" type="number">7</property>
-  <property id="s3Line3PrimaryLabelColor" type="number">8</property>
-  <property id="s3Line3PrimaryValueColor" type="number">0</property>
-  <property id="s3Line3Secondary" type="number">7</property>
-  <property id="s3Line3SecondaryLabelColor" type="number">8</property>
-  <property id="s3Line3SecondaryValueColor" type="number">0</property>
-  <property id="s3Line3Tertiary" type="number">7</property>
-  <property id="s3Line3TertiaryLabelColor" type="number">8</property>
-  <property id="s3Line3TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 3: line 4 -->
-  <property id="s3Line4Primary" type="number">7</property>
-  <property id="s3Line4PrimaryLabelColor" type="number">8</property>
-  <property id="s3Line4PrimaryValueColor" type="number">0</property>
-  <property id="s3Line4Secondary" type="number">7</property>
-  <property id="s3Line4SecondaryLabelColor" type="number">8</property>
-  <property id="s3Line4SecondaryValueColor" type="number">0</property>
-  <property id="s3Line4Tertiary" type="number">7</property>
-  <property id="s3Line4TertiaryLabelColor" type="number">8</property>
-  <property id="s3Line4TertiaryValueColor" type="number">0</property>
-
-  <!-- Screen 3: line 5 -->
-  <property id="s3Line5Primary" type="number">7</property>
-  <property id="s3Line5PrimaryLabelColor" type="number">8</property>
-  <property id="s3Line5PrimaryValueColor" type="number">0</property>
-  <property id="s3Line5Secondary" type="number">7</property>
-  <property id="s3Line5SecondaryLabelColor" type="number">8</property>
-  <property id="s3Line5SecondaryValueColor" type="number">0</property>
-  <property id="s3Line5Tertiary" type="number">7</property>
-  <property id="s3Line5TertiaryLabelColor" type="number">8</property>
-  <property id="s3Line5TertiaryValueColor" type="number">0</property>
 
 </properties>
