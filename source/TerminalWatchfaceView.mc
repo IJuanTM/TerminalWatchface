@@ -9,6 +9,7 @@ import Toybox.Time.Gregorian;
 import Toybox.WatchUi;
 import Toybox.Math;
 import Toybox.Weather;
+import Toybox.SensorHistory;
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -29,6 +30,18 @@ const FIELD_WX_TEMP_COND = 17;
 const FIELD_WX_TEMP_MINMAX = 18;
 const FIELD_WX_COND_PRECIP = 19;
 const FIELD_WX_TEMP_WIND = 20;
+const FIELD_STRESS = 21;
+const FIELD_BODY_BAT = 22;
+const FIELD_RESP = 23;
+const FIELD_HR_MEAN = 24;
+const FIELD_CAL_ACT = 25;
+const FIELD_RECOVERY = 26;
+const FIELD_MOVE_BAR = 27;
+const FIELD_TEMP_WRIST = 28;
+const FIELD_ACTIVE_MIN_DAY = 29;
+const FIELD_HR_MAX = 30;
+const FIELD_PRESSURE = 31;
+const FIELD_ELEVATION = 32;
 
 // Index 0 = white (value default), 8 = light grey (label default). Colon matches label color.
 const COLORS =
@@ -48,6 +61,11 @@ const COLORS =
         0x8844ff, // 12 purple
         0x888888, // 13 dark grey
         0x44aaff, // 14 sky blue
+        0xffbb00, // 15 amber
+        0x00cc55, // 16 emerald
+        0x00ddb0, // 17 turquoise
+        0xff7766, // 18 coral
+        0xaa66ff, // 19 violet
     ] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
@@ -127,90 +145,74 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         _lastFontChoice = key;
+
+        if (choice < 0 || choice > 3) {
+            choice = 0;
+        }
+        if (size < 0 || size > 2) {
+            size = 1;
+        }
+
+        // Indexed by choice*3+size (S/M/L per font family)
+        var fontRes = [
+            $.Rez.Fonts.JetBrainsMono_S,
+            $.Rez.Fonts.JetBrainsMono_M,
+            $.Rez.Fonts.JetBrainsMono_L,
+            $.Rez.Fonts.SpaceMono_S,
+            $.Rez.Fonts.SpaceMono_M,
+            $.Rez.Fonts.SpaceMono_L,
+            $.Rez.Fonts.FiraCode_S,
+            $.Rez.Fonts.FiraCode_M,
+            $.Rez.Fonts.FiraCode_L,
+            $.Rez.Fonts.NBArchitekt_S,
+            $.Rez.Fonts.NBArchitekt_M,
+            $.Rez.Fonts.NBArchitekt_L,
+        ];
+        var xsRes = [
+            $.Rez.Fonts.JetBrainsMono_XS,
+            $.Rez.Fonts.SpaceMono_XS,
+            $.Rez.Fonts.FiraCode_XS,
+            $.Rez.Fonts.NBArchitekt_XS,
+        ];
         try {
-            var res;
-            if (choice == 1 && size == 0) {
-                res = $.Rez.Fonts.SpaceMono_S;
-            } else if (choice == 1 && size == 2) {
-                res = $.Rez.Fonts.SpaceMono_L;
-            } else if (choice == 1) {
-                res = $.Rez.Fonts.SpaceMono_M;
-            } else if (choice == 2 && size == 0) {
-                res = $.Rez.Fonts.FiraCode_S;
-            } else if (choice == 2 && size == 2) {
-                res = $.Rez.Fonts.FiraCode_L;
-            } else if (choice == 2) {
-                res = $.Rez.Fonts.FiraCode_M;
-            } else if (size == 0) {
-                res = $.Rez.Fonts.JetBrainsMono_S;
-            } else if (size == 2) {
-                res = $.Rez.Fonts.JetBrainsMono_L;
-            } else {
-                res = $.Rez.Fonts.JetBrainsMono_M;
-            }
-            _font = WatchUi.loadResource(res) as Graphics.FontDefinition;
+            _font =
+                WatchUi.loadResource(fontRes[choice * 3 + size]) as
+                Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
         try {
-            var xsRes;
-            if (choice == 1) {
-                xsRes = $.Rez.Fonts.SpaceMono_XS;
-            } else if (choice == 2) {
-                xsRes = $.Rez.Fonts.FiraCode_XS;
-            } else {
-                xsRes = $.Rez.Fonts.JetBrainsMono_XS;
-            }
-            _fontSmall = WatchUi.loadResource(xsRes) as Graphics.FontDefinition;
+            _fontSmall =
+                WatchUi.loadResource(xsRes[choice]) as Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
         try {
-            if (size == 0) {
-                _bmpUp =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowUpS) as
-                    Graphics.BitmapType;
-                _bmpDn =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowDnS) as
-                    Graphics.BitmapType;
-                _bmpDeg =
-                    WatchUi.loadResource($.Rez.Drawables.DegS) as
-                    Graphics.BitmapType;
-                _bmpBolt =
-                    WatchUi.loadResource($.Rez.Drawables.BoltS) as
-                    Graphics.BitmapType;
-                _arrowH = 14;
-                _boltH = 18;
-                _degW = 7;
-            } else if (size == 2) {
-                _bmpUp =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowUpL) as
-                    Graphics.BitmapType;
-                _bmpDn =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowDnL) as
-                    Graphics.BitmapType;
-                _bmpDeg =
-                    WatchUi.loadResource($.Rez.Drawables.DegL) as
-                    Graphics.BitmapType;
-                _bmpBolt =
-                    WatchUi.loadResource($.Rez.Drawables.BoltL) as
-                    Graphics.BitmapType;
-                _arrowH = 18;
-                _boltH = 22;
-                _degW = 9;
-            } else {
-                _bmpUp =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowUpM) as
-                    Graphics.BitmapType;
-                _bmpDn =
-                    WatchUi.loadResource($.Rez.Drawables.ArrowDnM) as
-                    Graphics.BitmapType;
-                _bmpDeg =
-                    WatchUi.loadResource($.Rez.Drawables.DegM) as
-                    Graphics.BitmapType;
-                _bmpBolt =
-                    WatchUi.loadResource($.Rez.Drawables.BoltM) as
-                    Graphics.BitmapType;
-                _arrowH = 16;
-                _boltH = 18;
-                _degW = 8;
-            }
+            // Indexed by size*4: ArrowUp, ArrowDn, Deg, Bolt
+            var bmpRes = [
+                $.Rez.Drawables.ArrowUpS,
+                $.Rez.Drawables.ArrowDnS,
+                $.Rez.Drawables.DegS,
+                $.Rez.Drawables.BoltS,
+                $.Rez.Drawables.ArrowUpM,
+                $.Rez.Drawables.ArrowDnM,
+                $.Rez.Drawables.DegM,
+                $.Rez.Drawables.BoltM,
+                $.Rez.Drawables.ArrowUpL,
+                $.Rez.Drawables.ArrowDnL,
+                $.Rez.Drawables.DegL,
+                $.Rez.Drawables.BoltL,
+            ];
+            var arrowHs = [14, 16, 18] as Array<Number>;
+            var boltHs = [18, 18, 22] as Array<Number>;
+            var degWs = [7, 8, 9] as Array<Number>;
+            var bi = size * 4;
+            _bmpUp = WatchUi.loadResource(bmpRes[bi]) as Graphics.BitmapType;
+            _bmpDn =
+                WatchUi.loadResource(bmpRes[bi + 1]) as Graphics.BitmapType;
+            _bmpDeg =
+                WatchUi.loadResource(bmpRes[bi + 2]) as Graphics.BitmapType;
+            _bmpBolt =
+                WatchUi.loadResource(bmpRes[bi + 3]) as Graphics.BitmapType;
+            _arrowH = arrowHs[size];
+            _boltH = boltHs[size];
+            _degW = degWs[size];
         } catch (e instanceof Lang.Exception) {}
     }
 
@@ -233,7 +235,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var step = fh + fh / 3;
         var gap = step - fh;
         var charW = dc.getTextWidthInPixels("_", _font);
-        var cx = _w / 2 - charW * 6;
+        var cx = _w / 2 - charW * 4;
         _pad = dc.getTextWidthInPixels(": ", _font) / 2;
         _arrowW = dc.getTextWidthInPixels(" > ", _font);
 
@@ -327,14 +329,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _drawFooter(dc as Dc, y as Number) as Void {
         var stats = System.getSystemStats();
         var bat = stats.battery;
-        var colorIdx;
-        if (bat >= 100.0) {
-            colorIdx = 1;
-        } else if (bat <= 10.0) {
-            colorIdx = 5;
-        } else {
-            colorIdx = 8;
-        }
+        var colorIdx = bat >= 100.0 ? 1 : bat <= 10.0 ? 5 : 8;
         var days = stats.batteryInDays;
         var text = bat.format("%.0f") + "%";
         if (days != null) {
@@ -463,7 +458,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 dc,
                 cx,
                 y,
-                "Feel",
+                "Feels Like",
                 _wxFeels,
                 "",
                 labelColor,
@@ -497,34 +492,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        var tag = "";
-        var tagColor = 0;
-        var parts;
         if (field == FIELD_STEPS) {
             var info = ActivityMonitor.getInfo();
             var steps = info.steps != null ? info.steps as Number : 0;
             var goal = info.stepGoal != null ? info.stepGoal as Number : 10000;
+            var parts =
+                [
+                    "Steps",
+                    steps.format("%0" + goal.toString().length() + "d"),
+                ] as Array<String>;
+            _drawRow(dc, cx, y, parts, labelColor, valueColor);
             if (steps >= goal) {
-                tag = " [GOAL]";
-                tagColor = 1;
+                dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+                dc.drawText(
+                    cx + _pad + dc.getTextWidthInPixels(parts[1], _font),
+                    y,
+                    _font,
+                    " [GOAL]",
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
             }
-            parts =
-                ["Step", steps.format("%0" + goal.toString().length() + "d")] as
-                Array<String>;
-        } else {
-            parts = _getFieldParts(field);
+            return;
         }
-        _drawRow(dc, cx, y, parts, labelColor, valueColor);
-        if (tag.length() > 0) {
-            dc.setColor(_colorFromIdx(tagColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                cx + _pad + dc.getTextWidthInPixels(parts[1], _font),
-                y,
-                _font,
-                tag,
-                Graphics.TEXT_JUSTIFY_LEFT
-            );
-        }
+        _drawRow(dc, cx, y, _getFieldParts(field), labelColor, valueColor);
     }
 
     private function _drawFloorsRow(
@@ -541,7 +531,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var dn = (
             info.floorsDescended != null ? info.floorsDescended as Number : 0
         ).toString();
-        _drawRow(dc, cx, y, ["Strs", ""], labelIdx, valIdx);
+        _drawRow(dc, cx, y, ["Floors", ""], labelIdx, valIdx);
         var fh = dc.getFontHeight(_font);
         var ay = y + (fh - _arrowH) / 2;
         var x = cx + _pad;
@@ -665,45 +655,167 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return 0xffffff;
     }
 
+    // Fields handled by special draw functions have early returns in _drawLineRow
+    // and never reach here: FLOORS, WX_TEMP, WX_FEELS, WX_TEMP_COND, WX_TEMP_MINMAX, WX_TEMP_WIND
     private function _getFieldParts(field as Number) as Array<String> {
+        var info;
+        var a;
         switch (field) {
             case FIELD_HR:
-                return _partsHR();
+                a = Activity.getActivityInfo();
+                if (a.currentHeartRate != null) {
+                    return ["HR", a.currentHeartRate.toString()];
+                }
+                return ["HR", "-"];
             case FIELD_CALORIES:
-                return _partsCalories();
+                info = ActivityMonitor.getInfo();
+                return [
+                    "Calories",
+                    (info.calories != null ? info.calories : 0).toString(),
+                ];
             case FIELD_DISTANCE:
-                return _partsDistance();
+                info = ActivityMonitor.getInfo();
+                if (info.distance == null) {
+                    return ["Distance", "-"];
+                }
+                return _isMetric()
+                    ? [
+                          "Distance",
+                          (info.distance / 100000.0).format("%.2f") + "km",
+                      ]
+                    : [
+                          "Distance",
+                          (info.distance / 160934.0).format("%.2f") + "mi",
+                      ];
             case FIELD_ALTITUDE:
-                return _partsAltitude();
-            case FIELD_FLOORS:
-                return _partsFloors();
+                a = Activity.getActivityInfo();
+                if (a.altitude == null) {
+                    return ["Altitude", "-"];
+                }
+                return _isMetric()
+                    ? ["Altitude", a.altitude.format("%.0f") + "m"]
+                    : [
+                          "Altitude",
+                          (a.altitude * 3.28084).format("%.0f") + "ft",
+                      ];
             case FIELD_SPO2:
-                return _partsSpO2();
+                a = Activity.getActivityInfo();
+                if (a.currentOxygenSaturation != null) {
+                    return [
+                        "SpO2",
+                        a.currentOxygenSaturation.format("%.0f") + "%",
+                    ];
+                }
+                return ["SpO2", "-"];
             case FIELD_ACTIVE_MIN:
-                return _partsActiveMin();
-            case FIELD_WX_TEMP:
-                return ["Temp", _wxTemp + _wxUnit];
-            case FIELD_WX_FEELS:
-                return ["Feel", _wxFeels + _wxUnit];
+                info = ActivityMonitor.getInfo().activeMinutesWeek;
+                if (info != null && info.total != null) {
+                    return ["Act Mins", (info.total as Number).toString()];
+                }
+                return ["Act Mins", "0"];
             case FIELD_WX_PRECIP:
-                return ["Rain", _wxPrecip];
+                return ["Precip", _wxPrecip];
             case FIELD_WX_WIND:
                 return ["Wind", _wxWind];
             case FIELD_WX_UV:
-                return ["UVIn", _wxUv];
+                return ["UV Index", _wxUv];
             case FIELD_WX_COND:
-                return ["Cond", _wxCond];
-            case FIELD_WX_TEMP_COND:
-                return ["Temp", _wxTemp + _wxUnit + " " + _wxCond];
-            case FIELD_WX_TEMP_MINMAX:
-                return [
-                    "Temp",
-                    _wxTemp + _wxUnit + " [" + _wxLow + "-" + _wxHigh + "]",
-                ];
+                return ["Weather", _wxCond];
             case FIELD_WX_COND_PRECIP:
-                return ["Cond", _wxCond + " " + _wxPrecip];
-            case FIELD_WX_TEMP_WIND:
-                return ["Temp", _wxTemp + _wxUnit + " " + _wxWind];
+                return ["Weather", _wxCond + " " + _wxPrecip];
+            case FIELD_STRESS:
+                info = ActivityMonitor.getInfo();
+                if (info.stressScore != null) {
+                    return ["Stress", (info.stressScore as Number).toString()];
+                }
+                return ["Stress", "-"];
+            case FIELD_BODY_BAT:
+                info = SensorHistory.getBodyBatteryHistory({}).next();
+                if (info != null && info.data != null) {
+                    return ["Body Bat", (info.data as Number).toString() + "%"];
+                }
+                return ["Body Bat", "-"];
+            case FIELD_RESP:
+                info = ActivityMonitor.getInfo();
+                if (info.respirationRate != null) {
+                    return [
+                        "Resp",
+                        (info.respirationRate as Number).toString() + "/m",
+                    ];
+                }
+                return ["Resp", "-"];
+            case FIELD_HR_MEAN:
+                a = Activity.getActivityInfo();
+                if (a.averageHeartRate != null) {
+                    return [
+                        "Avg HR",
+                        (a.averageHeartRate as Number).toString(),
+                    ];
+                }
+                return ["Avg HR", "-"];
+            case FIELD_CAL_ACT:
+                a = Activity.getActivityInfo();
+                if (a.calories != null) {
+                    return ["Act Cal", (a.calories as Number).toString()];
+                }
+                return ["Act Cal", "0"];
+            case FIELD_RECOVERY:
+                info = ActivityMonitor.getInfo();
+                if (info.timeToRecovery != null) {
+                    return [
+                        "Recovery",
+                        (info.timeToRecovery as Number).toString() + "h",
+                    ];
+                }
+                return ["Recovery", "-"];
+            case FIELD_MOVE_BAR:
+                info = ActivityMonitor.getInfo();
+                if (info.moveBarLevel != null) {
+                    return [
+                        "Move Bar",
+                        (info.moveBarLevel as Number).toString() + "/5",
+                    ];
+                }
+                return ["Move Bar", "-"];
+            case FIELD_TEMP_WRIST:
+                info = SensorHistory.getTemperatureHistory({}).next();
+                if (info != null && info.data != null) {
+                    var tempC = info.data as Float;
+                    return _isMetric()
+                        ? ["Wrist Temp", tempC.format("%.1f") + "C"]
+                        : ["Wrist Temp", _toF(tempC).format("%.1f") + "F"];
+                }
+                return ["Wrist Temp", "-"];
+            case FIELD_ACTIVE_MIN_DAY:
+                info = ActivityMonitor.getInfo().activeMinutesDay;
+                if (info != null && info.total != null) {
+                    return ["Daily Mins", (info.total as Number).toString()];
+                }
+                return ["Daily Mins", "0"];
+            case FIELD_HR_MAX:
+                a = Activity.getActivityInfo();
+                if (a.maxHeartRate != null) {
+                    return ["Max HR", (a.maxHeartRate as Number).toString()];
+                }
+                return ["Max HR", "-"];
+            case FIELD_PRESSURE:
+                info = SensorHistory.getPressureHistory({}).next();
+                if (info != null && info.data != null) {
+                    var pa = info.data as Float;
+                    return _isMetric()
+                        ? ["Pressure", (pa / 100.0).format("%.1f") + "hPa"]
+                        : ["Pressure", (pa / 3386.39).format("%.2f") + "inHg"];
+                }
+                return ["Pressure", "-"];
+            case FIELD_ELEVATION:
+                info = SensorHistory.getElevationHistory({}).next();
+                if (info != null && info.data != null) {
+                    var elev = info.data as Float;
+                    return _isMetric()
+                        ? ["Elevation", elev.format("%.0f") + "m"]
+                        : ["Elevation", (elev * 3.28084).format("%.0f") + "ft"];
+                }
+                return ["Elevation", "-"];
             default:
                 return ["", ""];
         }
@@ -712,6 +824,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _timeParts() as Array<String> {
         var t = System.getClockTime();
         var min = t.min.format("%02d");
+        var sec = _getBoolProp("showSeconds") ? ":" + t.sec.format("%02d") : "";
         if (!System.getDeviceSettings().is24Hour) {
             var h = t.hour % 12;
             if (h == 0) {
@@ -719,10 +832,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return [
                 "Time",
-                h.toString() + ":" + min + (t.hour >= 12 ? "pm" : "am"),
+                h.toString() + ":" + min + sec + (t.hour >= 12 ? "pm" : "am"),
             ];
         }
-        return ["Time", t.hour.format("%02d") + ":" + min];
+        return ["Time", t.hour.format("%02d") + ":" + min + sec];
     }
 
     private function _dateParts() as Array<String> {
@@ -751,81 +864,31 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 "-" +
                 info.year.format("%04d");
         } else {
-            value =
-                DAY_NAMES[info.day_of_week - 1] +
-                ", " +
-                info.day +
-                " " +
-                MONTH_NAMES[info.month - 1];
+            // Formats 0, 4, 5: year not included, optionally appended
+            var yr = _getBoolProp("showYear") ? " " + info.year.toString() : "";
+            if (fmt == 4) {
+                value =
+                    DAY_NAMES[info.day_of_week - 1] +
+                    " " +
+                    info.day.format("%02d") +
+                    yr;
+            } else if (fmt == 5) {
+                value =
+                    info.day.format("%02d") +
+                    " " +
+                    MONTH_NAMES[info.month - 1] +
+                    yr;
+            } else {
+                value =
+                    DAY_NAMES[info.day_of_week - 1] +
+                    ", " +
+                    info.day +
+                    " " +
+                    MONTH_NAMES[info.month - 1] +
+                    yr;
+            }
         }
         return ["Date", value];
-    }
-
-    private function _partsHR() as Array<String> {
-        var a = Activity.getActivityInfo();
-        if (a.currentHeartRate != null) {
-            return ["Rate", a.currentHeartRate.toString()];
-        }
-        return ["Rate", "-"];
-    }
-
-    private function _partsCalories() as Array<String> {
-        var info = ActivityMonitor.getInfo();
-        return ["Kcal", (info.calories != null ? info.calories : 0).toString()];
-    }
-
-    private function _partsDistance() as Array<String> {
-        var info = ActivityMonitor.getInfo();
-        if (info.distance == null) {
-            return ["Dist", "-"];
-        }
-        if (System.getDeviceSettings().distanceUnits == System.UNIT_METRIC) {
-            return ["Dist", (info.distance / 100000.0).format("%.2f") + "km"];
-        }
-        return ["Dist", (info.distance / 160934.0).format("%.2f") + "mi"];
-    }
-
-    private function _partsAltitude() as Array<String> {
-        var a = Activity.getActivityInfo();
-        if (a.altitude == null) {
-            return ["Alti", "-"];
-        }
-        if (System.getDeviceSettings().distanceUnits == System.UNIT_METRIC) {
-            return ["Alti", a.altitude.format("%.0f") + "m"];
-        }
-        return ["Alti", (a.altitude * 3.28084).format("%.0f") + "ft"];
-    }
-
-    private function _partsFloors() as Array<String> {
-        var info = ActivityMonitor.getInfo();
-        return [
-            "Strs",
-            (info.floorsClimbed != null
-                ? info.floorsClimbed as Number
-                : 0
-            ).toString() +
-                " " +
-                (info.floorsDescended != null
-                    ? info.floorsDescended as Number
-                    : 0
-                ).toString(),
-        ];
-    }
-
-    private function _partsSpO2() as Array<String> {
-        var a = Activity.getActivityInfo();
-        if (a.currentOxygenSaturation != null) {
-            return ["SpO2", a.currentOxygenSaturation.format("%.0f") + "%"];
-        }
-        return ["SpO2", "-"];
-    }
-
-    private function _partsActiveMin() as Array<String> {
-        var mins = ActivityMonitor.getInfo().activeMinutesWeek;
-        if (mins != null && mins.total != null) {
-            return ["Intv", (mins.total as Number).toString()];
-        }
-        return ["Intv", "0"];
     }
 
     private function _refreshWeather() as Void {
@@ -833,32 +896,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (c == null) {
             return;
         }
-        var metric =
-            System.getDeviceSettings().distanceUnits == System.UNIT_METRIC;
+        var metric = _isMetric();
         _wxUnit = metric ? "C" : "F";
         if (c.temperature != null) {
             var tf = c.temperature as Float;
-            _wxTemp = metric
-                ? tf.format("%.1f")
-                : ((tf * 9.0) / 5.0 + 32.0).format("%.1f");
+            _wxTemp = metric ? tf.format("%.1f") : _toF(tf).format("%.1f");
         }
         if (c.feelsLikeTemperature != null) {
             var tf = c.feelsLikeTemperature as Float;
-            _wxFeels = metric
-                ? tf.format("%.1f")
-                : ((tf * 9.0) / 5.0 + 32.0).format("%.1f");
+            _wxFeels = metric ? tf.format("%.1f") : _toF(tf).format("%.1f");
         }
         if (c.lowTemperature != null) {
             var tf = c.lowTemperature as Float;
-            _wxLow = metric
-                ? tf.format("%.0f")
-                : ((tf * 9.0) / 5.0 + 32.0).format("%.0f");
+            _wxLow = metric ? tf.format("%.0f") : _toF(tf).format("%.0f");
         }
         if (c.highTemperature != null) {
             var tf = c.highTemperature as Float;
-            _wxHigh = metric
-                ? tf.format("%.0f")
-                : ((tf * 9.0) / 5.0 + 32.0).format("%.0f");
+            _wxHigh = metric ? tf.format("%.0f") : _toF(tf).format("%.0f");
         }
         if (c.precipitationChance != null) {
             _wxPrecip = (c.precipitationChance as Number).toString() + "%";
@@ -869,8 +923,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? (spd * 3.6).format("%.0f") + "km/h"
                 : (spd * 2.237).format("%.0f") + "mph";
             if (c.windBearing != null) {
-                _wxWind =
-                    _wxWind +
+                _wxWind +=
                     " " +
                     WIND_DIRS[(((c.windBearing as Number) + 22) / 45) % 8];
             }
@@ -934,6 +987,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    private function _isMetric() as Boolean {
+        return System.getDeviceSettings().distanceUnits == System.UNIT_METRIC;
+    }
+
+    private function _toF(c as Float) as Float {
+        return (c * 9.0) / 5.0 + 32.0;
+    }
+
     private function _getPhase() as Number {
         return (System.getTimer() / (_getProp("rotateInterval", 5) * 1000)) % 3;
     }
@@ -946,13 +1007,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return defaultVal;
     }
 
+    private function _getBoolProp(key as String) as Boolean {
+        var val = Properties.getValue(key);
+        if (val instanceof Boolean) {
+            return val as Boolean;
+        }
+        return false;
+    }
+
     // Called every second on AMOLED. Blinks the cursor via setClip so only that region
-    // redraws. On phase change, triggers a full onUpdate to flip the alt-field display.
+    // redraws. On phase change or when seconds are shown, triggers a full onUpdate.
     public function onPartialUpdate(dc as Dc) as Void {
         var now = System.getTimer();
         var phase = _getPhase();
         if (phase != _lastPhase) {
             _lastPhase = phase;
+            WatchUi.requestUpdate();
+            return;
+        }
+        if (_getBoolProp("showSeconds")) {
             WatchUi.requestUpdate();
             return;
         }

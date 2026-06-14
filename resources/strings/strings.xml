@@ -6,6 +6,7 @@
   <string id="FontJetBrainsMono">JetBrains Mono</string>
   <string id="FontSpaceMono">Space Mono</string>
   <string id="FontFiraCodeMono">Fira Code Mono</string>
+  <string id="NBArchitekt">NB Architekt</string>
   <string id="FontSize">Font Size</string>
   <string id="FontSizeSmall">Small</string>
   <string id="FontSizeMedium">Medium</string>
@@ -17,11 +18,15 @@
   <string id="ScanlinesStrong">Strong</string>
 
   <!-- Screen 1: display options -->
+  <string id="ShowSeconds">Show Seconds</string>
+  <string id="ShowYear">Show Year in Date</string>
   <string id="DateFormat">Date Format</string>
   <string id="DateFormatDayMon">Day Month (Mon, 1 Jan)</string>
   <string id="DateFormatYMD">ISO (YYYY-MM-DD)</string>
   <string id="DateFormatDMY">DD-MM-YYYY</string>
   <string id="DateFormatMDY">MM-DD-YYYY</string>
+  <string id="DateFormatDayNum">Day Name + Number (Mon 14)</string>
+  <string id="DateFormatDMon">Date + Month (14 Jun)</string>
   <string id="RotateInterval">Rotate Every</string>
 
   <!-- Screen 1: fixed row colors -->
@@ -77,17 +82,27 @@
   <string id="ColorPurple">Purple</string>
   <string id="ColorDarkGrey">Dark Grey</string>
   <string id="ColorSkyBlue">Sky Blue</string>
+  <string id="ColorAmber">Amber</string>
+  <string id="ColorEmerald">Emerald</string>
+  <string id="ColorTurquoise">Turquoise</string>
+  <string id="ColorCoral">Coral</string>
+  <string id="ColorViolet">Violet</string>
 
   <!-- Shared: data field options -->
   <string id="FieldNone">None (hidden)</string>
   <string id="FieldSteps">Steps</string>
   <string id="FieldHR">Heart Rate</string>
-  <string id="FieldCalories">Calories</string>
+  <string id="FieldCalories">Calories (Daily)</string>
+  <string id="FieldCalAct">Calories (Activity)</string>
   <string id="FieldDistance">Distance</string>
   <string id="FieldAltitude">Altitude</string>
   <string id="FieldFloors">Stairs</string>
   <string id="FieldSpO2">Blood Oxygen</string>
   <string id="FieldActiveMin">Intensity Mins</string>
+  <string id="FieldStress">Stress Score</string>
+  <string id="FieldBodyBat">Body Battery</string>
+  <string id="FieldResp">Respiration Rate</string>
+  <string id="FieldHRMean">Heart Rate (Mean)</string>
   <string id="FieldWxTemp">Weather: Temperature</string>
   <string id="FieldWxFeels">Weather: Feels Like</string>
   <string id="FieldWxPrecip">Weather: Precipitation</string>
@@ -98,4 +113,11 @@
   <string id="FieldWxTempMinMax">Weather: Temp + Min/Max</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
   <string id="FieldWxTempWind">Weather: Temp + Wind</string>
+  <string id="FieldRecovery">Recovery Time</string>
+  <string id="FieldMoveBar">Move Bar</string>
+  <string id="FieldTempWrist">Wrist Temperature</string>
+  <string id="FieldActiveMinDay">Active Mins (Daily)</string>
+  <string id="FieldHRMax">Heart Rate (Max)</string>
+  <string id="FieldPressure">Pressure</string>
+  <string id="FieldElevation">Elevation (Baro)</string>
 </strings>

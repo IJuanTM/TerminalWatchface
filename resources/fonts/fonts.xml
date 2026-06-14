@@ -11,4 +11,8 @@
   <font id="FiraCode_S" filename="FiraCode/FiraCode_S.fnt" antialias="true" />
   <font id="FiraCode_M" filename="FiraCode/FiraCode_M.fnt" antialias="true" />
   <font id="FiraCode_L" filename="FiraCode/FiraCode_L.fnt" antialias="true" />
+  <font id="NBArchitekt_XS" filename="NBArchitekt/NBArchitekt_XS.fnt" antialias="true" />
+  <font id="NBArchitekt_S" filename="NBArchitekt/NBArchitekt_S.fnt" antialias="true" />
+  <font id="NBArchitekt_M" filename="NBArchitekt/NBArchitekt_M.fnt" antialias="true" />
+  <font id="NBArchitekt_L" filename="NBArchitekt/NBArchitekt_L.fnt" antialias="true" />
 </resources>

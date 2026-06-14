@@ -6,6 +6,8 @@
   <property id="scanlines" type="number">2</property>
 
   <!-- Display options -->
+  <property id="showSeconds" type="boolean">false</property>
+  <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>
   <property id="rotateInterval" type="number">5</property>
 
@@ -39,12 +41,12 @@
   <property id="line4TertiaryLabelColor" type="number">8</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
 
-  <!-- Line 5: Heart Rate (primary), Calories (secondary), red labels -->
+  <!-- Line 5: Heart Rate (primary), red label -->
   <property id="line5Primary" type="number">1</property>
   <property id="line5PrimaryLabelColor" type="number">5</property>
   <property id="line5PrimaryValueColor" type="number">0</property>
-  <property id="line5Secondary" type="number">2</property>
-  <property id="line5SecondaryLabelColor" type="number">5</property>
+  <property id="line5Secondary" type="number">7</property>
+  <property id="line5SecondaryLabelColor" type="number">8</property>
   <property id="line5SecondaryValueColor" type="number">0</property>
   <property id="line5Tertiary" type="number">7</property>
   <property id="line5TertiaryLabelColor" type="number">8</property>
