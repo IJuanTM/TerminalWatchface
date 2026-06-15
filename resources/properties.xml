@@ -19,7 +19,7 @@
   <property id="line2LabelColor" type="number">8</property>
   <property id="line2ValueColor" type="number">0</property>
 
-  <!-- Line 3: Temp+MinMax (primary), Cond+Precip (secondary), blue labels -->
+  <!-- Line 3 -->
   <property id="line3Primary" type="number">18</property>
   <property id="line3PrimaryLabelColor" type="number">6</property>
   <property id="line3PrimaryValueColor" type="number">0</property>
@@ -30,7 +30,7 @@
   <property id="line3TertiaryLabelColor" type="number">8</property>
   <property id="line3TertiaryValueColor" type="number">0</property>
 
-  <!-- Line 4: Steps (primary), Altitude (secondary), green labels -->
+  <!-- Line 4 -->
   <property id="line4Primary" type="number">0</property>
   <property id="line4PrimaryLabelColor" type="number">1</property>
   <property id="line4PrimaryValueColor" type="number">0</property>
@@ -41,7 +41,7 @@
   <property id="line4TertiaryLabelColor" type="number">8</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
 
-  <!-- Line 5: Heart Rate (primary), red label -->
+  <!-- Line 5 -->
   <property id="line5Primary" type="number">1</property>
   <property id="line5PrimaryLabelColor" type="number">5</property>
   <property id="line5PrimaryValueColor" type="number">0</property>
@@ -51,5 +51,42 @@
   <property id="line5Tertiary" type="number">7</property>
   <property id="line5TertiaryLabelColor" type="number">8</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
+
+  <!-- Graph view mode/time frame/line color/dual-graph per graphable field type -->
+  <property id="hrViewMode" type="number">2</property>
+  <property id="hrTimeFrame" type="number">60</property>
+  <property id="hrLineColor" type="number">5</property>
+  <property id="hrSecondaryField" type="number">1</property>
+  <property id="hrSecondaryColor" type="number">0</property>
+  <property id="bodyBatViewMode" type="number">0</property>
+  <property id="bodyBatTimeFrame" type="number">60</property>
+  <property id="bodyBatLineColor" type="number">0</property>
+  <property id="bodyBatSecondaryField" type="number">2</property>
+  <property id="bodyBatSecondaryColor" type="number">0</property>
+  <property id="stressViewMode" type="number">0</property>
+  <property id="stressTimeFrame" type="number">60</property>
+  <property id="stressLineColor" type="number">0</property>
+  <property id="stressSecondaryField" type="number">0</property>
+  <property id="stressSecondaryColor" type="number">0</property>
+  <property id="spo2ViewMode" type="number">0</property>
+  <property id="spo2TimeFrame" type="number">60</property>
+  <property id="spo2LineColor" type="number">0</property>
+  <property id="spo2SecondaryField" type="number">0</property>
+  <property id="spo2SecondaryColor" type="number">0</property>
+  <property id="tempWristViewMode" type="number">0</property>
+  <property id="tempWristTimeFrame" type="number">60</property>
+  <property id="tempWristLineColor" type="number">0</property>
+  <property id="tempWristSecondaryField" type="number">0</property>
+  <property id="tempWristSecondaryColor" type="number">0</property>
+  <property id="elevationViewMode" type="number">0</property>
+  <property id="elevationTimeFrame" type="number">60</property>
+  <property id="elevationLineColor" type="number">0</property>
+  <property id="elevationSecondaryField" type="number">6</property>
+  <property id="elevationSecondaryColor" type="number">0</property>
+  <property id="pressureViewMode" type="number">2</property>
+  <property id="pressureTimeFrame" type="number">30</property>
+  <property id="pressureLineColor" type="number">0</property>
+  <property id="pressureSecondaryField" type="number">5</property>
+  <property id="pressureSecondaryColor" type="number">0</property>
 
 </properties>

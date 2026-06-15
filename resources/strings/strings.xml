@@ -17,7 +17,7 @@
   <string id="ScanlinesMedium">Medium</string>
   <string id="ScanlinesStrong">Strong</string>
 
-  <!-- Screen 1: display options -->
+  <!-- Display options -->
   <string id="ShowSeconds">Show Seconds</string>
   <string id="ShowYear">Show Year in Date</string>
   <string id="DateFormat">Date Format</string>
@@ -29,7 +29,7 @@
   <string id="DateFormatDMon">Date + Month (14 Jun)</string>
   <string id="RotateInterval">Rotate Every</string>
 
-  <!-- Screen 1: fixed row colors -->
+  <!-- Fixed rows -->
   <string id="Line1LabelColor">Time: Label Color</string>
   <string id="Line1ValueColor">Time: Value Color</string>
   <string id="Line2LabelColor">Date: Label Color</string>
@@ -88,7 +88,7 @@
   <string id="ColorCoral">Coral</string>
   <string id="ColorViolet">Violet</string>
 
-  <!-- Shared: data field options -->
+  <!-- Shared: field options -->
   <string id="FieldNone">None (hidden)</string>
   <string id="FieldSteps">Steps</string>
   <string id="FieldHR">Heart Rate</string>
@@ -120,4 +120,69 @@
   <string id="FieldHRMax">Heart Rate (Max)</string>
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
+
+  <!-- Shared: graph view mode options -->
+  <string id="ViewModeValue">Value</string>
+  <string id="ViewModeGraph">Graph</string>
+  <string id="ViewModeGraphValue">Graph + Value</string>
+  <string id="ViewModeDualGraph">Dual Graph</string>
+
+  <!-- Shared: graph time frame options -->
+  <string id="TimeFrame15m">15 minutes</string>
+  <string id="TimeFrame30m">30 minutes</string>
+  <string id="TimeFrame1h">1 hour</string>
+  <string id="TimeFrame2h">2 hours</string>
+  <string id="TimeFrame4h">4 hours</string>
+  <string id="TimeFrame8h">8 hours</string>
+  <string id="TimeFrame24h">24 hours</string>
+
+  <!-- Graph settings: Heart Rate -->
+  <string id="HRViewMode">HR: View Mode</string>
+  <string id="HRTimeFrame">HR: Time Frame</string>
+  <string id="HRLineColor">HR: Line Color</string>
+  <string id="HRSecondaryField">HR: 2nd Line Field</string>
+  <string id="HRSecondaryColor">HR: 2nd Line Color</string>
+
+  <!-- Graph settings: Body Battery -->
+  <string id="BodyBatViewMode">Body Battery: View Mode</string>
+  <string id="BodyBatTimeFrame">Body Battery: Time Frame</string>
+  <string id="BodyBatLineColor">Body Battery: Line Color</string>
+  <string id="BodyBatSecondaryField">Body Bat: 2nd Line Field</string>
+  <string id="BodyBatSecondaryColor">Body Bat: 2nd Line Color</string>
+
+  <!-- Graph settings: Stress -->
+  <string id="StressViewMode">Stress: View Mode</string>
+  <string id="StressTimeFrame">Stress: Time Frame</string>
+  <string id="StressLineColor">Stress: Line Color</string>
+  <string id="StressSecondaryField">Stress: 2nd Line Field</string>
+  <string id="StressSecondaryColor">Stress: 2nd Line Color</string>
+
+  <!-- Graph settings: Blood O2 -->
+  <string id="SpO2ViewMode">Blood O2: View Mode</string>
+  <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
+  <string id="SpO2LineColor">Blood O2: Line Color</string>
+  <string id="SpO2SecondaryField">Blood O2: 2nd Line Field</string>
+  <string id="SpO2SecondaryColor">Blood O2: 2nd Line Color</string>
+
+  <!-- Graph settings: Wrist Temperature -->
+  <string id="TempWristViewMode">Wrist Temp: View Mode</string>
+  <string id="TempWristTimeFrame">Wrist Temp: Time Frame</string>
+  <string id="TempWristLineColor">Wrist Temp: Line Color</string>
+  <string id="TempWristSecondaryField">Wrist Temp: 2nd Line Field</string>
+  <string id="TempWristSecondaryColor">Wrist Temp: 2nd Line Color</string>
+
+  <!-- Graph settings: Elevation -->
+  <string id="ElevationViewMode">Elevation: View Mode</string>
+  <string id="ElevationTimeFrame">Elevation: Time Frame</string>
+  <string id="ElevationLineColor">Elevation: Line Color</string>
+  <string id="ElevationSecondaryField">Elevation: 2nd Line Field</string>
+  <string id="ElevationSecondaryColor">Elevation: 2nd Line Color</string>
+
+  <!-- Graph settings: Pressure -->
+  <string id="PressureViewMode">Pressure: View Mode</string>
+  <string id="PressureTimeFrame">Pressure: Time Frame</string>
+  <string id="PressureLineColor">Pressure: Line Color</string>
+  <string id="PressureSecondaryField">Pressure: 2nd Line Field</string>
+  <string id="PressureSecondaryColor">Pressure: 2nd Line Color</string>
+
 </strings>
