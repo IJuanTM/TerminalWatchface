@@ -21,7 +21,11 @@
       "Bash(where /r \"C:\\\\Users\\\\Iwan\\\\AppData\\\\Roaming\\\\Garmin\\\\ConnectIQ\\\\Sdks\\\\connectiq-sdk-win-9.2.0-2026-06-09-92a1605b2\\\\samples\" \"*.mc\")",
       "Bash(xargs grep -l \"WatchFaceDelegate\\\\|onSwipe\\\\|onTap\")",
       "mcp__ide__getDiagnostics",
-      "WebSearch"
+      "WebSearch",
+      "PowerShell(python --version; python -c \"from PIL import Image; print\\('Pillow OK'\\)\" 2>&1)",
+      "PowerShell(pip install *)",
+      "PowerShell(python \"C:\\\\Users\\\\Iwan\\\\Proton Drive\\\\iwanvanderwal\\\\My files\\\\Programming\\\\Watchfaces\\\\TerminalWatchface\\\\scripts\\\\gen_icons.py\")",
+      "Bash(git diff *)"
     ]
   }
 }

@@ -111,8 +111,146 @@ const MONTH_NAMES =
 
 const WIND_DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as Array<String>;
 
-const ARROW_W = 10;
 const ARROW_PAD = 2;
+
+const ICON_ARROW_UP = 0;
+const ICON_ARROW_DN = 1;
+const ICON_DEG = 2;
+const ICON_BOLT = 3;
+
+// Resource lookup arrays indexed by color index (0-19). See gen_icons.py.
+const AUP_A_RES = [
+    $.Rez.Drawables.AupA0,
+    $.Rez.Drawables.AupA1,
+    $.Rez.Drawables.AupA2,
+    $.Rez.Drawables.AupA3,
+    $.Rez.Drawables.AupA4,
+    $.Rez.Drawables.AupA5,
+    $.Rez.Drawables.AupA6,
+    $.Rez.Drawables.AupA7,
+    $.Rez.Drawables.AupA8,
+    $.Rez.Drawables.AupA9,
+    $.Rez.Drawables.AupA10,
+    $.Rez.Drawables.AupA11,
+    $.Rez.Drawables.AupA12,
+    $.Rez.Drawables.AupA13,
+    $.Rez.Drawables.AupA14,
+    $.Rez.Drawables.AupA15,
+    $.Rez.Drawables.AupA16,
+    $.Rez.Drawables.AupA17,
+    $.Rez.Drawables.AupA18,
+    $.Rez.Drawables.AupA19,
+];
+const AUP_B_RES = [
+    $.Rez.Drawables.AupB0,
+    $.Rez.Drawables.AupB1,
+    $.Rez.Drawables.AupB2,
+    $.Rez.Drawables.AupB3,
+    $.Rez.Drawables.AupB4,
+    $.Rez.Drawables.AupB5,
+    $.Rez.Drawables.AupB6,
+    $.Rez.Drawables.AupB7,
+    $.Rez.Drawables.AupB8,
+    $.Rez.Drawables.AupB9,
+    $.Rez.Drawables.AupB10,
+    $.Rez.Drawables.AupB11,
+    $.Rez.Drawables.AupB12,
+    $.Rez.Drawables.AupB13,
+    $.Rez.Drawables.AupB14,
+    $.Rez.Drawables.AupB15,
+    $.Rez.Drawables.AupB16,
+    $.Rez.Drawables.AupB17,
+    $.Rez.Drawables.AupB18,
+    $.Rez.Drawables.AupB19,
+];
+const ADN_A_RES = [
+    $.Rez.Drawables.AdnA0,
+    $.Rez.Drawables.AdnA1,
+    $.Rez.Drawables.AdnA2,
+    $.Rez.Drawables.AdnA3,
+    $.Rez.Drawables.AdnA4,
+    $.Rez.Drawables.AdnA5,
+    $.Rez.Drawables.AdnA6,
+    $.Rez.Drawables.AdnA7,
+    $.Rez.Drawables.AdnA8,
+    $.Rez.Drawables.AdnA9,
+    $.Rez.Drawables.AdnA10,
+    $.Rez.Drawables.AdnA11,
+    $.Rez.Drawables.AdnA12,
+    $.Rez.Drawables.AdnA13,
+    $.Rez.Drawables.AdnA14,
+    $.Rez.Drawables.AdnA15,
+    $.Rez.Drawables.AdnA16,
+    $.Rez.Drawables.AdnA17,
+    $.Rez.Drawables.AdnA18,
+    $.Rez.Drawables.AdnA19,
+];
+const ADN_B_RES = [
+    $.Rez.Drawables.AdnB0,
+    $.Rez.Drawables.AdnB1,
+    $.Rez.Drawables.AdnB2,
+    $.Rez.Drawables.AdnB3,
+    $.Rez.Drawables.AdnB4,
+    $.Rez.Drawables.AdnB5,
+    $.Rez.Drawables.AdnB6,
+    $.Rez.Drawables.AdnB7,
+    $.Rez.Drawables.AdnB8,
+    $.Rez.Drawables.AdnB9,
+    $.Rez.Drawables.AdnB10,
+    $.Rez.Drawables.AdnB11,
+    $.Rez.Drawables.AdnB12,
+    $.Rez.Drawables.AdnB13,
+    $.Rez.Drawables.AdnB14,
+    $.Rez.Drawables.AdnB15,
+    $.Rez.Drawables.AdnB16,
+    $.Rez.Drawables.AdnB17,
+    $.Rez.Drawables.AdnB18,
+    $.Rez.Drawables.AdnB19,
+];
+const DEG_A_RES = [
+    $.Rez.Drawables.DegA0,
+    $.Rez.Drawables.DegA1,
+    $.Rez.Drawables.DegA2,
+    $.Rez.Drawables.DegA3,
+    $.Rez.Drawables.DegA4,
+    $.Rez.Drawables.DegA5,
+    $.Rez.Drawables.DegA6,
+    $.Rez.Drawables.DegA7,
+    $.Rez.Drawables.DegA8,
+    $.Rez.Drawables.DegA9,
+    $.Rez.Drawables.DegA10,
+    $.Rez.Drawables.DegA11,
+    $.Rez.Drawables.DegA12,
+    $.Rez.Drawables.DegA13,
+    $.Rez.Drawables.DegA14,
+    $.Rez.Drawables.DegA15,
+    $.Rez.Drawables.DegA16,
+    $.Rez.Drawables.DegA17,
+    $.Rez.Drawables.DegA18,
+    $.Rez.Drawables.DegA19,
+];
+const DEG_B_RES = [
+    $.Rez.Drawables.DegB0,
+    $.Rez.Drawables.DegB1,
+    $.Rez.Drawables.DegB2,
+    $.Rez.Drawables.DegB3,
+    $.Rez.Drawables.DegB4,
+    $.Rez.Drawables.DegB5,
+    $.Rez.Drawables.DegB6,
+    $.Rez.Drawables.DegB7,
+    $.Rez.Drawables.DegB8,
+    $.Rez.Drawables.DegB9,
+    $.Rez.Drawables.DegB10,
+    $.Rez.Drawables.DegB11,
+    $.Rez.Drawables.DegB12,
+    $.Rez.Drawables.DegB13,
+    $.Rez.Drawables.DegB14,
+    $.Rez.Drawables.DegB15,
+    $.Rez.Drawables.DegB16,
+    $.Rez.Drawables.DegB17,
+    $.Rez.Drawables.DegB18,
+    $.Rez.Drawables.DegB19,
+];
 
 class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _w as Number = 0;
@@ -140,37 +278,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxForecastData as Array<Float>? = null;
     private var _wxLow as String = "-";
     private var _wxHigh as String = "-";
-    private var _bmpUp as Graphics.BitmapType? = null;
-    private var _bmpDn as Graphics.BitmapType? = null;
-    private var _bmpDeg as Graphics.BitmapType? = null;
-    private var _bmpBolt as Graphics.BitmapType? = null;
-    private const _arrowH as Number = 18;
-    private const _boltH as Number = 14;
-    private const _degW as Number = 8;
+    private var _sizeSet as Number = 0; // 0 = lineHeight 30, 1 = lineHeight 32
+    private var _bmpCache as Dictionary = {};
+    private var _arrowH as Number = 16;
+    private var _bmpArrowW as Number = 14;
+    private var _boltH as Number = 16;
+    private var _bmpBoltW as Number = 16;
+    private var _degW as Number = 8;
     private var _wxUnit as String = "C";
     private var _fh as Number = 20;
     private var _charW as Number = 12;
     private var _tinyFh as Number = 10;
+    private var _amInfo as ActivityMonitor.Info? = null;
+    private var _acInfo as Activity.Info? = null;
+    private var _wxLastMin as Number = -1;
 
     public function initialize() {
         WatchFace.initialize();
         var s = System.getDeviceSettings();
         _w = s.screenWidth;
         _h = s.screenHeight;
-        try {
-            _bmpUp =
-                WatchUi.loadResource($.Rez.Drawables.ArrowUp) as
-                Graphics.BitmapType;
-            _bmpDn =
-                WatchUi.loadResource($.Rez.Drawables.ArrowDn) as
-                Graphics.BitmapType;
-            _bmpDeg =
-                WatchUi.loadResource($.Rez.Drawables.Deg) as
-                Graphics.BitmapType;
-            _bmpBolt =
-                WatchUi.loadResource($.Rez.Drawables.Bolt) as
-                Graphics.BitmapType;
-        } catch (e instanceof Lang.Exception) {}
+        _amInfo = ActivityMonitor.getInfo();
+        _acInfo = Activity.getActivityInfo();
         reloadFont();
     }
 
@@ -219,12 +348,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 WatchUi.loadResource(tinyRes[choice]) as
                 Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
+
+        // choice 1 = SpaceMono (lineHeight 30); all others use lineHeight 28
+        var newSizeSet = choice == 1 ? 1 : 0;
+        if (newSizeSet != _sizeSet) {
+            _sizeSet = newSizeSet;
+            _bmpCache = {};
+        }
+        if (_sizeSet == 1) {
+            _arrowH = 16;
+            _bmpArrowW = 14;
+            _boltH = 18;
+            _bmpBoltW = 16;
+            _degW = 8;
+        } else {
+            _arrowH = 15;
+            _bmpArrowW = 13;
+            _boltH = 17;
+            _bmpBoltW = 15;
+            _degW = 7;
+        }
     }
 
     public function onUpdate(dc as Dc) as Void {
         var now = System.getTimer();
         var phase = _getPhase(now);
         _cursorOn = (now / 1000) % 2 == 0;
+        _amInfo = ActivityMonitor.getInfo();
+        _acInfo = Activity.getActivityInfo();
         _refreshWeather();
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
@@ -312,13 +463,63 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawFooter(dc, footerY + _fh + 2 * gap);
     }
 
+    // Returns the color-tinted, size-correct bitmap for the given icon and color
+    // index. Lazy-loads from resources and caches by (iconType, _sizeSet, colorIdx).
+    private function _getIconBmp(
+        iconType as Number,
+        colorIdx as Number
+    ) as Graphics.BitmapType? {
+        if (colorIdx < 0 || colorIdx >= COLORS.size()) {
+            colorIdx = 0;
+        }
+        var key = iconType * 40 + _sizeSet * 20 + colorIdx;
+        var cached = _bmpCache.get(key);
+        if (cached != null) {
+            return cached as Graphics.BitmapType;
+        }
+        try {
+            if (iconType == ICON_ARROW_UP) {
+                var arr = _sizeSet == 1 ? AUP_B_RES : AUP_A_RES;
+                var bmp =
+                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
+                _bmpCache.put(key, bmp);
+                return bmp;
+            }
+            if (iconType == ICON_ARROW_DN) {
+                var arr = _sizeSet == 1 ? ADN_B_RES : ADN_A_RES;
+                var bmp =
+                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
+                _bmpCache.put(key, bmp);
+                return bmp;
+            }
+            if (iconType == ICON_DEG) {
+                var arr = _sizeSet == 1 ? DEG_B_RES : DEG_A_RES;
+                var bmp =
+                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
+                _bmpCache.put(key, bmp);
+                return bmp;
+            }
+            if (iconType == ICON_BOLT) {
+                var bmp =
+                    WatchUi.loadResource(
+                        _sizeSet == 1
+                            ? $.Rez.Drawables.BoltB
+                            : $.Rez.Drawables.BoltA
+                    ) as Graphics.BitmapType;
+                _bmpCache.put(key, bmp);
+                return bmp;
+            }
+        } catch (e instanceof Lang.Exception) {}
+        return null;
+    }
+
     private function _drawHeader(dc as Dc, y as Number, gap as Number) as Void {
         var notifCount = System.getDeviceSettings().notificationCount;
-        if (notifCount == null || (notifCount as Number) == 0) {
+        if (notifCount == null || notifCount == 0) {
             return;
         }
         var textY = y - 2 * gap - dc.getFontHeight(_fontSmall);
-        var label = "[" + (notifCount as Number).toString() + "]";
+        var label = "[" + notifCount.toString() + "]";
         dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _w / 2,
@@ -339,18 +540,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             text = text + " [" + days.format("%.0f") + "d]";
         }
         dc.setColor(_colorFromIdx(colorIdx), Graphics.COLOR_TRANSPARENT);
-        if (stats.charging && _bmpBolt != null) {
+        var bolt = _getIconBmp(ICON_BOLT, colorIdx);
+        if (stats.charging && bolt != null) {
             var fhSm = dc.getFontHeight(_fontSmall);
             var spaced = " " + text;
             var textW = dc.getTextWidthInPixels(spaced, _fontSmall);
-            var startX = (_w - ARROW_W - textW) / 2;
-            dc.drawBitmap(
-                startX,
-                y + (fhSm - _boltH) / 2,
-                _bmpBolt as Graphics.BitmapType
-            );
+            var startX = (_w - _bmpBoltW - textW) / 2;
+            dc.drawBitmap(startX, y + (fhSm - _boltH) / 2, bolt);
             dc.drawText(
-                startX + ARROW_W,
+                startX + _bmpBoltW,
                 y,
                 _fontSmall,
                 spaced,
@@ -496,9 +694,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_STEPS) {
-            var info = ActivityMonitor.getInfo();
-            var steps = info.steps != null ? info.steps as Number : 0;
-            var goal = info.stepGoal != null ? info.stepGoal as Number : 10000;
+            var info = _amInfo as ActivityMonitor.Info;
+            var steps = info.steps != null ? info.steps : 0;
+            var goal = info.stepGoal != null ? info.stepGoal : 10000;
             var parts =
                 [
                     "Steps",
@@ -550,12 +748,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var gk = _fieldGraphKey(field);
         if (gk != null) {
-            var viewMode = _getProp((gk as String) + "ViewMode", VIEW_VALUE);
-            var periodMin = _getProp((gk as String) + "TimeFrame", 60);
-            var lineColor = _getProp(
-                (gk as String) + "LineColor",
-                (gk as String).equals("hr") ? 5 : 0
-            );
+            var viewMode = _getProp(gk + "ViewMode", VIEW_VALUE);
+            var periodMin = _getProp(gk + "TimeFrame", 60);
+            var lineColor = _getProp(gk + "LineColor", gk.equals("hr") ? 5 : 0);
             if (
                 viewMode == VIEW_GRAPH ||
                 viewMode == VIEW_GRAPH_VALUE ||
@@ -575,11 +770,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return;
             }
             if (viewMode == VIEW_DUAL_GRAPH) {
-                var secIdx = _getProp((gk as String) + "SecondaryField", 0);
+                var secIdx = _getProp(gk + "SecondaryField", 0);
                 if (secIdx < 0 || secIdx >= GRAPH_FIELDS.size()) {
                     secIdx = 0;
                 }
-                var lineColor2 = _getProp((gk as String) + "SecondaryColor", 0);
+                var lineColor2 = _getProp(gk + "SecondaryColor", 0);
                 _drawDualGraphRow(
                     dc,
                     cx,
@@ -605,27 +800,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         labelIdx as Number,
         valIdx as Number
     ) as Void {
-        var info = ActivityMonitor.getInfo();
+        var info = _amInfo as ActivityMonitor.Info;
         var up = (
-            info.floorsClimbed != null ? info.floorsClimbed as Number : 0
+            info.floorsClimbed != null ? info.floorsClimbed : 0
         ).toString();
         var dn = (
-            info.floorsDescended != null ? info.floorsDescended as Number : 0
+            info.floorsDescended != null ? info.floorsDescended : 0
         ).toString();
         _drawRow(dc, cx, y, ["Floors", ""], labelIdx, valIdx);
         var ay = y + (_fh - _arrowH) / 2;
         var x = cx + _pad;
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
-        if (_bmpUp != null) {
-            dc.drawBitmap(x, ay, _bmpUp as Graphics.BitmapType);
+        var bmpUp = _getIconBmp(ICON_ARROW_UP, valIdx);
+        var bmpDn = _getIconBmp(ICON_ARROW_DN, valIdx);
+        if (bmpUp != null) {
+            dc.drawBitmap(x, ay, bmpUp);
         }
-        x += ARROW_W + ARROW_PAD;
+        x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, up + " ", Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(up + " ", _font);
-        if (_bmpDn != null) {
-            dc.drawBitmap(x, ay, _bmpDn as Graphics.BitmapType);
+        if (bmpDn != null) {
+            dc.drawBitmap(x, ay, bmpDn);
         }
-        x += ARROW_W + ARROW_PAD;
+        x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
@@ -644,12 +841,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, _font, numStr, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(numStr, _font);
-        if (_bmpDeg != null) {
-            dc.drawBitmap(
-                x,
-                y + (_fh - _degW) / 4,
-                _bmpDeg as Graphics.BitmapType
-            );
+        var bmpDeg = _getIconBmp(ICON_DEG, valIdx);
+        if (bmpDeg != null) {
+            dc.drawBitmap(x, y + (_fh - _degW) / 4, bmpDeg);
         }
         x += _degW;
         dc.drawText(x, y, _font, _wxUnit + suffix, Graphics.TEXT_JUSTIFY_LEFT);
@@ -666,28 +860,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var ay = y + (_fh - _arrowH) / 2;
         var x = cx + _pad;
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
+        var bmpDeg = _getIconBmp(ICON_DEG, valIdx);
+        var bmpDn = _getIconBmp(ICON_ARROW_DN, valIdx);
+        var bmpUp = _getIconBmp(ICON_ARROW_UP, valIdx);
         dc.drawText(x, y, _font, _wxTemp, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxTemp, _font);
-        if (_bmpDeg != null) {
-            dc.drawBitmap(
-                x,
-                y + (_fh - _degW) / 4,
-                _bmpDeg as Graphics.BitmapType
-            );
+        if (bmpDeg != null) {
+            dc.drawBitmap(x, y + (_fh - _degW) / 4, bmpDeg);
         }
         x += _degW;
         dc.drawText(x, y, _font, _wxUnit + " [", Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxUnit + " [", _font);
-        if (_bmpDn != null) {
-            dc.drawBitmap(x, ay, _bmpDn as Graphics.BitmapType);
+        if (bmpDn != null) {
+            dc.drawBitmap(x, ay, bmpDn);
         }
-        x += ARROW_W + ARROW_PAD;
+        x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, _wxLow + "] [", Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxLow + "] [", _font);
-        if (_bmpUp != null) {
-            dc.drawBitmap(x, ay, _bmpUp as Graphics.BitmapType);
+        if (bmpUp != null) {
+            dc.drawBitmap(x, ay, bmpUp);
         }
-        x += ARROW_W + ARROW_PAD;
+        x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, _wxHigh + "]", Graphics.TEXT_JUSTIFY_LEFT);
     }
 
@@ -927,6 +1120,35 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return null;
     }
 
+    private function _readIter(
+        iter as SensorHistory.SensorHistoryIterator
+    ) as Array<Float>? {
+        var raw = [] as Array<Float>;
+        var s = iter.next();
+        while (s != null) {
+            if (s.data != null) {
+                var v = s.data;
+                raw.add(
+                    v instanceof Float ? v as Float : (v as Number).toFloat()
+                );
+            }
+            s = iter.next();
+        }
+        if (raw.size() < 2) {
+            return null;
+        }
+        var n = raw.size();
+        if (n <= 300) {
+            return raw;
+        }
+        var result = [] as Array<Float>;
+        var step = n.toFloat() / 300.0;
+        for (var i = 0; i < 300; i++) {
+            result.add(raw[(i.toFloat() * step).toNumber()]);
+        }
+        return result;
+    }
+
     private function _getFieldHistory(
         field as Number,
         periodMin as Number
@@ -946,89 +1168,74 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
 
         var opts = { :period => periodMin };
-        var iter = null;
         if (
             field == FIELD_HR ||
             field == FIELD_HR_MEAN ||
             field == FIELD_HR_MAX
         ) {
-            iter = SensorHistory.getHeartRateHistory(opts);
-        } else if (field == FIELD_BODY_BAT) {
-            iter = SensorHistory.getBodyBatteryHistory(opts);
-        } else if (field == FIELD_STRESS) {
-            iter = SensorHistory.getStressHistory(opts);
-        } else if (field == FIELD_SPO2) {
-            iter = SensorHistory.getOxygenSaturationHistory(opts);
-        } else if (field == FIELD_TEMP_WRIST) {
-            iter = SensorHistory.getTemperatureHistory(opts);
-        } else if (field == FIELD_ELEVATION) {
-            iter = SensorHistory.getElevationHistory(opts);
-        } else if (field == FIELD_PRESSURE) {
-            iter = SensorHistory.getPressureHistory(opts);
-        }
-        if (iter == null) {
-            return null;
-        }
-
-        var raw = [] as Array<Float>;
-        var s = iter.next();
-        while (s != null) {
-            if (s.data != null) {
-                var v = s.data;
-                raw.add(
-                    v instanceof Float ? v as Float : (v as Number).toFloat()
-                );
+            var r = _readIter(SensorHistory.getHeartRateHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
             }
-            s = iter.next();
+            return r;
         }
-        if (raw.size() < 2) {
-            return null;
-        }
-
-        // Downsample to at most 300 points for drawing performance
-        var result = raw;
-        var n = raw.size();
-        if (n > 300) {
-            result = [] as Array<Float>;
-            var step = n.toFloat() / 300.0;
-            for (var i = 0; i < 300; i++) {
-                result.add(raw[(i.toFloat() * step).toNumber()]);
+        if (field == FIELD_BODY_BAT) {
+            var r = _readIter(SensorHistory.getBodyBatteryHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
             }
+            return r;
         }
-        _graphCache.put(cacheKey, result);
-        return result;
+        if (field == FIELD_STRESS) {
+            var r = _readIter(SensorHistory.getStressHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
+            }
+            return r;
+        }
+        if (field == FIELD_SPO2) {
+            var r = _readIter(SensorHistory.getOxygenSaturationHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
+            }
+            return r;
+        }
+        if (field == FIELD_TEMP_WRIST) {
+            var r = _readIter(SensorHistory.getTemperatureHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
+            }
+            return r;
+        }
+        if (field == FIELD_ELEVATION) {
+            var r = _readIter(SensorHistory.getElevationHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
+            }
+            return r;
+        }
+        if (field == FIELD_PRESSURE) {
+            var r = _readIter(SensorHistory.getPressureHistory(opts));
+            if (r != null) {
+                _graphCache.put(cacheKey, r);
+            }
+            return r;
+        }
+        return null;
     }
 
     private function _formatGraphLabel(field as Number, v as Float) as String {
-        if (
-            field == FIELD_HR ||
-            field == FIELD_HR_MEAN ||
-            field == FIELD_HR_MAX
-        ) {
-            return v.toNumber().toString();
-        }
-        if (field == FIELD_BODY_BAT) {
-            return v.toNumber().toString() + "%";
-        }
-        if (field == FIELD_STRESS) {
-            return v.toNumber().toString();
-        }
-        if (field == FIELD_SPO2) {
-            return v.toNumber().toString() + "%";
-        }
         if (field == FIELD_TEMP_WRIST || field == FIELD_WX_FORECAST) {
-            return _isMetric()
-                ? v.format("%.0f") + "C"
-                : _toF(v).format("%.0f") + "F";
+            return _isMetric() ? v.format("%.0f") : _toF(v).format("%.0f");
         }
         if (field == FIELD_ELEVATION) {
             return _isMetric()
-                ? v.format("%.0f") + "m"
-                : (v * 3.28084).format("%.0f") + "ft";
+                ? v.format("%.0f")
+                : (v * 3.28084).format("%.0f");
         }
         if (field == FIELD_PRESSURE) {
             return _isMetric()
-                ? (v / 100.0).format("%.0f") + "h"
+                ? (v / 100.0).format("%.0f")
                 : (v / 3386.39).format("%.1f");
         }
         return v.toNumber().toString();
@@ -1307,172 +1514,189 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Fields handled by special draw functions have early returns in _drawLineRow
     // and never reach here: FLOORS, WX_TEMP, WX_FEELS, WX_TEMP_COND, WX_TEMP_MINMAX, WX_TEMP_WIND
     private function _getFieldParts(field as Number) as Array<String> {
-        var info;
-        var a;
-        switch (field) {
-            case FIELD_HR:
-                a = Activity.getActivityInfo();
-                if (a.currentHeartRate != null) {
-                    return ["Heart", a.currentHeartRate.toString() + " bpm"];
-                }
-                return ["Heart", "-"];
-            case FIELD_CALORIES:
-                info = ActivityMonitor.getInfo();
+        if (field == FIELD_HR) {
+            var a = _acInfo as Activity.Info;
+            if (a.currentHeartRate != null) {
                 return [
-                    "Calories",
-                    (info.calories != null ? info.calories : 0).toString(),
+                    "Heart",
+                    (a.currentHeartRate as Number).toString() + " bpm",
                 ];
-            case FIELD_DISTANCE:
-                info = ActivityMonitor.getInfo();
-                if (info.distance == null) {
-                    return ["Distance", "-"];
-                }
-                return _isMetric()
-                    ? [
-                          "Distance",
-                          (info.distance / 100000.0).format("%.2f") + "km",
-                      ]
-                    : [
-                          "Distance",
-                          (info.distance / 160934.0).format("%.2f") + "mi",
-                      ];
-            case FIELD_ALTITUDE:
-                a = Activity.getActivityInfo();
-                if (a.altitude == null) {
-                    return ["Altitude", "-"];
-                }
-                return _isMetric()
-                    ? ["Altitude", a.altitude.format("%.0f") + "m"]
-                    : [
-                          "Altitude",
-                          (a.altitude * 3.28084).format("%.0f") + "ft",
-                      ];
-            case FIELD_SPO2:
-                a = Activity.getActivityInfo();
-                if (a.currentOxygenSaturation != null) {
-                    return [
-                        "SpO2",
-                        a.currentOxygenSaturation.format("%.0f") + "%",
-                    ];
-                }
-                return ["SpO2", "-"];
-            case FIELD_ACTIVE_MIN:
-                info = ActivityMonitor.getInfo().activeMinutesWeek;
-                if (info != null && info.total != null) {
-                    return ["Int Mins", (info.total as Number).toString()];
-                }
-                return ["Int Mins", "0"];
-            case FIELD_WX_PRECIP:
-                return ["Precip", _wxPrecip];
-            case FIELD_WX_WIND:
-                return ["Wind", _wxWind];
-            case FIELD_WX_UV:
-                return ["UV Index", _wxUv];
-            case FIELD_WX_COND:
-                return ["Weather", _wxCond];
-            case FIELD_WX_COND_PRECIP:
-                return ["Weather", _wxCond + " " + _wxPrecip];
-            case FIELD_STRESS:
-                info = ActivityMonitor.getInfo();
-                if (info.stressScore != null) {
-                    return ["Stress", (info.stressScore as Number).toString()];
-                }
-                return ["Stress", "-"];
-            case FIELD_BODY_BAT:
-                info = SensorHistory.getBodyBatteryHistory({}).next();
-                if (info != null && info.data != null) {
-                    return ["Body Bat", (info.data as Number).toString() + "%"];
-                }
-                return ["Body Bat", "-"];
-            case FIELD_RESP:
-                info = ActivityMonitor.getInfo();
-                if (info.respirationRate != null) {
-                    return [
-                        "Resp Rate",
-                        (info.respirationRate as Number).toString() + "/m",
-                    ];
-                }
-                return ["Resp Rate", "-"];
-            case FIELD_HR_MEAN:
-                a = Activity.getActivityInfo();
-                if (a.averageHeartRate != null) {
-                    return [
-                        "Avg HR",
-                        (a.averageHeartRate as Number).toString() + " bpm",
-                    ];
-                }
-                return ["Avg HR", "-"];
-            case FIELD_CAL_ACT:
-                a = Activity.getActivityInfo();
-                if (a.calories != null) {
-                    return ["Act Cals", (a.calories as Number).toString()];
-                }
-                return ["Act Cals", "0"];
-            case FIELD_RECOVERY:
-                info = ActivityMonitor.getInfo();
-                if (info.timeToRecovery != null) {
-                    return [
-                        "Recovery",
-                        (info.timeToRecovery as Number).toString() + "h",
-                    ];
-                }
-                return ["Recovery", "-"];
-            case FIELD_MOVE_BAR:
-                info = ActivityMonitor.getInfo();
-                if (info.moveBarLevel != null) {
-                    return [
-                        "Move Bar",
-                        (info.moveBarLevel as Number).toString() + "/5",
-                    ];
-                }
-                return ["Move Bar", "-"];
-            case FIELD_TEMP_WRIST:
-                info = SensorHistory.getTemperatureHistory({}).next();
-                if (info != null && info.data != null) {
-                    var tempC = info.data as Float;
-                    return _isMetric()
-                        ? ["Wrist Temp", tempC.format("%.1f") + "C"]
-                        : ["Wrist Temp", _toF(tempC).format("%.1f") + "F"];
-                }
-                return ["Wrist Temp", "-"];
-            case FIELD_ACTIVE_MIN_DAY:
-                info = ActivityMonitor.getInfo().activeMinutesDay;
-                if (info != null && info.total != null) {
-                    return ["Act Mins", (info.total as Number).toString()];
-                }
-                return ["Act Mins", "0"];
-            case FIELD_HR_MAX:
-                a = Activity.getActivityInfo();
-                if (a.maxHeartRate != null) {
-                    return [
-                        "Max HR",
-                        (a.maxHeartRate as Number).toString() + " bpm",
-                    ];
-                }
-                return ["Max HR", "-"];
-            case FIELD_PRESSURE:
-                info = SensorHistory.getPressureHistory({}).next();
-                if (info != null && info.data != null) {
-                    var pa = info.data as Float;
-                    return _isMetric()
-                        ? ["Pressure", (pa / 100.0).format("%.1f") + "hPa"]
-                        : ["Pressure", (pa / 3386.39).format("%.2f") + "inHg"];
-                }
-                return ["Pressure", "-"];
-            case FIELD_ELEVATION:
-                info = SensorHistory.getElevationHistory({}).next();
-                if (info != null && info.data != null) {
-                    var elev = info.data as Float;
-                    return _isMetric()
-                        ? ["Elevation", elev.format("%.0f") + "m"]
-                        : ["Elevation", (elev * 3.28084).format("%.0f") + "ft"];
-                }
-                return ["Elevation", "-"];
-            case FIELD_WX_FORECAST:
-                return ["Forecast", _wxTemp + _wxUnit];
-            default:
-                return ["", ""];
+            }
+            return ["Heart", "-"];
         }
+        if (field == FIELD_CALORIES) {
+            var info = _amInfo as ActivityMonitor.Info;
+            return [
+                "Calories",
+                (info.calories != null ? info.calories : 0).toString() +
+                    " kcal",
+            ];
+        }
+        if (field == FIELD_DISTANCE) {
+            var info = _amInfo as ActivityMonitor.Info;
+            if (info.distance == null) {
+                return ["Distance", "-"];
+            }
+            return _isMetric()
+                ? ["Distance", (info.distance / 100000.0).format("%.2f") + "km"]
+                : [
+                      "Distance",
+                      (info.distance / 160934.0).format("%.2f") + "mi",
+                  ];
+        }
+        if (field == FIELD_ALTITUDE) {
+            var a = _acInfo as Activity.Info;
+            if (a.altitude == null) {
+                return ["Altitude", "-"];
+            }
+            return _isMetric()
+                ? ["Altitude", a.altitude.format("%.0f") + "m"]
+                : ["Altitude", (a.altitude * 3.28084).format("%.0f") + "ft"];
+        }
+        if (field == FIELD_SPO2) {
+            var a = _acInfo as Activity.Info;
+            if (a.currentOxygenSaturation != null) {
+                return ["SpO2", a.currentOxygenSaturation.format("%.0f") + "%"];
+            }
+            return ["SpO2", "-"];
+        }
+        if (field == FIELD_ACTIVE_MIN) {
+            var mins = (_amInfo as ActivityMonitor.Info).activeMinutesWeek;
+            if (mins != null && mins.total != null) {
+                return ["Int Mins", (mins.total as Number).toString()];
+            }
+            return ["Int Mins", "0"];
+        }
+        if (field == FIELD_WX_PRECIP) {
+            return ["Precip", _wxPrecip];
+        }
+        if (field == FIELD_WX_WIND) {
+            return ["Wind", _wxWind];
+        }
+        if (field == FIELD_WX_UV) {
+            return ["UV Index", _wxUv];
+        }
+        if (field == FIELD_WX_COND) {
+            return ["Weather", _wxCond];
+        }
+        if (field == FIELD_WX_COND_PRECIP) {
+            return ["Weather", _wxCond + " " + _wxPrecip];
+        }
+        if (field == FIELD_STRESS) {
+            var info = _amInfo as ActivityMonitor.Info;
+            if (info.stressScore != null) {
+                return ["Stress", (info.stressScore as Number).toString()];
+            }
+            return ["Stress", "-"];
+        }
+        if (field == FIELD_BODY_BAT) {
+            var sample = SensorHistory.getBodyBatteryHistory({}).next();
+            if (sample != null && sample.data != null) {
+                return ["Body Bat", (sample.data as Number).toString() + "%"];
+            }
+            return ["Body Bat", "-"];
+        }
+        if (field == FIELD_RESP) {
+            var info = _amInfo as ActivityMonitor.Info;
+            if (info.respirationRate != null) {
+                return [
+                    "Resp Rate",
+                    (info.respirationRate as Number).toString() + "/m",
+                ];
+            }
+            return ["Resp Rate", "-"];
+        }
+        if (field == FIELD_HR_MEAN) {
+            var a = _acInfo as Activity.Info;
+            if (a.averageHeartRate != null) {
+                return [
+                    "Avg HR",
+                    (a.averageHeartRate as Number).toString() + " bpm",
+                ];
+            }
+            return ["Avg HR", "-"];
+        }
+        if (field == FIELD_CAL_ACT) {
+            var a = _acInfo as Activity.Info;
+            if (a.calories != null) {
+                return [
+                    "Act Cals",
+                    (a.calories as Number).toString() + " kcal",
+                ];
+            }
+            return ["Act Cals", "0 kcal"];
+        }
+        if (field == FIELD_RECOVERY) {
+            var info = _amInfo as ActivityMonitor.Info;
+            if (info.timeToRecovery != null) {
+                return [
+                    "Recovery",
+                    (info.timeToRecovery as Number).toString() + "h",
+                ];
+            }
+            return ["Recovery", "-"];
+        }
+        if (field == FIELD_MOVE_BAR) {
+            var info = _amInfo as ActivityMonitor.Info;
+            if (info.moveBarLevel != null) {
+                return [
+                    "Move Bar",
+                    (info.moveBarLevel as Number).toString() + "/5",
+                ];
+            }
+            return ["Move Bar", "-"];
+        }
+        if (field == FIELD_TEMP_WRIST) {
+            var sample = SensorHistory.getTemperatureHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var tempC = sample.data as Float;
+                return _isMetric()
+                    ? ["Wrist Temp", tempC.format("%.1f") + "C"]
+                    : ["Wrist Temp", _toF(tempC).format("%.1f") + "F"];
+            }
+            return ["Wrist Temp", "-"];
+        }
+        if (field == FIELD_ACTIVE_MIN_DAY) {
+            var mins = (_amInfo as ActivityMonitor.Info).activeMinutesDay;
+            if (mins != null && mins.total != null) {
+                return ["Act Mins", (mins.total as Number).toString()];
+            }
+            return ["Act Mins", "0"];
+        }
+        if (field == FIELD_HR_MAX) {
+            var a = _acInfo as Activity.Info;
+            if (a.maxHeartRate != null) {
+                return [
+                    "Max HR",
+                    (a.maxHeartRate as Number).toString() + " bpm",
+                ];
+            }
+            return ["Max HR", "-"];
+        }
+        if (field == FIELD_PRESSURE) {
+            var sample = SensorHistory.getPressureHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var pa = sample.data as Float;
+                return _isMetric()
+                    ? ["Pressure", (pa / 100.0).format("%.1f") + "hPa"]
+                    : ["Pressure", (pa / 3386.39).format("%.2f") + "inHg"];
+            }
+            return ["Pressure", "-"];
+        }
+        if (field == FIELD_ELEVATION) {
+            var sample = SensorHistory.getElevationHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var elev = sample.data as Float;
+                return _isMetric()
+                    ? ["Elevation", elev.format("%.0f") + "m"]
+                    : ["Elevation", (elev * 3.28084).format("%.0f") + "ft"];
+            }
+            return ["Elevation", "-"];
+        }
+        if (field == FIELD_WX_FORECAST) {
+            return ["Forecast", _wxTemp + _wxUnit];
+        }
+        return ["", ""];
     }
 
     private function _timeParts() as Array<String> {
@@ -1495,7 +1719,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _dateParts() as Array<String> {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var fmt = _getProp("dateFormat", 0);
-        var value;
+        var value = "" as String;
         if (fmt == 1) {
             value =
                 info.year.format("%04d") +
@@ -1546,6 +1770,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _refreshWeather() as Void {
+        var nowMin =
+            (Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info)
+                .min as Number;
+        if (nowMin == _wxLastMin) {
+            return;
+        }
+        _wxLastMin = nowMin;
         var c = Weather.getCurrentConditions();
         if (c == null) {
             return;
@@ -1594,10 +1825,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var arr = new Array<Float>[cnt];
             for (var i = 0; i < cnt; i++) {
                 var h = forecast[i];
-                arr[i] =
-                    h != null && h.temperature != null
-                        ? h.temperature as Float
-                        : 0.0;
+                arr[i] = h.temperature != null ? h.temperature as Float : 0.0;
             }
             _wxForecastData = arr;
         } else {
