@@ -2,7 +2,6 @@
 
   <!-- Appearance -->
   <property id="fontChoice" type="number">0</property>
-  <property id="fontSizeChoice" type="number">1</property>
   <property id="scanlines" type="number">2</property>
 
   <!-- Display options -->
@@ -26,8 +25,8 @@
   <property id="line3Secondary" type="number">19</property>
   <property id="line3SecondaryLabelColor" type="number">6</property>
   <property id="line3SecondaryValueColor" type="number">0</property>
-  <property id="line3Tertiary" type="number">7</property>
-  <property id="line3TertiaryLabelColor" type="number">8</property>
+  <property id="line3Tertiary" type="number">33</property>
+  <property id="line3TertiaryLabelColor" type="number">6</property>
   <property id="line3TertiaryValueColor" type="number">0</property>
 
   <!-- Line 4 -->
@@ -37,8 +36,8 @@
   <property id="line4Secondary" type="number">5</property>
   <property id="line4SecondaryLabelColor" type="number">1</property>
   <property id="line4SecondaryValueColor" type="number">0</property>
-  <property id="line4Tertiary" type="number">7</property>
-  <property id="line4TertiaryLabelColor" type="number">8</property>
+  <property id="line4Tertiary" type="number">32</property>
+  <property id="line4TertiaryLabelColor" type="number">1</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
 
   <!-- Line 5 -->
@@ -51,6 +50,11 @@
   <property id="line5Tertiary" type="number">7</property>
   <property id="line5TertiaryLabelColor" type="number">8</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
+
+  <!-- Weather forecast graph -->
+  <property id="wxForecastViewMode" type="number">3</property>
+  <property id="wxForecastTimeFrame" type="number">6</property>
+  <property id="wxForecastLineColor" type="number">6</property>
 
   <!-- Graph view mode/time frame/line color/dual-graph per graphable field type -->
   <property id="hrViewMode" type="number">2</property>
@@ -78,9 +82,9 @@
   <property id="tempWristLineColor" type="number">0</property>
   <property id="tempWristSecondaryField" type="number">0</property>
   <property id="tempWristSecondaryColor" type="number">0</property>
-  <property id="elevationViewMode" type="number">0</property>
-  <property id="elevationTimeFrame" type="number">60</property>
-  <property id="elevationLineColor" type="number">0</property>
+  <property id="elevationViewMode" type="number">2</property>
+  <property id="elevationTimeFrame" type="number">480</property>
+  <property id="elevationLineColor" type="number">1</property>
   <property id="elevationSecondaryField" type="number">6</property>
   <property id="elevationSecondaryColor" type="number">0</property>
   <property id="pressureViewMode" type="number">2</property>

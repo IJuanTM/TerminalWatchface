@@ -7,10 +7,6 @@
   <string id="FontSpaceMono">Space Mono</string>
   <string id="FontFiraCodeMono">Fira Code Mono</string>
   <string id="NBArchitekt">NB Architekt</string>
-  <string id="FontSize">Font Size</string>
-  <string id="FontSizeSmall">Small</string>
-  <string id="FontSizeMedium">Medium</string>
-  <string id="FontSizeLarge">Large</string>
   <string id="Scanlines">Scanlines</string>
   <string id="ScanlinesOff">Off</string>
   <string id="ScanlinesSubtle">Subtle</string>
@@ -120,11 +116,13 @@
   <string id="FieldHRMax">Heart Rate (Max)</string>
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
+  <string id="FieldWxForecast">Weather: Forecast</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>
-  <string id="ViewModeGraph">Graph</string>
-  <string id="ViewModeGraphValue">Graph + Value</string>
+  <string id="ViewModeGraph">Line Graph</string>
+  <string id="ViewModeGraphValue">Line Graph + Value</string>
+  <string id="ViewModeBarGraph">Bar Graph</string>
   <string id="ViewModeDualGraph">Dual Graph</string>
 
   <!-- Shared: graph time frame options -->
@@ -184,5 +182,14 @@
   <string id="PressureLineColor">Pressure: Line Color</string>
   <string id="PressureSecondaryField">Pressure: 2nd Line Field</string>
   <string id="PressureSecondaryColor">Pressure: 2nd Line Color</string>
+
+  <!-- Graph settings: Weather Forecast -->
+  <string id="WxForecastViewMode">Forecast: View Mode</string>
+  <string id="WxForecastTimeFrame">Forecast: Time Frame</string>
+  <string id="WxForecastLineColor">Forecast: Line Color</string>
+  <string id="TimeFrameForecast3h">3 hours ahead</string>
+  <string id="TimeFrameForecast6h">6 hours ahead</string>
+  <string id="TimeFrameForecast12h">12 hours ahead</string>
+  <string id="TimeFrameForecast24h">24 hours ahead</string>
 
 </strings>

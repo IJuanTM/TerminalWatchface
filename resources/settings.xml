@@ -9,13 +9,6 @@
       <listEntry value="3">@Strings.NBArchitekt</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.fontSizeChoice" title="@Strings.FontSize">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.FontSizeSmall</listEntry>
-      <listEntry value="1">@Strings.FontSizeMedium</listEntry>
-      <listEntry value="2">@Strings.FontSizeLarge</listEntry>
-    </settingConfig>
-  </setting>
   <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ScanlinesOff</listEntry>
@@ -187,6 +180,7 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -270,9 +264,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
+  <setting propertyKey="@Properties.line3SecondaryLabelColor"
+    title="@Strings.Line3SecondaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -296,7 +292,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3SecondaryValueColor" title="@Strings.Line3SecondaryValueColor">
+  <setting propertyKey="@Properties.line3SecondaryValueColor"
+    title="@Strings.Line3SecondaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -353,9 +350,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
+  <setting propertyKey="@Properties.line3TertiaryLabelColor"
+    title="@Strings.Line3TertiaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -379,7 +378,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3TertiaryValueColor" title="@Strings.Line3TertiaryValueColor">
+  <setting propertyKey="@Properties.line3TertiaryValueColor"
+    title="@Strings.Line3TertiaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -438,6 +438,7 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -521,9 +522,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
+  <setting propertyKey="@Properties.line4SecondaryLabelColor"
+    title="@Strings.Line4SecondaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -547,7 +550,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4SecondaryValueColor" title="@Strings.Line4SecondaryValueColor">
+  <setting propertyKey="@Properties.line4SecondaryValueColor"
+    title="@Strings.Line4SecondaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -604,9 +608,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
+  <setting propertyKey="@Properties.line4TertiaryLabelColor"
+    title="@Strings.Line4TertiaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -630,7 +636,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4TertiaryValueColor" title="@Strings.Line4TertiaryValueColor">
+  <setting propertyKey="@Properties.line4TertiaryValueColor"
+    title="@Strings.Line4TertiaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -689,6 +696,7 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -772,9 +780,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
+  <setting propertyKey="@Properties.line5SecondaryLabelColor"
+    title="@Strings.Line5SecondaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -798,7 +808,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5SecondaryValueColor" title="@Strings.Line5SecondaryValueColor">
+  <setting propertyKey="@Properties.line5SecondaryValueColor"
+    title="@Strings.Line5SecondaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -855,9 +866,11 @@
       <listEntry value="30">@Strings.FieldHRMax</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
+  <setting propertyKey="@Properties.line5TertiaryLabelColor"
+    title="@Strings.Line5TertiaryLabelColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -881,7 +894,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5TertiaryValueColor" title="@Strings.Line5TertiaryValueColor">
+  <setting propertyKey="@Properties.line5TertiaryValueColor"
+    title="@Strings.Line5TertiaryValueColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -914,6 +928,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -994,6 +1009,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1074,6 +1090,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1154,6 +1171,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1234,6 +1252,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1272,7 +1291,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.tempWristSecondaryField" title="@Strings.TempWristSecondaryField">
+  <setting propertyKey="@Properties.tempWristSecondaryField"
+    title="@Strings.TempWristSecondaryField">
     <settingConfig type="list">
       <listEntry value="0">@Strings.FieldHR</listEntry>
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
@@ -1283,7 +1303,8 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.tempWristSecondaryColor" title="@Strings.TempWristSecondaryColor">
+  <setting propertyKey="@Properties.tempWristSecondaryColor"
+    title="@Strings.TempWristSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -1314,6 +1335,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1352,7 +1374,8 @@
       <listEntry value="19">@Strings.ColorViolet</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.elevationSecondaryField" title="@Strings.ElevationSecondaryField">
+  <setting propertyKey="@Properties.elevationSecondaryField"
+    title="@Strings.ElevationSecondaryField">
     <settingConfig type="list">
       <listEntry value="0">@Strings.FieldHR</listEntry>
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
@@ -1363,7 +1386,8 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.elevationSecondaryColor" title="@Strings.ElevationSecondaryColor">
+  <setting propertyKey="@Properties.elevationSecondaryColor"
+    title="@Strings.ElevationSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -1394,6 +1418,7 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
       <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
@@ -1444,6 +1469,48 @@
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPink</listEntry>
+      <listEntry value="10">@Strings.ColorLime</listEntry>
+      <listEntry value="11">@Strings.ColorTeal</listEntry>
+      <listEntry value="12">@Strings.ColorPurple</listEntry>
+      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
+      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
+      <listEntry value="15">@Strings.ColorAmber</listEntry>
+      <listEntry value="16">@Strings.ColorEmerald</listEntry>
+      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
+      <listEntry value="18">@Strings.ColorCoral</listEntry>
+      <listEntry value="19">@Strings.ColorViolet</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Weather Forecast -->
+  <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastLineColor" title="@Strings.WxForecastLineColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>

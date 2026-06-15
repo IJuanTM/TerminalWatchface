@@ -7,7 +7,6 @@ import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 import Toybox.WatchUi;
-import Toybox.Math;
 import Toybox.Weather;
 import Toybox.SensorHistory;
 
@@ -42,10 +41,12 @@ const FIELD_ACTIVE_MIN_DAY = 29;
 const FIELD_HR_MAX = 30;
 const FIELD_PRESSURE = 31;
 const FIELD_ELEVATION = 32;
+const FIELD_WX_FORECAST = 33;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
+const VIEW_BAR_GRAPH = 3;
 const VIEW_DUAL_GRAPH = 4;
 
 // Indices into this array are used as the SecondaryField property value
@@ -136,15 +137,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxWind as String = "-";
     private var _wxUv as String = "-";
     private var _wxCond as String = "-";
+    private var _wxForecastData as Array<Float>? = null;
     private var _wxLow as String = "-";
     private var _wxHigh as String = "-";
     private var _bmpUp as Graphics.BitmapType? = null;
     private var _bmpDn as Graphics.BitmapType? = null;
     private var _bmpDeg as Graphics.BitmapType? = null;
     private var _bmpBolt as Graphics.BitmapType? = null;
-    private var _arrowH as Number = 16;
-    private var _boltH as Number = 20;
-    private var _degW as Number = 8;
+    private const _arrowH as Number = 18;
+    private const _boltH as Number = 14;
+    private const _degW as Number = 8;
     private var _wxUnit as String = "C";
     private var _fh as Number = 20;
     private var _charW as Number = 12;
@@ -155,6 +157,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var s = System.getDeviceSettings();
         _w = s.screenWidth;
         _h = s.screenHeight;
+        try {
+            _bmpUp =
+                WatchUi.loadResource($.Rez.Drawables.ArrowUp) as
+                Graphics.BitmapType;
+            _bmpDn =
+                WatchUi.loadResource($.Rez.Drawables.ArrowDn) as
+                Graphics.BitmapType;
+            _bmpDeg =
+                WatchUi.loadResource($.Rez.Drawables.Deg) as
+                Graphics.BitmapType;
+            _bmpBolt =
+                WatchUi.loadResource($.Rez.Drawables.Bolt) as
+                Graphics.BitmapType;
+        } catch (e instanceof Lang.Exception) {}
         reloadFont();
     }
 
@@ -162,50 +178,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     public function reloadFont() as Void {
         var choice = _getProp("fontChoice", 0);
-        var size = _getProp("fontSizeChoice", 1);
-        var key = choice * 3 + size;
-        if (key == _lastFontChoice) {
-            return;
-        }
-        _lastFontChoice = key;
-
         if (choice < 0 || choice > 3) {
             choice = 0;
         }
-        if (size < 0 || size > 2) {
-            size = 1;
+        if (choice == _lastFontChoice) {
+            return;
         }
+        _lastFontChoice = choice;
 
-        // Indexed by choice*3+size (S/M/L per font family)
-        var fontRes = [
-            $.Rez.Fonts.JetBrainsMono_S,
-            $.Rez.Fonts.JetBrainsMono_M,
-            $.Rez.Fonts.JetBrainsMono_L,
-            $.Rez.Fonts.SpaceMono_S,
-            $.Rez.Fonts.SpaceMono_M,
-            $.Rez.Fonts.SpaceMono_L,
-            $.Rez.Fonts.FiraCode_S,
-            $.Rez.Fonts.FiraCode_M,
-            $.Rez.Fonts.FiraCode_L,
-            $.Rez.Fonts.NBArchitekt_S,
-            $.Rez.Fonts.NBArchitekt_M,
-            $.Rez.Fonts.NBArchitekt_L,
+        var normalRes = [
+            $.Rez.Fonts.JetBrainsMono_NORMAL,
+            $.Rez.Fonts.SpaceMono_NORMAL,
+            $.Rez.Fonts.FiraCode_NORMAL,
+            $.Rez.Fonts.NBArchitekt_NORMAL,
         ];
-        var xsRes = [
-            $.Rez.Fonts.JetBrainsMono_XS,
-            $.Rez.Fonts.SpaceMono_XS,
-            $.Rez.Fonts.FiraCode_XS,
-            $.Rez.Fonts.NBArchitekt_XS,
+        var smallRes = [
+            $.Rez.Fonts.JetBrainsMono_SMALL,
+            $.Rez.Fonts.SpaceMono_SMALL,
+            $.Rez.Fonts.FiraCode_SMALL,
+            $.Rez.Fonts.NBArchitekt_SMALL,
         ];
-        try {
-            _font =
-                WatchUi.loadResource(fontRes[choice * 3 + size]) as
-                Graphics.FontDefinition;
-        } catch (e instanceof Lang.Exception) {}
-        try {
-            _fontSmall =
-                WatchUi.loadResource(xsRes[choice]) as Graphics.FontDefinition;
-        } catch (e instanceof Lang.Exception) {}
         var tinyRes = [
             $.Rez.Fonts.JetBrainsMono_TINY,
             $.Rez.Fonts.SpaceMono_TINY,
@@ -213,40 +205,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             $.Rez.Fonts.NBArchitekt_TINY,
         ];
         try {
-            _fontTiny =
-                WatchUi.loadResource(tinyRes[choice]) as
+            _font =
+                WatchUi.loadResource(normalRes[choice]) as
                 Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
         try {
-            // Indexed by size*4: ArrowUp, ArrowDn, Deg, Bolt
-            var bmpRes = [
-                $.Rez.Drawables.ArrowUpS,
-                $.Rez.Drawables.ArrowDnS,
-                $.Rez.Drawables.DegS,
-                $.Rez.Drawables.BoltS,
-                $.Rez.Drawables.ArrowUpM,
-                $.Rez.Drawables.ArrowDnM,
-                $.Rez.Drawables.DegM,
-                $.Rez.Drawables.BoltM,
-                $.Rez.Drawables.ArrowUpL,
-                $.Rez.Drawables.ArrowDnL,
-                $.Rez.Drawables.DegL,
-                $.Rez.Drawables.BoltL,
-            ];
-            var arrowHs = [14, 16, 18] as Array<Number>;
-            var boltHs = [18, 18, 22] as Array<Number>;
-            var degWs = [7, 8, 9] as Array<Number>;
-            var bi = size * 4;
-            _bmpUp = WatchUi.loadResource(bmpRes[bi]) as Graphics.BitmapType;
-            _bmpDn =
-                WatchUi.loadResource(bmpRes[bi + 1]) as Graphics.BitmapType;
-            _bmpDeg =
-                WatchUi.loadResource(bmpRes[bi + 2]) as Graphics.BitmapType;
-            _bmpBolt =
-                WatchUi.loadResource(bmpRes[bi + 3]) as Graphics.BitmapType;
-            _arrowH = arrowHs[size];
-            _boltH = boltHs[size];
-            _degW = degWs[size];
+            _fontSmall =
+                WatchUi.loadResource(smallRes[choice]) as
+                Graphics.FontDefinition;
+        } catch (e instanceof Lang.Exception) {}
+        try {
+            _fontTiny =
+                WatchUi.loadResource(tinyRes[choice]) as
+                Graphics.FontDefinition;
         } catch (e instanceof Lang.Exception) {}
     }
 
@@ -268,14 +239,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _fh = dc.getFontHeight(_font);
         _charW = dc.getTextWidthInPixels("W", _font);
         _tinyFh = dc.getFontHeight(_fontTiny);
-        var step = _fh + _fh / 3;
-        var gap = step - _fh;
+        var step = _fh + 16;
+        var gap = 16;
         var cx = _w / 2 - _charW * 4;
         _pad = dc.getTextWidthInPixels(": ", _font) / 2;
         _arrowW = dc.getTextWidthInPixels(" > ", _font);
 
         var vis = [false, false, false] as Array<Boolean>;
-        var visible = 6;
+        var visible = 4;
         for (var ln = 3; ln <= 5; ln++) {
             var v = _lineVisible(ln, phase);
             vis[ln - 3] = v;
@@ -285,8 +256,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         visible += 2;
 
-        var y = (_h - step * (visible - 1) - _fh) / 2;
-        var row = 2;
+        var y = (_h - step * (visible - 3) - _fh) / 2;
+        var row = 0;
 
         _drawHeader(dc, y, gap);
         _drawPromptLine(dc, cx, y + step * row, ".\\watch.bat");
@@ -338,7 +309,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (_cursorOn) {
             dc.fillRectangle(splitX, footerY, _charW, _fh);
         }
-        _drawFooter(dc, footerY + _fh + 3 * gap);
+        _drawFooter(dc, footerY + _fh + 2 * gap);
     }
 
     private function _drawHeader(dc as Dc, y as Number, gap as Number) as Void {
@@ -346,7 +317,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (notifCount == null || (notifCount as Number) == 0) {
             return;
         }
-        var textY = y + 2 * _fh - gap - dc.getFontHeight(_fontSmall);
+        var textY = y - 2 * gap - dc.getFontHeight(_fontSmall);
         var label = "[" + (notifCount as Number).toString() + "]";
         dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
@@ -546,6 +517,37 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return;
         }
+        if (field == FIELD_WX_FORECAST) {
+            var viewMode = _getProp("wxForecastViewMode", VIEW_GRAPH);
+            var lineColor = _getProp("wxForecastLineColor", 2);
+            var hours = _getProp("wxForecastTimeFrame", 6);
+            if (
+                viewMode == VIEW_GRAPH ||
+                viewMode == VIEW_GRAPH_VALUE ||
+                viewMode == VIEW_BAR_GRAPH
+            ) {
+                _drawForecastRow(
+                    dc,
+                    cx,
+                    y,
+                    hours,
+                    viewMode,
+                    labelColor,
+                    valueColor,
+                    lineColor
+                );
+            } else {
+                _drawRow(
+                    dc,
+                    cx,
+                    y,
+                    _getFieldParts(field),
+                    labelColor,
+                    valueColor
+                );
+            }
+            return;
+        }
         var gk = _fieldGraphKey(field);
         if (gk != null) {
             var viewMode = _getProp((gk as String) + "ViewMode", VIEW_VALUE);
@@ -554,7 +556,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 (gk as String) + "LineColor",
                 (gk as String).equals("hr") ? 5 : 0
             );
-            if (viewMode == VIEW_GRAPH || viewMode == VIEW_GRAPH_VALUE) {
+            if (
+                viewMode == VIEW_GRAPH ||
+                viewMode == VIEW_GRAPH_VALUE ||
+                viewMode == VIEW_BAR_GRAPH
+            ) {
                 _drawGraphRow(
                     dc,
                     cx,
@@ -1010,7 +1016,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_SPO2) {
             return v.toNumber().toString() + "%";
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_TEMP_WRIST || field == FIELD_WX_FORECAST) {
             return _isMetric()
                 ? v.format("%.0f") + "C"
                 : _toF(v).format("%.0f") + "F";
@@ -1030,8 +1036,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _tfLabel(periodMin as Number) as String {
         return periodMin < 60
-            ? periodMin.toString() + "m"
-            : (periodMin / 60).toString() + "h";
+            ? "-" + periodMin.toString() + "m"
+            : "-" + (periodMin / 60).toString() + "h";
     }
 
     private function _drawGraphAxes(
@@ -1069,6 +1075,141 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 y +
                     gh -
                     ((((data[i + 1] as Float) - minV) * ghf) / range).toNumber()
+            );
+        }
+    }
+
+    private function _drawBarGraphLine(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float
+    ) as Void {
+        var n = data.size();
+        var ghf = gh.toFloat();
+        for (var i = 0; i < n; i++) {
+            var slot = n - 1 - i;
+            var bx = gx + (slot * gw) / n;
+            var slotEnd = gx + ((slot + 1) * gw) / n;
+            var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
+            if (bw < 1) {
+                bw = 1;
+            }
+            var barH = ((((data[i] as Float) - minV) * ghf) / range).toNumber();
+            if (barH < 1) {
+                barH = 1;
+            }
+            dc.fillRectangle(bx, y + gh - barH, bw, barH);
+        }
+    }
+
+    private function _drawForecastRow(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        hours as Number,
+        viewMode as Number,
+        labelColor as Number,
+        valueColor as Number,
+        lineColor as Number
+    ) as Void {
+        var fallback = ["Forecast", _wxTemp + _wxUnit] as Array<String>;
+        var all = _wxForecastData;
+        if (all == null) {
+            _drawRow(dc, cx, y, fallback, labelColor, valueColor);
+            return;
+        }
+        var cnt = all.size();
+        var n = hours < cnt ? hours : cnt;
+        if (n < 2) {
+            _drawRow(dc, cx, y, fallback, labelColor, valueColor);
+            return;
+        }
+
+        var gw = _charW * 8;
+        var gx = cx + _pad + _charW;
+        var gh = _fh - 2;
+
+        // Reverse slice so data[0]=furthest (rightmost), data[n-1]=nearest (leftmost)
+        var data = new Array<Float>[n];
+        for (var i = 0; i < n; i++) {
+            data[i] = (all as Array<Float>)[n - 1 - i];
+        }
+
+        var minV = data[0] as Float;
+        var maxV = data[0] as Float;
+        for (var i = 1; i < n; i++) {
+            var v = data[i] as Float;
+            if (v < minV) {
+                minV = v;
+            }
+            if (v > maxV) {
+                maxV = v;
+            }
+        }
+        var range = maxV - minV;
+        if (range < 1.0) {
+            range = 1.0;
+        }
+
+        _drawRow(
+            dc,
+            cx,
+            y,
+            ["Forecast", ""] as Array<String>,
+            labelColor,
+            valueColor
+        );
+        dc.setColor(_colorFromIdx(lineColor), Graphics.COLOR_TRANSPARENT);
+        if (viewMode == VIEW_BAR_GRAPH) {
+            _drawBarGraphLine(dc, data, gx, gw, y, gh + 1, minV, range);
+        } else {
+            _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
+        }
+        _drawGraphAxes(dc, gx, gw, y);
+
+        dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            gx - 4,
+            y - 4,
+            _fontTiny,
+            _formatGraphLabel(FIELD_WX_FORECAST, maxV),
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx - 4,
+            y + gh - _tinyFh + 4,
+            _fontTiny,
+            _formatGraphLabel(FIELD_WX_FORECAST, minV),
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx + gw,
+            y + gh + 1,
+            _fontTiny,
+            "+" + hours.toString() + "h",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+
+        if (viewMode == VIEW_GRAPH_VALUE) {
+            var metric = _isMetric();
+            var minStr = metric
+                ? minV.format("%.0f")
+                : _toF(minV).format("%.0f");
+            var maxStr = metric
+                ? maxV.format("%.0f")
+                : _toF(maxV).format("%.0f");
+            dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx + gw + _charW,
+                y,
+                _font,
+                minStr + "/" + maxStr + _wxUnit,
+                Graphics.TEXT_JUSTIFY_LEFT
             );
         }
     }
@@ -1121,7 +1262,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             valueColor
         );
         dc.setColor(_colorFromIdx(lineColor), Graphics.COLOR_TRANSPARENT);
-        _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
+        if (viewMode == VIEW_BAR_GRAPH) {
+            _drawBarGraphLine(dc, data, gx, gw, y, gh + 1, minV, range);
+        } else {
+            _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
+        }
         _drawGraphAxes(dc, gx, gw, y);
 
         dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
@@ -1323,6 +1468,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         : ["Elevation", (elev * 3.28084).format("%.0f") + "ft"];
                 }
                 return ["Elevation", "-"];
+            case FIELD_WX_FORECAST:
+                return ["Forecast", _wxTemp + _wxUnit];
             default:
                 return ["", ""];
         }
@@ -1440,6 +1587,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (c.condition != null) {
             _wxCond = _condStr(c.condition as Number);
+        }
+        var forecast = Weather.getHourlyForecast();
+        if (forecast != null && forecast.size() > 0) {
+            var cnt = forecast.size() < 24 ? forecast.size() : 24;
+            var arr = new Array<Float>[cnt];
+            for (var i = 0; i < cnt; i++) {
+                var h = forecast[i];
+                arr[i] =
+                    h != null && h.temperature != null
+                        ? h.temperature as Float
+                        : 0.0;
+            }
+            _wxForecastData = arr;
+        } else {
+            _wxForecastData = null;
         }
     }
 

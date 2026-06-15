@@ -1,15 +1,7 @@
 <drawables>
-    <bitmap id="LauncherIcon" filename="launcher_icon.png"/>
-    <bitmap id="ArrowUpS" filename="arrow_up_s.png"/>
-    <bitmap id="ArrowUpM" filename="arrow_up_m.png"/>
-    <bitmap id="ArrowUpL" filename="arrow_up_l.png"/>
-    <bitmap id="ArrowDnS" filename="arrow_dn_s.png"/>
-    <bitmap id="ArrowDnM" filename="arrow_dn_m.png"/>
-    <bitmap id="ArrowDnL" filename="arrow_dn_l.png"/>
-    <bitmap id="DegS" filename="deg_s.png"/>
-    <bitmap id="DegM" filename="deg_m.png"/>
-    <bitmap id="DegL" filename="deg_l.png"/>
-    <bitmap id="BoltS" filename="bolt_s.png"/>
-    <bitmap id="BoltM" filename="bolt_m.png"/>
-    <bitmap id="BoltL" filename="bolt_l.png"/>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <bitmap id="ArrowUp" filename="arrow_up.png" />
+    <bitmap id="ArrowDn" filename="arrow_dn.png" />
+    <bitmap id="Deg" filename="deg.png" />
+    <bitmap id="Bolt" filename="bolt.png" />
 </drawables>
