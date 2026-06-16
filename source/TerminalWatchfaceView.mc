@@ -983,8 +983,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             valueColor
         );
 
-        var gw = _charW * 8;
-        var gx = cx + _pad + _charW;
+        var gw = _charW * 10;
+        var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
 
         // Primary line
@@ -1337,8 +1337,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
 
-        var gw = _charW * 8;
-        var gx = cx + _pad + _charW;
+        var gw = _charW * 10;
+        var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
 
         // Reverse slice so data[0]=furthest (rightmost), data[n-1]=nearest (leftmost)
@@ -1439,8 +1439,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
 
-        var gw = _charW * 8;
-        var gx = cx + _pad + _charW;
+        var gw = _charW * 10;
+        var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
         var n = data.size();
 
