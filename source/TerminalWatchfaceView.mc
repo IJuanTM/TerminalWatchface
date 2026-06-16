@@ -10,6 +10,7 @@ import Toybox.WatchUi;
 import Toybox.Weather;
 import Toybox.SensorHistory;
 import Toybox.UserProfile;
+import Toybox.Complications;
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -45,6 +46,13 @@ const FIELD_ELEVATION = 32;
 const FIELD_WX_FORECAST = 33;
 const FIELD_VO2_MAX = 34;
 const FIELD_SPEED = 35;
+const FIELD_SLEEP = 36;
+const FIELD_SUNRISE = 37;
+const FIELD_SUNSET = 38;
+const FIELD_SUNRISE_SUNSET = 39;
+const FIELD_CALENDAR = 40;
+const FIELD_WEEKLY_RUN = 41;
+const FIELD_WEEKLY_BIKE = 42;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -236,6 +244,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxLastMin as Number = -1;
     private var _metric as Boolean = false;
     private var _notifCount as Number = 0;
+    private var _compSleepScore as Number? = null;
+    private var _compSunrise as Number? = null;
+    private var _compSunset as Number? = null;
+    private var _compCalendar as String? = null;
+    private var _compWeeklyRun as Number? = null;
+    private var _compWeeklyBike as Number? = null;
 
     public function initialize() {
         WatchFace.initialize();
@@ -248,6 +262,45 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onLayout(dc as Dc) as Void {}
+
+    public function onShow() as Void {}
+
+    private function _refreshComplications() as Void {
+        _compSleepScore = null;
+        _compSunrise = null;
+        _compSunset = null;
+        _compCalendar = null;
+        _compWeeklyRun = null;
+        _compWeeklyBike = null;
+        var iter = Complications.getComplications();
+        var comp = iter.next() as Complications.Complication?;
+        while (comp != null) {
+            var v = comp.value;
+            if (v != null) {
+                var t = comp.getType();
+                if (t == Complications.COMPLICATION_TYPE_SLEEP_SCORE) {
+                    _compSleepScore = v as Number;
+                } else if (t == Complications.COMPLICATION_TYPE_SUNRISE) {
+                    _compSunrise = v as Number;
+                } else if (t == Complications.COMPLICATION_TYPE_SUNSET) {
+                    _compSunset = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_CALENDAR_EVENTS
+                ) {
+                    _compCalendar = v.toString();
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE
+                ) {
+                    _compWeeklyRun = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE
+                ) {
+                    _compWeeklyBike = v as Number;
+                }
+            }
+            comp = iter.next() as Complications.Complication?;
+        }
+    }
 
     public function reloadFont() as Void {
         var choice = _getProp("fontChoice", 0);
@@ -332,6 +385,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (nowMin != _graphCacheMin) {
             _graphCache = {};
             _graphCacheMin = nowMin;
+            _refreshComplications();
         }
         _refreshWeather(nowMin);
 
@@ -1296,6 +1350,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return v.toNumber().toString();
     }
 
+    private function _secsToTime(secs as Number) as String {
+        var h = secs / 3600;
+        var m = (secs % 3600) / 60;
+        return h.format("%d") + ":" + m.format("%02d");
+    }
+
     private function _tfLabel(periodMin as Number) as String {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
@@ -1787,12 +1847,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_DISTANCE) {
             var info = _amInfo as ActivityMonitor.Info;
             if (info.distance == null) {
-                return ["Distance", "-"];
+                return ["Day Dist", "-"];
             }
             return _metric
-                ? ["Distance", (info.distance / 100000.0).format("%.2f") + "km"]
+                ? ["Day Dist", (info.distance / 100000.0).format("%.2f") + "km"]
                 : [
-                      "Distance",
+                      "Day Dist",
                       (info.distance / 160934.0).format("%.2f") + "mi",
                   ];
         }
@@ -1947,6 +2007,61 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_WX_FORECAST) {
             return ["Forecast", _wxTemp + _wxUnit];
+        }
+        if (field == FIELD_SLEEP) {
+            return [
+                "Sleep",
+                _compSleepScore != null
+                    ? (_compSleepScore as Number).toString()
+                    : "-",
+            ];
+        }
+        if (field == FIELD_SUNRISE) {
+            return [
+                "Sunrise",
+                _compSunrise != null
+                    ? _secsToTime(_compSunrise as Number)
+                    : "-",
+            ];
+        }
+        if (field == FIELD_SUNSET) {
+            return [
+                "Sunset",
+                _compSunset != null ? _secsToTime(_compSunset as Number) : "-",
+            ];
+        }
+        if (field == FIELD_SUNRISE_SUNSET) {
+            var rise =
+                _compSunrise != null
+                    ? _secsToTime(_compSunrise as Number)
+                    : "-";
+            var set =
+                _compSunset != null ? _secsToTime(_compSunset as Number) : "-";
+            return ["Sun", rise + " / " + set];
+        }
+        if (field == FIELD_CALENDAR) {
+            return [
+                "Calendar",
+                _compCalendar != null ? _compCalendar as String : "-",
+            ];
+        }
+        if (field == FIELD_WEEKLY_RUN) {
+            if (_compWeeklyRun != null) {
+                var d = _compWeeklyRun as Number;
+                return _metric
+                    ? ["Wk Run", (d / 1000.0).format("%.1f") + "km"]
+                    : ["Wk Run", (d / 1609.344).format("%.1f") + "mi"];
+            }
+            return ["Wk Run", "-"];
+        }
+        if (field == FIELD_WEEKLY_BIKE) {
+            if (_compWeeklyBike != null) {
+                var d = _compWeeklyBike as Number;
+                return _metric
+                    ? ["Wk Bike", (d / 1000.0).format("%.1f") + "km"]
+                    : ["Wk Bike", (d / 1609.344).format("%.1f") + "mi"];
+            }
+            return ["Wk Bike", "-"];
         }
         if (field == FIELD_VO2_MAX) {
             var profile = UserProfile.getProfile();

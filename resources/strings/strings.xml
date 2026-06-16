@@ -80,7 +80,7 @@
   <string id="FieldHR">Heart Rate</string>
   <string id="FieldCalories">Calories (Daily)</string>
   <string id="FieldCalAct">Calories (Activity)</string>
-  <string id="FieldDistance">Distance</string>
+  <string id="FieldDistance">Distance (Daily)</string>
   <string id="FieldAltitude">Altitude</string>
   <string id="FieldFloors">Stairs</string>
   <string id="FieldSpO2">Blood Oxygen</string>
@@ -109,6 +109,13 @@
   <string id="FieldWxForecast">Weather: Forecast</string>
   <string id="FieldVo2Max">VO2 Max</string>
   <string id="FieldSpeed">Speed</string>
+  <string id="FieldSleep">Sleep Score</string>
+  <string id="FieldSunrise">Sunrise</string>
+  <string id="FieldSunset">Sunset</string>
+  <string id="FieldSunriseSunset">Sunrise + Sunset</string>
+  <string id="FieldCalendar">Calendar Event</string>
+  <string id="FieldWeeklyRun">Distance (Wk. Run)</string>
+  <string id="FieldWeeklyBike">Distance (Wk. Bike)</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>
