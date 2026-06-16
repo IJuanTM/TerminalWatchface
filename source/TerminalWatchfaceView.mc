@@ -11,6 +11,7 @@ import Toybox.Weather;
 import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
+import Toybox.Position;
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -53,6 +54,10 @@ const FIELD_SUNRISE_SUNSET = 39;
 const FIELD_CALENDAR = 40;
 const FIELD_WEEKLY_RUN = 41;
 const FIELD_WEEKLY_BIKE = 42;
+const FIELD_GPS_LAT = 43;
+const FIELD_GPS_LON = 44;
+const FIELD_GPS_ACCURACY = 45;
+const FIELD_HEADING = 46;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -250,6 +255,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compCalendar as String? = null;
     private var _compWeeklyRun as Number? = null;
     private var _compWeeklyBike as Number? = null;
+    private var _posInfo as Position.Info? = null;
 
     public function initialize() {
         WatchFace.initialize();
@@ -258,6 +264,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _h = s.screenHeight;
         _amInfo = ActivityMonitor.getInfo();
         _acInfo = Activity.getActivityInfo();
+        _posInfo = Position.getInfo();
         reloadFont();
     }
 
@@ -373,6 +380,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cursorOn = (now / 1000) % 2 == 0;
         _amInfo = ActivityMonitor.getInfo();
         _acInfo = Activity.getActivityInfo();
+        _posInfo = Position.getInfo();
         var settings = System.getDeviceSettings();
         _metric = settings.distanceUnits == System.UNIT_METRIC;
         _notifCount =
@@ -2080,6 +2088,53 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     : ["Speed", (spd * 2.23694).format("%.1f") + " mph"];
             }
             return ["Speed", "-"];
+        }
+        if (field == FIELD_GPS_LAT) {
+            var pos = _posInfo;
+            if (pos != null && pos.position != null) {
+                var coords = (pos.position as Position.Location).toDegrees();
+                var lat = coords[0] as Double;
+                var suffix = lat >= 0.0 ? "N" : "S";
+                return ["Lat", lat.abs().format("%.5f") + suffix];
+            }
+            return ["Lat", "-"];
+        }
+        if (field == FIELD_GPS_LON) {
+            var pos = _posInfo;
+            if (pos != null && pos.position != null) {
+                var coords = (pos.position as Position.Location).toDegrees();
+                var lon = coords[1] as Double;
+                var suffix = lon >= 0.0 ? "E" : "W";
+                return ["Lon", lon.abs().format("%.5f") + suffix];
+            }
+            return ["Lon", "-"];
+        }
+        if (field == FIELD_GPS_ACCURACY) {
+            var pos = _posInfo;
+            if (pos != null) {
+                var acc = pos.accuracy;
+                var label = "-";
+                if (acc == Position.QUALITY_GOOD) {
+                    label = "Good";
+                } else if (acc == Position.QUALITY_USABLE) {
+                    label = "Usable";
+                } else if (acc == Position.QUALITY_POOR) {
+                    label = "Poor";
+                } else if (acc == Position.QUALITY_LAST_KNOWN) {
+                    label = "Last";
+                }
+                return ["GPS", label];
+            }
+            return ["GPS", "-"];
+        }
+        if (field == FIELD_HEADING) {
+            var pos = _posInfo;
+            if (pos != null && pos.heading != null) {
+                var deg = ((pos.heading as Float) * 57.29577951).toNumber();
+                deg = ((deg % 360) + 360) % 360;
+                return ["Hdg", deg.toString() + "°"];
+            }
+            return ["Hdg", "-"];
         }
         return ["", ""];
     }

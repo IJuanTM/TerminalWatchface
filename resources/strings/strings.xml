@@ -116,6 +116,10 @@
   <string id="FieldCalendar">Calendar Event</string>
   <string id="FieldWeeklyRun">Distance (Wk. Run)</string>
   <string id="FieldWeeklyBike">Distance (Wk. Bike)</string>
+  <string id="FieldGpsLat">GPS Latitude</string>
+  <string id="FieldGpsLon">GPS Longitude</string>
+  <string id="FieldGpsAccuracy">GPS Accuracy</string>
+  <string id="FieldHeading">Heading</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>
