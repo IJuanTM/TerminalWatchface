@@ -107,6 +107,8 @@
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
   <string id="FieldWxForecast">Weather: Forecast</string>
+  <string id="FieldVo2Max">VO2 Max</string>
+  <string id="FieldSpeed">Speed</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>

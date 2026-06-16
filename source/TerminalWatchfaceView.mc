@@ -9,6 +9,7 @@ import Toybox.Time.Gregorian;
 import Toybox.WatchUi;
 import Toybox.Weather;
 import Toybox.SensorHistory;
+import Toybox.UserProfile;
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -42,6 +43,8 @@ const FIELD_HR_MAX = 30;
 const FIELD_PRESSURE = 31;
 const FIELD_ELEVATION = 32;
 const FIELD_WX_FORECAST = 33;
+const FIELD_VO2_MAX = 34;
+const FIELD_SPEED = 35;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -1944,6 +1947,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_WX_FORECAST) {
             return ["Forecast", _wxTemp + _wxUnit];
+        }
+        if (field == FIELD_VO2_MAX) {
+            var profile = UserProfile.getProfile();
+            var vo2 = profile.vo2maxRunning;
+            if (vo2 == null) {
+                vo2 = profile.vo2maxCycling;
+            }
+            return ["VO2 Max", vo2 != null ? (vo2 as Number).toString() : "-"];
+        }
+        if (field == FIELD_SPEED) {
+            var a = _acInfo as Activity.Info;
+            if (a.currentSpeed != null) {
+                var spd = a.currentSpeed as Float;
+                return _metric
+                    ? ["Speed", (spd * 3.6).format("%.1f") + " km/h"]
+                    : ["Speed", (spd * 2.23694).format("%.1f") + " mph"];
+            }
+            return ["Speed", "-"];
         }
         return ["", ""];
     }
