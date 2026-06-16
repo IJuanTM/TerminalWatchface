@@ -58,17 +58,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
@@ -82,17 +72,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -108,17 +88,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
@@ -132,17 +102,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -194,17 +154,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryValueColor" title="@Strings.Line3PrimaryValueColor">
@@ -218,17 +168,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3Secondary" title="@Strings.Line3Secondary">
@@ -279,17 +219,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryValueColor"
@@ -304,17 +234,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3Tertiary" title="@Strings.Line3Tertiary">
@@ -365,17 +285,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryValueColor"
@@ -390,17 +300,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -452,17 +352,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryValueColor" title="@Strings.Line4PrimaryValueColor">
@@ -476,17 +366,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4Secondary" title="@Strings.Line4Secondary">
@@ -537,17 +417,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryValueColor"
@@ -562,17 +432,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4Tertiary" title="@Strings.Line4Tertiary">
@@ -623,17 +483,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryValueColor"
@@ -648,17 +498,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -710,17 +550,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryValueColor" title="@Strings.Line5PrimaryValueColor">
@@ -734,17 +564,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5Secondary" title="@Strings.Line5Secondary">
@@ -795,17 +615,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryValueColor"
@@ -820,17 +630,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5Tertiary" title="@Strings.Line5Tertiary">
@@ -881,17 +681,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryValueColor"
@@ -906,21 +696,17 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
   <!-- Graph settings per supported field type -->
+
+  <!-- Shared graph type list (used by GraphType settings below) -->
+  <!-- 0=Line, 1=Bar, 2=GradLine, 3=GradBar -->
+
+  <!-- Shared secondary type list (used by SecondaryType settings below) -->
+  <!-- 0=None, 1=Line, 2=Bar, 3=GradLine, 4=GradBar -->
 
   <!-- HR -->
   <setting propertyKey="@Properties.hrViewMode" title="@Strings.HRViewMode">
@@ -928,43 +714,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.hrTimeFrame" title="@Strings.HRTimeFrame">
+  <setting propertyKey="@Properties.hrGraphType" title="@Strings.HRGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.hrLineColor" title="@Strings.HRLineColor">
+  <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryField" title="@Strings.HRSecondaryField">
@@ -978,6 +744,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.hrTimeFrame" title="@Strings.HRTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrGraphColor" title="@Strings.HRGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -989,17 +780,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1009,43 +790,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.bodyBatTimeFrame" title="@Strings.BodyBatTimeFrame">
+  <setting propertyKey="@Properties.bodyBatGraphType" title="@Strings.BodyBatGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.bodyBatLineColor" title="@Strings.BodyBatLineColor">
+  <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryField" title="@Strings.BodyBatSecondaryField">
@@ -1059,6 +820,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.bodyBatTimeFrame" title="@Strings.BodyBatTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatGraphColor" title="@Strings.BodyBatGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -1070,17 +856,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1090,43 +866,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.stressTimeFrame" title="@Strings.StressTimeFrame">
+  <setting propertyKey="@Properties.stressGraphType" title="@Strings.StressGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.stressLineColor" title="@Strings.StressLineColor">
+  <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryField" title="@Strings.StressSecondaryField">
@@ -1140,6 +896,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.stressTimeFrame" title="@Strings.StressTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressGraphColor" title="@Strings.StressGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -1151,17 +932,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1171,43 +942,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.spo2TimeFrame" title="@Strings.SpO2TimeFrame">
+  <setting propertyKey="@Properties.spo2GraphType" title="@Strings.SpO2GraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.spo2LineColor" title="@Strings.SpO2LineColor">
+  <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryField" title="@Strings.SpO2SecondaryField">
@@ -1221,6 +972,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.spo2TimeFrame" title="@Strings.SpO2TimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2GraphColor" title="@Strings.SpO2GraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -1232,17 +1008,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1252,43 +1018,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.tempWristTimeFrame" title="@Strings.TempWristTimeFrame">
+  <setting propertyKey="@Properties.tempWristGraphType" title="@Strings.TempWristGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.tempWristLineColor" title="@Strings.TempWristLineColor">
+  <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryField"
@@ -1303,6 +1049,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.tempWristTimeFrame" title="@Strings.TempWristTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristGraphColor" title="@Strings.TempWristGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.tempWristSecondaryColor"
     title="@Strings.TempWristSecondaryColor">
     <settingConfig type="list">
@@ -1315,17 +1086,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1335,43 +1096,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.elevationTimeFrame" title="@Strings.ElevationTimeFrame">
+  <setting propertyKey="@Properties.elevationGraphType" title="@Strings.ElevationGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.elevationLineColor" title="@Strings.ElevationLineColor">
+  <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryField"
@@ -1386,6 +1127,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.elevationTimeFrame" title="@Strings.ElevationTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationGraphColor" title="@Strings.ElevationGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.elevationSecondaryColor"
     title="@Strings.ElevationSecondaryColor">
     <settingConfig type="list">
@@ -1398,17 +1164,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1418,43 +1174,23 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
-      <listEntry value="4">@Strings.ViewModeDualGraph</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.pressureTimeFrame" title="@Strings.PressureTimeFrame">
+  <setting propertyKey="@Properties.pressureGraphType" title="@Strings.PressureGraphType">
     <settingConfig type="list">
-      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.pressureLineColor" title="@Strings.PressureLineColor">
+  <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
     <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
+      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryField" title="@Strings.PressureSecondaryField">
@@ -1468,6 +1204,31 @@
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.pressureTimeFrame" title="@Strings.PressureTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureGraphColor" title="@Strings.PressureGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
@@ -1479,17 +1240,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -1499,7 +1250,14 @@
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      <listEntry value="3">@Strings.ViewModeBarGraph</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
+      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
@@ -1510,7 +1268,7 @@
       <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.wxForecastLineColor" title="@Strings.WxForecastLineColor">
+  <setting propertyKey="@Properties.wxForecastGraphColor" title="@Strings.WxForecastGraphColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
@@ -1521,17 +1279,7 @@
       <listEntry value="6">@Strings.ColorBlue</listEntry>
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPink</listEntry>
-      <listEntry value="10">@Strings.ColorLime</listEntry>
-      <listEntry value="11">@Strings.ColorTeal</listEntry>
-      <listEntry value="12">@Strings.ColorPurple</listEntry>
-      <listEntry value="13">@Strings.ColorDarkGrey</listEntry>
-      <listEntry value="14">@Strings.ColorSkyBlue</listEntry>
-      <listEntry value="15">@Strings.ColorAmber</listEntry>
-      <listEntry value="16">@Strings.ColorEmerald</listEntry>
-      <listEntry value="17">@Strings.ColorTurquoise</listEntry>
-      <listEntry value="18">@Strings.ColorCoral</listEntry>
-      <listEntry value="19">@Strings.ColorViolet</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 

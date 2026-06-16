@@ -46,8 +46,17 @@ const FIELD_WX_FORECAST = 33;
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
-const VIEW_BAR_GRAPH = 3;
-const VIEW_DUAL_GRAPH = 4;
+
+const GRAPH_LINE = 0;
+const GRAPH_BAR = 1;
+const GRAPH_GRAD_LINE = 2;
+const GRAPH_GRAD_BAR = 3;
+
+const SEC_NONE = 0;
+const SEC_LINE = 1;
+const SEC_BAR = 2;
+const SEC_GRAD_LINE = 3;
+const SEC_GRAD_BAR = 4;
 
 // Indices into this array are used as the SecondaryField property value
 const GRAPH_FIELDS =
@@ -65,25 +74,15 @@ const GRAPH_FIELDS =
 const COLORS =
     [
         0xffffff, // 0  white
-        0x44dd88, // 1  green
-        0x55ddff, // 2  cyan
-        0xeedd55, // 3  yellow
-        0xffaa55, // 4  orange
+        0x55ff77, // 1  green
+        0x55eeff, // 2  cyan
+        0xffee55, // 3  yellow
+        0xff9944, // 4  orange
         0xff5555, // 5  red
-        0x7799ff, // 6  blue
-        0xdd77ff, // 7  magenta
-        0xcccccc, // 8  light grey
-        0xff77cc, // 9  pink
-        0xaaff55, // 10 lime
-        0x33bbaa, // 11 teal
-        0x8844ff, // 12 purple
-        0x888888, // 13 dark grey
-        0x44aaff, // 14 sky blue
-        0xffbb00, // 15 amber
-        0x00cc55, // 16 emerald
-        0x00ddb0, // 17 turquoise
-        0xff7766, // 18 coral
-        0xaa66ff, // 19 violet
+        0x5588ff, // 6  blue
+        0xff55ff, // 7  magenta
+        0xaaaaaa, // 8  light grey
+        0x9955ff, // 9  purple
     ] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
@@ -118,7 +117,7 @@ const ICON_ARROW_DN = 1;
 const ICON_DEG = 2;
 const ICON_BOLT = 3;
 
-// Resource lookup arrays indexed by color index (0-19). See gen_icons.py.
+// Resource lookup arrays indexed by color index (0-9). See gen_icons.py.
 const AUP_A_RES = [
     $.Rez.Drawables.AupA0,
     $.Rez.Drawables.AupA1,
@@ -130,16 +129,6 @@ const AUP_A_RES = [
     $.Rez.Drawables.AupA7,
     $.Rez.Drawables.AupA8,
     $.Rez.Drawables.AupA9,
-    $.Rez.Drawables.AupA10,
-    $.Rez.Drawables.AupA11,
-    $.Rez.Drawables.AupA12,
-    $.Rez.Drawables.AupA13,
-    $.Rez.Drawables.AupA14,
-    $.Rez.Drawables.AupA15,
-    $.Rez.Drawables.AupA16,
-    $.Rez.Drawables.AupA17,
-    $.Rez.Drawables.AupA18,
-    $.Rez.Drawables.AupA19,
 ];
 const AUP_B_RES = [
     $.Rez.Drawables.AupB0,
@@ -152,16 +141,6 @@ const AUP_B_RES = [
     $.Rez.Drawables.AupB7,
     $.Rez.Drawables.AupB8,
     $.Rez.Drawables.AupB9,
-    $.Rez.Drawables.AupB10,
-    $.Rez.Drawables.AupB11,
-    $.Rez.Drawables.AupB12,
-    $.Rez.Drawables.AupB13,
-    $.Rez.Drawables.AupB14,
-    $.Rez.Drawables.AupB15,
-    $.Rez.Drawables.AupB16,
-    $.Rez.Drawables.AupB17,
-    $.Rez.Drawables.AupB18,
-    $.Rez.Drawables.AupB19,
 ];
 const ADN_A_RES = [
     $.Rez.Drawables.AdnA0,
@@ -174,16 +153,6 @@ const ADN_A_RES = [
     $.Rez.Drawables.AdnA7,
     $.Rez.Drawables.AdnA8,
     $.Rez.Drawables.AdnA9,
-    $.Rez.Drawables.AdnA10,
-    $.Rez.Drawables.AdnA11,
-    $.Rez.Drawables.AdnA12,
-    $.Rez.Drawables.AdnA13,
-    $.Rez.Drawables.AdnA14,
-    $.Rez.Drawables.AdnA15,
-    $.Rez.Drawables.AdnA16,
-    $.Rez.Drawables.AdnA17,
-    $.Rez.Drawables.AdnA18,
-    $.Rez.Drawables.AdnA19,
 ];
 const ADN_B_RES = [
     $.Rez.Drawables.AdnB0,
@@ -196,16 +165,6 @@ const ADN_B_RES = [
     $.Rez.Drawables.AdnB7,
     $.Rez.Drawables.AdnB8,
     $.Rez.Drawables.AdnB9,
-    $.Rez.Drawables.AdnB10,
-    $.Rez.Drawables.AdnB11,
-    $.Rez.Drawables.AdnB12,
-    $.Rez.Drawables.AdnB13,
-    $.Rez.Drawables.AdnB14,
-    $.Rez.Drawables.AdnB15,
-    $.Rez.Drawables.AdnB16,
-    $.Rez.Drawables.AdnB17,
-    $.Rez.Drawables.AdnB18,
-    $.Rez.Drawables.AdnB19,
 ];
 const DEG_A_RES = [
     $.Rez.Drawables.DegA0,
@@ -218,16 +177,6 @@ const DEG_A_RES = [
     $.Rez.Drawables.DegA7,
     $.Rez.Drawables.DegA8,
     $.Rez.Drawables.DegA9,
-    $.Rez.Drawables.DegA10,
-    $.Rez.Drawables.DegA11,
-    $.Rez.Drawables.DegA12,
-    $.Rez.Drawables.DegA13,
-    $.Rez.Drawables.DegA14,
-    $.Rez.Drawables.DegA15,
-    $.Rez.Drawables.DegA16,
-    $.Rez.Drawables.DegA17,
-    $.Rez.Drawables.DegA18,
-    $.Rez.Drawables.DegA19,
 ];
 const DEG_B_RES = [
     $.Rez.Drawables.DegB0,
@@ -240,16 +189,6 @@ const DEG_B_RES = [
     $.Rez.Drawables.DegB7,
     $.Rez.Drawables.DegB8,
     $.Rez.Drawables.DegB9,
-    $.Rez.Drawables.DegB10,
-    $.Rez.Drawables.DegB11,
-    $.Rez.Drawables.DegB12,
-    $.Rez.Drawables.DegB13,
-    $.Rez.Drawables.DegB14,
-    $.Rez.Drawables.DegB15,
-    $.Rez.Drawables.DegB16,
-    $.Rez.Drawables.DegB17,
-    $.Rez.Drawables.DegB18,
-    $.Rez.Drawables.DegB19,
 ];
 
 class TerminalWatchfaceView extends WatchUi.WatchFace {
@@ -292,6 +231,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _amInfo as ActivityMonitor.Info? = null;
     private var _acInfo as Activity.Info? = null;
     private var _wxLastMin as Number = -1;
+    private var _metric as Boolean = false;
+    private var _notifCount as Number = 0;
 
     public function initialize() {
         WatchFace.initialize();
@@ -376,7 +317,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cursorOn = (now / 1000) % 2 == 0;
         _amInfo = ActivityMonitor.getInfo();
         _acInfo = Activity.getActivityInfo();
-        _refreshWeather();
+        var settings = System.getDeviceSettings();
+        _metric = settings.distanceUnits == System.UNIT_METRIC;
+        _notifCount =
+            settings.notificationCount != null
+                ? settings.notificationCount as Number
+                : 0;
+        var nowMin =
+            (Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info)
+                .min as Number;
+        if (nowMin != _graphCacheMin) {
+            _graphCache = {};
+            _graphCacheMin = nowMin;
+        }
+        _refreshWeather(nowMin);
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
@@ -472,33 +426,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (colorIdx < 0 || colorIdx >= COLORS.size()) {
             colorIdx = 0;
         }
-        var key = iconType * 40 + _sizeSet * 20 + colorIdx;
+        var key = iconType * 20 + _sizeSet * 10 + colorIdx;
         var cached = _bmpCache.get(key);
         if (cached != null) {
             return cached as Graphics.BitmapType;
         }
         try {
-            if (iconType == ICON_ARROW_UP) {
-                var arr = _sizeSet == 1 ? AUP_B_RES : AUP_A_RES;
-                var bmp =
-                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
-                _bmpCache.put(key, bmp);
-                return bmp;
-            }
-            if (iconType == ICON_ARROW_DN) {
-                var arr = _sizeSet == 1 ? ADN_B_RES : ADN_A_RES;
-                var bmp =
-                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
-                _bmpCache.put(key, bmp);
-                return bmp;
-            }
-            if (iconType == ICON_DEG) {
-                var arr = _sizeSet == 1 ? DEG_B_RES : DEG_A_RES;
-                var bmp =
-                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
-                _bmpCache.put(key, bmp);
-                return bmp;
-            }
             if (iconType == ICON_BOLT) {
                 var bmp =
                     WatchUi.loadResource(
@@ -509,17 +442,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _bmpCache.put(key, bmp);
                 return bmp;
             }
+            var arr =
+                iconType == ICON_ARROW_UP
+                    ? _sizeSet == 1
+                        ? AUP_B_RES
+                        : AUP_A_RES
+                    : iconType == ICON_ARROW_DN
+                      ? _sizeSet == 1
+                          ? ADN_B_RES
+                          : ADN_A_RES
+                      : iconType == ICON_DEG
+                        ? _sizeSet == 1
+                            ? DEG_B_RES
+                            : DEG_A_RES
+                        : null;
+            if (arr != null) {
+                var bmp =
+                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
+                _bmpCache.put(key, bmp);
+                return bmp;
+            }
         } catch (e instanceof Lang.Exception) {}
         return null;
     }
 
     private function _drawHeader(dc as Dc, y as Number, gap as Number) as Void {
-        var notifCount = System.getDeviceSettings().notificationCount;
-        if (notifCount == null || notifCount == 0) {
+        if (_notifCount == 0) {
             return;
         }
         var textY = y - 2 * gap - dc.getFontHeight(_fontSmall);
-        var label = "[" + notifCount.toString() + "]";
+        var label = "[" + _notifCount.toString() + "]";
         dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _w / 2,
@@ -533,34 +485,52 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _drawFooter(dc as Dc, y as Number) as Void {
         var stats = System.getSystemStats();
         var bat = stats.battery;
-        var colorIdx = bat >= 100.0 ? 1 : bat <= 10.0 ? 5 : 8;
         var days = stats.batteryInDays;
-        var text = bat.format("%.0f") + "%";
-        if (days != null) {
-            text = text + " [" + days.format("%.0f") + "d]";
+        var batText = bat.format("%.0f") + "%";
+        var daysText = days != null ? " [" + days.format("%.0f") + "d]" : "";
+        var batW = dc.getTextWidthInPixels(batText, _fontSmall);
+        var daysW =
+            days != null ? dc.getTextWidthInPixels(daysText, _fontSmall) : 0;
+        if (stats.charging) {
+            var bolt = _getIconBmp(ICON_BOLT, 0);
+            if (bolt != null) {
+                var fhSm = dc.getFontHeight(_fontSmall);
+                var spaced = " " + batText;
+                var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
+                var startX = (_w - _bmpBoltW - spacedW - daysW) / 2;
+                dc.drawBitmap(startX, y + (fhSm - _boltH) / 2, bolt);
+                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(
+                    startX + _bmpBoltW,
+                    y,
+                    _fontSmall,
+                    spaced,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+                if (days != null) {
+                    dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(
+                        startX + _bmpBoltW + spacedW,
+                        y,
+                        _fontSmall,
+                        daysText,
+                        Graphics.TEXT_JUSTIFY_LEFT
+                    );
+                }
+                return;
+            }
         }
-        dc.setColor(_colorFromIdx(colorIdx), Graphics.COLOR_TRANSPARENT);
-        var bolt = _getIconBmp(ICON_BOLT, colorIdx);
-        if (stats.charging && bolt != null) {
-            var fhSm = dc.getFontHeight(_fontSmall);
-            var spaced = " " + text;
-            var textW = dc.getTextWidthInPixels(spaced, _fontSmall);
-            var startX = (_w - _bmpBoltW - textW) / 2;
-            dc.drawBitmap(startX, y + (fhSm - _boltH) / 2, bolt);
+        var startX = (_w - batW - daysW) / 2;
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(startX, y, _fontSmall, batText, Graphics.TEXT_JUSTIFY_LEFT);
+        if (days != null) {
+            dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
-                startX + _bmpBoltW,
+                startX + batW,
                 y,
                 _fontSmall,
-                spaced,
+                daysText,
                 Graphics.TEXT_JUSTIFY_LEFT
-            );
-        } else {
-            dc.drawText(
-                _w / 2,
-                y,
-                _fontSmall,
-                text,
-                Graphics.TEXT_JUSTIFY_CENTER
             );
         }
     }
@@ -601,14 +571,46 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         lineNum as Number,
         phase as Number
     ) as Boolean {
-        var k = "line" + lineNum;
-        if (phase == 1 && _getProp(k + "Secondary", FIELD_NONE) != FIELD_NONE) {
+        if (lineNum == 3) {
+            if (
+                phase == 1 &&
+                _getProp("line3Secondary", FIELD_NONE) != FIELD_NONE
+            ) {
+                return true;
+            }
+            if (
+                phase == 2 &&
+                _getProp("line3Tertiary", FIELD_NONE) != FIELD_NONE
+            ) {
+                return true;
+            }
+            return _getProp("line3Primary", FIELD_NONE) != FIELD_NONE;
+        }
+        if (lineNum == 4) {
+            if (
+                phase == 1 &&
+                _getProp("line4Secondary", FIELD_NONE) != FIELD_NONE
+            ) {
+                return true;
+            }
+            if (
+                phase == 2 &&
+                _getProp("line4Tertiary", FIELD_NONE) != FIELD_NONE
+            ) {
+                return true;
+            }
+            return _getProp("line4Primary", FIELD_NONE) != FIELD_NONE;
+        }
+        if (
+            phase == 1 &&
+            _getProp("line5Secondary", FIELD_NONE) != FIELD_NONE
+        ) {
             return true;
         }
-        if (phase == 2 && _getProp(k + "Tertiary", FIELD_NONE) != FIELD_NONE) {
+        if (phase == 2 && _getProp("line5Tertiary", FIELD_NONE) != FIELD_NONE) {
             return true;
         }
-        return _getProp(k + "Primary", FIELD_NONE) != FIELD_NONE;
+        return _getProp("line5Primary", FIELD_NONE) != FIELD_NONE;
     }
 
     private function _drawLineRow(
@@ -618,21 +620,58 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         lineNum as Number,
         phase as Number
     ) as Void {
-        var k = "line" + lineNum;
-        var sec = _getProp(k + "Secondary", FIELD_NONE);
-        var ter = _getProp(k + "Tertiary", FIELD_NONE);
-        var s = "Primary";
-        var field = _getProp(k + "Primary", FIELD_NONE);
-        if (phase == 1 && sec != FIELD_NONE) {
-            s = "Secondary";
-            field = sec;
-        } else if (phase == 2 && ter != FIELD_NONE) {
-            s = "Tertiary";
-            field = ter;
+        var field = FIELD_NONE;
+        var labelColor = 8;
+        var valueColor = 0;
+        if (lineNum == 3) {
+            var sec3 = _getProp("line3Secondary", FIELD_NONE);
+            var ter3 = _getProp("line3Tertiary", FIELD_NONE);
+            if (phase == 1 && sec3 != FIELD_NONE) {
+                field = sec3;
+                labelColor = _getProp("line3SecondaryLabelColor", 8);
+                valueColor = _getProp("line3SecondaryValueColor", 0);
+            } else if (phase == 2 && ter3 != FIELD_NONE) {
+                field = ter3;
+                labelColor = _getProp("line3TertiaryLabelColor", 8);
+                valueColor = _getProp("line3TertiaryValueColor", 0);
+            } else {
+                field = _getProp("line3Primary", FIELD_NONE);
+                labelColor = _getProp("line3PrimaryLabelColor", 8);
+                valueColor = _getProp("line3PrimaryValueColor", 0);
+            }
+        } else if (lineNum == 4) {
+            var sec4 = _getProp("line4Secondary", FIELD_NONE);
+            var ter4 = _getProp("line4Tertiary", FIELD_NONE);
+            if (phase == 1 && sec4 != FIELD_NONE) {
+                field = sec4;
+                labelColor = _getProp("line4SecondaryLabelColor", 8);
+                valueColor = _getProp("line4SecondaryValueColor", 0);
+            } else if (phase == 2 && ter4 != FIELD_NONE) {
+                field = ter4;
+                labelColor = _getProp("line4TertiaryLabelColor", 8);
+                valueColor = _getProp("line4TertiaryValueColor", 0);
+            } else {
+                field = _getProp("line4Primary", FIELD_NONE);
+                labelColor = _getProp("line4PrimaryLabelColor", 8);
+                valueColor = _getProp("line4PrimaryValueColor", 0);
+            }
+        } else {
+            var sec5 = _getProp("line5Secondary", FIELD_NONE);
+            var ter5 = _getProp("line5Tertiary", FIELD_NONE);
+            if (phase == 1 && sec5 != FIELD_NONE) {
+                field = sec5;
+                labelColor = _getProp("line5SecondaryLabelColor", 8);
+                valueColor = _getProp("line5SecondaryValueColor", 0);
+            } else if (phase == 2 && ter5 != FIELD_NONE) {
+                field = ter5;
+                labelColor = _getProp("line5TertiaryLabelColor", 8);
+                valueColor = _getProp("line5TertiaryValueColor", 0);
+            } else {
+                field = _getProp("line5Primary", FIELD_NONE);
+                labelColor = _getProp("line5PrimaryLabelColor", 8);
+                valueColor = _getProp("line5PrimaryValueColor", 0);
+            }
         }
-
-        var labelColor = _getProp(k + s + "LabelColor", 8);
-        var valueColor = _getProp(k + s + "ValueColor", 0);
         if (field == FIELD_FLOORS) {
             _drawFloorsRow(dc, cx, y, labelColor, valueColor);
             return;
@@ -717,13 +756,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_WX_FORECAST) {
             var viewMode = _getProp("wxForecastViewMode", VIEW_GRAPH);
-            var lineColor = _getProp("wxForecastLineColor", 2);
+            var lineColor = _getProp("wxForecastGraphColor", 6);
+            var graphType = _getProp("wxForecastGraphType", GRAPH_BAR);
             var hours = _getProp("wxForecastTimeFrame", 6);
-            if (
-                viewMode == VIEW_GRAPH ||
-                viewMode == VIEW_GRAPH_VALUE ||
-                viewMode == VIEW_BAR_GRAPH
-            ) {
+            if (viewMode == VIEW_GRAPH || viewMode == VIEW_GRAPH_VALUE) {
                 _drawForecastRow(
                     dc,
                     cx,
@@ -732,7 +768,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     viewMode,
                     labelColor,
                     valueColor,
-                    lineColor
+                    lineColor,
+                    graphType
                 );
             } else {
                 _drawRow(
@@ -750,43 +787,47 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (gk != null) {
             var viewMode = _getProp(gk + "ViewMode", VIEW_VALUE);
             var periodMin = _getProp(gk + "TimeFrame", 60);
-            var lineColor = _getProp(gk + "LineColor", gk.equals("hr") ? 5 : 0);
-            if (
-                viewMode == VIEW_GRAPH ||
-                viewMode == VIEW_GRAPH_VALUE ||
-                viewMode == VIEW_BAR_GRAPH
-            ) {
-                _drawGraphRow(
-                    dc,
-                    cx,
-                    y,
-                    field,
-                    periodMin,
-                    viewMode,
-                    labelColor,
-                    valueColor,
-                    lineColor
-                );
-                return;
-            }
-            if (viewMode == VIEW_DUAL_GRAPH) {
-                var secIdx = _getProp(gk + "SecondaryField", 0);
-                if (secIdx < 0 || secIdx >= GRAPH_FIELDS.size()) {
-                    secIdx = 0;
+            var lineColor = _getProp(
+                gk + "GraphColor",
+                gk.equals("hr") ? 5 : 0
+            );
+            var graphType = _getProp(gk + "GraphType", GRAPH_LINE);
+            var secType = _getProp(gk + "SecondaryType", SEC_NONE);
+            if (viewMode == VIEW_GRAPH || viewMode == VIEW_GRAPH_VALUE) {
+                if (secType != SEC_NONE) {
+                    var secIdx = _getProp(gk + "SecondaryField", 0);
+                    if (secIdx < 0 || secIdx >= GRAPH_FIELDS.size()) {
+                        secIdx = 0;
+                    }
+                    var lineColor2 = _getProp(gk + "SecondaryColor", 0);
+                    _drawDualGraphRow(
+                        dc,
+                        cx,
+                        y,
+                        field,
+                        GRAPH_FIELDS[secIdx] as Number,
+                        periodMin,
+                        labelColor,
+                        valueColor,
+                        lineColor,
+                        lineColor2,
+                        graphType,
+                        secType
+                    );
+                } else {
+                    _drawGraphRow(
+                        dc,
+                        cx,
+                        y,
+                        field,
+                        periodMin,
+                        viewMode,
+                        labelColor,
+                        valueColor,
+                        lineColor,
+                        graphType
+                    );
                 }
-                var lineColor2 = _getProp(gk + "SecondaryColor", 0);
-                _drawDualGraphRow(
-                    dc,
-                    cx,
-                    y,
-                    field,
-                    GRAPH_FIELDS[secIdx] as Number,
-                    periodMin,
-                    labelColor,
-                    valueColor,
-                    lineColor,
-                    lineColor2
-                );
                 return;
             }
         }
@@ -817,8 +858,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             dc.drawBitmap(x, ay, bmpUp);
         }
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, up + " ", Graphics.TEXT_JUSTIFY_LEFT);
-        x += dc.getTextWidthInPixels(up + " ", _font);
+        var upSpace = up + " ";
+        dc.drawText(x, y, _font, upSpace, Graphics.TEXT_JUSTIFY_LEFT);
+        x += dc.getTextWidthInPixels(upSpace, _font);
         if (bmpDn != null) {
             dc.drawBitmap(x, ay, bmpDn);
         }
@@ -965,7 +1007,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         labelColor as Number,
         valueColor as Number,
         lineColor as Number,
-        lineColor2 as Number
+        lineColor2 as Number,
+        graphType as Number,
+        secType as Number
     ) as Void {
         var data = _getFieldHistory(field, periodMin);
         var parts = _getFieldParts(field);
@@ -987,49 +1031,74 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
 
-        // Primary line
-        var cnt = data.size();
-        var minV = data[0] as Float;
-        var maxV = data[0] as Float;
-        for (var i = 1; i < cnt; i++) {
-            var v = data[i] as Float;
-            if (v < minV) {
-                minV = v;
-            }
-            if (v > maxV) {
-                maxV = v;
-            }
-        }
+        var mm = _minMax(data);
+        var minV = mm[0] as Float;
+        var maxV = mm[1] as Float;
         var range = maxV - minV;
         if (range < 1.0) {
             range = 1.0;
         }
-        dc.setColor(_colorFromIdx(lineColor), Graphics.COLOR_TRANSPARENT);
-        _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
 
-        // Secondary line
         var data2 = _getFieldHistory(fieldSecondary, periodMin);
         var minV2 = 0.0 as Float;
         var maxV2 = 0.0 as Float;
+        var range2 = 1.0 as Float;
         if (data2 != null) {
-            var cnt2 = data2.size();
-            minV2 = data2[0] as Float;
-            maxV2 = data2[0] as Float;
-            for (var i = 1; i < cnt2; i++) {
-                var v = data2[i] as Float;
-                if (v < minV2) {
-                    minV2 = v;
-                }
-                if (v > maxV2) {
-                    maxV2 = v;
-                }
-            }
-            var range2 = maxV2 - minV2;
+            var mm2 = _minMax(data2);
+            minV2 = mm2[0] as Float;
+            maxV2 = mm2[1] as Float;
+            range2 = maxV2 - minV2;
             if (range2 < 1.0) {
                 range2 = 1.0;
             }
-            dc.setColor(_colorFromIdx(lineColor2), Graphics.COLOR_TRANSPARENT);
-            _drawGraphLine(dc, data2, gx, gw, y, gh, minV2, range2);
+        }
+
+        var primaryIsBar =
+            graphType == GRAPH_BAR || graphType == GRAPH_GRAD_BAR;
+        var secondaryIsBar = secType == SEC_BAR || secType == SEC_GRAD_BAR;
+        if (primaryIsBar && secondaryIsBar && data2 != null) {
+            _drawDualBars(
+                dc,
+                data,
+                data2,
+                gx,
+                gw,
+                y,
+                gh + 1,
+                minV,
+                range,
+                minV2,
+                range2,
+                _colorFromIdx(lineColor),
+                _colorFromIdx(lineColor2)
+            );
+        } else {
+            _drawOneGraph(
+                dc,
+                graphType,
+                lineColor,
+                data,
+                gx,
+                gw,
+                y,
+                gh,
+                minV,
+                range
+            );
+            if (data2 != null) {
+                _drawOneGraph(
+                    dc,
+                    secType - 1,
+                    lineColor2,
+                    data2,
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    minV2,
+                    range2
+                );
+            }
         }
 
         _drawGraphAxes(dc, gx, gw, y);
@@ -1153,14 +1222,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         field as Number,
         periodMin as Number
     ) as Array<Float>? {
-        // Per-minute cache: clear when the minute rolls over
-        var nowMin =
-            (Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info)
-                .min as Number;
-        if (nowMin != _graphCacheMin) {
-            _graphCache = {};
-            _graphCacheMin = nowMin;
-        }
         var cacheKey = field * 10000 + periodMin;
         var cached = _graphCache.get(cacheKey);
         if (cached != null) {
@@ -1173,68 +1234,59 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             field == FIELD_HR_MEAN ||
             field == FIELD_HR_MAX
         ) {
-            var r = _readIter(SensorHistory.getHeartRateHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getHeartRateHistory(opts))
+            );
         }
         if (field == FIELD_BODY_BAT) {
-            var r = _readIter(SensorHistory.getBodyBatteryHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getBodyBatteryHistory(opts))
+            );
         }
         if (field == FIELD_STRESS) {
-            var r = _readIter(SensorHistory.getStressHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getStressHistory(opts))
+            );
         }
         if (field == FIELD_SPO2) {
-            var r = _readIter(SensorHistory.getOxygenSaturationHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getOxygenSaturationHistory(opts))
+            );
         }
         if (field == FIELD_TEMP_WRIST) {
-            var r = _readIter(SensorHistory.getTemperatureHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getTemperatureHistory(opts))
+            );
         }
         if (field == FIELD_ELEVATION) {
-            var r = _readIter(SensorHistory.getElevationHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getElevationHistory(opts))
+            );
         }
         if (field == FIELD_PRESSURE) {
-            var r = _readIter(SensorHistory.getPressureHistory(opts));
-            if (r != null) {
-                _graphCache.put(cacheKey, r);
-            }
-            return r;
+            return _cacheResult(
+                cacheKey,
+                _readIter(SensorHistory.getPressureHistory(opts))
+            );
         }
         return null;
     }
 
     private function _formatGraphLabel(field as Number, v as Float) as String {
         if (field == FIELD_TEMP_WRIST || field == FIELD_WX_FORECAST) {
-            return _isMetric() ? v.format("%.0f") : _toF(v).format("%.0f");
+            return _metric ? v.format("%.0f") : _toF(v).format("%.0f");
         }
         if (field == FIELD_ELEVATION) {
-            return _isMetric()
-                ? v.format("%.0f")
-                : (v * 3.28084).format("%.0f");
+            return _metric ? v.format("%.0f") : (v * 3.28084).format("%.0f");
         }
         if (field == FIELD_PRESSURE) {
-            return _isMetric()
+            return _metric
                 ? (v / 100.0).format("%.0f")
                 : (v / 3386.39).format("%.1f");
         }
@@ -1245,6 +1297,66 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
             : "-" + (periodMin / 60).toString() + "h";
+    }
+
+    private function _cacheResult(
+        cacheKey as Number,
+        r as Array<Float>?
+    ) as Array<Float>? {
+        if (r != null) {
+            _graphCache.put(cacheKey, r);
+        }
+        return r;
+    }
+
+    private function _minMax(data as Array<Float>) as Array<Float> {
+        var minV = data[0] as Float;
+        var maxV = data[0] as Float;
+        for (var i = 1; i < data.size(); i++) {
+            var v = data[i] as Float;
+            if (v < minV) {
+                minV = v;
+            }
+            if (v > maxV) {
+                maxV = v;
+            }
+        }
+        return [minV, maxV] as Array<Float>;
+    }
+
+    private function _drawSingleGraphLabels(
+        dc as Dc,
+        field as Number,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        maxV as Float,
+        bottomLabel as String
+    ) as Void {
+        dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            gx - 4,
+            y - 4,
+            _fontTiny,
+            _formatGraphLabel(field, maxV),
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx - 4,
+            y + gh - _tinyFh + 4,
+            _fontTiny,
+            _formatGraphLabel(field, minV),
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx + gw,
+            y + gh + 1,
+            _fontTiny,
+            bottomLabel,
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
     }
 
     private function _drawGraphAxes(
@@ -1286,7 +1398,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    private function _drawBarGraphLine(
+    private function _drawGradLine(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float
+    ) as Void {
+        var n1 = data.size() - 1;
+        var ghf = gh.toFloat();
+        for (var i = 0; i < n1; i++) {
+            var mid =
+                ((data[i] as Float) + (data[i + 1] as Float)) / 2.0 - minV;
+            var frac = mid / range;
+            if (frac < 0.0) {
+                frac = 0.0;
+            }
+            if (frac > 1.0) {
+                frac = 1.0;
+            }
+            dc.setColor(_valueColor(frac), Graphics.COLOR_TRANSPARENT);
+            dc.drawLine(
+                gx + ((n1 - i) * gw) / n1,
+                y +
+                    gh -
+                    ((((data[i] as Float) - minV) * ghf) / range).toNumber(),
+                gx + ((n1 - i - 1) * gw) / n1,
+                y +
+                    gh -
+                    ((((data[i + 1] as Float) - minV) * ghf) / range).toNumber()
+            );
+        }
+    }
+
+    private function _drawBars(
         dc as Dc,
         data as Array<Float>,
         gx as Number,
@@ -1314,6 +1462,109 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    private function _valueColor(fraction as Float) as Number {
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        if (fraction <= 0.5) {
+            var t = fraction * 2.0;
+            r = (85.0 + t * 170.0).toNumber();
+            g = (255.0 - t * 102.0).toNumber();
+            b = (119.0 - t * 51.0).toNumber();
+        } else {
+            var t = (fraction - 0.5) * 2.0;
+            r = 255;
+            g = (153.0 - t * 68.0).toNumber();
+            b = (68.0 + t * 17.0).toNumber();
+        }
+        return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+    }
+
+    private function _drawGradBars(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float
+    ) as Void {
+        var n = data.size();
+        var ghf = gh.toFloat();
+        for (var i = 0; i < n; i++) {
+            var slot = n - 1 - i;
+            var bx = gx + (slot * gw) / n;
+            var slotEnd = gx + ((slot + 1) * gw) / n;
+            var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
+            if (bw < 1) {
+                bw = 1;
+            }
+            var barH = ((((data[i] as Float) - minV) * ghf) / range).toNumber();
+            if (barH < 1) {
+                barH = 1;
+            }
+            var barTop = y + gh - barH;
+            for (var sy = 0; sy < barH; sy++) {
+                var frac = (barH - 1 - sy).toFloat() / ghf;
+                if (frac < 0.0) {
+                    frac = 0.0;
+                }
+                if (frac > 1.0) {
+                    frac = 1.0;
+                }
+                dc.setColor(_valueColor(frac), Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(bx, barTop + sy, bw, 1);
+            }
+        }
+    }
+
+    private function _drawDualBars(
+        dc as Dc,
+        data as Array<Float>,
+        data2 as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        minV2 as Float,
+        range2 as Float,
+        color as Number,
+        color2 as Number
+    ) as Void {
+        var n = data.size();
+        var n2 = data2.size();
+        var count = n < n2 ? n : n2;
+        var ghf = gh.toFloat();
+        for (var i = 0; i < count; i++) {
+            var slot = count - 1 - i;
+            var slotX = gx + (slot * gw) / count;
+            var slotEnd = gx + ((slot + 1) * gw) / count;
+            var slotW = slotEnd - slotX - (slot < count - 1 ? 1 : 0);
+            if (slotW < 2) {
+                slotW = 2;
+            }
+            var hw = slotW / 2;
+            var barH = ((((data[i] as Float) - minV) * ghf) / range).toNumber();
+            if (barH < 1) {
+                barH = 1;
+            }
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(slotX, y + gh - barH, hw, barH);
+            var barH2 = (
+                (((data2[i] as Float) - minV2) * ghf) /
+                range2
+            ).toNumber();
+            if (barH2 < 1) {
+                barH2 = 1;
+            }
+            dc.setColor(color2, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(slotX + hw, y + gh - barH2, slotW - hw, barH2);
+        }
+    }
+
     private function _drawForecastRow(
         dc as Dc,
         cx as Number,
@@ -1322,7 +1573,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         viewMode as Number,
         labelColor as Number,
         valueColor as Number,
-        lineColor as Number
+        lineColor as Number,
+        graphType as Number
     ) as Void {
         var fallback = ["Forecast", _wxTemp + _wxUnit] as Array<String>;
         var all = _wxForecastData;
@@ -1347,17 +1599,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             data[i] = (all as Array<Float>)[n - 1 - i];
         }
 
-        var minV = data[0] as Float;
-        var maxV = data[0] as Float;
-        for (var i = 1; i < n; i++) {
-            var v = data[i] as Float;
-            if (v < minV) {
-                minV = v;
-            }
-            if (v > maxV) {
-                maxV = v;
-            }
-        }
+        var mm = _minMax(data);
+        var minV = mm[0] as Float;
+        var maxV = mm[1] as Float;
         var range = maxV - minV;
         if (range < 1.0) {
             range = 1.0;
@@ -1371,39 +1615,33 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             labelColor,
             valueColor
         );
-        dc.setColor(_colorFromIdx(lineColor), Graphics.COLOR_TRANSPARENT);
-        if (viewMode == VIEW_BAR_GRAPH) {
-            _drawBarGraphLine(dc, data, gx, gw, y, gh + 1, minV, range);
-        } else {
-            _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
-        }
+        _drawOneGraph(
+            dc,
+            graphType,
+            lineColor,
+            data,
+            gx,
+            gw,
+            y,
+            gh,
+            minV,
+            range
+        );
         _drawGraphAxes(dc, gx, gw, y);
-
-        dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            gx - 4,
-            y - 4,
-            _fontTiny,
-            _formatGraphLabel(FIELD_WX_FORECAST, maxV),
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            gx - 4,
-            y + gh - _tinyFh + 4,
-            _fontTiny,
-            _formatGraphLabel(FIELD_WX_FORECAST, minV),
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            gx + gw,
-            y + gh + 1,
-            _fontTiny,
-            "+" + hours.toString() + "h",
-            Graphics.TEXT_JUSTIFY_RIGHT
+        _drawSingleGraphLabels(
+            dc,
+            FIELD_WX_FORECAST,
+            gx,
+            gw,
+            y,
+            gh,
+            minV,
+            maxV,
+            "+" + hours.toString() + "h"
         );
 
         if (viewMode == VIEW_GRAPH_VALUE) {
-            var metric = _isMetric();
+            var metric = _metric;
             var minStr = metric
                 ? minV.format("%.0f")
                 : _toF(minV).format("%.0f");
@@ -1421,6 +1659,31 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    private function _drawOneGraph(
+        dc as Dc,
+        graphType as Number,
+        colorIdx as Number,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float
+    ) as Void {
+        if (graphType == GRAPH_GRAD_LINE) {
+            _drawGradLine(dc, data, gx, gw, y, gh, minV, range);
+        } else if (graphType == GRAPH_GRAD_BAR) {
+            _drawGradBars(dc, data, gx, gw, y, gh + 1, minV, range);
+        } else if (graphType == GRAPH_BAR) {
+            dc.setColor(_colorFromIdx(colorIdx), Graphics.COLOR_TRANSPARENT);
+            _drawBars(dc, data, gx, gw, y, gh + 1, minV, range);
+        } else {
+            dc.setColor(_colorFromIdx(colorIdx), Graphics.COLOR_TRANSPARENT);
+            _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
+        }
+    }
+
     private function _drawGraphRow(
         dc as Dc,
         cx as Number,
@@ -1430,7 +1693,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         viewMode as Number,
         labelColor as Number,
         valueColor as Number,
-        lineColor as Number
+        lineColor as Number,
+        graphType as Number
     ) as Void {
         var data = _getFieldHistory(field, periodMin);
         var parts = _getFieldParts(field);
@@ -1442,19 +1706,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _charW * 10;
         var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
-        var n = data.size();
 
-        var minV = data[0] as Float;
-        var maxV = data[0] as Float;
-        for (var i = 1; i < n; i++) {
-            var v = data[i] as Float;
-            if (v < minV) {
-                minV = v;
-            }
-            if (v > maxV) {
-                maxV = v;
-            }
-        }
+        var mm = _minMax(data);
+        var minV = mm[0] as Float;
+        var maxV = mm[1] as Float;
         var range = maxV - minV;
         if (range < 1.0) {
             range = 1.0;
@@ -1468,35 +1723,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             labelColor,
             valueColor
         );
-        dc.setColor(_colorFromIdx(lineColor), Graphics.COLOR_TRANSPARENT);
-        if (viewMode == VIEW_BAR_GRAPH) {
-            _drawBarGraphLine(dc, data, gx, gw, y, gh + 1, minV, range);
-        } else {
-            _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
-        }
+        _drawOneGraph(
+            dc,
+            graphType,
+            lineColor,
+            data,
+            gx,
+            gw,
+            y,
+            gh,
+            minV,
+            range
+        );
         _drawGraphAxes(dc, gx, gw, y);
-
-        dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            gx - 4,
-            y - 4,
-            _fontTiny,
-            _formatGraphLabel(field, maxV),
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            gx - 4,
-            y + gh - _tinyFh + 4,
-            _fontTiny,
-            _formatGraphLabel(field, minV),
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
-        dc.drawText(
-            gx + gw,
-            y + gh + 1,
-            _fontTiny,
-            _tfLabel(periodMin),
-            Graphics.TEXT_JUSTIFY_RIGHT
+        _drawSingleGraphLabels(
+            dc,
+            field,
+            gx,
+            gw,
+            y,
+            gh,
+            minV,
+            maxV,
+            _tfLabel(periodMin)
         );
 
         if (viewMode == VIEW_GRAPH_VALUE) {
@@ -1537,7 +1786,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (info.distance == null) {
                 return ["Distance", "-"];
             }
-            return _isMetric()
+            return _metric
                 ? ["Distance", (info.distance / 100000.0).format("%.2f") + "km"]
                 : [
                       "Distance",
@@ -1549,7 +1798,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (a.altitude == null) {
                 return ["Altitude", "-"];
             }
-            return _isMetric()
+            return _metric
                 ? ["Altitude", a.altitude.format("%.0f") + "m"]
                 : ["Altitude", (a.altitude * 3.28084).format("%.0f") + "ft"];
         }
@@ -1650,7 +1899,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var sample = SensorHistory.getTemperatureHistory({}).next();
             if (sample != null && sample.data != null) {
                 var tempC = sample.data as Float;
-                return _isMetric()
+                return _metric
                     ? ["Wrist Temp", tempC.format("%.1f") + "C"]
                     : ["Wrist Temp", _toF(tempC).format("%.1f") + "F"];
             }
@@ -1677,7 +1926,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var sample = SensorHistory.getPressureHistory({}).next();
             if (sample != null && sample.data != null) {
                 var pa = sample.data as Float;
-                return _isMetric()
+                return _metric
                     ? ["Pressure", (pa / 100.0).format("%.1f") + "hPa"]
                     : ["Pressure", (pa / 3386.39).format("%.2f") + "inHg"];
             }
@@ -1687,7 +1936,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var sample = SensorHistory.getElevationHistory({}).next();
             if (sample != null && sample.data != null) {
                 var elev = sample.data as Float;
-                return _isMetric()
+                return _metric
                     ? ["Elevation", elev.format("%.0f") + "m"]
                     : ["Elevation", (elev * 3.28084).format("%.0f") + "ft"];
             }
@@ -1769,10 +2018,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return ["Date", value];
     }
 
-    private function _refreshWeather() as Void {
-        var nowMin =
-            (Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info)
-                .min as Number;
+    private function _refreshWeather(nowMin as Number) as Void {
         if (nowMin == _wxLastMin) {
             return;
         }
@@ -1781,7 +2027,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (c == null) {
             return;
         }
-        var metric = _isMetric();
+        var metric = _metric;
         _wxUnit = metric ? "C" : "F";
         if (c.temperature != null) {
             var tf = c.temperature as Float;
@@ -1882,10 +2128,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             default:
                 return "[?]";
         }
-    }
-
-    private function _isMetric() as Boolean {
-        return System.getDeviceSettings().distanceUnits == System.UNIT_METRIC;
     }
 
     private function _toF(c as Float) as Float {

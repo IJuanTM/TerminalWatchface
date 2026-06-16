@@ -10,16 +10,6 @@
     <bitmap id="AupA7" filename="icons/aup_a_7.png" />
     <bitmap id="AupA8" filename="icons/aup_a_8.png" />
     <bitmap id="AupA9" filename="icons/aup_a_9.png" />
-    <bitmap id="AupA10" filename="icons/aup_a_10.png" />
-    <bitmap id="AupA11" filename="icons/aup_a_11.png" />
-    <bitmap id="AupA12" filename="icons/aup_a_12.png" />
-    <bitmap id="AupA13" filename="icons/aup_a_13.png" />
-    <bitmap id="AupA14" filename="icons/aup_a_14.png" />
-    <bitmap id="AupA15" filename="icons/aup_a_15.png" />
-    <bitmap id="AupA16" filename="icons/aup_a_16.png" />
-    <bitmap id="AupA17" filename="icons/aup_a_17.png" />
-    <bitmap id="AupA18" filename="icons/aup_a_18.png" />
-    <bitmap id="AupA19" filename="icons/aup_a_19.png" />
     <bitmap id="AupB0" filename="icons/aup_b_0.png" />
     <bitmap id="AupB1" filename="icons/aup_b_1.png" />
     <bitmap id="AupB2" filename="icons/aup_b_2.png" />
@@ -30,16 +20,6 @@
     <bitmap id="AupB7" filename="icons/aup_b_7.png" />
     <bitmap id="AupB8" filename="icons/aup_b_8.png" />
     <bitmap id="AupB9" filename="icons/aup_b_9.png" />
-    <bitmap id="AupB10" filename="icons/aup_b_10.png" />
-    <bitmap id="AupB11" filename="icons/aup_b_11.png" />
-    <bitmap id="AupB12" filename="icons/aup_b_12.png" />
-    <bitmap id="AupB13" filename="icons/aup_b_13.png" />
-    <bitmap id="AupB14" filename="icons/aup_b_14.png" />
-    <bitmap id="AupB15" filename="icons/aup_b_15.png" />
-    <bitmap id="AupB16" filename="icons/aup_b_16.png" />
-    <bitmap id="AupB17" filename="icons/aup_b_17.png" />
-    <bitmap id="AupB18" filename="icons/aup_b_18.png" />
-    <bitmap id="AupB19" filename="icons/aup_b_19.png" />
     <bitmap id="AdnA0" filename="icons/adn_a_0.png" />
     <bitmap id="AdnA1" filename="icons/adn_a_1.png" />
     <bitmap id="AdnA2" filename="icons/adn_a_2.png" />
@@ -50,16 +30,6 @@
     <bitmap id="AdnA7" filename="icons/adn_a_7.png" />
     <bitmap id="AdnA8" filename="icons/adn_a_8.png" />
     <bitmap id="AdnA9" filename="icons/adn_a_9.png" />
-    <bitmap id="AdnA10" filename="icons/adn_a_10.png" />
-    <bitmap id="AdnA11" filename="icons/adn_a_11.png" />
-    <bitmap id="AdnA12" filename="icons/adn_a_12.png" />
-    <bitmap id="AdnA13" filename="icons/adn_a_13.png" />
-    <bitmap id="AdnA14" filename="icons/adn_a_14.png" />
-    <bitmap id="AdnA15" filename="icons/adn_a_15.png" />
-    <bitmap id="AdnA16" filename="icons/adn_a_16.png" />
-    <bitmap id="AdnA17" filename="icons/adn_a_17.png" />
-    <bitmap id="AdnA18" filename="icons/adn_a_18.png" />
-    <bitmap id="AdnA19" filename="icons/adn_a_19.png" />
     <bitmap id="AdnB0" filename="icons/adn_b_0.png" />
     <bitmap id="AdnB1" filename="icons/adn_b_1.png" />
     <bitmap id="AdnB2" filename="icons/adn_b_2.png" />
@@ -70,16 +40,6 @@
     <bitmap id="AdnB7" filename="icons/adn_b_7.png" />
     <bitmap id="AdnB8" filename="icons/adn_b_8.png" />
     <bitmap id="AdnB9" filename="icons/adn_b_9.png" />
-    <bitmap id="AdnB10" filename="icons/adn_b_10.png" />
-    <bitmap id="AdnB11" filename="icons/adn_b_11.png" />
-    <bitmap id="AdnB12" filename="icons/adn_b_12.png" />
-    <bitmap id="AdnB13" filename="icons/adn_b_13.png" />
-    <bitmap id="AdnB14" filename="icons/adn_b_14.png" />
-    <bitmap id="AdnB15" filename="icons/adn_b_15.png" />
-    <bitmap id="AdnB16" filename="icons/adn_b_16.png" />
-    <bitmap id="AdnB17" filename="icons/adn_b_17.png" />
-    <bitmap id="AdnB18" filename="icons/adn_b_18.png" />
-    <bitmap id="AdnB19" filename="icons/adn_b_19.png" />
     <bitmap id="DegA0" filename="icons/deg_a_0.png" />
     <bitmap id="DegA1" filename="icons/deg_a_1.png" />
     <bitmap id="DegA2" filename="icons/deg_a_2.png" />
@@ -90,16 +50,6 @@
     <bitmap id="DegA7" filename="icons/deg_a_7.png" />
     <bitmap id="DegA8" filename="icons/deg_a_8.png" />
     <bitmap id="DegA9" filename="icons/deg_a_9.png" />
-    <bitmap id="DegA10" filename="icons/deg_a_10.png" />
-    <bitmap id="DegA11" filename="icons/deg_a_11.png" />
-    <bitmap id="DegA12" filename="icons/deg_a_12.png" />
-    <bitmap id="DegA13" filename="icons/deg_a_13.png" />
-    <bitmap id="DegA14" filename="icons/deg_a_14.png" />
-    <bitmap id="DegA15" filename="icons/deg_a_15.png" />
-    <bitmap id="DegA16" filename="icons/deg_a_16.png" />
-    <bitmap id="DegA17" filename="icons/deg_a_17.png" />
-    <bitmap id="DegA18" filename="icons/deg_a_18.png" />
-    <bitmap id="DegA19" filename="icons/deg_a_19.png" />
     <bitmap id="DegB0" filename="icons/deg_b_0.png" />
     <bitmap id="DegB1" filename="icons/deg_b_1.png" />
     <bitmap id="DegB2" filename="icons/deg_b_2.png" />
@@ -110,16 +60,6 @@
     <bitmap id="DegB7" filename="icons/deg_b_7.png" />
     <bitmap id="DegB8" filename="icons/deg_b_8.png" />
     <bitmap id="DegB9" filename="icons/deg_b_9.png" />
-    <bitmap id="DegB10" filename="icons/deg_b_10.png" />
-    <bitmap id="DegB11" filename="icons/deg_b_11.png" />
-    <bitmap id="DegB12" filename="icons/deg_b_12.png" />
-    <bitmap id="DegB13" filename="icons/deg_b_13.png" />
-    <bitmap id="DegB14" filename="icons/deg_b_14.png" />
-    <bitmap id="DegB15" filename="icons/deg_b_15.png" />
-    <bitmap id="DegB16" filename="icons/deg_b_16.png" />
-    <bitmap id="DegB17" filename="icons/deg_b_17.png" />
-    <bitmap id="DegB18" filename="icons/deg_b_18.png" />
-    <bitmap id="DegB19" filename="icons/deg_b_19.png" />
     <bitmap id="BoltA" filename="icons/bolt_a.png" />
     <bitmap id="BoltB" filename="icons/bolt_b.png" />
 </drawables>
