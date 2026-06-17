@@ -73,6 +73,10 @@
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
   <string id="ColorPurple">Purple</string>
+  <string id="ColorGrad">Gradient (low→high)</string>
+  <string id="ColorGradRev">Gradient (high→low)</string>
+  <string id="ColorGradTemp">Temp (cold→hot)</string>
+  <string id="ColorGradTempRev">Temp (hot→cold)</string>
 
   <!-- Shared: field options -->
   <string id="FieldNone">None (hidden)</string>
@@ -129,15 +133,11 @@
   <!-- Shared: graph type options -->
   <string id="GraphTypeLine">Line</string>
   <string id="GraphTypeBar">Bar</string>
-  <string id="GraphTypeGradLine">Gradient Line</string>
-  <string id="GraphTypeGradBar">Gradient Bar</string>
 
   <!-- Shared: secondary graph type options -->
   <string id="SecTypeNone">None</string>
   <string id="SecTypeLine">Line</string>
   <string id="SecTypeBar">Bar</string>
-  <string id="SecTypeGradLine">Gradient Line</string>
-  <string id="SecTypeGradBar">Gradient Bar</string>
 
   <!-- Shared: graph time frame options -->
   <string id="TimeFrame15m">15 minutes</string>

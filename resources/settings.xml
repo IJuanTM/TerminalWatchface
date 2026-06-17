@@ -59,6 +59,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
@@ -73,6 +77,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -89,6 +97,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
@@ -103,6 +115,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -168,6 +184,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryValueColor" title="@Strings.Line3PrimaryValueColor">
@@ -182,6 +202,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3Secondary" title="@Strings.Line3Secondary">
@@ -246,6 +270,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryValueColor"
@@ -261,6 +289,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3Tertiary" title="@Strings.Line3Tertiary">
@@ -325,6 +357,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryValueColor"
@@ -340,6 +376,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -405,6 +445,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryValueColor" title="@Strings.Line4PrimaryValueColor">
@@ -419,6 +463,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4Secondary" title="@Strings.Line4Secondary">
@@ -483,6 +531,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryValueColor"
@@ -498,6 +550,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4Tertiary" title="@Strings.Line4Tertiary">
@@ -562,6 +618,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryValueColor"
@@ -577,6 +637,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -642,6 +706,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryValueColor" title="@Strings.Line5PrimaryValueColor">
@@ -656,6 +724,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5Secondary" title="@Strings.Line5Secondary">
@@ -720,6 +792,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryValueColor"
@@ -735,6 +811,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5Tertiary" title="@Strings.Line5Tertiary">
@@ -799,6 +879,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryValueColor"
@@ -814,6 +898,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -837,8 +925,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
@@ -846,8 +932,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryField" title="@Strings.HRSecondaryField">
@@ -884,6 +968,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
@@ -898,6 +986,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -913,8 +1005,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
@@ -922,8 +1012,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryField" title="@Strings.BodyBatSecondaryField">
@@ -960,6 +1048,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
@@ -974,6 +1066,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -989,8 +1085,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
@@ -998,8 +1092,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryField" title="@Strings.StressSecondaryField">
@@ -1036,6 +1128,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
@@ -1050,6 +1146,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1065,8 +1165,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
@@ -1074,8 +1172,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryField" title="@Strings.SpO2SecondaryField">
@@ -1112,6 +1208,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
@@ -1126,6 +1226,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1141,8 +1245,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
@@ -1150,8 +1252,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryField"
@@ -1189,6 +1289,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryColor"
@@ -1204,6 +1308,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1219,8 +1327,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
@@ -1228,8 +1334,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryField"
@@ -1267,6 +1371,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryColor"
@@ -1282,6 +1390,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1297,8 +1409,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
@@ -1306,8 +1416,6 @@
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
       <listEntry value="1">@Strings.SecTypeLine</listEntry>
       <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      <listEntry value="3">@Strings.SecTypeGradLine</listEntry>
-      <listEntry value="4">@Strings.SecTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryField" title="@Strings.PressureSecondaryField">
@@ -1344,6 +1452,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
@@ -1358,6 +1470,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1373,8 +1489,6 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeGradLine</listEntry>
-      <listEntry value="3">@Strings.GraphTypeGradBar</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
@@ -1397,6 +1511,10 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
