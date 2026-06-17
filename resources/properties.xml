@@ -51,6 +51,9 @@
   <property id="line5TertiaryLabelColor" type="number">8</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
 
+  <!-- Steps -->
+  <property id="stepsViewMode" type="number">0</property>
+
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->

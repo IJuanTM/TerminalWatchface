@@ -130,6 +130,12 @@
   <string id="ViewModeGraph">Graph</string>
   <string id="ViewModeGraphValue">Graph + Value</string>
 
+  <!-- Steps view mode -->
+  <string id="StepsViewMode">Steps: View Mode</string>
+  <string id="StepsViewModeText">Text</string>
+  <string id="StepsViewModeBar">Progress Bar</string>
+  <string id="StepsViewModeBarValue">Bar + Value</string>
+
   <!-- Shared: graph type options -->
   <string id="GraphTypeLine">Line</string>
   <string id="GraphTypeBar">Bar</string>

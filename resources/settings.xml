@@ -905,6 +905,15 @@
     </settingConfig>
   </setting>
 
+  <!-- Steps -->
+  <setting propertyKey="@Properties.stepsViewMode" title="@Strings.StepsViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.StepsViewModeText</listEntry>
+      <listEntry value="1">@Strings.StepsViewModeBar</listEntry>
+      <listEntry value="2">@Strings.StepsViewModeBarValue</listEntry>
+    </settingConfig>
+  </setting>
+
   <!-- Graph settings per supported field type -->
 
   <!-- Shared graph type list (used by GraphType settings below) -->

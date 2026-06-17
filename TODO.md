@@ -1,4 +1,4 @@
-[ ] Make gradient not a type, but a color option, add different color options (green, yellow/orange, red (for HR, Stress for example) (blue, green, yellow, orange, red, magenta (for weather forecast for example)) etc. Also reversed options should be available, for example body battery, where low should be red and high values should be green.
+[x] Make gradient not a type, but a color option, add different color options (green, yellow/orange, red (for HR, Stress for example) (blue, green, yellow, orange, red, magenta (for weather forecast for example)) etc. Also reversed options should be available, for example body battery, where low should be red and high values should be green.
 [x] Fix graphs not shown when not enough data? When option is graph, it should always render, even with no data to show yet (maybe even a centered text in tiny size, light gray, saying "no data to show" or something
 [ ] Fix holes in line, gradient line graph rendering
 [x] When user has chosen Graph + Value and also configured a secondary graph in the same graph, it should show both current values, maybe in small font size above one another.
