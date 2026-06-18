@@ -111,7 +111,7 @@
   <string id="FieldWxForecast">Weather: Forecast</string>
   <string id="FieldVo2Max">VO2 Max</string>
   <string id="FieldSpeed">Speed</string>
-  <string id="FieldSleep">Sleep Score</string>
+  <string id="FieldSleep">Sleep</string>
   <string id="FieldSunrise">Sunrise</string>
   <string id="FieldSunset">Sunset</string>
   <string id="FieldSunriseSunset">Sunrise + Sunset</string>

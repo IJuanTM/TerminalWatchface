@@ -98,14 +98,14 @@ const COLORS =
     [
         0xffffff, // 0  white
         0x55ff77, // 1  green
-        0x55eeff, // 2  cyan
+        0x55ffff, // 2  cyan
         0xffee55, // 3  yellow
         0xff9944, // 4  orange
         0xff5555, // 5  red
-        0x5588ff, // 6  blue
+        0x6699ff, // 6  blue
         0xff55ff, // 7  magenta
-        0xaaaaaa, // 8  light grey
-        0x9955ff, // 9  purple
+        0xbbbbbb, // 8  light grey
+        0xaa77ff, // 9  purple
     ] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
@@ -1016,7 +1016,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _charW * 10;
         var barH = _fh;
         var barY = y;
-        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(gx, barY, gw, barH);
         var frac = steps.toFloat() / goal.toFloat();
         if (frac > 1.0) {
@@ -1207,21 +1207,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var r = 0;
         var g = 0;
         var b = 0;
-        if (fraction <= 0.33) {
-            var t = fraction / 0.33;
+        if (fraction <= 0.25) {
+            var t = fraction / 0.25;
             r = 85;
             g = (136.0 + t * 102.0).toNumber();
             b = 255;
-        } else if (fraction <= 0.66) {
-            var t = (fraction - 0.33) / 0.33;
+        } else if (fraction <= 0.5) {
+            var t = (fraction - 0.25) / 0.25;
             r = (85.0 + t * 170.0).toNumber();
             g = 238;
             b = (255.0 - t * 170.0).toNumber();
-        } else {
-            var t = (fraction - 0.66) / 0.34;
+        } else if (fraction <= 0.75) {
+            var t = (fraction - 0.5) / 0.25;
             r = 255;
             g = (238.0 - t * 153.0).toNumber();
             b = 85;
+        } else {
+            var t = (fraction - 0.75) / 0.25;
+            r = 255;
+            g = 85;
+            b = (85.0 + t * 170.0).toNumber();
         }
         return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
     }
@@ -1346,7 +1351,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
         if (data == null) {
             _drawGraphAxes(dc, gx, gw, y);
-            dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx + gw / 2,
                 y + gh / 2 - _tinyFh / 2 - 1,
@@ -1803,7 +1808,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gw as Number,
         y as Number
     ) as Void {
-        dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(gx - 1, y, gx - 1, y + _fh - 1);
         dc.drawLine(gx - 1, y + _fh - 1, gx + gw, y + _fh - 1);
         dc.drawLine(gx + gw, y, gx + gw, y + _fh - 1);
@@ -1907,19 +1912,33 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         x2 as Number,
         y as Number
     ) as Void {
-        var x = x1;
-        var on = true;
-        while (x < x2) {
-            var end = x + 2;
-            if (end > x2) {
-                end = x2;
-            }
-            if (on) {
-                dc.drawLine(x, y, end - 1, y);
-            }
-            x = end;
-            on = !on;
+        var w = x2 - x1;
+        if (w <= 0) {
+            return;
         }
+        if (w <= 3) {
+            dc.drawLine(x1, y, x2 - 1, y);
+            return;
+        }
+        // All interior gaps = 2px. All interior dashes = 2px.
+        // Endpoint (first + last) dashes are 1 or 2px — equal to each other,
+        // chosen so everything sums to exactly w with no rounding.
+        // n = ceil((w+2)/4); f = (w + 6 - 4*n) / 2  →  always 1 or 2 for even w.
+        var n = (w + 5) / 4;
+        if (n < 2) {
+            n = 2;
+        }
+        var f = (w + 6 - 4 * n) / 2;
+        if (f < 1) {
+            f = 1;
+        }
+        dc.drawLine(x1, y, x1 + f - 1, y);
+        var x = x1 + f + 2;
+        for (var i = 1; i < n - 1; i++) {
+            dc.drawLine(x, y, x + 1, y);
+            x += 4;
+        }
+        dc.drawLine(x2 - f, y, x2 - 1, y);
     }
 
     private function _drawMeanLine(
@@ -1956,7 +1975,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             meanFrac = 1.0;
         }
         var color =
-            colorIdx >= COLOR_GRAD ? _gradColor(colorIdx, meanFrac) : 0x666666;
+            colorIdx >= COLOR_GRAD ? _gradColor(colorIdx, meanFrac) : 0x888888;
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawDashedH(dc, gx, gx + gw, meanY);
     }
@@ -2463,7 +2482,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 valueColor
             );
             _drawGraphAxes(dc, gx, gw, y);
-            dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx + gw / 2,
                 y + gh / 2 - _tinyFh / 2 - 1,
@@ -2754,7 +2773,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_SLEEP) {
             return [
-                "Sleep Score",
+                "Sleep",
                 _compSleepScore != null
                     ? (_compSleepScore as Number).toString()
                     : "-",

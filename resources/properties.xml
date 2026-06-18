@@ -168,7 +168,7 @@
   <property id="momentSleepTitleColor" type="number">2</property>
   <property id="momentSleepField1LabelColor" type="number">5</property>
   <property id="momentSleepField2LabelColor" type="number">6</property>
-  <property id="momentSleepField3LabelColor" type="number">4</property>
+  <property id="momentSleepField3LabelColor" type="number">9</property>
   <property id="momentSleepValueColor" type="number">0</property>
   <property id="momentSleepSepColor" type="number">2</property>
   <property id="momentSleepField1" type="number">1</property>
