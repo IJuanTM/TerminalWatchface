@@ -1,22 +1,22 @@
 <settings>
 
   <!-- Appearance -->
-    <setting propertyKey="@Properties.fontChoice" title="@Strings.FontChoice">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
-        <listEntry value="1">@Strings.FontSpaceMono</listEntry>
-        <listEntry value="2">@Strings.FontFiraCodeMono</listEntry>
-        <listEntry value="3">@Strings.NBArchitekt</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ScanlinesOff</listEntry>
-        <listEntry value="1">@Strings.ScanlinesSubtle</listEntry>
-        <listEntry value="2">@Strings.ScanlinesMedium</listEntry>
-        <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.fontChoice" title="@Strings.FontChoice">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
+      <listEntry value="1">@Strings.FontSpaceMono</listEntry>
+      <listEntry value="2">@Strings.FontFiraCodeMono</listEntry>
+      <listEntry value="3">@Strings.NBArchitekt</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ScanlinesOff</listEntry>
+      <listEntry value="1">@Strings.ScanlinesSubtle</listEntry>
+      <listEntry value="2">@Strings.ScanlinesMedium</listEntry>
+      <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Display options -->
   <setting propertyKey="@Properties.showSeconds" title="@Strings.ShowSeconds">
@@ -25,1511 +25,1513 @@
   <setting propertyKey="@Properties.showYear" title="@Strings.ShowYear">
     <settingConfig type="boolean" />
   </setting>
-  <setting propertyKey="@Properties.showVersion" title="@Strings.ShowVersion">
-    <settingConfig type="boolean" />
+  <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
+      <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
+      <listEntry value="2">@Strings.WatchCommandBare</listEntry>
+    </settingConfig>
   </setting>
-    <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
-        <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
-        <listEntry value="2">@Strings.WatchCommandBare</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.dateFormat" title="@Strings.DateFormat">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
-        <listEntry value="1">@Strings.DateFormatYMD</listEntry>
-        <listEntry value="2">@Strings.DateFormatDMY</listEntry>
-        <listEntry value="3">@Strings.DateFormatMDY</listEntry>
-        <listEntry value="4">@Strings.DateFormatDayNum</listEntry>
-        <listEntry value="5">@Strings.DateFormatDMon</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.rotateInterval" title="@Strings.RotateInterval">
-      <settingConfig type="list">
-        <listEntry value="3">3 seconds</listEntry>
-        <listEntry value="5">5 seconds</listEntry>
-        <listEntry value="10">10 seconds</listEntry>
-        <listEntry value="15">15 seconds</listEntry>
-        <listEntry value="30">30 seconds</listEntry>
-        <listEntry value="60">1 minute</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.dateFormat" title="@Strings.DateFormat">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
+      <listEntry value="1">@Strings.DateFormatYMD</listEntry>
+      <listEntry value="2">@Strings.DateFormatDMY</listEntry>
+      <listEntry value="3">@Strings.DateFormatMDY</listEntry>
+      <listEntry value="4">@Strings.DateFormatDayNum</listEntry>
+      <listEntry value="5">@Strings.DateFormatDMon</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.rotateInterval" title="@Strings.RotateInterval">
+    <settingConfig type="list">
+      <listEntry value="3">3 seconds</listEntry>
+      <listEntry value="5">5 seconds</listEntry>
+      <listEntry value="10">10 seconds</listEntry>
+      <listEntry value="15">15 seconds</listEntry>
+      <listEntry value="30">30 seconds</listEntry>
+      <listEntry value="60">1 minute</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Time row -->
-    <setting propertyKey="@Properties.line1LabelColor" title="@Strings.Line1LabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.line1LabelColor" title="@Strings.Line1LabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Date row -->
-    <setting propertyKey="@Properties.line2LabelColor" title="@Strings.Line2LabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.line2LabelColor" title="@Strings.Line2LabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Line 3 -->
-    <setting propertyKey="@Properties.line3Primary" title="@Strings.Line3Primary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3PrimaryValueColor" title="@Strings.Line3PrimaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3Secondary" title="@Strings.Line3Secondary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3SecondaryValueColor" title="@Strings.Line3SecondaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3Tertiary" title="@Strings.Line3Tertiary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line3TertiaryValueColor" title="@Strings.Line3TertiaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.line3Primary" title="@Strings.Line3Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3PrimaryValueColor" title="@Strings.Line3PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3Secondary" title="@Strings.Line3Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3SecondaryValueColor" title="@Strings.Line3SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3Tertiary" title="@Strings.Line3Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3TertiaryValueColor" title="@Strings.Line3TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Line 4 -->
-    <setting propertyKey="@Properties.line4Primary" title="@Strings.Line4Primary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4PrimaryValueColor" title="@Strings.Line4PrimaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4Secondary" title="@Strings.Line4Secondary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4SecondaryValueColor" title="@Strings.Line4SecondaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4Tertiary" title="@Strings.Line4Tertiary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line4TertiaryValueColor" title="@Strings.Line4TertiaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.line4Primary" title="@Strings.Line4Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4PrimaryValueColor" title="@Strings.Line4PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4Secondary" title="@Strings.Line4Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4SecondaryValueColor" title="@Strings.Line4SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4Tertiary" title="@Strings.Line4Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4TertiaryValueColor" title="@Strings.Line4TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Line 5 -->
-    <setting propertyKey="@Properties.line5Primary" title="@Strings.Line5Primary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5PrimaryValueColor" title="@Strings.Line5PrimaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5Secondary" title="@Strings.Line5Secondary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5SecondaryValueColor" title="@Strings.Line5SecondaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5Tertiary" title="@Strings.Line5Tertiary">
-      <settingConfig type="list">
-        <listEntry value="7">@Strings.FieldNone</listEntry>
-        <listEntry value="0">@Strings.FieldSteps</listEntry>
-        <listEntry value="4">@Strings.FieldDistance</listEntry>
-        <listEntry value="2">@Strings.FieldCalories</listEntry>
-        <listEntry value="25">@Strings.FieldCalAct</listEntry>
-        <listEntry value="10">@Strings.FieldActiveMin</listEntry>
-        <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="6">@Strings.FieldFloors</listEntry>
-        <listEntry value="27">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="35">@Strings.FieldSpeed</listEntry>
-        <listEntry value="1">@Strings.FieldHR</listEntry>
-        <listEntry value="24">@Strings.FieldHRMean</listEntry>
-        <listEntry value="30">@Strings.FieldHRMax</listEntry>
-        <listEntry value="9">@Strings.FieldSpO2</listEntry>
-        <listEntry value="23">@Strings.FieldResp</listEntry>
-        <listEntry value="22">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="21">@Strings.FieldStress</listEntry>
-        <listEntry value="26">@Strings.FieldRecovery</listEntry>
-        <listEntry value="36">@Strings.FieldSleep</listEntry>
-        <listEntry value="34">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="5">@Strings.FieldAltitude</listEntry>
-        <listEntry value="32">@Strings.FieldElevation</listEntry>
-        <listEntry value="28">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="31">@Strings.FieldPressure</listEntry>
-        <listEntry value="37">@Strings.FieldSunrise</listEntry>
-        <listEntry value="38">@Strings.FieldSunset</listEntry>
-        <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="40">@Strings.FieldCalendar</listEntry>
-        <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="43">@Strings.FieldGpsLat</listEntry>
-        <listEntry value="44">@Strings.FieldGpsLon</listEntry>
-        <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
-        <listEntry value="46">@Strings.FieldHeading</listEntry>
-        <listEntry value="11">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="12">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="16">@Strings.FieldWxCond</listEntry>
-        <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="14">@Strings.FieldWxWind</listEntry>
-        <listEntry value="15">@Strings.FieldWxUV</listEntry>
-        <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
-        <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.line5TertiaryValueColor" title="@Strings.Line5TertiaryValueColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.line5Primary" title="@Strings.Line5Primary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5PrimaryValueColor" title="@Strings.Line5PrimaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5Secondary" title="@Strings.Line5Secondary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5SecondaryValueColor" title="@Strings.Line5SecondaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5Tertiary" title="@Strings.Line5Tertiary">
+    <settingConfig type="list">
+      <listEntry value="7">@Strings.FieldNone</listEntry>
+      <listEntry value="0">@Strings.FieldSteps</listEntry>
+      <listEntry value="4">@Strings.FieldDistance</listEntry>
+      <listEntry value="2">@Strings.FieldCalories</listEntry>
+      <listEntry value="25">@Strings.FieldCalAct</listEntry>
+      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
+      <listEntry value="6">@Strings.FieldFloors</listEntry>
+      <listEntry value="27">@Strings.FieldMoveBar</listEntry>
+      <listEntry value="35">@Strings.FieldSpeed</listEntry>
+      <listEntry value="1">@Strings.FieldHR</listEntry>
+      <listEntry value="24">@Strings.FieldHRMean</listEntry>
+      <listEntry value="30">@Strings.FieldHRMax</listEntry>
+      <listEntry value="9">@Strings.FieldSpO2</listEntry>
+      <listEntry value="23">@Strings.FieldResp</listEntry>
+      <listEntry value="22">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="21">@Strings.FieldStress</listEntry>
+      <listEntry value="26">@Strings.FieldRecovery</listEntry>
+      <listEntry value="36">@Strings.FieldSleep</listEntry>
+      <listEntry value="34">@Strings.FieldVo2Max</listEntry>
+      <listEntry value="5">@Strings.FieldAltitude</listEntry>
+      <listEntry value="32">@Strings.FieldElevation</listEntry>
+      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="31">@Strings.FieldPressure</listEntry>
+      <listEntry value="37">@Strings.FieldSunrise</listEntry>
+      <listEntry value="38">@Strings.FieldSunset</listEntry>
+      <listEntry value="39">@Strings.FieldSunriseSunset</listEntry>
+      <listEntry value="40">@Strings.FieldCalendar</listEntry>
+      <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
+      <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
+      <listEntry value="43">@Strings.FieldGpsLat</listEntry>
+      <listEntry value="44">@Strings.FieldGpsLon</listEntry>
+      <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="46">@Strings.FieldHeading</listEntry>
+      <listEntry value="11">@Strings.FieldWxTemp</listEntry>
+      <listEntry value="12">@Strings.FieldWxFeels</listEntry>
+      <listEntry value="16">@Strings.FieldWxCond</listEntry>
+      <listEntry value="13">@Strings.FieldWxPrecip</listEntry>
+      <listEntry value="14">@Strings.FieldWxWind</listEntry>
+      <listEntry value="15">@Strings.FieldWxUV</listEntry>
+      <listEntry value="17">@Strings.FieldWxTempCond</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
+      <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
+      <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5TertiaryValueColor" title="@Strings.Line5TertiaryValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Steps -->
-    <setting propertyKey="@Properties.stepsViewMode" title="@Strings.StepsViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.StepsViewModeText</listEntry>
-        <listEntry value="1">@Strings.StepsViewModeBar</listEntry>
-        <listEntry value="2">@Strings.StepsViewModeBarValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stepsBarColor" title="@Strings.StepsBarColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.stepsViewMode" title="@Strings.StepsViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.StepsViewModeText</listEntry>
+      <listEntry value="1">@Strings.StepsViewModeBar</listEntry>
+      <listEntry value="2">@Strings.StepsViewModeBarValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stepsBarColor" title="@Strings.StepsBarColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Graph settings per supported field type -->
 
   <!-- Heart Rate -->
-    <setting propertyKey="@Properties.hrViewMode" title="@Strings.HRViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrGraphType" title="@Strings.HRGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrSecondaryField" title="@Strings.HRSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrTimeFrame" title="@Strings.HRTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrGraphColor" title="@Strings.HRGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.hrViewMode" title="@Strings.HRViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrGraphType" title="@Strings.HRGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrSecondaryField" title="@Strings.HRSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrTimeFrame" title="@Strings.HRTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrGraphColor" title="@Strings.HRGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Body Battery -->
-    <setting propertyKey="@Properties.bodyBatViewMode" title="@Strings.BodyBatViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatGraphType" title="@Strings.BodyBatGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryField" title="@Strings.BodyBatSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatTimeFrame" title="@Strings.BodyBatTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatGraphColor" title="@Strings.BodyBatGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.bodyBatViewMode" title="@Strings.BodyBatViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatGraphType" title="@Strings.BodyBatGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatSecondaryField" title="@Strings.BodyBatSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatTimeFrame" title="@Strings.BodyBatTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatGraphColor" title="@Strings.BodyBatGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Stress -->
-    <setting propertyKey="@Properties.stressViewMode" title="@Strings.StressViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressGraphType" title="@Strings.StressGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressSecondaryField" title="@Strings.StressSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressTimeFrame" title="@Strings.StressTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressGraphColor" title="@Strings.StressGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.stressViewMode" title="@Strings.StressViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressGraphType" title="@Strings.StressGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressSecondaryField" title="@Strings.StressSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressTimeFrame" title="@Strings.StressTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressGraphColor" title="@Strings.StressGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Blood O2 -->
-    <setting propertyKey="@Properties.spo2ViewMode" title="@Strings.SpO2ViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2GraphType" title="@Strings.SpO2GraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2SecondaryField" title="@Strings.SpO2SecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2TimeFrame" title="@Strings.SpO2TimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2GraphColor" title="@Strings.SpO2GraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.spo2ViewMode" title="@Strings.SpO2ViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2GraphType" title="@Strings.SpO2GraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2SecondaryField" title="@Strings.SpO2SecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2TimeFrame" title="@Strings.SpO2TimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2GraphColor" title="@Strings.SpO2GraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Wrist Temp -->
-    <setting propertyKey="@Properties.tempWristViewMode" title="@Strings.TempWristViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristGraphType" title="@Strings.TempWristGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryField" title="@Strings.TempWristSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristTimeFrame" title="@Strings.TempWristTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristGraphColor" title="@Strings.TempWristGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryColor" title="@Strings.TempWristSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.tempWristViewMode" title="@Strings.TempWristViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristGraphType" title="@Strings.TempWristGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristSecondaryField" title="@Strings.TempWristSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristTimeFrame" title="@Strings.TempWristTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristGraphColor" title="@Strings.TempWristGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristSecondaryColor" title="@Strings.TempWristSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Elevation -->
-    <setting propertyKey="@Properties.elevationViewMode" title="@Strings.ElevationViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationGraphType" title="@Strings.ElevationGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationSecondaryField" title="@Strings.ElevationSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationTimeFrame" title="@Strings.ElevationTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationGraphColor" title="@Strings.ElevationGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevationSecondaryColor" title="@Strings.ElevationSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.elevationViewMode" title="@Strings.ElevationViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationGraphType" title="@Strings.ElevationGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationSecondaryField" title="@Strings.ElevationSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationTimeFrame" title="@Strings.ElevationTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationGraphColor" title="@Strings.ElevationGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationSecondaryColor" title="@Strings.ElevationSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Pressure -->
-    <setting propertyKey="@Properties.pressureViewMode" title="@Strings.PressureViewMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ViewModeValue</listEntry>
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureGraphType" title="@Strings.PressureGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.SecTypeNone</listEntry>
-        <listEntry value="1">@Strings.SecTypeLine</listEntry>
-        <listEntry value="2">@Strings.SecTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureSecondaryField" title="@Strings.PressureSecondaryField">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldHR</listEntry>
-        <listEntry value="1">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="2">@Strings.FieldStress</listEntry>
-        <listEntry value="3">@Strings.FieldSpO2</listEntry>
-        <listEntry value="4">@Strings.FieldTempWrist</listEntry>
-        <listEntry value="5">@Strings.FieldElevation</listEntry>
-        <listEntry value="6">@Strings.FieldPressure</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureTimeFrame" title="@Strings.PressureTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
-        <listEntry value="120">@Strings.TimeFrame2h</listEntry>
-        <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureGraphColor" title="@Strings.PressureGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.pressureViewMode" title="@Strings.PressureViewMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ViewModeValue</listEntry>
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureGraphType" title="@Strings.PressureGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SecTypeNone</listEntry>
+      <listEntry value="1">@Strings.SecTypeLine</listEntry>
+      <listEntry value="2">@Strings.SecTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureSecondaryField" title="@Strings.PressureSecondaryField">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.FieldHR</listEntry>
+      <listEntry value="1">@Strings.FieldBodyBat</listEntry>
+      <listEntry value="2">@Strings.FieldStress</listEntry>
+      <listEntry value="3">@Strings.FieldSpO2</listEntry>
+      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="5">@Strings.FieldElevation</listEntry>
+      <listEntry value="6">@Strings.FieldPressure</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureTimeFrame" title="@Strings.PressureTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="15">@Strings.TimeFrame15m</listEntry>
+      <listEntry value="30">@Strings.TimeFrame30m</listEntry>
+      <listEntry value="60">@Strings.TimeFrame1h</listEntry>
+      <listEntry value="120">@Strings.TimeFrame2h</listEntry>
+      <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+      <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureGraphColor" title="@Strings.PressureGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Weather Forecast -->
-    <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
-      <settingConfig type="list">
-        <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-        <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-        <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
-      <settingConfig type="list">
-        <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
-        <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
-        <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
-        <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.wxForecastGraphColor" title="@Strings.WxForecastGraphColor">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.ColorWhite</listEntry>
-        <listEntry value="1">@Strings.ColorGreen</listEntry>
-        <listEntry value="2">@Strings.ColorCyan</listEntry>
-        <listEntry value="3">@Strings.ColorYellow</listEntry>
-        <listEntry value="4">@Strings.ColorOrange</listEntry>
-        <listEntry value="5">@Strings.ColorRed</listEntry>
-        <listEntry value="6">@Strings.ColorBlue</listEntry>
-        <listEntry value="7">@Strings.ColorMagenta</listEntry>
-        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-        <listEntry value="9">@Strings.ColorPurple</listEntry>
-        <listEntry value="10">@Strings.ColorGrad</listEntry>
-        <listEntry value="11">@Strings.ColorGradRev</listEntry>
-        <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-        <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
-      </settingConfig>
-    </setting>
+  <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastGraphColor" title="@Strings.WxForecastGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.ColorGrad</listEntry>
+      <listEntry value="11">@Strings.ColorGradRev</listEntry>
+      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
+      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Debug -->
+  <setting propertyKey="@Properties.showVersion" title="@Strings.ShowVersion">
+    <settingConfig type="boolean" />
+  </setting>
 
 </settings>

@@ -126,7 +126,6 @@
   <string id="FieldGpsLon">GPS Longitude</string>
   <string id="FieldGpsAccuracy">GPS Accuracy</string>
   <string id="FieldHeading">Heading</string>
-  <string id="FieldElapsed">Elapsed Time</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>

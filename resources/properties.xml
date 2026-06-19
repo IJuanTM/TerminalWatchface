@@ -8,8 +8,8 @@
   <property id="showSeconds" type="boolean">false</property>
   <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>
-  <property id="rotateInterval" type="number">5</property>
   <property id="watchCommandStyle" type="number">2</property>
+  <property id="rotateInterval" type="number">5</property>
 
   <!-- Time row (always visible) -->
   <property id="line1LabelColor" type="number">8</property>

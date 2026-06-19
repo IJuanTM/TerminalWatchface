@@ -111,7 +111,7 @@ def setting_bool(prop_key, title_key):
         f'  </setting>'
     )
 
-def setting_list(prop_key, title_key, entries, indent=2):
+def setting_list(prop_key, title_key, entries, indent=1):
     i = ind(indent)
     lines = [
         f'{i}<setting propertyKey="@Properties.{prop_key}" title="@Strings.{title_key}">',
@@ -155,10 +155,9 @@ def gen_properties():
     lines.append("\n  <!-- Display options -->")
     lines.append(prop("showSeconds",    "boolean", "false"))
     lines.append(prop("showYear",       "boolean", "false"))
-    lines.append(prop("dateFormat",     "number",  0))
-    lines.append(prop("rotateInterval", "number",  5))
-
+    lines.append(prop("dateFormat",         "number",  0))
     lines.append(prop("watchCommandStyle", "number",  2))
+    lines.append(prop("rotateInterval",    "number",  5))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -318,7 +317,6 @@ def gen_strings():
         ("FieldGpsLon",        "GPS Longitude"),
         ("FieldGpsAccuracy",   "GPS Accuracy"),
         ("FieldHeading",       "Heading"),
-        ("FieldElapsed",       "Elapsed Time"),
     ]
     for sid, text in field_labels:
         lines.append(s(sid, text))
@@ -444,7 +442,6 @@ def gen_settings():
     parts.append("\n  <!-- Display options -->")
     parts.append(setting_bool("showSeconds", "ShowSeconds"))
     parts.append(setting_bool("showYear",    "ShowYear"))
-    parts.append(setting_bool("showVersion", "ShowVersion"))
     parts.append(setting_list("watchCommandStyle", "WatchCommandStyle", [
         (0, "@Strings.WatchCommandWindows"),
         (1, "@Strings.WatchCommandLinux"),
@@ -502,6 +499,10 @@ def gen_settings():
     parts.append(setting_list("wxForecastTimeFrame", "WxForecastTimeFrame",
                                [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES]))
     parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
+
+    # Debug
+    parts.append("\n  <!-- Debug -->")
+    parts.append(setting_bool("showVersion", "ShowVersion"))
 
     parts.append("\n</settings>")
     return "\n".join(parts) + "\n"
