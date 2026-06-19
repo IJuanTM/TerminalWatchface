@@ -16,11 +16,6 @@
   <!-- Display options -->
   <string id="ShowSeconds">Show Seconds</string>
   <string id="ShowYear">Show Year in Date</string>
-  <string id="ShowVersion">Show App Version (testing)</string>
-  <string id="WatchCommandStyle">Command Style</string>
-  <string id="WatchCommandWindows">Windows (watch.bat)</string>
-  <string id="WatchCommandLinux">Linux (watch.sh)</string>
-  <string id="WatchCommandBare">Bare (watch)</string>
   <string id="DateFormat">Date Format</string>
   <string id="DateFormatDayMon">Day Month (Mon, 1 Jan)</string>
   <string id="DateFormatYMD">ISO (YYYY-MM-DD)</string>
@@ -29,6 +24,10 @@
   <string id="DateFormatDayNum">Day Name + Number (Mon 14)</string>
   <string id="DateFormatDMon">Date + Month (14 Jun)</string>
   <string id="RotateInterval">Rotate Every</string>
+  <string id="WatchCommandStyle">Command Style</string>
+  <string id="WatchCommandWindows">Windows (watch.bat)</string>
+  <string id="WatchCommandLinux">Linux (watch.sh)</string>
+  <string id="WatchCommandBare">Bare (watch)</string>
 
   <!-- Fixed rows -->
   <string id="Line1LabelColor">Time: Label Color</string>
@@ -231,5 +230,8 @@
   <string id="TimeFrameForecast6h">6 hours ahead</string>
   <string id="TimeFrameForecast12h">12 hours ahead</string>
   <string id="TimeFrameForecast24h">24 hours ahead</string>
+
+  <!-- Debug -->
+  <string id="ShowVersion">Show App Version (testing)</string>
 
 </strings>

@@ -155,10 +155,10 @@ def gen_properties():
     lines.append("\n  <!-- Display options -->")
     lines.append(prop("showSeconds",    "boolean", "false"))
     lines.append(prop("showYear",       "boolean", "false"))
-    lines.append(prop("showVersion",       "boolean", "false"))
-    lines.append(prop("watchCommandStyle", "number",  2))
-    lines.append(prop("dateFormat",        "number",  0))
+    lines.append(prop("dateFormat",     "number",  0))
     lines.append(prop("rotateInterval", "number",  5))
+
+    lines.append(prop("watchCommandStyle", "number",  2))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -172,9 +172,9 @@ def gen_properties():
         if slot == "Primary":
             lines.append(f"\n  <!-- Line {ln} -->")
         k = f"line{ln}{slot}"
-        lines.append(prop(f"{k}",            "number", fd))
-        lines.append(prop(f"{k}LabelColor",  "number", lc))
-        lines.append(prop(f"{k}ValueColor",  "number", vc))
+        lines.append(prop(f"{k}",           "number", fd))
+        lines.append(prop(f"{k}LabelColor", "number", lc))
+        lines.append(prop(f"{k}ValueColor", "number", vc))
 
     lines.append("\n  <!-- Steps -->")
     lines.append(prop("stepsViewMode", "number", 2))
@@ -192,10 +192,13 @@ def gen_properties():
         lines.append(prop(f"{key}SecondaryColor", "number", scd))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastViewMode", "number", 1))
-    lines.append(prop("wxForecastGraphType","number", 1))   # bar
-    lines.append(prop("wxForecastTimeFrame","number", 12))  # 12h
-    lines.append(prop("wxForecastGraphColor","number", 12)) # ColorGradTemp (cold→hot)
+    lines.append(prop("wxForecastViewMode",   "number", 1))
+    lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
+    lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
+    lines.append(prop("wxForecastGraphColor", "number", 12))  # ColorGradTemp (cold→hot)
+
+    lines.append("\n  <!-- Debug -->")
+    lines.append(prop("showVersion", "boolean", "false"))
 
     lines.append("\n</properties>")
     return "\n".join(lines) + "\n"
@@ -223,21 +226,21 @@ def gen_strings():
     lines.append(s("ScanlinesStrong",   "Strong"))
 
     lines.append("\n  <!-- Display options -->")
-    lines.append(s("ShowSeconds",       "Show Seconds"))
-    lines.append(s("ShowYear",          "Show Year in Date"))
-    lines.append(s("ShowVersion",           "Show App Version (testing)"))
-    lines.append(s("WatchCommandStyle",     "Command Style"))
-    lines.append(s("WatchCommandWindows",   "Windows (watch.bat)"))
-    lines.append(s("WatchCommandLinux",     "Linux (watch.sh)"))
-    lines.append(s("WatchCommandBare",      "Bare (watch)"))
-    lines.append(s("DateFormat",            "Date Format"))
-    lines.append(s("DateFormatDayMon",  "Day Month (Mon, 1 Jan)"))
-    lines.append(s("DateFormatYMD",     "ISO (YYYY-MM-DD)"))
-    lines.append(s("DateFormatDMY",     "DD-MM-YYYY"))
-    lines.append(s("DateFormatMDY",     "MM-DD-YYYY"))
-    lines.append(s("DateFormatDayNum",  "Day Name + Number (Mon 14)"))
-    lines.append(s("DateFormatDMon",    "Date + Month (14 Jun)"))
-    lines.append(s("RotateInterval",    "Rotate Every"))
+    lines.append(s("ShowSeconds",         "Show Seconds"))
+    lines.append(s("ShowYear",            "Show Year in Date"))
+    lines.append(s("DateFormat",          "Date Format"))
+    lines.append(s("DateFormatDayMon",    "Day Month (Mon, 1 Jan)"))
+    lines.append(s("DateFormatYMD",       "ISO (YYYY-MM-DD)"))
+    lines.append(s("DateFormatDMY",       "DD-MM-YYYY"))
+    lines.append(s("DateFormatMDY",       "MM-DD-YYYY"))
+    lines.append(s("DateFormatDayNum",    "Day Name + Number (Mon 14)"))
+    lines.append(s("DateFormatDMon",      "Date + Month (14 Jun)"))
+    lines.append(s("RotateInterval",      "Rotate Every"))
+
+    lines.append(s("WatchCommandStyle",   "Command Style"))
+    lines.append(s("WatchCommandWindows", "Windows (watch.bat)"))
+    lines.append(s("WatchCommandLinux",   "Linux (watch.sh)"))
+    lines.append(s("WatchCommandBare",    "Bare (watch)"))
 
     lines.append("\n  <!-- Fixed rows -->")
     lines.append(s("Line1LabelColor", "Time: Label Color"))
@@ -255,11 +258,11 @@ def gen_strings():
 
     lines.append("\n  <!-- Shared: color options -->")
     color_labels = [
-        ("ColorWhite",       "White"),       ("ColorGreen",       "Green"),
-        ("ColorCyan",        "Cyan"),         ("ColorYellow",      "Yellow"),
-        ("ColorOrange",      "Orange"),       ("ColorRed",         "Red"),
-        ("ColorBlue",        "Blue"),         ("ColorMagenta",     "Magenta"),
-        ("ColorLightGrey",   "Light Grey"),   ("ColorPurple",      "Purple"),
+        ("ColorWhite",       "White"),               ("ColorGreen",   "Green"),
+        ("ColorCyan",        "Cyan"),                ("ColorYellow",  "Yellow"),
+        ("ColorOrange",      "Orange"),              ("ColorRed",     "Red"),
+        ("ColorBlue",        "Blue"),                ("ColorMagenta", "Magenta"),
+        ("ColorLightGrey",   "Light Grey"),          ("ColorPurple",  "Purple"),
         ("ColorGrad",        "Gradient (low→high)"),
         ("ColorGradRev",     "Gradient (high→low)"),
         ("ColorGradTemp",    "Temp (cold→hot)"),
@@ -270,52 +273,52 @@ def gen_strings():
 
     lines.append("\n  <!-- Shared: field options -->")
     field_labels = [
-        ("FieldNone",         "None (hidden)"),
-        ("FieldSteps",        "Steps"),
-        ("FieldHR",           "Heart Rate"),
-        ("FieldCalories",     "Calories (Daily)"),
-        ("FieldCalAct",       "Calories (Activity)"),
-        ("FieldDistance",     "Distance (Daily)"),
-        ("FieldAltitude",     "Altitude"),
-        ("FieldFloors",       "Stairs"),
-        ("FieldSpO2",         "Blood Oxygen"),
-        ("FieldActiveMin",    "Intensity Mins"),
-        ("FieldStress",       "Stress Score"),
-        ("FieldBodyBat",      "Body Battery"),
-        ("FieldResp",         "Respiration Rate"),
-        ("FieldHRMean",       "Heart Rate (Mean)"),
-        ("FieldWxTemp",       "Weather: Temperature"),
-        ("FieldWxFeels",      "Weather: Feels Like"),
-        ("FieldWxPrecip",     "Weather: Precipitation"),
-        ("FieldWxWind",       "Weather: Wind"),
-        ("FieldWxUV",         "Weather: UV Index"),
-        ("FieldWxCond",       "Weather: Condition"),
-        ("FieldWxTempCond",   "Weather: Temp + Condition"),
-        ("FieldWxTempMinMax", "Weather: Temp + Min/Max"),
-        ("FieldWxCondPrecip", "Weather: Condition + Rain"),
-        ("FieldWxTempWind",   "Weather: Temp + Wind"),
-        ("FieldRecovery",     "Recovery Time"),
-        ("FieldMoveBar",      "Move Bar"),
-        ("FieldTempWrist",    "Wrist Temperature"),
-        ("FieldActiveMinDay", "Active Mins (Daily)"),
-        ("FieldHRMax",        "Heart Rate (Max)"),
-        ("FieldPressure",     "Pressure"),
-        ("FieldElevation",    "Elevation (Baro)"),
-        ("FieldWxForecast",   "Weather: Forecast"),
-        ("FieldVo2Max",       "VO2 Max"),
-        ("FieldSpeed",        "Speed"),
-        ("FieldSleep",        "Sleep"),
-        ("FieldSunrise",      "Sunrise"),
-        ("FieldSunset",       "Sunset"),
-        ("FieldSunriseSunset","Sunrise + Sunset"),
-        ("FieldCalendar",     "Calendar Event"),
-        ("FieldWeeklyRun",    "Distance (Wk. Run)"),
-        ("FieldWeeklyBike",   "Distance (Wk. Bike)"),
-        ("FieldGpsLat",       "GPS Latitude"),
-        ("FieldGpsLon",       "GPS Longitude"),
-        ("FieldGpsAccuracy",  "GPS Accuracy"),
-        ("FieldHeading",      "Heading"),
-        ("FieldElapsed",      "Elapsed Time"),
+        ("FieldNone",          "None (hidden)"),
+        ("FieldSteps",         "Steps"),
+        ("FieldHR",            "Heart Rate"),
+        ("FieldCalories",      "Calories (Daily)"),
+        ("FieldCalAct",        "Calories (Activity)"),
+        ("FieldDistance",      "Distance (Daily)"),
+        ("FieldAltitude",      "Altitude"),
+        ("FieldFloors",        "Stairs"),
+        ("FieldSpO2",          "Blood Oxygen"),
+        ("FieldActiveMin",     "Intensity Mins"),
+        ("FieldStress",        "Stress Score"),
+        ("FieldBodyBat",       "Body Battery"),
+        ("FieldResp",          "Respiration Rate"),
+        ("FieldHRMean",        "Heart Rate (Mean)"),
+        ("FieldWxTemp",        "Weather: Temperature"),
+        ("FieldWxFeels",       "Weather: Feels Like"),
+        ("FieldWxPrecip",      "Weather: Precipitation"),
+        ("FieldWxWind",        "Weather: Wind"),
+        ("FieldWxUV",          "Weather: UV Index"),
+        ("FieldWxCond",        "Weather: Condition"),
+        ("FieldWxTempCond",    "Weather: Temp + Condition"),
+        ("FieldWxTempMinMax",  "Weather: Temp + Min/Max"),
+        ("FieldWxCondPrecip",  "Weather: Condition + Rain"),
+        ("FieldWxTempWind",    "Weather: Temp + Wind"),
+        ("FieldRecovery",      "Recovery Time"),
+        ("FieldMoveBar",       "Move Bar"),
+        ("FieldTempWrist",     "Wrist Temperature"),
+        ("FieldActiveMinDay",  "Active Mins (Daily)"),
+        ("FieldHRMax",         "Heart Rate (Max)"),
+        ("FieldPressure",      "Pressure"),
+        ("FieldElevation",     "Elevation (Baro)"),
+        ("FieldWxForecast",    "Weather: Forecast"),
+        ("FieldVo2Max",        "VO2 Max"),
+        ("FieldSpeed",         "Speed"),
+        ("FieldSleep",         "Sleep"),
+        ("FieldSunrise",       "Sunrise"),
+        ("FieldSunset",        "Sunset"),
+        ("FieldSunriseSunset", "Sunrise + Sunset"),
+        ("FieldCalendar",      "Calendar Event"),
+        ("FieldWeeklyRun",     "Distance (Wk. Run)"),
+        ("FieldWeeklyBike",    "Distance (Wk. Bike)"),
+        ("FieldGpsLat",        "GPS Latitude"),
+        ("FieldGpsLon",        "GPS Longitude"),
+        ("FieldGpsAccuracy",   "GPS Accuracy"),
+        ("FieldHeading",       "Heading"),
+        ("FieldElapsed",       "Elapsed Time"),
     ]
     for sid, text in field_labels:
         lines.append(s(sid, text))
@@ -326,11 +329,11 @@ def gen_strings():
     lines.append(s("ViewModeGraphValue", "Graph + Value"))
 
     lines.append("\n  <!-- Steps view mode -->")
-    lines.append(s("StepsViewMode",      "Steps: View Mode"))
-    lines.append(s("StepsViewModeText",  "Value"))
-    lines.append(s("StepsViewModeBar",   "Progress Bar"))
+    lines.append(s("StepsViewMode",         "Steps: View Mode"))
+    lines.append(s("StepsViewModeText",     "Value"))
+    lines.append(s("StepsViewModeBar",      "Progress Bar"))
     lines.append(s("StepsViewModeBarValue", "Bar + Value"))
-    lines.append(s("StepsBarColor",      "Steps: Bar Color"))
+    lines.append(s("StepsBarColor",         "Steps: Bar Color"))
 
     lines.append("\n  <!-- Shared: graph type options -->")
     lines.append(s("GraphTypeLine", "Line"))
@@ -352,13 +355,13 @@ def gen_strings():
 
     # Graph settings strings — one block per graph field
     graph_display_names = {
-        "hr":        ("HR",           "Heart Rate"),
-        "bodyBat":   ("BodyBat",      "Body Battery"),
-        "stress":    ("Stress",       "Stress"),
-        "spo2":      ("SpO2",         "Blood O2"),
-        "tempWrist": ("TempWrist",    "Wrist Temp"),
-        "elevation": ("Elevation",    "Elevation"),
-        "pressure":  ("Pressure",     "Pressure"),
+        "hr":        ("HR",        "Heart Rate"),
+        "bodyBat":   ("BodyBat",   "Body Battery"),
+        "stress":    ("Stress",    "Stress"),
+        "spo2":      ("SpO2",      "Blood O2"),
+        "tempWrist": ("TempWrist", "Wrist Temp"),
+        "elevation": ("Elevation", "Elevation"),
+        "pressure":  ("Pressure",  "Pressure"),
     }
     for key, skey, *_ in GRAPH_FIELDS:
         _, display = graph_display_names[key]
@@ -372,14 +375,17 @@ def gen_strings():
         lines.append(s(f"{skey}SecondaryColor", f"{display}: 2nd Graph Color"))
 
     lines.append("\n  <!-- Graph settings: Weather Forecast -->")
-    lines.append(s("WxForecastViewMode",  "Forecast: View Mode"))
-    lines.append(s("WxForecastGraphType", "Forecast: Graph Type"))
-    lines.append(s("WxForecastTimeFrame", "Forecast: Time Frame"))
-    lines.append(s("WxForecastGraphColor","Forecast: Graph Color"))
+    lines.append(s("WxForecastViewMode",   "Forecast: View Mode"))
+    lines.append(s("WxForecastGraphType",  "Forecast: Graph Type"))
+    lines.append(s("WxForecastTimeFrame",  "Forecast: Time Frame"))
+    lines.append(s("WxForecastGraphColor", "Forecast: Graph Color"))
     lines.append(s("TimeFrameForecast3h",  "3 hours ahead"))
     lines.append(s("TimeFrameForecast6h",  "6 hours ahead"))
     lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
+
+    lines.append("\n  <!-- Debug -->")
+    lines.append(s("ShowVersion", "Show App Version (testing)"))
 
     lines.append("\n</strings>")
     return "\n".join(lines) + "\n"
