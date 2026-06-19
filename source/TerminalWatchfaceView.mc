@@ -1353,6 +1353,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minFrac2 = 1.0;
         }
 
+        var dualMaxGap = (10 * gw) / periodMin;
+        if (dualMaxGap < 1) {
+            dualMaxGap = 1;
+        }
         _drawMeanLine(
             dc,
             data,
@@ -1401,7 +1405,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 minV,
                 range,
                 gradMinV1,
-                gradRange1
+                gradRange1,
+                dualMaxGap
             );
             if (data2 != null) {
                 _drawOneGraph(
@@ -1416,7 +1421,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     minV2,
                     range2,
                     gradMinV2,
-                    gradRange2
+                    gradRange2,
+                    dualMaxGap
                 );
             }
         }
@@ -1562,9 +1568,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // data (e.g. watch off wrist) appear as gaps in the graph rather than being
     // silently compressed against neighbouring readings.
     // slot 0 = most-recent (right edge), slot gw-1 = oldest (left edge).
+    // skipZero: discard samples where data == 0 before slotting.
+    // Use for HR — the device stores 0 bpm when off-wrist instead of null.
     private function _readIter(
         iter as SensorHistory.SensorHistoryIterator,
-        periodMin as Number
+        periodMin as Number,
+        skipZero as Boolean
     ) as Array<Float>? {
         var gw = _charW * 10;
         var periodSec = periodMin * 60;
@@ -1577,25 +1586,53 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var count = 0;
         while (s != null) {
             if (s.data != null) {
-                var age = now - (s.when as Time.Moment).value();
-                if (age >= 0 && age < periodSec) {
-                    var slot = (age * gw) / periodSec;
-                    if (slot >= gw) {
-                        slot = gw - 1;
-                    }
-                    if (result[slot] == null) {
-                        var v = s.data;
-                        result[slot] =
-                            v instanceof Float
-                                ? v as Float
-                                : (v as Number).toFloat();
-                        count++;
+                var v = s.data;
+                var fv =
+                    v instanceof Float ? v as Float : (v as Number).toFloat();
+                if (!skipZero || fv != 0.0) {
+                    var age = now - (s.when as Time.Moment).value();
+                    if (age >= 0 && age < periodSec) {
+                        var slot = (age * gw) / periodSec;
+                        if (slot >= gw) {
+                            slot = gw - 1;
+                        }
+                        if (result[slot] == null) {
+                            result[slot] = fv;
+                            count++;
+                        }
                     }
                 }
             }
             s = iter.next();
         }
-        return count >= 2 ? result : null;
+        if (count < 2) {
+            return null;
+        }
+        // Fill small sensor-cadence gaps with linear interpolation so the
+        // drawing functions see a clean contiguous run within each wear
+        // period.  Gaps larger than gapThresh slots stay null — they appear
+        // as breaks in the graph (e.g. watch taken off wrist for >10 min).
+        var gapThresh = (10 * gw) / periodMin;
+        if (gapThresh < 1) {
+            gapThresh = 1;
+        }
+        var prevI = -1;
+        var prevV = 0.0 as Float;
+        for (var i = 0; i < gw; i++) {
+            if (result[i] != null) {
+                var gap = i - prevI;
+                if (prevI >= 0 && gap > 1 && gap <= gapThresh) {
+                    var v1 = result[i] as Float;
+                    for (var k = prevI + 1; k < i; k++) {
+                        var t = (k - prevI).toFloat() / gap.toFloat();
+                        result[k] = prevV + t * (v1 - prevV);
+                    }
+                }
+                prevI = i;
+                prevV = result[i] as Float;
+            }
+        }
+        return result;
     }
 
     private function _getFieldHistory(
@@ -1616,19 +1653,31 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         ) {
             return _cacheResult(
                 cacheKey,
-                _readIter(SensorHistory.getHeartRateHistory(opts), periodMin)
+                _readIter(
+                    SensorHistory.getHeartRateHistory(opts),
+                    periodMin,
+                    true
+                )
             );
         }
         if (field == FIELD_BODY_BAT) {
             return _cacheResult(
                 cacheKey,
-                _readIter(SensorHistory.getBodyBatteryHistory(opts), periodMin)
+                _readIter(
+                    SensorHistory.getBodyBatteryHistory(opts),
+                    periodMin,
+                    false
+                )
             );
         }
         if (field == FIELD_STRESS) {
             return _cacheResult(
                 cacheKey,
-                _readIter(SensorHistory.getStressHistory(opts), periodMin)
+                _readIter(
+                    SensorHistory.getStressHistory(opts),
+                    periodMin,
+                    false
+                )
             );
         }
         if (field == FIELD_SPO2) {
@@ -1636,44 +1685,39 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 cacheKey,
                 _readIter(
                     SensorHistory.getOxygenSaturationHistory(opts),
-                    periodMin
+                    periodMin,
+                    false
                 )
             );
         }
         if (field == FIELD_TEMP_WRIST) {
             return _cacheResult(
                 cacheKey,
-                _readIter(SensorHistory.getTemperatureHistory(opts), periodMin)
+                _readIter(
+                    SensorHistory.getTemperatureHistory(opts),
+                    periodMin,
+                    false
+                )
             );
         }
         if (field == FIELD_ELEVATION) {
-            var elevData = _readIter(
-                SensorHistory.getElevationHistory(opts),
-                periodMin
+            return _cacheResult(
+                cacheKey,
+                _readIter(
+                    SensorHistory.getElevationHistory(opts),
+                    periodMin,
+                    false
+                )
             );
-            if (elevData != null) {
-                // Fill the left-side gap (oldest/high-index end) with the oldest known reading
-                var lastIdx = -1;
-                var lastVal = 0.0 as Float;
-                for (var ei = elevData.size() - 1; ei >= 0; ei--) {
-                    if (elevData[ei] != null) {
-                        lastIdx = ei;
-                        lastVal = elevData[ei] as Float;
-                        break;
-                    }
-                }
-                if (lastIdx >= 0) {
-                    for (var ei = lastIdx + 1; ei < elevData.size(); ei++) {
-                        elevData[ei] = lastVal;
-                    }
-                }
-            }
-            return _cacheResult(cacheKey, elevData);
         }
         if (field == FIELD_PRESSURE) {
             return _cacheResult(
                 cacheKey,
-                _readIter(SensorHistory.getPressureHistory(opts), periodMin)
+                _readIter(
+                    SensorHistory.getPressureHistory(opts),
+                    periodMin,
+                    false
+                )
             );
         }
         return null;
@@ -1836,7 +1880,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         y as Number,
         gh as Number,
         minV as Float,
-        range as Float
+        range as Float,
+        maxGap as Number
     ) as Void {
         var n = data.size();
         var n1 = n - 1;
@@ -1844,6 +1889,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (n1 < gw) {
             var lastX = -1;
             var lastY = 0;
+            var lastI = -1;
             for (var i = 0; i < n; i++) {
                 if (data[i] == null) {
                     continue;
@@ -1851,12 +1897,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var v = data[i] as Float;
                 var x = gx + ((n1 - i) * gw) / n1;
                 var py = y + gh - (((v - minV) * ghf) / range).toNumber();
-                if (lastX >= 0) {
+                if (lastX >= 0 && i - lastI <= maxGap) {
                     dc.drawLine(x, py, lastX, lastY);
                 }
                 dc.fillRectangle(x, py, 1, 1);
                 lastX = x;
                 lastY = py;
+                lastI = i;
             }
             return;
         }
@@ -1954,7 +2001,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         range as Float,
         colorIdx as Number,
         gradMinV as Float,
-        gradRange as Float
+        gradRange as Float,
+        maxGap as Number
     ) as Void {
         var n = data.size();
         var n1 = n - 1;
@@ -1963,6 +2011,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var lastX = -1;
             var lastY = 0;
             var lastV = 0.0 as Float;
+            var lastI = -1;
             for (var i = 0; i < n; i++) {
                 if (data[i] == null) {
                     continue;
@@ -1970,7 +2019,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var v = data[i] as Float;
                 var x = gx + ((n1 - i) * gw) / n1;
                 var py = y + gh - (((v - minV) * ghf) / range).toNumber();
-                if (lastX >= 0) {
+                if (lastX >= 0 && i - lastI <= maxGap) {
                     var mid = (v + lastV) / 2.0;
                     var mfrac = (mid - gradMinV) / gradRange;
                     if (mfrac < 0.0) {
@@ -2000,6 +2049,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 lastX = x;
                 lastY = py;
                 lastV = v;
+                lastI = i;
             }
             return;
         }
@@ -2263,7 +2313,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minV,
             range,
             gradMinV,
-            gradRange
+            gradRange,
+            data.size()
         );
         _drawGraphAxes(dc, gx, gw, y);
         _drawSingleGraphLabels(
@@ -2312,7 +2363,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         minV as Float,
         range as Float,
         gradMinV as Float,
-        gradRange as Float
+        gradRange as Float,
+        maxGap as Number
     ) as Void {
         var isGrad = colorIdx >= COLOR_GRAD;
         if (graphType == GRAPH_BAR) {
@@ -2350,14 +2402,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     range,
                     colorIdx,
                     gradMinV,
-                    gradRange
+                    gradRange,
+                    maxGap
                 );
             } else {
                 dc.setColor(
                     _colorFromIdx(colorIdx),
                     Graphics.COLOR_TRANSPARENT
                 );
-                _drawGraphLine(dc, data, gx, gw, y, gh, minV, range);
+                _drawGraphLine(dc, data, gx, gw, y, gh, minV, range, maxGap);
             }
         }
     }
@@ -2433,6 +2486,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             labelColor,
             valueColor
         );
+        var maxGap = (10 * gw) / periodMin;
+        if (maxGap < 1) {
+            maxGap = 1;
+        }
         _drawMeanLine(
             dc,
             data,
@@ -2458,7 +2515,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minV,
             range,
             gradMinV,
-            gradRange
+            gradRange,
+            maxGap
         );
         _drawGraphAxes(dc, gx, gw, y);
         _drawSingleGraphLabels(
