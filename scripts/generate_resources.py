@@ -320,7 +320,7 @@ def gen_strings():
 
     lines.append("\n  <!-- Steps view mode -->")
     lines.append(s("StepsViewMode",      "Steps: View Mode"))
-    lines.append(s("StepsViewModeText",  "Text"))
+    lines.append(s("StepsViewModeText",  "Value"))
     lines.append(s("StepsViewModeBar",   "Progress Bar"))
     lines.append(s("StepsViewModeBarValue", "Bar + Value"))
     lines.append(s("StepsBarColor",      "Steps: Bar Color"))
@@ -330,7 +330,7 @@ def gen_strings():
     lines.append(s("GraphTypeBar",  "Bar"))
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
-    lines.append(s("SecTypeNone", "None"))
+    lines.append(s("SecTypeNone", "None (hidden)"))
     lines.append(s("SecTypeLine", "Line"))
     lines.append(s("SecTypeBar",  "Bar"))
 

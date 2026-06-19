@@ -131,7 +131,7 @@
 
   <!-- Steps view mode -->
   <string id="StepsViewMode">Steps: View Mode</string>
-  <string id="StepsViewModeText">Text</string>
+  <string id="StepsViewModeText">Value</string>
   <string id="StepsViewModeBar">Progress Bar</string>
   <string id="StepsViewModeBarValue">Bar + Value</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
@@ -141,7 +141,7 @@
   <string id="GraphTypeBar">Bar</string>
 
   <!-- Shared: secondary graph type options -->
-  <string id="SecTypeNone">None</string>
+  <string id="SecTypeNone">None (hidden)</string>
   <string id="SecTypeLine">Line</string>
   <string id="SecTypeBar">Bar</string>
 

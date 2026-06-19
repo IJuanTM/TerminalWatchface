@@ -394,7 +394,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var clockInfo =
             Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info;
         var nowMin = clockInfo.min as Number;
-        var nowH = clockInfo.hour as Number;
         if (nowMin != _graphCacheMin) {
             _graphCache = {};
             _graphCacheMin = nowMin;
@@ -972,7 +971,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
         if (showValue) {
             var valY = y + (_fh - _smallFh) / 2 - 1;
-            dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
+            var textColor =
+                fillW >= gw / 2 ? 0x000000 : _colorFromIdx(valueColor);
+            dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx + gw / 2,
                 valY,
@@ -1130,30 +1131,37 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return 0xffffff;
     }
 
+    // Gradient: blue(-20°C) → cyan(0°C) → green-yellow(7°C) → yellow(16°C) → orange(25°C) → red(40°C)
+    // Breakpoints at fractions 0.0/0.25/0.45/0.60/0.75/1.0 for range [-20,40].
     private function _valueTempColor(fraction as Float) as Number {
         var r = 0;
         var g = 0;
         var b = 0;
         if (fraction <= 0.25) {
             var t = fraction / 0.25;
-            r = 85;
-            g = (136.0 + t * 102.0).toNumber();
-            b = 255;
-        } else if (fraction <= 0.5) {
-            var t = (fraction - 0.25) / 0.25;
-            r = (85.0 + t * 170.0).toNumber();
-            g = 238;
-            b = (255.0 - t * 170.0).toNumber();
+            r = (85.0 - t * 35.0).toNumber();
+            g = (100.0 + t * 110.0).toNumber();
+            b = (255.0 - t * 35.0).toNumber();
+        } else if (fraction <= 0.45) {
+            var t = (fraction - 0.25) / 0.2;
+            r = (50.0 + t * 50.0).toNumber();
+            g = (210.0 + t * 10.0).toNumber();
+            b = (220.0 - t * 160.0).toNumber();
+        } else if (fraction <= 0.6) {
+            var t = (fraction - 0.45) / 0.15;
+            r = (100.0 + t * 150.0).toNumber();
+            g = 220;
+            b = (60.0 - t * 60.0).toNumber();
         } else if (fraction <= 0.75) {
-            var t = (fraction - 0.5) / 0.25;
+            var t = (fraction - 0.6) / 0.15;
             r = 255;
-            g = (238.0 - t * 153.0).toNumber();
-            b = 85;
+            g = (220.0 - t * 90.0).toNumber();
+            b = 0;
         } else {
             var t = (fraction - 0.75) / 0.25;
             r = 255;
-            g = 85;
-            b = (85.0 + t * 170.0).toNumber();
+            g = (130.0 - t * 110.0).toNumber();
+            b = 0;
         }
         return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
     }
@@ -1508,6 +1516,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _tfLabel(periodMin) + " ",
             Graphics.TEXT_JUSTIFY_RIGHT
         );
+        var ageSecDual = _dataAge(data, periodMin);
+        if (ageSecDual > 5) {
+            dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx,
+                yBelow,
+                _fontTiny,
+                _fmtAge(ageSecDual),
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+        }
     }
 
     private function _fieldGraphKey(field as Number) as String? {
@@ -1628,10 +1647,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
         }
         if (field == FIELD_ELEVATION) {
-            return _cacheResult(
-                cacheKey,
-                _readIter(SensorHistory.getElevationHistory(opts), periodMin)
+            var elevData = _readIter(
+                SensorHistory.getElevationHistory(opts),
+                periodMin
             );
+            if (elevData != null) {
+                // Fill the left-side gap (oldest/high-index end) with the oldest known reading
+                var lastIdx = -1;
+                var lastVal = 0.0 as Float;
+                for (var ei = elevData.size() - 1; ei >= 0; ei--) {
+                    if (elevData[ei] != null) {
+                        lastIdx = ei;
+                        lastVal = elevData[ei] as Float;
+                        break;
+                    }
+                }
+                if (lastIdx >= 0) {
+                    for (var ei = lastIdx + 1; ei < elevData.size(); ei++) {
+                        elevData[ei] = lastVal;
+                    }
+                }
+            }
+            return _cacheResult(cacheKey, elevData);
         }
         if (field == FIELD_PRESSURE) {
             return _cacheResult(
@@ -1667,6 +1704,30 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
             : "-" + (periodMin / 60).toString() + "h";
+    }
+
+    private function _dataAge(
+        data as Array<Float>,
+        periodMin as Number
+    ) as Number {
+        var gw = _charW * 10;
+        var periodSec = periodMin * 60;
+        for (var i = 0; i < data.size(); i++) {
+            if (data[i] != null) {
+                return (i * periodSec) / gw;
+            }
+        }
+        return -1;
+    }
+
+    private function _fmtAge(ageSec as Number) as String {
+        if (ageSec < 60) {
+            return ageSec.toString() + "s";
+        }
+        if (ageSec < 3600) {
+            return (ageSec / 60).toString() + "m";
+        }
+        return (ageSec / 3600).toString() + "h";
     }
 
     private function _cacheResult(
@@ -1709,7 +1770,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         bottomLabel as String,
         colorIdx as Number,
         maxFrac as Float,
-        minFrac as Float
+        minFrac as Float,
+        ageSec as Number
     ) as Void {
         var isGrad = colorIdx >= COLOR_GRAD;
         dc.setColor(
@@ -1742,6 +1804,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             bottomLabel,
             Graphics.TEXT_JUSTIFY_RIGHT
         );
+        if (ageSec > 5) {
+            dc.drawText(
+                gx,
+                y + gh + 1,
+                _fontTiny,
+                _fmtAge(ageSec),
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+        }
     }
 
     private function _drawGraphAxes(
@@ -1767,22 +1838,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         minV as Float,
         range as Float
     ) as Void {
-        var n1 = data.size() - 1;
+        var n = data.size();
+        var n1 = n - 1;
         var ghf = gh.toFloat();
         if (n1 < gw) {
-            for (var i = 0; i < n1; i++) {
-                if (data[i] == null || data[i + 1] == null) {
+            var lastX = -1;
+            var lastY = 0;
+            for (var i = 0; i < n; i++) {
+                if (data[i] == null) {
                     continue;
                 }
-                var v1 = data[i] as Float;
-                var v2 = data[i + 1] as Float;
-                var x1 = gx + ((n1 - i) * gw) / n1;
-                var y1 = y + gh - (((v1 - minV) * ghf) / range).toNumber();
-                var x2 = gx + ((n1 - i - 1) * gw) / n1;
-                var y2 = y + gh - (((v2 - minV) * ghf) / range).toNumber();
-                dc.drawLine(x1, y1, x2, y2);
-                dc.fillRectangle(x1, y1, 1, 1);
-                dc.fillRectangle(x2, y2, 1, 1);
+                var v = data[i] as Float;
+                var x = gx + ((n1 - i) * gw) / n1;
+                var py = y + gh - (((v - minV) * ghf) / range).toNumber();
+                if (lastX >= 0) {
+                    dc.drawLine(x, py, lastX, lastY);
+                }
+                dc.fillRectangle(x, py, 1, 1);
+                lastX = x;
+                lastY = py;
             }
             return;
         }
@@ -1882,34 +1956,50 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradMinV as Float,
         gradRange as Float
     ) as Void {
-        var n1 = data.size() - 1;
+        var n = data.size();
+        var n1 = n - 1;
         var ghf = gh.toFloat();
         if (n1 < gw) {
-            for (var i = 0; i < n1; i++) {
-                if (data[i] == null || data[i + 1] == null) {
+            var lastX = -1;
+            var lastY = 0;
+            var lastV = 0.0 as Float;
+            for (var i = 0; i < n; i++) {
+                if (data[i] == null) {
                     continue;
                 }
-                var v1 = data[i] as Float;
-                var v2 = data[i + 1] as Float;
-                var mid = (v1 + v2) / 2.0;
-                var frac = (mid - gradMinV) / gradRange;
+                var v = data[i] as Float;
+                var x = gx + ((n1 - i) * gw) / n1;
+                var py = y + gh - (((v - minV) * ghf) / range).toNumber();
+                if (lastX >= 0) {
+                    var mid = (v + lastV) / 2.0;
+                    var mfrac = (mid - gradMinV) / gradRange;
+                    if (mfrac < 0.0) {
+                        mfrac = 0.0;
+                    }
+                    if (mfrac > 1.0) {
+                        mfrac = 1.0;
+                    }
+                    dc.setColor(
+                        _gradColor(colorIdx, mfrac),
+                        Graphics.COLOR_TRANSPARENT
+                    );
+                    dc.drawLine(x, py, lastX, lastY);
+                }
+                var frac = (v - gradMinV) / gradRange;
                 if (frac < 0.0) {
                     frac = 0.0;
                 }
                 if (frac > 1.0) {
                     frac = 1.0;
                 }
-                var x1 = gx + ((n1 - i) * gw) / n1;
-                var y1 = y + gh - (((v1 - minV) * ghf) / range).toNumber();
-                var x2 = gx + ((n1 - i - 1) * gw) / n1;
-                var y2 = y + gh - (((v2 - minV) * ghf) / range).toNumber();
                 dc.setColor(
                     _gradColor(colorIdx, frac),
                     Graphics.COLOR_TRANSPARENT
                 );
-                dc.drawLine(x1, y1, x2, y2);
-                dc.fillRectangle(x1, y1, 1, 1);
-                dc.fillRectangle(x2, y2, 1, 1);
+                dc.fillRectangle(x, py, 1, 1);
+                lastX = x;
+                lastY = py;
+                lastV = v;
             }
             return;
         }
@@ -2188,7 +2278,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "+" + hours.toString() + "h",
             lineColor,
             maxFrac,
-            minFrac
+            minFrac,
+            -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
             var metric = _metric;
@@ -2382,7 +2473,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _tfLabel(periodMin),
             lineColor,
             maxFrac,
-            minFrac
+            minFrac,
+            _dataAge(data, periodMin)
         );
 
         if (viewMode == VIEW_GRAPH_VALUE) {
