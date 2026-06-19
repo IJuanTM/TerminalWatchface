@@ -219,6 +219,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _fontTiny as Graphics.FontType = Graphics.FONT_XTINY;
     private var _graphCache as Dictionary = {};
     private var _graphCacheTimes as Dictionary = {};
+    private var _graphEffPeriod as Dictionary = {};
+    private var _pendingEffPeriod as Number = 0;
     private var _graphCacheMin as Number = -1;
     private var _cursorOn as Boolean = true;
     private var _cursorX as Number = 0;
@@ -1519,7 +1521,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gx + gw - dc.getTextWidthInPixels(secName, _fontTiny),
             yBelow,
             _fontTiny,
-            _tfLabel(periodMin) + " ",
+            _effLabel(field, periodMin) + " ",
             Graphics.TEXT_JUSTIFY_RIGHT
         );
         var ageSecDual = _dataAge(data, periodMin);
@@ -1658,6 +1660,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 prevV = result[i] as Float;
             }
         }
+        // Store the period actually displayed so the label can reflect it.
+        // Only report the effective (shorter) period when re-slotting occurred.
+        _pendingEffPeriod =
+            maxAge > 0 && maxAge < (periodSec * 9) / 10
+                ? effectiveMin
+                : periodMin;
         return result;
     }
 
@@ -1829,7 +1837,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         r as Array<Float>?
     ) as Array<Float>? {
         _graphCache.put(cacheKey, r);
+        if (_pendingEffPeriod > 0) {
+            _graphEffPeriod.put(cacheKey, _pendingEffPeriod);
+            _pendingEffPeriod = 0;
+        }
         return r;
+    }
+
+    // Label showing the actual displayed time range (may be shorter than the
+    // requested period when the API returns fewer samples than requested).
+    private function _effLabel(field as Number, periodMin as Number) as String {
+        var key = field * 10000 + periodMin;
+        var eff = _graphEffPeriod.hasKey(key)
+            ? _graphEffPeriod.get(key) as Number
+            : periodMin;
+        return _tfLabel(eff > 0 ? eff : periodMin);
     }
 
     private function _minMax(data as Array<Float>) as Array<Float> {
@@ -2578,7 +2600,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gh,
             minV,
             maxV,
-            _tfLabel(periodMin),
+            _effLabel(field, periodMin),
             lineColor,
             maxFrac,
             minFrac,
