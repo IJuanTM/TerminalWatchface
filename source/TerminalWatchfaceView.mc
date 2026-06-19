@@ -218,6 +218,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _fontSmall as Graphics.FontType = Graphics.FONT_TINY;
     private var _fontTiny as Graphics.FontType = Graphics.FONT_XTINY;
     private var _graphCache as Dictionary = {};
+    private var _graphCacheTimes as Dictionary = {};
     private var _graphCacheMin as Number = -1;
     private var _cursorOn as Boolean = true;
     private var _cursorX as Number = 0;
@@ -395,7 +396,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             Gregorian.info(Time.now(), Time.FORMAT_SHORT) as Gregorian.Info;
         var nowMin = clockInfo.min as Number;
         if (nowMin != _graphCacheMin) {
-            _graphCache = {};
             _graphCacheMin = nowMin;
             _refreshComplications();
         }
@@ -1584,6 +1584,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var now = Time.now().value();
         var s = iter.next();
         var count = 0;
+        var maxAge = 0;
         while (s != null) {
             if (s.data != null) {
                 var v = s.data;
@@ -1592,6 +1593,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (!skipZero || fv != 0.0) {
                     var age = now - (s.when as Time.Moment).value();
                     if (age >= 0 && age < periodSec) {
+                        if (age > maxAge) {
+                            maxAge = age;
+                        }
                         var slot = (age * gw) / periodSec;
                         if (slot >= gw) {
                             slot = gw - 1;
@@ -1608,11 +1612,33 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (count < 2) {
             return null;
         }
-        // Fill small sensor-cadence gaps with linear interpolation so the
-        // drawing functions see a clean contiguous run within each wear
-        // period.  Gaps larger than gapThresh slots stay null — they appear
-        // as breaks in the graph (e.g. watch taken off wrist for >10 min).
-        var gapThresh = (10 * gw) / periodMin;
+        // If the API returned less than 90 % of the requested period (e.g.
+        // elevation only covers ~6.5 h of an 8 h window), stretch the occupied
+        // slots to fill the full graph width so the left side isn't empty.
+        var oldestSlot = (maxAge * gw) / periodSec;
+        if (oldestSlot > 0 && maxAge < (periodSec * 9) / 10) {
+            var stretched = new Array<Float>[gw];
+            for (var i = 0; i < gw; i++) {
+                if (result[i] != null) {
+                    var newI = (i * (gw - 1)) / oldestSlot;
+                    if (newI >= gw) {
+                        newI = gw - 1;
+                    }
+                    if (stretched[newI] == null) {
+                        stretched[newI] = result[i] as Float;
+                    }
+                }
+            }
+            result = stretched;
+        }
+        // Gap threshold in slots: 10 min expressed in terms of the effective
+        // period so that off-wrist gaps (>10 min) stay null and sensor-cadence
+        // gaps are interpolated.
+        var effectiveMin = maxAge > 0 ? maxAge / 60 : periodMin;
+        if (effectiveMin < 1) {
+            effectiveMin = 1;
+        }
+        var gapThresh = (10 * gw) / effectiveMin;
         if (gapThresh < 1) {
             gapThresh = 1;
         }
@@ -1635,15 +1661,39 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return result;
     }
 
+    // Returns how often (in minutes) each sensor field generates a new reading.
+    // Used to avoid re-fetching history more often than the sensor updates.
+    private function _fieldUpdateMin(field as Number) as Number {
+        if (
+            field == FIELD_HR ||
+            field == FIELD_HR_MEAN ||
+            field == FIELD_HR_MAX
+        ) {
+            return 1;
+        }
+        if (field == FIELD_STRESS || field == FIELD_BODY_BAT) {
+            return 3;
+        }
+        if (field == FIELD_SPO2) {
+            return 5;
+        }
+        return 2; // FIELD_TEMP_WRIST, FIELD_ELEVATION, FIELD_PRESSURE
+    }
+
     private function _getFieldHistory(
         field as Number,
         periodMin as Number
     ) as Array<Float>? {
         var cacheKey = field * 10000 + periodMin;
-        if (_graphCache.hasKey(cacheKey)) {
-            var cached = _graphCache.get(cacheKey);
-            return cached != null ? cached as Array<Float> : null;
+        var nowUnixMin = Time.now().value() / 60;
+        if (_graphCacheTimes.hasKey(cacheKey)) {
+            var lastMin = _graphCacheTimes.get(cacheKey) as Number;
+            if (nowUnixMin - lastMin < _fieldUpdateMin(field)) {
+                var cached = _graphCache.get(cacheKey);
+                return cached != null ? cached as Array<Float> : null;
+            }
         }
+        _graphCacheTimes.put(cacheKey, nowUnixMin);
 
         var opts = { :period => periodMin };
         if (
