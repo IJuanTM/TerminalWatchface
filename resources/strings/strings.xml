@@ -16,6 +16,11 @@
   <!-- Display options -->
   <string id="ShowSeconds">Show Seconds</string>
   <string id="ShowYear">Show Year in Date</string>
+  <string id="ShowVersion">Show App Version (testing)</string>
+  <string id="WatchCommandStyle">Command Style</string>
+  <string id="WatchCommandWindows">Windows (watch.bat)</string>
+  <string id="WatchCommandLinux">Linux (watch.sh)</string>
+  <string id="WatchCommandBare">Bare (watch)</string>
   <string id="DateFormat">Date Format</string>
   <string id="DateFormatDayMon">Day Month (Mon, 1 Jan)</string>
   <string id="DateFormatYMD">ISO (YYYY-MM-DD)</string>

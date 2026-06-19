@@ -155,7 +155,9 @@ def gen_properties():
     lines.append("\n  <!-- Display options -->")
     lines.append(prop("showSeconds",    "boolean", "false"))
     lines.append(prop("showYear",       "boolean", "false"))
-    lines.append(prop("dateFormat",     "number",  0))
+    lines.append(prop("showVersion",       "boolean", "false"))
+    lines.append(prop("watchCommandStyle", "number",  2))
+    lines.append(prop("dateFormat",        "number",  0))
     lines.append(prop("rotateInterval", "number",  5))
 
     lines.append("\n  <!-- Time row (always visible) -->")
@@ -223,7 +225,12 @@ def gen_strings():
     lines.append("\n  <!-- Display options -->")
     lines.append(s("ShowSeconds",       "Show Seconds"))
     lines.append(s("ShowYear",          "Show Year in Date"))
-    lines.append(s("DateFormat",        "Date Format"))
+    lines.append(s("ShowVersion",           "Show App Version (testing)"))
+    lines.append(s("WatchCommandStyle",     "Command Style"))
+    lines.append(s("WatchCommandWindows",   "Windows (watch.bat)"))
+    lines.append(s("WatchCommandLinux",     "Linux (watch.sh)"))
+    lines.append(s("WatchCommandBare",      "Bare (watch)"))
+    lines.append(s("DateFormat",            "Date Format"))
     lines.append(s("DateFormatDayMon",  "Day Month (Mon, 1 Jan)"))
     lines.append(s("DateFormatYMD",     "ISO (YYYY-MM-DD)"))
     lines.append(s("DateFormatDMY",     "DD-MM-YYYY"))
@@ -431,6 +438,12 @@ def gen_settings():
     parts.append("\n  <!-- Display options -->")
     parts.append(setting_bool("showSeconds", "ShowSeconds"))
     parts.append(setting_bool("showYear",    "ShowYear"))
+    parts.append(setting_bool("showVersion", "ShowVersion"))
+    parts.append(setting_list("watchCommandStyle", "WatchCommandStyle", [
+        (0, "@Strings.WatchCommandWindows"),
+        (1, "@Strings.WatchCommandLinux"),
+        (2, "@Strings.WatchCommandBare"),
+    ]))
     parts.append(setting_list("dateFormat", "DateFormat", [
         (0, "@Strings.DateFormatDayMon"), (1, "@Strings.DateFormatYMD"),
         (2, "@Strings.DateFormatDMY"),    (3, "@Strings.DateFormatMDY"),

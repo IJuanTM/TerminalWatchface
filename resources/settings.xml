@@ -25,6 +25,16 @@
   <setting propertyKey="@Properties.showYear" title="@Strings.ShowYear">
     <settingConfig type="boolean" />
   </setting>
+  <setting propertyKey="@Properties.showVersion" title="@Strings.ShowVersion">
+    <settingConfig type="boolean" />
+  </setting>
+    <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
+        <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
+        <listEntry value="2">@Strings.WatchCommandBare</listEntry>
+      </settingConfig>
+    </setting>
     <setting propertyKey="@Properties.dateFormat" title="@Strings.DateFormat">
       <settingConfig type="list">
         <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
