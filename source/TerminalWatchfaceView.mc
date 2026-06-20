@@ -71,7 +71,7 @@ const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
 
-const APP_VERSION = "0.24.0";
+const APP_VERSION = "0.24.1";
 
 const GRAPH_LINE = 0;
 const GRAPH_BAR = 1;
