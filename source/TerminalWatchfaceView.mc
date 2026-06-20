@@ -13,6 +13,8 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
+const APP_VERSION = "0.24.2";
+
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
 const FIELD_CALORIES = 2;
@@ -70,8 +72,6 @@ const FIELD_WAKE_TIME = 54;
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
-
-const APP_VERSION = "0.24.1";
 
 const GRAPH_LINE = 0;
 const GRAPH_BAR = 1;

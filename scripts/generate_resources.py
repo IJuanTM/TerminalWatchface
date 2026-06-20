@@ -91,7 +91,7 @@ LINE_SLOTS = [
     (4, "Tertiary",   4, 1, 0),  # Distance day, green label
     (5, "Primary",    1, 5, 0),  # HR, red label
     (5, "Secondary", 21, 5, 0),  # Stress, red label
-    (5, "Tertiary",  29, 5, 0),  # Active mins day, red label
+    (5, "Tertiary",  2, 5, 0),   # Calories day, red label
 ]
 
 # ---------------------------------------------------------------------------
@@ -194,7 +194,7 @@ def gen_properties():
         lines.append(prop(f"{key}SecondaryColor", "number", scd))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastViewMode",   "number", 1))
+    lines.append(prop("wxForecastViewMode",   "number", 2))  # graph+value
     lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
     lines.append(prop("wxForecastGraphColor", "number", 12))  # ColorGradTemp (cold→hot)

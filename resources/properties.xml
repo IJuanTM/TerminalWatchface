@@ -48,7 +48,7 @@
   <property id="line5Secondary" type="number">21</property>
   <property id="line5SecondaryLabelColor" type="number">5</property>
   <property id="line5SecondaryValueColor" type="number">0</property>
-  <property id="line5Tertiary" type="number">29</property>
+  <property id="line5Tertiary" type="number">2</property>
   <property id="line5TertiaryLabelColor" type="number">5</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
 
@@ -122,7 +122,7 @@
   <property id="pressureSecondaryColor" type="number">0</property>
 
   <!-- Weather Forecast -->
-  <property id="wxForecastViewMode" type="number">1</property>
+  <property id="wxForecastViewMode" type="number">2</property>
   <property id="wxForecastGraphType" type="number">1</property>
   <property id="wxForecastTimeFrame" type="number">12</property>
   <property id="wxForecastGraphColor" type="number">12</property>
