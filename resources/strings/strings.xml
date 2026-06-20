@@ -126,6 +126,13 @@
   <string id="FieldGpsLon">GPS Longitude</string>
   <string id="FieldGpsAccuracy">GPS Accuracy</string>
   <string id="FieldHeading">Heading</string>
+  <string id="FieldTrainingStatus">Training Status</string>
+  <string id="FieldRace5k">Race Predictor: 5K</string>
+  <string id="FieldRace10k">Race Predictor: 10K</string>
+  <string id="FieldRaceHalf">Race Predictor: Half Marathon</string>
+  <string id="FieldRaceMarathon">Race Predictor: Marathon</string>
+  <string id="FieldSleepTime">Bedtime</string>
+  <string id="FieldWakeTime">Wake Time</string>
 
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>

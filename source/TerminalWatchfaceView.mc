@@ -59,12 +59,19 @@ const FIELD_GPS_LON = 44;
 const FIELD_GPS_ACCURACY = 45;
 const FIELD_HEADING = 46;
 const FIELD_ELAPSED = 47;
+const FIELD_TRAINING_STATUS = 48;
+const FIELD_RACE_5K = 49;
+const FIELD_RACE_10K = 50;
+const FIELD_RACE_HALF = 51;
+const FIELD_RACE_MARATHON = 52;
+const FIELD_SLEEP_TIME = 53;
+const FIELD_WAKE_TIME = 54;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
 
-const APP_VERSION = "0.23.0";
+const APP_VERSION = "0.24.0";
 
 const GRAPH_LINE = 0;
 const GRAPH_BAR = 1;
@@ -137,80 +144,6 @@ const ICON_ARROW_DN = 1;
 const ICON_DEG = 2;
 const ICON_BOLT = 3;
 
-// Resource lookup arrays indexed by color index (0-9). See gen_icons.py.
-const AUP_A_RES = [
-    $.Rez.Drawables.AupA0,
-    $.Rez.Drawables.AupA1,
-    $.Rez.Drawables.AupA2,
-    $.Rez.Drawables.AupA3,
-    $.Rez.Drawables.AupA4,
-    $.Rez.Drawables.AupA5,
-    $.Rez.Drawables.AupA6,
-    $.Rez.Drawables.AupA7,
-    $.Rez.Drawables.AupA8,
-    $.Rez.Drawables.AupA9,
-];
-const AUP_B_RES = [
-    $.Rez.Drawables.AupB0,
-    $.Rez.Drawables.AupB1,
-    $.Rez.Drawables.AupB2,
-    $.Rez.Drawables.AupB3,
-    $.Rez.Drawables.AupB4,
-    $.Rez.Drawables.AupB5,
-    $.Rez.Drawables.AupB6,
-    $.Rez.Drawables.AupB7,
-    $.Rez.Drawables.AupB8,
-    $.Rez.Drawables.AupB9,
-];
-const ADN_A_RES = [
-    $.Rez.Drawables.AdnA0,
-    $.Rez.Drawables.AdnA1,
-    $.Rez.Drawables.AdnA2,
-    $.Rez.Drawables.AdnA3,
-    $.Rez.Drawables.AdnA4,
-    $.Rez.Drawables.AdnA5,
-    $.Rez.Drawables.AdnA6,
-    $.Rez.Drawables.AdnA7,
-    $.Rez.Drawables.AdnA8,
-    $.Rez.Drawables.AdnA9,
-];
-const ADN_B_RES = [
-    $.Rez.Drawables.AdnB0,
-    $.Rez.Drawables.AdnB1,
-    $.Rez.Drawables.AdnB2,
-    $.Rez.Drawables.AdnB3,
-    $.Rez.Drawables.AdnB4,
-    $.Rez.Drawables.AdnB5,
-    $.Rez.Drawables.AdnB6,
-    $.Rez.Drawables.AdnB7,
-    $.Rez.Drawables.AdnB8,
-    $.Rez.Drawables.AdnB9,
-];
-const DEG_A_RES = [
-    $.Rez.Drawables.DegA0,
-    $.Rez.Drawables.DegA1,
-    $.Rez.Drawables.DegA2,
-    $.Rez.Drawables.DegA3,
-    $.Rez.Drawables.DegA4,
-    $.Rez.Drawables.DegA5,
-    $.Rez.Drawables.DegA6,
-    $.Rez.Drawables.DegA7,
-    $.Rez.Drawables.DegA8,
-    $.Rez.Drawables.DegA9,
-];
-const DEG_B_RES = [
-    $.Rez.Drawables.DegB0,
-    $.Rez.Drawables.DegB1,
-    $.Rez.Drawables.DegB2,
-    $.Rez.Drawables.DegB3,
-    $.Rez.Drawables.DegB4,
-    $.Rez.Drawables.DegB5,
-    $.Rez.Drawables.DegB6,
-    $.Rez.Drawables.DegB7,
-    $.Rez.Drawables.DegB8,
-    $.Rez.Drawables.DegB9,
-];
-
 class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _w as Number = 0;
     private var _h as Number = 0;
@@ -241,7 +174,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxLow as String = "-";
     private var _wxHigh as String = "-";
     private var _sizeSet as Number = 0; // 0 = lineHeight 30, 1 = lineHeight 32
-    private var _bmpCache as Dictionary = {};
     private var _arrowH as Number = 16;
     private var _bmpArrowW as Number = 14;
     private var _boltH as Number = 16;
@@ -264,6 +196,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compWeeklyRun as Number? = null;
     private var _compWeeklyBike as Number? = null;
     private var _posInfo as Position.Info? = null;
+    private var _isAsleep as Boolean = false;
+    private var _compTrainingStatus as String? = null;
+    private var _compRace5k as Number? = null;
+    private var _compRace10k as Number? = null;
+    private var _compRaceHalf as Number? = null;
+    private var _compRaceMarathon as Number? = null;
+    private var _graphBmpCache as Dictionary = {};
 
     public function initialize() {
         WatchFace.initialize();
@@ -280,6 +219,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     public function onShow() as Void {}
 
+    (:extendedCode)
     private function _refreshComplications() as Void {
         _compSleepScore = null;
         _compSunrise = null;
@@ -287,6 +227,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _compCalendar = null;
         _compWeeklyRun = null;
         _compWeeklyBike = null;
+        _compTrainingStatus = null;
+        _compRace5k = null;
+        _compRace10k = null;
+        _compRaceHalf = null;
+        _compRaceMarathon = null;
         var iter = Complications.getComplications();
         var comp = iter.next() as Complications.Complication?;
         while (comp != null) {
@@ -311,12 +256,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     t == Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE
                 ) {
                     _compWeeklyBike = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_TRAINING_STATUS
+                ) {
+                    _compTrainingStatus = v.toString();
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_RACE_PREDICTOR_5K
+                ) {
+                    _compRace5k = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_RACE_PREDICTOR_10K
+                ) {
+                    _compRace10k = v as Number;
+                } else if (
+                    t ==
+                    Complications.COMPLICATION_TYPE_RACE_PREDICTOR_HALF_MARATHON
+                ) {
+                    _compRaceHalf = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_RACE_PREDICTOR_MARATHON
+                ) {
+                    _compRaceMarathon = v as Number;
                 }
             }
             comp = iter.next() as Complications.Complication?;
         }
     }
 
+    (:extendedCode)
     public function reloadFont() as Void {
         var choice = _getProp("fontChoice", 0);
         if (choice < 0 || choice > 3) {
@@ -365,12 +332,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var newSizeSet = choice == 1 ? 1 : 0;
         if (newSizeSet != _sizeSet) {
             _sizeSet = newSizeSet;
-            _bmpCache = {};
+            _graphBmpCache = {};
         }
         if (_sizeSet == 1) {
             _arrowH = 16;
             _bmpArrowW = 14;
-            _boltH = 18;
+            _boltH = 20;
             _bmpBoltW = 16;
             _degW = 8;
         } else {
@@ -401,6 +368,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var nowMin = clockInfo.min as Number;
         if (nowMin != _graphCacheMin) {
             _graphCacheMin = nowMin;
+            _graphBmpCache = {};
             _refreshComplications();
         }
         _refreshWeather(nowMin);
@@ -505,54 +473,67 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawFooter(dc, footerY + _fh + 2 * gap);
     }
 
-    // Returns the color-tinted, size-correct bitmap for the given icon and color
-    // index. Lazy-loads from resources and caches by (iconType, _sizeSet, colorIdx). ICON_BOLT ignores colorIdx.
-    private function _getIconBmp(
+    // Loads the monochrome (white) icon bitmap for the given type and size set.
+    // Tinting is applied at draw time via _drawIcon using drawBitmap2.
+    // Draws a filled up/down arrow using vector primitives.
+    private function _drawArrow(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        up as Boolean
+    ) as Void {
+        var w = _bmpArrowW;
+        var h = _arrowH;
+        var shaftW = 3;
+        var headH = (h * 2) / 5;
+        var cx = x + w / 2;
+        var shaftX = cx - 1;
+        var hw = w / 4;
+        if (up) {
+            dc.fillPolygon([
+                [cx, y],
+                [cx - hw, y + headH],
+                [cx + hw, y + headH],
+            ]);
+            dc.fillRectangle(shaftX, y + headH, shaftW, h - headH);
+        } else {
+            dc.fillRectangle(shaftX, y, shaftW, h - headH);
+            dc.fillPolygon([
+                [cx - hw, y + h - headH],
+                [cx + hw, y + h - headH],
+                [cx, y + h - 1],
+            ]);
+        }
+    }
+
+    private function _drawIcon(
+        dc as Dc,
+        x as Number,
+        y as Number,
         iconType as Number,
         colorIdx as Number
-    ) as Graphics.BitmapType? {
-        if (colorIdx < 0 || colorIdx >= COLORS.size()) {
-            colorIdx = 0;
+    ) as Void {
+        dc.setColor(_colorFromIdx(colorIdx), Graphics.COLOR_TRANSPARENT);
+        if (iconType == ICON_ARROW_UP) {
+            _drawArrow(dc, x, y, true);
+        } else if (iconType == ICON_ARROW_DN) {
+            _drawArrow(dc, x, y, false);
+        } else if (iconType == ICON_DEG) {
+            dc.drawCircle(x + _degW / 2, y + _degW / 2, (_degW - 1) / 2);
+        } else if (iconType == ICON_BOLT) {
+            var w = _bmpBoltW - 2;
+            var h = _boltH - 2;
+            var bx = x + 1;
+            var by = y + 1;
+            dc.fillPolygon([
+                [bx + (w * 7) / 10, by],
+                [bx + (w * 1) / 10, by + (h * 11) / 20],
+                [bx + (w * 4) / 10, by + (h * 11) / 20],
+                [bx + (w * 3) / 10, by + h],
+                [bx + (w * 9) / 10, by + (h * 9) / 20],
+                [bx + (w * 6) / 10, by + (h * 9) / 20],
+            ]);
         }
-        var effectiveColorIdx = iconType == ICON_BOLT ? 0 : colorIdx;
-        var key = iconType * 20 + _sizeSet * 10 + effectiveColorIdx;
-        var cached = _bmpCache.get(key);
-        if (cached != null) {
-            return cached as Graphics.BitmapType;
-        }
-        try {
-            if (iconType == ICON_BOLT) {
-                var bmp =
-                    WatchUi.loadResource(
-                        _sizeSet == 1
-                            ? $.Rez.Drawables.BoltB
-                            : $.Rez.Drawables.BoltA
-                    ) as Graphics.BitmapType;
-                _bmpCache.put(key, bmp);
-                return bmp;
-            }
-            var arr =
-                iconType == ICON_ARROW_UP
-                    ? _sizeSet == 1
-                        ? AUP_B_RES
-                        : AUP_A_RES
-                    : iconType == ICON_ARROW_DN
-                      ? _sizeSet == 1
-                          ? ADN_B_RES
-                          : ADN_A_RES
-                      : iconType == ICON_DEG
-                        ? _sizeSet == 1
-                            ? DEG_B_RES
-                            : DEG_A_RES
-                        : null;
-            if (arr != null) {
-                var bmp =
-                    WatchUi.loadResource(arr[colorIdx]) as Graphics.BitmapType;
-                _bmpCache.put(key, bmp);
-                return bmp;
-            }
-        } catch (e instanceof Lang.Exception) {}
-        return null;
     }
 
     private function _drawHeader(dc as Dc, y as Number, gap as Number) as Void {
@@ -581,33 +562,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var daysW =
             days != null ? dc.getTextWidthInPixels(daysText, _fontSmall) : 0;
         if (stats.charging) {
-            var bolt = _getIconBmp(ICON_BOLT, 0);
-            if (bolt != null) {
-                var fhSm = _smallFh;
-                var spaced = " " + batText;
-                var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
-                var startX = (_w - _bmpBoltW - spacedW - daysW) / 2;
-                dc.drawBitmap(startX, y + (fhSm - _boltH) / 2, bolt);
-                dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            var spaced = " " + batText;
+            var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
+            var startX = (_w - _bmpBoltW - spacedW - daysW) / 2;
+            _drawIcon(dc, startX, y + (_smallFh - _boltH) / 2, ICON_BOLT, 3);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                startX + _bmpBoltW,
+                y,
+                _fontSmall,
+                spaced,
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            if (days != null) {
+                dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
-                    startX + _bmpBoltW,
+                    startX + _bmpBoltW + spacedW,
                     y,
                     _fontSmall,
-                    spaced,
+                    daysText,
                     Graphics.TEXT_JUSTIFY_LEFT
                 );
-                if (days != null) {
-                    dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(
-                        startX + _bmpBoltW + spacedW,
-                        y,
-                        _fontSmall,
-                        daysText,
-                        Graphics.TEXT_JUSTIFY_LEFT
-                    );
-                }
-                return;
             }
+            return;
         }
         var startX = (_w - batW - daysW) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -1030,21 +1007,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             info.floorsDescended != null ? info.floorsDescended : 0
         ).toString();
         _drawRow(dc, cx, y, ["Floors", ""], labelIdx, valIdx);
-        var ay = y + (_fh - _arrowH) / 2;
+        var ay = y + (_fh - _arrowH) / 2 + 1;
         var x = cx + _pad;
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
-        var bmpUp = _getIconBmp(ICON_ARROW_UP, valIdx);
-        var bmpDn = _getIconBmp(ICON_ARROW_DN, valIdx);
-        if (bmpUp != null) {
-            dc.drawBitmap(x, ay, bmpUp);
-        }
+        _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         var upSpace = up + " ";
         dc.drawText(x, y, _font, upSpace, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(upSpace, _font);
-        if (bmpDn != null) {
-            dc.drawBitmap(x, ay, bmpDn);
-        }
+        _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
     }
@@ -1064,10 +1035,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, _font, numStr, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(numStr, _font);
-        var bmpDeg = _getIconBmp(ICON_DEG, valIdx);
-        if (bmpDeg != null) {
-            dc.drawBitmap(x, y + (_fh - _degW) / 4, bmpDeg);
-        }
+        _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valIdx);
         x += _degW;
         dc.drawText(x, y, _font, _wxUnit + suffix, Graphics.TEXT_JUSTIFY_LEFT);
     }
@@ -1080,29 +1048,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valIdx as Number
     ) as Void {
         _drawRow(dc, cx, y, ["Temp", ""] as Array<String>, labelIdx, valIdx);
-        var ay = y + (_fh - _arrowH) / 2;
+        var ay = y + (_fh - _arrowH) / 2 + 1;
         var x = cx + _pad;
         dc.setColor(_colorFromIdx(valIdx), Graphics.COLOR_TRANSPARENT);
-        var bmpDeg = _getIconBmp(ICON_DEG, valIdx);
-        var bmpDn = _getIconBmp(ICON_ARROW_DN, valIdx);
-        var bmpUp = _getIconBmp(ICON_ARROW_UP, valIdx);
         dc.drawText(x, y, _font, _wxTemp, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxTemp, _font);
-        if (bmpDeg != null) {
-            dc.drawBitmap(x, y + (_fh - _degW) / 4, bmpDeg);
-        }
+        _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valIdx);
         x += _degW;
         dc.drawText(x, y, _font, _wxUnit + " [", Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxUnit + " [", _font);
-        if (bmpDn != null) {
-            dc.drawBitmap(x, ay, bmpDn);
-        }
+        _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, _wxLow + "] [", Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxLow + "] [", _font);
-        if (bmpUp != null) {
-            dc.drawBitmap(x, ay, bmpUp);
-        }
+        _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, _wxHigh + "]", Graphics.TEXT_JUSTIFY_LEFT);
     }
@@ -1142,11 +1101,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    private function _colorFromIdx(idx as Number) as Number {
-        if (idx >= 0 && idx < COLORS.size()) {
-            return COLORS[idx];
+    private function _dim(c as Number) as Number {
+        if (!_isAsleep) {
+            return c;
         }
-        return 0xffffff;
+        return (
+            (((((c >> 16) & 0xff) * 3) / 10) << 16) |
+            (((((c >> 8) & 0xff) * 3) / 10) << 8) |
+            (((c & 0xff) * 3) / 10)
+        );
+    }
+
+    private function _colorFromIdx(idx as Number) as Number {
+        return _dim(idx >= 0 && idx < COLORS.size() ? COLORS[idx] : 0xffffff);
     }
 
     // Gradient: blue(-20°C) → cyan(0°C) → green-yellow(7°C) → yellow(16°C) → orange(25°C) → red(40°C)
@@ -1189,16 +1156,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fraction as Float
     ) as Number {
         if (colorIdx == COLOR_GRAD) {
-            return _valueColor(fraction);
+            return _dim(_valueColor(fraction));
         }
         if (colorIdx == COLOR_GRAD_REV) {
-            return _valueColor(1.0 - fraction);
+            return _dim(_valueColor(1.0 - fraction));
         }
         if (colorIdx == COLOR_GRAD_TEMP) {
-            return _valueTempColor(fraction);
+            return _dim(_valueTempColor(fraction));
         }
         if (colorIdx == COLOR_GRAD_TEMP_REV) {
-            return _valueTempColor(1.0 - fraction);
+            return _dim(_valueTempColor(1.0 - fraction));
         }
         return _colorFromIdx(colorIdx);
     }
@@ -1588,6 +1555,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // slot 0 = most-recent (right edge), slot gw-1 = oldest (left edge).
     // skipZero: discard samples where data == 0 before slotting.
     // Use for HR — the device stores 0 bpm when off-wrist instead of null.
+    (:extendedCode)
     private function _readIter(
         iter as SensorHistory.SensorHistoryIterator,
         periodMin as Number,
@@ -1818,6 +1786,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return h.format("%d") + ":" + m.format("%02d");
     }
 
+    private function _secsToRace(secs as Number) as String {
+        var h = secs / 3600;
+        var m = (secs % 3600) / 60;
+        var s = secs % 60;
+        if (h > 0) {
+            return (
+                h.format("%d") + ":" + m.format("%02d") + ":" + s.format("%02d")
+            );
+        }
+        return m.format("%d") + ":" + s.format("%02d");
+    }
+
     private function _tfLabel(periodMin as Number) as String {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
@@ -1853,11 +1833,83 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         r as Array<Float>?
     ) as Array<Float>? {
         _graphCache.put(cacheKey, r);
+        _graphBmpCache.remove(cacheKey);
         if (_pendingEffPeriod > 0) {
             _graphEffPeriod.put(cacheKey, _pendingEffPeriod);
             _pendingEffPeriod = 0;
         }
         return r;
+    }
+
+    // Renders graph content (mean line + bars/lines) to a cached BufferedBitmap.
+    // The bitmap is keyed by cacheKey and invalidated whenever _cacheResult is
+    // called for that key (i.e. when fresh sensor data arrives).
+    // gx/y offsets are NOT applied here — the bitmap is blitted at (gx, y) by
+    // the caller so all drawing uses (0, 0) as the top-left origin.
+    private function _renderGraphToBitmap(
+        cacheKey as Number,
+        graphType as Number,
+        lineColor as Number,
+        data as Array<Float>,
+        gw as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        gradMinV as Float,
+        gradRange as Float,
+        maxGap as Number
+    ) as Graphics.BufferedBitmap? {
+        var ref =
+            _graphBmpCache.get(cacheKey) as Graphics.BufferedBitmapReference?;
+        if (ref != null) {
+            var cached = ref.get() as Graphics.BufferedBitmap?;
+            if (cached != null) {
+                return cached;
+            }
+        }
+        var newRef = Graphics.createBufferedBitmap({
+            :width => gw,
+            :height => gh + 1,
+        });
+        var bmp =
+            (newRef as Graphics.BufferedBitmapReference).get() as
+            Graphics.BufferedBitmap?;
+        if (bmp == null) {
+            return null;
+        }
+        var bmpDc = bmp.getDc();
+        bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
+        bmpDc.clear();
+        _drawMeanLine(
+            bmpDc,
+            data,
+            0,
+            gw,
+            0,
+            gh,
+            minV,
+            range,
+            lineColor,
+            gradMinV,
+            gradRange
+        );
+        _drawOneGraph(
+            bmpDc,
+            graphType,
+            lineColor,
+            data,
+            0,
+            gw,
+            0,
+            gh,
+            minV,
+            range,
+            gradMinV,
+            gradRange,
+            maxGap
+        );
+        _graphBmpCache.put(cacheKey, newRef);
+        return bmp;
     }
 
     // Label showing the actual displayed time range (may be shorter than the
@@ -2578,27 +2630,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (maxGap < 1) {
             maxGap = 1;
         }
-        _drawMeanLine(
-            dc,
-            data,
-            gx,
-            gw,
-            y,
-            gh,
-            minV,
-            range,
-            lineColor,
-            gradMinV,
-            gradRange
-        );
-        _drawOneGraph(
-            dc,
+        var cacheKey = field * 10000 + periodMin;
+        var graphBmp = _renderGraphToBitmap(
+            cacheKey,
             graphType,
             lineColor,
             data,
-            gx,
             gw,
-            y,
             gh,
             minV,
             range,
@@ -2606,6 +2644,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             maxGap
         );
+        if (graphBmp != null) {
+            dc.drawBitmap(gx, y, graphBmp);
+        } else {
+            _drawMeanLine(
+                dc,
+                data,
+                gx,
+                gw,
+                y,
+                gh,
+                minV,
+                range,
+                lineColor,
+                gradMinV,
+                gradRange
+            );
+            _drawOneGraph(
+                dc,
+                graphType,
+                lineColor,
+                data,
+                gx,
+                gw,
+                y,
+                gh,
+                minV,
+                range,
+                gradMinV,
+                gradRange,
+                maxGap
+            );
+        }
         _drawGraphAxes(dc, gx, gw, y);
         _drawSingleGraphLabels(
             dc,
@@ -3083,6 +3153,84 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return ["Elapsed", "-"];
         }
+        if (field == FIELD_TRAINING_STATUS) {
+            return [
+                "Train Status",
+                _compTrainingStatus != null
+                    ? _compTrainingStatus as String
+                    : "-",
+            ];
+        }
+        if (field == FIELD_RACE_5K) {
+            return [
+                "Race 5K",
+                _compRace5k != null ? _secsToRace(_compRace5k as Number) : "-",
+            ];
+        }
+        if (field == FIELD_RACE_10K) {
+            return [
+                "Race 10K",
+                _compRace10k != null
+                    ? _secsToRace(_compRace10k as Number)
+                    : "-",
+            ];
+        }
+        if (field == FIELD_RACE_HALF) {
+            return [
+                "Race Half",
+                _compRaceHalf != null
+                    ? _secsToRace(_compRaceHalf as Number)
+                    : "-",
+            ];
+        }
+        if (field == FIELD_RACE_MARATHON) {
+            return [
+                "Marathon",
+                _compRaceMarathon != null
+                    ? _secsToRace(_compRaceMarathon as Number)
+                    : "-",
+            ];
+        }
+        if (field == FIELD_SLEEP_TIME) {
+            var profile = UserProfile.getProfile();
+            if (
+                profile has :upcomingSleepTime &&
+                profile.upcomingSleepTime != null
+            ) {
+                var t =
+                    Gregorian.info(
+                        profile.upcomingSleepTime as Time.Moment,
+                        Time.FORMAT_SHORT
+                    ) as Gregorian.Info;
+                return [
+                    "Bedtime",
+                    (t.hour as Number).format("%02d") +
+                        ":" +
+                        (t.min as Number).format("%02d"),
+                ];
+            }
+            return ["Bedtime", "-"];
+        }
+        if (field == FIELD_WAKE_TIME) {
+            var profile = UserProfile.getProfile();
+            if (
+                profile has :upcomingWakeTime &&
+                profile.upcomingWakeTime != null
+            ) {
+                var t =
+                    Gregorian.info(
+                        profile.upcomingWakeTime as Time.Moment,
+                        Time.FORMAT_SHORT
+                    ) as Gregorian.Info;
+                return [
+                    "Wake Time",
+                    (t.hour as Number).format("%02d") +
+                        ":" +
+                        (t.min as Number).format("%02d"),
+                ];
+            }
+            return ["Wake Time", "-"];
+        }
         return ["", ""];
     }
 
@@ -3156,6 +3304,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return ["Date", value];
     }
 
+    (:extendedCode)
     private function _refreshWeather(nowMin as Number) as Void {
         if (nowMin == _wxLastMin) {
             return;
@@ -3216,6 +3365,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    (:extendedCode)
     private function _condStr(cond as Number) as String {
         switch (cond) {
             case Weather.CONDITION_CLEAR:
@@ -3339,9 +3489,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onEnterSleep() as Void {
+        _isAsleep = true;
         _lastPhase = -1;
     }
     public function onExitSleep() as Void {
+        _isAsleep = false;
         WatchUi.requestUpdate();
     }
 }

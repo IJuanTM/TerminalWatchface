@@ -39,7 +39,10 @@ FIELDS_ALL = [
     (37, "FieldSunrise"),      (38, "FieldSunset"),       (39, "FieldSunriseSunset"),
     (40, "FieldCalendar"),     (41, "FieldWeeklyRun"),    (42, "FieldWeeklyBike"),
     (43, "FieldGpsLat"),       (44, "FieldGpsLon"),       (45, "FieldGpsAccuracy"),
-    (46, "FieldHeading"),      (11, "FieldWxTemp"),       (12, "FieldWxFeels"),
+    (46, "FieldHeading"),      (48, "FieldTrainingStatus"),
+    (49, "FieldRace5k"),       (50, "FieldRace10k"),      (51, "FieldRaceHalf"),
+    (52, "FieldRaceMarathon"), (53, "FieldSleepTime"),    (54, "FieldWakeTime"),
+    (11, "FieldWxTemp"),       (12, "FieldWxFeels"),
     (16, "FieldWxCond"),       (13, "FieldWxPrecip"),     (14, "FieldWxWind"),
     (15, "FieldWxUV"),         (17, "FieldWxTempCond"),   (18, "FieldWxTempMinMax"),
     (19, "FieldWxCondPrecip"), (20, "FieldWxTempWind"),   (33, "FieldWxForecast"),
@@ -316,7 +319,14 @@ def gen_strings():
         ("FieldGpsLat",        "GPS Latitude"),
         ("FieldGpsLon",        "GPS Longitude"),
         ("FieldGpsAccuracy",   "GPS Accuracy"),
-        ("FieldHeading",       "Heading"),
+        ("FieldHeading",            "Heading"),
+        ("FieldTrainingStatus",     "Training Status"),
+        ("FieldRace5k",             "Race Predictor: 5K"),
+        ("FieldRace10k",            "Race Predictor: 10K"),
+        ("FieldRaceHalf",           "Race Predictor: Half Marathon"),
+        ("FieldRaceMarathon",       "Race Predictor: Marathon"),
+        ("FieldSleepTime",          "Bedtime"),
+        ("FieldWakeTime",           "Wake Time"),
     ]
     for sid, text in field_labels:
         lines.append(s(sid, text))
