@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.24.2";
+const APP_VERSION = "0.25.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -72,6 +72,7 @@ const FIELD_WAKE_TIME = 54;
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
+const VIEW_GRAPH_MINMAX = 3;
 
 const GRAPH_LINE = 0;
 const GRAPH_BAR = 1;
@@ -1118,35 +1119,46 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     // Gradient: blue(-20°C) → cyan(0°C) → green-yellow(7°C) → yellow(16°C) → orange(25°C) → red(40°C)
     // Breakpoints at fractions 0.0/0.25/0.45/0.60/0.75/1.0 for range [-20,40].
+    // Gradient: -20 white | -10 cyan | 2 blue | 14 green | 22 yellow | 26 red | 34 magenta | 40
+    // Fractions: 0.0 | 0.1667 | 0.3667 | 0.5667 | 0.7 | 0.7667 | 0.9 | 1.0
     private function _valueTempColor(fraction as Float) as Number {
         var r = 0;
         var g = 0;
         var b = 0;
-        if (fraction <= 0.25) {
-            var t = fraction / 0.25;
-            r = (85.0 - t * 35.0).toNumber();
-            g = (100.0 + t * 110.0).toNumber();
-            b = (255.0 - t * 35.0).toNumber();
-        } else if (fraction <= 0.45) {
-            var t = (fraction - 0.25) / 0.2;
-            r = (50.0 + t * 50.0).toNumber();
-            g = (210.0 + t * 10.0).toNumber();
-            b = (220.0 - t * 160.0).toNumber();
-        } else if (fraction <= 0.6) {
-            var t = (fraction - 0.45) / 0.15;
-            r = (100.0 + t * 150.0).toNumber();
-            g = 220;
-            b = (60.0 - t * 60.0).toNumber();
-        } else if (fraction <= 0.75) {
-            var t = (fraction - 0.6) / 0.15;
+        if (fraction <= 0.1667) {
+            var t = fraction / 0.1667;
+            r = (255.0 - t * 170.0).toNumber();
+            g = 255;
+            b = 255;
+        } else if (fraction <= 0.3667) {
+            var t = (fraction - 0.1667) / 0.2;
+            r = 85;
+            g = (255.0 - t * 170.0).toNumber();
+            b = 255;
+        } else if (fraction <= 0.5667) {
+            var t = (fraction - 0.3667) / 0.2;
+            r = 85;
+            g = (85.0 + t * 170.0).toNumber();
+            b = (255.0 - t * 170.0).toNumber();
+        } else if (fraction <= 0.7) {
+            var t = (fraction - 0.5667) / 0.1333;
+            r = (85.0 + t * 170.0).toNumber();
+            g = 255;
+            b = 85;
+        } else if (fraction <= 0.7667) {
+            var t = (fraction - 0.7) / 0.0667;
             r = 255;
-            g = (220.0 - t * 90.0).toNumber();
-            b = 0;
+            g = (255.0 - t * 170.0).toNumber();
+            b = 85;
+        } else if (fraction <= 0.9) {
+            var t = (fraction - 0.7667) / 0.1333;
+            r = 255;
+            g = 85;
+            b = (85.0 + t * 170.0).toNumber();
         } else {
-            var t = (fraction - 0.75) / 0.25;
             r = 255;
-            g = (130.0 - t * 110.0).toNumber();
-            b = 0;
+            g = 85;
+            b = 255;
         }
         return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
     }
@@ -2472,22 +2484,72 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minFrac,
             -1
         );
-        if (viewMode == VIEW_GRAPH_VALUE) {
-            var metric = _metric;
-            var minStr = metric
-                ? minV.format("%.0f")
-                : _toF(minV).format("%.0f");
-            var maxStr = metric
-                ? maxV.format("%.0f")
-                : _toF(maxV).format("%.0f");
+        if (viewMode == VIEW_GRAPH_VALUE || viewMode == VIEW_GRAPH_MINMAX) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                minStr + "/" + maxStr + _wxUnit,
-                Graphics.TEXT_JUSTIFY_LEFT
-            );
+            if (viewMode == VIEW_GRAPH_VALUE) {
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    _wxTemp,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+                vx += dc.getTextWidthInPixels(_wxTemp, _fontSmall);
+                dc.drawCircle(vx + _degW / 2, vy + _degW / 2, (_degW - 1) / 2);
+                vx += _degW;
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    _wxUnit,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+            } else {
+                var metric = _metric;
+                var minStr = metric
+                    ? minV.format("%.0f")
+                    : _toF(minV).format("%.0f");
+                var maxStr = metric
+                    ? maxV.format("%.0f")
+                    : _toF(maxV).format("%.0f");
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    minStr,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+                vx += dc.getTextWidthInPixels(minStr, _fontSmall);
+                dc.drawCircle(vx + _degW / 2, vy + _degW / 2, (_degW - 1) / 2);
+                vx += _degW;
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    "/",
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+                vx += dc.getTextWidthInPixels("/", _fontSmall);
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    maxStr,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+                vx += dc.getTextWidthInPixels(maxStr, _fontSmall);
+                dc.drawCircle(vx + _degW / 2, vy + _degW / 2, (_degW - 1) / 2);
+                vx += _degW;
+                dc.drawText(
+                    vx,
+                    vy,
+                    _fontSmall,
+                    _wxUnit,
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+            }
         }
     }
 

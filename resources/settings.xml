@@ -997,7 +997,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrGraphType" title="@Strings.HRGraphType">
@@ -1077,7 +1077,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatGraphType" title="@Strings.BodyBatGraphType">
@@ -1157,7 +1157,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressGraphType" title="@Strings.StressGraphType">
@@ -1237,7 +1237,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2GraphType" title="@Strings.SpO2GraphType">
@@ -1317,7 +1317,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristGraphType" title="@Strings.TempWristGraphType">
@@ -1397,7 +1397,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationGraphType" title="@Strings.ElevationGraphType">
@@ -1477,7 +1477,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.ViewModeValue</listEntry>
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureGraphType" title="@Strings.PressureGraphType">
@@ -1556,7 +1556,8 @@
   <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
     <settingConfig type="list">
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphValue</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="3">@Strings.ViewModeGraphMinMax</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">

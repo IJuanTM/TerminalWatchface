@@ -332,9 +332,10 @@ def gen_strings():
         lines.append(s(sid, text))
 
     lines.append("\n  <!-- Shared: graph view mode options -->")
-    lines.append(s("ViewModeValue",      "Value"))
-    lines.append(s("ViewModeGraph",      "Graph"))
-    lines.append(s("ViewModeGraphValue", "Graph + Value"))
+    lines.append(s("ViewModeValue",       "Value"))
+    lines.append(s("ViewModeGraph",       "Graph"))
+    lines.append(s("ViewModeGraphCurrent",  "Graph + Current"))
+    lines.append(s("ViewModeGraphMinMax", "Graph + Min/Max"))
 
     lines.append("\n  <!-- Steps view mode -->")
     lines.append(s("StepsViewMode",         "Steps: View Mode"))
@@ -414,7 +415,7 @@ def graph_section(key, skey, vd, gtd, std, sfd, tfd, gcd, scd):
     blocks.append(setting_list(f"{key}ViewMode", f"{skey}ViewMode", [
         (0, "@Strings.ViewModeValue"),
         (1, "@Strings.ViewModeGraph"),
-        (2, "@Strings.ViewModeGraphValue"),
+        (2, "@Strings.ViewModeGraphCurrent"),
     ]))
     blocks.append(setting_list(f"{key}GraphType", f"{skey}GraphType", [
         (0, "@Strings.GraphTypeLine"), (1, "@Strings.GraphTypeBar"),
@@ -501,7 +502,9 @@ def gen_settings():
     # Forecast
     parts.append("\n  <!-- Weather Forecast -->")
     parts.append(setting_list("wxForecastViewMode", "WxForecastViewMode", [
-        (1, "@Strings.ViewModeGraph"), (2, "@Strings.ViewModeGraphValue"),
+        (1, "@Strings.ViewModeGraph"),
+        (2, "@Strings.ViewModeGraphCurrent"),
+        (3, "@Strings.ViewModeGraphMinMax"),
     ]))
     parts.append(setting_list("wxForecastGraphType", "WxForecastGraphType", [
         (0, "@Strings.GraphTypeLine"), (1, "@Strings.GraphTypeBar"),

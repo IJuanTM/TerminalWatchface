@@ -137,7 +137,8 @@
   <!-- Shared: graph view mode options -->
   <string id="ViewModeValue">Value</string>
   <string id="ViewModeGraph">Graph</string>
-  <string id="ViewModeGraphValue">Graph + Value</string>
+  <string id="ViewModeGraphCurrent">Graph + Current</string>
+  <string id="ViewModeGraphMinMax">Graph + Min/Max</string>
 
   <!-- Steps view mode -->
   <string id="StepsViewMode">Steps: View Mode</string>
