@@ -85,8 +85,8 @@
   <string id="FieldNone">None (hidden)</string>
   <string id="FieldSteps">Steps</string>
   <string id="FieldHR">Heart Rate</string>
-  <string id="FieldCalories">Calories (Daily)</string>
-  <string id="FieldCalAct">Calories (Activity)</string>
+  <string id="FieldCalories">Kcal (Daily)</string>
+  <string id="FieldCalAct">Kcal (Activity)</string>
   <string id="FieldDistance">Distance (Daily)</string>
   <string id="FieldAltitude">Altitude</string>
   <string id="FieldFloors">Stairs</string>
@@ -98,11 +98,11 @@
   <string id="FieldHRMean">Heart Rate (Mean)</string>
   <string id="FieldWxTemp">Weather: Temperature</string>
   <string id="FieldWxFeels">Weather: Feels Like</string>
-  <string id="FieldWxPrecip">Weather: Precipitation</string>
+  <string id="FieldWxPrecip">Weather: Rain</string>
   <string id="FieldWxWind">Weather: Wind</string>
   <string id="FieldWxUV">Weather: UV Index</string>
   <string id="FieldWxCond">Weather: Condition</string>
-  <string id="FieldWxTempCond">Weather: Temp + Condition</string>
+  <string id="FieldWxTempCond">Weather: Temp + Cond</string>
   <string id="FieldWxTempMinMax">Weather: Temp + Min/Max</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
   <string id="FieldWxTempWind">Weather: Temp + Wind</string>

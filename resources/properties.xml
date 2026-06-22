@@ -9,8 +9,8 @@
   <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>
   <property id="watchCommandStyle" type="number">2</property>
-  <property id="rotateInterval" type="number">5</property>
-  <property id="rotateIntervalAlt" type="number">0</property>
+  <property id="rotateInterval" type="number">10</property>
+  <property id="rotateIntervalAlt" type="number">3</property>
 
   <!-- Time row (always visible) -->
   <property id="line1LabelColor" type="number">8</property>
@@ -21,13 +21,13 @@
   <property id="line2ValueColor" type="number">0</property>
 
   <!-- Line 3 -->
-  <property id="line3Primary" type="number">18</property>
+  <property id="line3Primary" type="number">33</property>
   <property id="line3PrimaryLabelColor" type="number">6</property>
   <property id="line3PrimaryValueColor" type="number">0</property>
-  <property id="line3Secondary" type="number">19</property>
+  <property id="line3Secondary" type="number">60</property>
   <property id="line3SecondaryLabelColor" type="number">6</property>
   <property id="line3SecondaryValueColor" type="number">0</property>
-  <property id="line3Tertiary" type="number">33</property>
+  <property id="line3Tertiary" type="number">19</property>
   <property id="line3TertiaryLabelColor" type="number">6</property>
   <property id="line3TertiaryValueColor" type="number">0</property>
 

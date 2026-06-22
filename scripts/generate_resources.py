@@ -88,11 +88,22 @@ FORECAST_TIME_FRAMES = [
     (12, "TimeFrameForecast12h"), (24, "TimeFrameForecast24h"),
 ]
 
+# Display names for GRAPH_FIELDS entries — used in both strings.xml and settings.xml
+GRAPH_DISPLAY_NAMES = {
+    "hr":        "Heart Rate",
+    "bodyBat":   "Body Battery",
+    "stress":    "Stress",
+    "spo2":      "Blood O2",
+    "tempWrist": "Wrist Temp",
+    "elevation": "Elevation",
+    "pressure":  "Pressure",
+}
+
 # Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
 LINE_SLOTS = [
-    (3, "Primary",   18, 6, 0),  # Temp+MinMax, blue label
-    (3, "Secondary", 19, 6, 0),  # Cond+Rain, blue label
-    (3, "Tertiary",  33, 6, 0),  # Forecast, blue label
+    (3, "Primary",   33, 6, 0),  # Forecast, blue label
+    (3, "Secondary", 60, 6, 0),  # UV+Wind, blue label
+    (3, "Tertiary",  19, 6, 0),  # Cond+Rain, blue label
     (4, "Primary",    0, 1, 0),  # Steps, green label, white value text
     (4, "Secondary", 32, 1, 0),  # Elevation, green label
     (4, "Tertiary",   4, 1, 0),  # Distance day, green label
@@ -176,8 +187,8 @@ def gen_properties():
     lines.append(prop("showYear",          "boolean", "false"))
     lines.append(prop("dateFormat",        "number",  0))
     lines.append(prop("watchCommandStyle", "number",  2))
-    lines.append(prop("rotateInterval",    "number",  5))
-    lines.append(prop("rotateIntervalAlt", "number",  0))  # 0 = same as main
+    lines.append(prop("rotateInterval",    "number",  10))
+    lines.append(prop("rotateIntervalAlt", "number",  3))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -296,8 +307,8 @@ def gen_strings():
         ("FieldNone",          "None (hidden)"),
         ("FieldSteps",         "Steps"),
         ("FieldHR",            "Heart Rate"),
-        ("FieldCalories",      "Calories (Daily)"),
-        ("FieldCalAct",        "Calories (Activity)"),
+        ("FieldCalories",      "Kcal (Daily)"),
+        ("FieldCalAct",        "Kcal (Activity)"),
         ("FieldDistance",      "Distance (Daily)"),
         ("FieldAltitude",      "Altitude"),
         ("FieldFloors",        "Stairs"),
@@ -309,11 +320,11 @@ def gen_strings():
         ("FieldHRMean",        "Heart Rate (Mean)"),
         ("FieldWxTemp",        "Weather: Temperature"),
         ("FieldWxFeels",       "Weather: Feels Like"),
-        ("FieldWxPrecip",      "Weather: Precipitation"),
+        ("FieldWxPrecip",      "Weather: Rain"),
         ("FieldWxWind",        "Weather: Wind"),
         ("FieldWxUV",          "Weather: UV Index"),
         ("FieldWxCond",        "Weather: Condition"),
-        ("FieldWxTempCond",    "Weather: Temp + Condition"),
+        ("FieldWxTempCond",    "Weather: Temp + Cond"),
         ("FieldWxTempMinMax",  "Weather: Temp + Min/Max"),
         ("FieldWxCondPrecip",  "Weather: Condition + Rain"),
         ("FieldWxTempWind",    "Weather: Temp + Wind"),
@@ -391,17 +402,8 @@ def gen_strings():
     lines.append(s("TimeFrame24h", "24 hours"))
 
     # Graph settings strings — one block per graph field
-    graph_display_names = {
-        "hr":        ("HR",        "Heart Rate"),
-        "bodyBat":   ("BodyBat",   "Body Battery"),
-        "stress":    ("Stress",    "Stress"),
-        "spo2":      ("SpO2",      "Blood O2"),
-        "tempWrist": ("TempWrist", "Wrist Temp"),
-        "elevation": ("Elevation", "Elevation"),
-        "pressure":  ("Pressure",  "Pressure"),
-    }
     for key, skey, *_ in GRAPH_FIELDS:
-        _, display = graph_display_names[key]
+        display = GRAPH_DISPLAY_NAMES[key]
         lines.append(f"\n  <!-- Graph settings: {display} -->")
         lines.append(s(f"{skey}GraphMode",      f"{display}: Graph Mode"))
         lines.append(s(f"{skey}SecondaryType",  f"{display}: 2nd Graph Type"))
@@ -431,12 +433,7 @@ def gen_strings():
 # ---------------------------------------------------------------------------
 
 def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd):
-    display_map = {
-        "hr": "Heart Rate", "bodyBat": "Body Battery", "stress": "Stress",
-        "spo2": "Blood O2", "tempWrist": "Wrist Temp",
-        "elevation": "Elevation", "pressure": "Pressure",
-    }
-    display = display_map[key]
+    display = GRAPH_DISPLAY_NAMES[key]
     blocks = [f"\n  <!-- {display} -->"]
 
     blocks.append(setting_list(f"{key}GraphMode", f"{skey}GraphMode", GRAPH_MODE_OPTIONS))
