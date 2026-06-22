@@ -10,6 +10,7 @@
   <property id="dateFormat" type="number">0</property>
   <property id="watchCommandStyle" type="number">2</property>
   <property id="rotateInterval" type="number">5</property>
+  <property id="rotateIntervalAlt" type="number">0</property>
 
   <!-- Time row (always visible) -->
   <property id="line1LabelColor" type="number">8</property>
@@ -53,14 +54,14 @@
   <property id="line5TertiaryValueColor" type="number">0</property>
 
   <!-- Steps -->
-  <property id="stepsViewMode" type="number">2</property>
+  <property id="stepsShowBar" type="boolean">true</property>
+  <property id="stepsShowBarValue" type="boolean">true</property>
   <property id="stepsBarColor" type="number">1</property>
 
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->
-  <property id="hrViewMode" type="number">2</property>
-  <property id="hrGraphType" type="number">0</property>
+  <property id="hrGraphMode" type="number">3</property>
   <property id="hrSecondaryType" type="number">0</property>
   <property id="hrSecondaryField" type="number">1</property>
   <property id="hrTimeFrame" type="number">60</property>
@@ -68,8 +69,7 @@
   <property id="hrSecondaryColor" type="number">0</property>
 
   <!-- BodyBat -->
-  <property id="bodyBatViewMode" type="number">0</property>
-  <property id="bodyBatGraphType" type="number">0</property>
+  <property id="bodyBatGraphMode" type="number">0</property>
   <property id="bodyBatSecondaryType" type="number">0</property>
   <property id="bodyBatSecondaryField" type="number">2</property>
   <property id="bodyBatTimeFrame" type="number">60</property>
@@ -77,8 +77,7 @@
   <property id="bodyBatSecondaryColor" type="number">0</property>
 
   <!-- Stress -->
-  <property id="stressViewMode" type="number">1</property>
-  <property id="stressGraphType" type="number">0</property>
+  <property id="stressGraphMode" type="number">1</property>
   <property id="stressSecondaryType" type="number">0</property>
   <property id="stressSecondaryField" type="number">0</property>
   <property id="stressTimeFrame" type="number">60</property>
@@ -86,8 +85,7 @@
   <property id="stressSecondaryColor" type="number">0</property>
 
   <!-- SpO2 -->
-  <property id="spo2ViewMode" type="number">0</property>
-  <property id="spo2GraphType" type="number">0</property>
+  <property id="spo2GraphMode" type="number">0</property>
   <property id="spo2SecondaryType" type="number">0</property>
   <property id="spo2SecondaryField" type="number">0</property>
   <property id="spo2TimeFrame" type="number">60</property>
@@ -95,8 +93,7 @@
   <property id="spo2SecondaryColor" type="number">0</property>
 
   <!-- TempWrist -->
-  <property id="tempWristViewMode" type="number">0</property>
-  <property id="tempWristGraphType" type="number">0</property>
+  <property id="tempWristGraphMode" type="number">0</property>
   <property id="tempWristSecondaryType" type="number">0</property>
   <property id="tempWristSecondaryField" type="number">0</property>
   <property id="tempWristTimeFrame" type="number">60</property>
@@ -104,8 +101,7 @@
   <property id="tempWristSecondaryColor" type="number">0</property>
 
   <!-- Elevation -->
-  <property id="elevationViewMode" type="number">2</property>
-  <property id="elevationGraphType" type="number">0</property>
+  <property id="elevationGraphMode" type="number">3</property>
   <property id="elevationSecondaryType" type="number">0</property>
   <property id="elevationSecondaryField" type="number">6</property>
   <property id="elevationTimeFrame" type="number">480</property>
@@ -113,8 +109,7 @@
   <property id="elevationSecondaryColor" type="number">0</property>
 
   <!-- Pressure -->
-  <property id="pressureViewMode" type="number">2</property>
-  <property id="pressureGraphType" type="number">0</property>
+  <property id="pressureGraphMode" type="number">3</property>
   <property id="pressureSecondaryType" type="number">0</property>
   <property id="pressureSecondaryField" type="number">5</property>
   <property id="pressureTimeFrame" type="number">30</property>

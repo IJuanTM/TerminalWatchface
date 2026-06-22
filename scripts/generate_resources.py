@@ -18,13 +18,15 @@ OUT_SETTINGS   = os.path.join(ROOT, "resources", "settings.xml")
 # Shared data definitions
 # ---------------------------------------------------------------------------
 
-COLORS_FULL = [  # 0-13, includes gradient options — used for lines and graphs
+COLORS_FULL = [  # 0-13, includes gradient options — used for graph lines
     (0,  "ColorWhite"),       (1,  "ColorGreen"),    (2,  "ColorCyan"),
     (3,  "ColorYellow"),      (4,  "ColorOrange"),   (5,  "ColorRed"),
     (6,  "ColorBlue"),        (7,  "ColorMagenta"),  (8,  "ColorLightGrey"),
     (9,  "ColorPurple"),      (10, "ColorGrad"),     (11, "ColorGradRev"),
     (12, "ColorGradTemp"),    (13, "ColorGradTempRev"),
 ]
+
+COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
 
 # All fields available on the configurable lines (3/4/5)
 FIELDS_ALL = [
@@ -52,18 +54,20 @@ FIELDS_ALL = [
 ]
 
 # Graph-capable sensor fields.
-# Each entry: (camelKey, StringPrefix, view_default, graph_type_default,
+# Each entry: (camelKey, StringPrefix, graph_mode_default,
 #              sec_type_default, sec_field_default, time_frame_default,
 #              graph_color_default, sec_color_default)
+# graph_mode_default: 0=value only, 1=line graph, 2=bar graph,
+#                     3=line+current value, 4=bar+current value
 # sec_field_default is an index into GRAPH_SEC_FIELDS below.
 GRAPH_FIELDS = [
-    ("hr",        "HR",           2, 0, 0, 1,  60,  5, 0),
-    ("bodyBat",   "BodyBat",      0, 0, 0, 2,  60,  0, 0),
-    ("stress",    "Stress",       1, 0, 0, 0,  60, 10, 0),  # gradient low→high line
-    ("spo2",      "SpO2",         0, 0, 0, 0,  60,  0, 0),
-    ("tempWrist", "TempWrist",    0, 0, 0, 0,  60,  0, 0),
-    ("elevation", "Elevation",    2, 0, 0, 6,  480, 1, 0),
-    ("pressure",  "Pressure",     2, 0, 0, 5,  30,  0, 0),
+    ("hr",        "HR",        3, 0, 1,  60,  5, 0),  # line + current value
+    ("bodyBat",   "BodyBat",   0, 0, 2,  60,  0, 0),  # value only
+    ("stress",    "Stress",    1, 0, 0,  60, 10, 0),  # line graph, gradient color
+    ("spo2",      "SpO2",      0, 0, 0,  60,  0, 0),  # value only
+    ("tempWrist", "TempWrist", 0, 0, 0,  60,  0, 0),  # value only
+    ("elevation", "Elevation", 3, 0, 6,  480, 1, 0),  # line + current value
+    ("pressure",  "Pressure",  3, 0, 5,  30,  0, 0),  # line + current value
 ]
 
 # Secondary field options shared by all graph secondary-field pickers
@@ -95,6 +99,15 @@ LINE_SLOTS = [
     (5, "Primary",    1, 5, 0),  # HR, red label
     (5, "Secondary", 21, 5, 0),  # Stress, red label
     (5, "Tertiary",  2, 5, 0),   # Calories day, red label
+]
+
+# Graph mode options shared by all sensor graph fields
+GRAPH_MODE_OPTIONS = [
+    (0, "@Strings.GraphModeValue"),
+    (1, "@Strings.GraphModeLineGraph"),
+    (2, "@Strings.GraphModeBarGraph"),
+    (3, "@Strings.GraphModeLineCurrent"),
+    (4, "@Strings.GraphModeBarCurrent"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -159,11 +172,12 @@ def gen_properties():
     lines.append(prop("scanlines",  "number", 2))
 
     lines.append("\n  <!-- Display options -->")
-    lines.append(prop("showSeconds",    "boolean", "false"))
-    lines.append(prop("showYear",       "boolean", "false"))
-    lines.append(prop("dateFormat",         "number",  0))
+    lines.append(prop("showSeconds",       "boolean", "false"))
+    lines.append(prop("showYear",          "boolean", "false"))
+    lines.append(prop("dateFormat",        "number",  0))
     lines.append(prop("watchCommandStyle", "number",  2))
     lines.append(prop("rotateInterval",    "number",  5))
+    lines.append(prop("rotateIntervalAlt", "number",  0))  # 0 = same as main
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -182,14 +196,14 @@ def gen_properties():
         lines.append(prop(f"{k}ValueColor", "number", vc))
 
     lines.append("\n  <!-- Steps -->")
-    lines.append(prop("stepsViewMode", "number", 2))
-    lines.append(prop("stepsBarColor",  "number", 1))  # green
+    lines.append(prop("stepsShowBar",      "boolean", "true"))
+    lines.append(prop("stepsShowBarValue", "boolean", "true"))
+    lines.append(prop("stepsBarColor",     "number", 1))  # green
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
-    for key, skey, vd, gtd, std, sfd, tfd, gcd, scd in GRAPH_FIELDS:
+    for key, skey, mode, std, sfd, tfd, gcd, scd in GRAPH_FIELDS:
         lines.append(f"\n  <!-- {skey} -->")
-        lines.append(prop(f"{key}ViewMode",       "number", vd))
-        lines.append(prop(f"{key}GraphType",      "number", gtd))
+        lines.append(prop(f"{key}GraphMode",      "number", mode))
         lines.append(prop(f"{key}SecondaryType",  "number", std))
         lines.append(prop(f"{key}SecondaryField", "number", sfd))
         lines.append(prop(f"{key}TimeFrame",      "number", tfd))
@@ -200,7 +214,7 @@ def gen_properties():
     lines.append(prop("wxForecastViewMode",   "number", 2))  # graph+value
     lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
-    lines.append(prop("wxForecastGraphColor", "number", 12))  # ColorGradTemp (cold→hot)
+    lines.append(prop("wxForecastGraphColor", "number", 12))  # ColorGradTemp (cold->hot)
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -240,7 +254,8 @@ def gen_strings():
     lines.append(s("DateFormatMDY",       "MM-DD-YYYY"))
     lines.append(s("DateFormatDayNum",    "Day Name + Number (Mon 14)"))
     lines.append(s("DateFormatDMon",      "Date + Month (14 Jun)"))
-    lines.append(s("RotateInterval",      "Rotate Every"))
+    lines.append(s("RotateInterval",      "Rotation: Main Duration"))
+    lines.append(s("RotateIntervalAlt",   "Rotation: Alt Duration"))
 
     lines.append(s("WatchCommandStyle",   "Command Style"))
     lines.append(s("WatchCommandWindows", "Windows (watch.bat)"))
@@ -268,10 +283,10 @@ def gen_strings():
         ("ColorOrange",      "Orange"),              ("ColorRed",     "Red"),
         ("ColorBlue",        "Blue"),                ("ColorMagenta", "Magenta"),
         ("ColorLightGrey",   "Light Grey"),          ("ColorPurple",  "Purple"),
-        ("ColorGrad",        "Gradient (low→high)"),
-        ("ColorGradRev",     "Gradient (high→low)"),
-        ("ColorGradTemp",    "Temp (cold→hot)"),
-        ("ColorGradTempRev", "Temp (hot→cold)"),
+        ("ColorGrad",        "Gradient (low->high)"),
+        ("ColorGradRev",     "Gradient (high->low)"),
+        ("ColorGradTemp",    "Temp (cold->hot)"),
+        ("ColorGradTempRev", "Temp (hot->cold)"),
     ]
     for sid, text in color_labels:
         lines.append(s(sid, text))
@@ -340,20 +355,24 @@ def gen_strings():
     for sid, text in field_labels:
         lines.append(s(sid, text))
 
-    lines.append("\n  <!-- Shared: graph view mode options -->")
-    lines.append(s("ViewModeValue",       "Value"))
-    lines.append(s("ViewModeGraph",       "Graph"))
-    lines.append(s("ViewModeGraphCurrent",  "Graph + Current"))
-    lines.append(s("ViewModeGraphMinMax", "Graph + Min/Max"))
+    lines.append("\n  <!-- Shared: graph mode options (sensor graphs) -->")
+    lines.append(s("GraphModeValue",       "Value only"))
+    lines.append(s("GraphModeLineGraph",   "Line graph"))
+    lines.append(s("GraphModeBarGraph",    "Bar graph"))
+    lines.append(s("GraphModeLineCurrent", "Line + current value"))
+    lines.append(s("GraphModeBarCurrent",  "Bar + current value"))
 
-    lines.append("\n  <!-- Steps view mode -->")
-    lines.append(s("StepsViewMode",         "Steps: View Mode"))
-    lines.append(s("StepsViewModeText",     "Value"))
-    lines.append(s("StepsViewModeBar",      "Progress Bar"))
-    lines.append(s("StepsViewModeBarValue", "Bar + Value"))
-    lines.append(s("StepsBarColor",         "Steps: Bar Color"))
+    lines.append("\n  <!-- Shared: forecast view mode options -->")
+    lines.append(s("ViewModeGraph",        "Graph"))
+    lines.append(s("ViewModeGraphCurrent", "Graph + Current"))
+    lines.append(s("ViewModeGraphMinMax",  "Graph + Min/Max"))
 
-    lines.append("\n  <!-- Shared: graph type options -->")
+    lines.append("\n  <!-- Steps -->")
+    lines.append(s("StepsShowBar",      "Steps: Show Progress Bar"))
+    lines.append(s("StepsShowBarValue", "Steps: Show Value in Bar"))
+    lines.append(s("StepsBarColor",     "Steps: Bar Color"))
+
+    lines.append("\n  <!-- Shared: graph type options (forecast) -->")
     lines.append(s("GraphTypeLine", "Line"))
     lines.append(s("GraphTypeBar",  "Bar"))
 
@@ -384,8 +403,7 @@ def gen_strings():
     for key, skey, *_ in GRAPH_FIELDS:
         _, display = graph_display_names[key]
         lines.append(f"\n  <!-- Graph settings: {display} -->")
-        lines.append(s(f"{skey}ViewMode",       f"{display}: View Mode"))
-        lines.append(s(f"{skey}GraphType",      f"{display}: Graph Type"))
+        lines.append(s(f"{skey}GraphMode",      f"{display}: Graph Mode"))
         lines.append(s(f"{skey}SecondaryType",  f"{display}: 2nd Graph Type"))
         lines.append(s(f"{skey}SecondaryField", f"{display}: 2nd Graph Field"))
         lines.append(s(f"{skey}TimeFrame",      f"{display}: Time Frame"))
@@ -412,7 +430,7 @@ def gen_strings():
 # settings.xml
 # ---------------------------------------------------------------------------
 
-def graph_section(key, skey, vd, gtd, std, sfd, tfd, gcd, scd):
+def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd):
     display_map = {
         "hr": "Heart Rate", "bodyBat": "Body Battery", "stress": "Stress",
         "spo2": "Blood O2", "tempWrist": "Wrist Temp",
@@ -421,14 +439,7 @@ def graph_section(key, skey, vd, gtd, std, sfd, tfd, gcd, scd):
     display = display_map[key]
     blocks = [f"\n  <!-- {display} -->"]
 
-    blocks.append(setting_list(f"{key}ViewMode", f"{skey}ViewMode", [
-        (0, "@Strings.ViewModeValue"),
-        (1, "@Strings.ViewModeGraph"),
-        (2, "@Strings.ViewModeGraphCurrent"),
-    ]))
-    blocks.append(setting_list(f"{key}GraphType", f"{skey}GraphType", [
-        (0, "@Strings.GraphTypeLine"), (1, "@Strings.GraphTypeBar"),
-    ]))
+    blocks.append(setting_list(f"{key}GraphMode", f"{skey}GraphMode", GRAPH_MODE_OPTIONS))
     blocks.append(setting_list(f"{key}SecondaryType", f"{skey}SecondaryType", [
         (0, "@Strings.SecTypeNone"),
         (1, "@Strings.SecTypeLine"),
@@ -454,34 +465,31 @@ def gen_settings():
         (2, "@Strings.FontFiraCodeMono"),  (3, "@Strings.NBArchitekt"),
     ]))
     parts.append(setting_list("scanlines", "Scanlines", [
-        (0, "@Strings.ScanlinesOff"),   (1, "@Strings.ScanlinesSubtle"),
-        (2, "@Strings.ScanlinesMedium"),(3, "@Strings.ScanlinesStrong"),
+        (0, "@Strings.ScanlinesOff"),    (1, "@Strings.ScanlinesSubtle"),
+        (2, "@Strings.ScanlinesMedium"), (3, "@Strings.ScanlinesStrong"),
     ]))
-
-    # Display options
-    parts.append("\n  <!-- Display options -->")
-    parts.append(setting_bool("showSeconds", "ShowSeconds"))
-    parts.append(setting_bool("showYear",    "ShowYear"))
     parts.append(setting_list("watchCommandStyle", "WatchCommandStyle", [
         (0, "@Strings.WatchCommandWindows"),
         (1, "@Strings.WatchCommandLinux"),
         (2, "@Strings.WatchCommandBare"),
     ]))
+
+    # Time row
+    parts.append("\n  <!-- Time row -->")
+    parts.append(setting_bool("showSeconds", "ShowSeconds"))
+    parts.append(color_setting("line1LabelColor", "Line1LabelColor", COLORS_TEXT))
+    parts.append(color_setting("line1ValueColor", "Line1ValueColor", COLORS_TEXT))
+
+    # Date row
+    parts.append("\n  <!-- Date row -->")
+    parts.append(setting_bool("showYear", "ShowYear"))
     parts.append(setting_list("dateFormat", "DateFormat", [
         (0, "@Strings.DateFormatDayMon"), (1, "@Strings.DateFormatYMD"),
         (2, "@Strings.DateFormatDMY"),    (3, "@Strings.DateFormatMDY"),
         (4, "@Strings.DateFormatDayNum"), (5, "@Strings.DateFormatDMon"),
     ]))
-    parts.append(setting_list("rotateInterval", "RotateInterval", [
-        (3, "3 seconds"), (5, "5 seconds"), (10, "10 seconds"),
-        (15, "15 seconds"), (30, "30 seconds"), (60, "1 minute"),
-    ]))
-
-    # Fixed rows (time & date)
-    for ln, lbl in [(1, "Time"), (2, "Date")]:
-        parts.append(f"\n  <!-- {lbl} row -->")
-        parts.append(color_setting(f"line{ln}LabelColor", f"Line{ln}LabelColor"))
-        parts.append(color_setting(f"line{ln}ValueColor", f"Line{ln}ValueColor"))
+    parts.append(color_setting("line2LabelColor", "Line2LabelColor", COLORS_TEXT))
+    parts.append(color_setting("line2ValueColor", "Line2ValueColor", COLORS_TEXT))
 
     # Configurable lines 3/4/5
     prev_ln = None
@@ -491,16 +499,22 @@ def gen_settings():
             prev_ln = ln
         k = f"line{ln}{slot}"
         parts.append(field_setting(k, f"Line{ln}{slot}"))
-        parts.append(color_setting(f"{k}LabelColor", f"Line{ln}{slot}LabelColor"))
-        parts.append(color_setting(f"{k}ValueColor", f"Line{ln}{slot}ValueColor"))
+        parts.append(color_setting(f"{k}LabelColor", f"Line{ln}{slot}LabelColor", COLORS_TEXT))
+        parts.append(color_setting(f"{k}ValueColor", f"Line{ln}{slot}ValueColor", COLORS_TEXT))
+
+    # Rotation (after the lines it applies to)
+    rotate_options = [
+        (0, "Same as main"), (3, "3 seconds"), (5, "5 seconds"), (10, "10 seconds"),
+        (15, "15 seconds"), (30, "30 seconds"), (60, "1 minute"),
+    ]
+    parts.append("\n  <!-- Rotation -->")
+    parts.append(setting_list("rotateInterval", "RotateInterval", rotate_options[1:]))
+    parts.append(setting_list("rotateIntervalAlt", "RotateIntervalAlt", rotate_options))
 
     # Steps
     parts.append("\n  <!-- Steps -->")
-    parts.append(setting_list("stepsViewMode", "StepsViewMode", [
-        (0, "@Strings.StepsViewModeText"),
-        (1, "@Strings.StepsViewModeBar"),
-        (2, "@Strings.StepsViewModeBarValue"),
-    ]))
+    parts.append(setting_bool("stepsShowBar",      "StepsShowBar"))
+    parts.append(setting_bool("stepsShowBarValue", "StepsShowBarValue"))
     parts.append(color_setting("stepsBarColor", "StepsBarColor"))
 
     # Graph fields
@@ -541,7 +555,6 @@ def write(path, content):
 
 
 if __name__ == "__main__":
-    # Fix up strings gen — remove the bad placeholder hack and redo it cleanly
     print("Generating resources...")
     write(OUT_PROPERTIES, gen_properties())
     write(OUT_STRINGS,    gen_strings())

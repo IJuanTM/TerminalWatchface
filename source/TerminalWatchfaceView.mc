@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.28.0";
+const APP_VERSION = "0.29.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -218,7 +218,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _is24Hour as Boolean = true;
     private var _showSeconds as Boolean = false;
     private var _scanlineIntensity as Number = 2;
-    private var _rotateIntervalMs as Number = 5000;
+    private var _rotateMainMs as Number = 5000;
+    private var _rotateAltMs as Number = 5000;
     private var _metricsValid as Boolean = false;
     private var _clockInfo as Gregorian.Info? = null;
     private var _watchCmd as String = "watch";
@@ -474,7 +475,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (ri < 1) {
                 ri = 1;
             }
-            _rotateIntervalMs = ri * 1000;
+            _rotateMainMs = ri * 1000;
+            var ra = _getProp("rotateIntervalAlt", 0);
+            _rotateAltMs = ra > 0 ? ra * 1000 : _rotateMainMs;
             var settings = System.getDeviceSettings();
             _metric = settings.distanceUnits == System.UNIT_METRIC;
             _is24Hour = settings.is24Hour;
@@ -882,12 +885,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _resolveLineGraph(li as Number) as Void {
         var field = _resolvedFields[li];
         if (field == FIELD_STEPS) {
-            _lineViewMode[li] = _getProp("stepsViewMode", 2);
+            var showBar = _getBoolProp("stepsShowBar");
+            var showVal = _getBoolProp("stepsShowBarValue");
+            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
             _lineGraphColor[li] = _getProp("stepsBarColor", 1);
             return;
         }
         if (field == FIELD_WX_FORECAST) {
-            _lineViewMode[li] = _getProp("wxForecastViewMode", VIEW_GRAPH);
+            _lineViewMode[li] = _getProp(
+                "wxForecastViewMode",
+                VIEW_GRAPH_VALUE
+            );
             _lineGraphColor[li] = _getProp("wxForecastGraphColor", 12);
             _lineGraphType[li] = _getProp("wxForecastGraphType", GRAPH_BAR);
             _linePeriodMin[li] = _getProp("wxForecastTimeFrame", 12);
@@ -897,7 +905,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (gk == null) {
             return;
         }
-        _lineViewMode[li] = _getProp(gk + "ViewMode", VIEW_VALUE);
+        var mode = _getProp(gk + "GraphMode", 0);
+        _lineViewMode[li] =
+            mode == 3 || mode == 4
+                ? VIEW_GRAPH_VALUE
+                : mode > 0
+                  ? VIEW_GRAPH
+                  : VIEW_VALUE;
+        _lineGraphType[li] = mode == 2 || mode == 4 ? GRAPH_BAR : GRAPH_LINE;
         _linePeriodMin[li] = _getProp(gk + "TimeFrame", 60);
         _lineGraphColor[li] = _getProp(
             gk + "GraphColor",
@@ -905,7 +920,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? 5
                 : 0
         );
-        _lineGraphType[li] = _getProp(gk + "GraphType", GRAPH_LINE);
         _lineSecType[li] = _getProp(gk + "SecondaryType", SEC_NONE);
         var vm = _lineViewMode[li];
         if (
@@ -3940,66 +3954,99 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return _dateBuf;
     }
 
+    private function _fieldNeeded(f as Number) as Boolean {
+        for (var i = 0; i < 3; i++) {
+            if (_resolvedFields[i] == f) {
+                return true;
+            }
+            if (
+                _lineSecType[i] != SEC_NONE &&
+                GRAPH_FIELDS[_lineSecField[i]] == f
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private function _refreshPointSamples() as Void {
-        var sample = SensorHistory.getBodyBatteryHistory({}).next();
-        if (sample != null && sample.data != null) {
-            var d = sample.data;
-            _cachedBodyBat =
-                (d instanceof Float
-                    ? (d as Float).format("%.0f")
-                    : (d as Number).toString()) + "%";
+        if (_fieldNeeded(FIELD_BODY_BAT)) {
+            var sample = SensorHistory.getBodyBatteryHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var d = sample.data;
+                _cachedBodyBat =
+                    (d instanceof Float
+                        ? (d as Float).format("%.0f")
+                        : (d as Number).toString()) + "%";
+            }
         }
-        sample = SensorHistory.getTemperatureHistory({}).next();
-        if (sample != null && sample.data != null) {
-            var td = sample.data;
-            var tempC =
-                td instanceof Float ? td as Float : (td as Number).toFloat();
-            _cachedTempWrist = _metric
-                ? tempC.format("%.1f") + "C"
-                : _toF(tempC).format("%.1f") + "F";
+        if (_fieldNeeded(FIELD_TEMP_WRIST)) {
+            var sample = SensorHistory.getTemperatureHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var td = sample.data;
+                var tempC =
+                    td instanceof Float
+                        ? td as Float
+                        : (td as Number).toFloat();
+                _cachedTempWrist = _metric
+                    ? tempC.format("%.1f") + "C"
+                    : _toF(tempC).format("%.1f") + "F";
+            }
         }
-        sample = SensorHistory.getPressureHistory({}).next();
-        if (sample != null && sample.data != null) {
-            var pd = sample.data;
-            var pa =
-                pd instanceof Float ? pd as Float : (pd as Number).toFloat();
-            _cachedPressure = _metric
-                ? (pa / 100.0).format("%.1f") + "hPa"
-                : (pa / 3386.39).format("%.2f") + "inHg";
+        if (_fieldNeeded(FIELD_PRESSURE)) {
+            var sample = SensorHistory.getPressureHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var pd = sample.data;
+                var pa =
+                    pd instanceof Float
+                        ? pd as Float
+                        : (pd as Number).toFloat();
+                _cachedPressure = _metric
+                    ? (pa / 100.0).format("%.1f") + "hPa"
+                    : (pa / 3386.39).format("%.2f") + "inHg";
+            }
         }
-        sample = SensorHistory.getElevationHistory({}).next();
-        if (sample != null && sample.data != null) {
-            var ed = sample.data;
-            var elev =
-                ed instanceof Float ? ed as Float : (ed as Number).toFloat();
-            _cachedElevation = _metric
-                ? elev.format("%.0f") + "m"
-                : (elev * 3.28084).format("%.0f") + "ft";
+        if (_fieldNeeded(FIELD_ELEVATION)) {
+            var sample = SensorHistory.getElevationHistory({}).next();
+            if (sample != null && sample.data != null) {
+                var ed = sample.data;
+                var elev =
+                    ed instanceof Float
+                        ? ed as Float
+                        : (ed as Number).toFloat();
+                _cachedElevation = _metric
+                    ? elev.format("%.0f") + "m"
+                    : (elev * 3.28084).format("%.0f") + "ft";
+            }
         }
-        var amRef = _amInfo;
-        if (
-            amRef != null &&
-            (amRef as ActivityMonitor.Info).stressScore != null
-        ) {
-            _cachedStress = (
-                (amRef as ActivityMonitor.Info).stressScore as Number
-            ).toString();
-        } else {
-            var ss = SensorHistory.getStressHistory({ :period => 10 }).next();
-            if (ss != null && ss.data != null) {
-                var stressAge =
-                    Time.now().value() - (ss.when as Time.Moment).value();
-                if (stressAge <= 600) {
-                    var sd = ss.data;
-                    _cachedStress =
-                        sd instanceof Float
-                            ? (sd as Float).format("%.0f")
-                            : (sd as Number).toString();
+        if (_fieldNeeded(FIELD_STRESS)) {
+            var amRef = _amInfo;
+            if (
+                amRef != null &&
+                (amRef as ActivityMonitor.Info).stressScore != null
+            ) {
+                _cachedStress = (
+                    (amRef as ActivityMonitor.Info).stressScore as Number
+                ).toString();
+            } else {
+                var ss = SensorHistory.getStressHistory({
+                    :period => 10,
+                }).next();
+                if (ss != null && ss.data != null) {
+                    var stressAge =
+                        Time.now().value() - (ss.when as Time.Moment).value();
+                    if (stressAge <= 600) {
+                        var sd = ss.data;
+                        _cachedStress =
+                            sd instanceof Float
+                                ? (sd as Float).format("%.0f")
+                                : (sd as Number).toString();
+                    } else {
+                        _cachedStress = "-";
+                    }
                 } else {
                     _cachedStress = "-";
                 }
-            } else {
-                _cachedStress = "-";
             }
         }
     }
@@ -4146,7 +4193,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _getPhase(now as Number) as Number {
-        return (now / _rotateIntervalMs) % 3;
+        var cycle = _rotateMainMs + 2 * _rotateAltMs;
+        var pos = now % cycle;
+        if (pos < 0) {
+            pos += cycle;
+        }
+        if (pos < _rotateMainMs) {
+            return 0;
+        }
+        if (pos < _rotateMainMs + _rotateAltMs) {
+            return 1;
+        }
+        return 2;
     }
 
     private function _getProp(key as String, defaultVal as Number) as Number {

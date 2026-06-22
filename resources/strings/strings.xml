@@ -23,7 +23,8 @@
   <string id="DateFormatMDY">MM-DD-YYYY</string>
   <string id="DateFormatDayNum">Day Name + Number (Mon 14)</string>
   <string id="DateFormatDMon">Date + Month (14 Jun)</string>
-  <string id="RotateInterval">Rotate Every</string>
+  <string id="RotateInterval">Rotation: Main Duration</string>
+  <string id="RotateIntervalAlt">Rotation: Alt Duration</string>
   <string id="WatchCommandStyle">Command Style</string>
   <string id="WatchCommandWindows">Windows (watch.bat)</string>
   <string id="WatchCommandLinux">Linux (watch.sh)</string>
@@ -75,10 +76,10 @@
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
   <string id="ColorPurple">Purple</string>
-  <string id="ColorGrad">Gradient (low→high)</string>
-  <string id="ColorGradRev">Gradient (high→low)</string>
-  <string id="ColorGradTemp">Temp (cold→hot)</string>
-  <string id="ColorGradTempRev">Temp (hot→cold)</string>
+  <string id="ColorGrad">Gradient (low->high)</string>
+  <string id="ColorGradRev">Gradient (high->low)</string>
+  <string id="ColorGradTemp">Temp (cold->hot)</string>
+  <string id="ColorGradTempRev">Temp (hot->cold)</string>
 
   <!-- Shared: field options -->
   <string id="FieldNone">None (hidden)</string>
@@ -140,20 +141,24 @@
   <string id="FieldSleepTime">Bedtime</string>
   <string id="FieldWakeTime">Wake Time</string>
 
-  <!-- Shared: graph view mode options -->
-  <string id="ViewModeValue">Value</string>
+  <!-- Shared: graph mode options (sensor graphs) -->
+  <string id="GraphModeValue">Value only</string>
+  <string id="GraphModeLineGraph">Line graph</string>
+  <string id="GraphModeBarGraph">Bar graph</string>
+  <string id="GraphModeLineCurrent">Line + current value</string>
+  <string id="GraphModeBarCurrent">Bar + current value</string>
+
+  <!-- Shared: forecast view mode options -->
   <string id="ViewModeGraph">Graph</string>
   <string id="ViewModeGraphCurrent">Graph + Current</string>
   <string id="ViewModeGraphMinMax">Graph + Min/Max</string>
 
-  <!-- Steps view mode -->
-  <string id="StepsViewMode">Steps: View Mode</string>
-  <string id="StepsViewModeText">Value</string>
-  <string id="StepsViewModeBar">Progress Bar</string>
-  <string id="StepsViewModeBarValue">Bar + Value</string>
+  <!-- Steps -->
+  <string id="StepsShowBar">Steps: Show Progress Bar</string>
+  <string id="StepsShowBarValue">Steps: Show Value in Bar</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
 
-  <!-- Shared: graph type options -->
+  <!-- Shared: graph type options (forecast) -->
   <string id="GraphTypeLine">Line</string>
   <string id="GraphTypeBar">Bar</string>
 
@@ -172,8 +177,7 @@
   <string id="TimeFrame24h">24 hours</string>
 
   <!-- Graph settings: Heart Rate -->
-  <string id="HRViewMode">Heart Rate: View Mode</string>
-  <string id="HRGraphType">Heart Rate: Graph Type</string>
+  <string id="HRGraphMode">Heart Rate: Graph Mode</string>
   <string id="HRSecondaryType">Heart Rate: 2nd Graph Type</string>
   <string id="HRSecondaryField">Heart Rate: 2nd Graph Field</string>
   <string id="HRTimeFrame">Heart Rate: Time Frame</string>
@@ -181,8 +185,7 @@
   <string id="HRSecondaryColor">Heart Rate: 2nd Graph Color</string>
 
   <!-- Graph settings: Body Battery -->
-  <string id="BodyBatViewMode">Body Battery: View Mode</string>
-  <string id="BodyBatGraphType">Body Battery: Graph Type</string>
+  <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
   <string id="BodyBatSecondaryType">Body Battery: 2nd Graph Type</string>
   <string id="BodyBatSecondaryField">Body Battery: 2nd Graph Field</string>
   <string id="BodyBatTimeFrame">Body Battery: Time Frame</string>
@@ -190,8 +193,7 @@
   <string id="BodyBatSecondaryColor">Body Battery: 2nd Graph Color</string>
 
   <!-- Graph settings: Stress -->
-  <string id="StressViewMode">Stress: View Mode</string>
-  <string id="StressGraphType">Stress: Graph Type</string>
+  <string id="StressGraphMode">Stress: Graph Mode</string>
   <string id="StressSecondaryType">Stress: 2nd Graph Type</string>
   <string id="StressSecondaryField">Stress: 2nd Graph Field</string>
   <string id="StressTimeFrame">Stress: Time Frame</string>
@@ -199,8 +201,7 @@
   <string id="StressSecondaryColor">Stress: 2nd Graph Color</string>
 
   <!-- Graph settings: Blood O2 -->
-  <string id="SpO2ViewMode">Blood O2: View Mode</string>
-  <string id="SpO2GraphType">Blood O2: Graph Type</string>
+  <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
   <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
   <string id="SpO2SecondaryField">Blood O2: 2nd Graph Field</string>
   <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
@@ -208,8 +209,7 @@
   <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
 
   <!-- Graph settings: Wrist Temp -->
-  <string id="TempWristViewMode">Wrist Temp: View Mode</string>
-  <string id="TempWristGraphType">Wrist Temp: Graph Type</string>
+  <string id="TempWristGraphMode">Wrist Temp: Graph Mode</string>
   <string id="TempWristSecondaryType">Wrist Temp: 2nd Graph Type</string>
   <string id="TempWristSecondaryField">Wrist Temp: 2nd Graph Field</string>
   <string id="TempWristTimeFrame">Wrist Temp: Time Frame</string>
@@ -217,8 +217,7 @@
   <string id="TempWristSecondaryColor">Wrist Temp: 2nd Graph Color</string>
 
   <!-- Graph settings: Elevation -->
-  <string id="ElevationViewMode">Elevation: View Mode</string>
-  <string id="ElevationGraphType">Elevation: Graph Type</string>
+  <string id="ElevationGraphMode">Elevation: Graph Mode</string>
   <string id="ElevationSecondaryType">Elevation: 2nd Graph Type</string>
   <string id="ElevationSecondaryField">Elevation: 2nd Graph Field</string>
   <string id="ElevationTimeFrame">Elevation: Time Frame</string>
@@ -226,8 +225,7 @@
   <string id="ElevationSecondaryColor">Elevation: 2nd Graph Color</string>
 
   <!-- Graph settings: Pressure -->
-  <string id="PressureViewMode">Pressure: View Mode</string>
-  <string id="PressureGraphType">Pressure: Graph Type</string>
+  <string id="PressureGraphMode">Pressure: Graph Mode</string>
   <string id="PressureSecondaryType">Pressure: 2nd Graph Type</string>
   <string id="PressureSecondaryField">Pressure: 2nd Graph Field</string>
   <string id="PressureTimeFrame">Pressure: Time Frame</string>
