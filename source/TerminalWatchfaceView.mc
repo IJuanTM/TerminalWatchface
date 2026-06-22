@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.31.1";
+const APP_VERSION = "0.31.2";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -891,6 +891,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _resolveLineGraph(li as Number) as Void {
+        _lineSecType[li] = SEC_NONE;
         var field = _resolvedFields[li];
         if (field == FIELD_STEPS) {
             var showBar = _getBoolProp("stepsShowBar");
@@ -1896,8 +1897,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _effLabel(field, periodMin) + " ",
             Graphics.TEXT_JUSTIFY_RIGHT
         );
-        var ageSecDual = _dataAge(data, periodMin);
-        if (ageSecDual > 5) {
+        var effKeyDual = field * 10000 + periodMin;
+        var ageSecDual = _dataAge(
+            data,
+            _graphEffPeriod.hasKey(effKeyDual)
+                ? _graphEffPeriod.get(effKeyDual) as Number
+                : periodMin
+        );
+        if (ageSecDual > _fieldUpdateMin(field) * 60 + 30) {
             dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx,
@@ -1950,6 +1957,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         periodMin as Number,
         skipZero as Boolean
     ) as Array<Float>? {
+        _pendingEffPeriod = 0;
         var gw = _charW * 10;
         var periodSec = periodMin * 60;
         if (periodSec < 1) {
@@ -2203,12 +2211,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _fmtAge(ageSec as Number) as String {
         if (ageSec < 60) {
-            return ageSec.toString() + "s";
+            return ">" + ageSec.toString() + "s";
         }
         if (ageSec < 3600) {
-            return (ageSec / 60).toString() + "m";
+            return ">" + (ageSec / 60).toString() + "m";
         }
-        return (ageSec / 3600).toString() + "h";
+        return ">" + (ageSec / 3600).toString() + "h";
     }
 
     private function _cacheResult(
@@ -2487,7 +2495,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             bottomLabel,
             Graphics.TEXT_JUSTIFY_RIGHT
         );
-        if (ageSec > 5) {
+        if (ageSec > _fieldUpdateMin(field) * 60 + 30) {
             dc.drawText(
                 gx,
                 y + gh + 1,
@@ -3244,7 +3252,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             lineColor,
             maxFrac,
             minFrac,
-            _dataAge(data, periodMin)
+            _dataAge(
+                data,
+                _graphEffPeriod.hasKey(cacheKey)
+                    ? _graphEffPeriod.get(cacheKey) as Number
+                    : periodMin
+            )
         );
 
         if (viewMode == VIEW_GRAPH_VALUE) {
