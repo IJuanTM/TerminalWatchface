@@ -105,6 +105,8 @@
   <string id="FieldWxTempMinMax">Weather: Temp + Min/Max</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
   <string id="FieldWxTempWind">Weather: Temp + Wind</string>
+  <string id="FieldWxWindPrecip">Weather: Wind + Rain</string>
+  <string id="FieldWxTempUV">Weather: Temp + UV</string>
   <string id="FieldRecovery">Recovery Time</string>
   <string id="FieldMoveBar">Move Bar</string>
   <string id="FieldTempWrist">Wrist Temperature</string>
@@ -125,6 +127,8 @@
   <string id="FieldGpsLat">GPS Latitude</string>
   <string id="FieldGpsLon">GPS Longitude</string>
   <string id="FieldGpsAccuracy">GPS Accuracy</string>
+  <string id="FieldGpsLatLon">GPS: Lat + Lon</string>
+  <string id="FieldGpsLatLonAcc">GPS: Lat + Lon + Accuracy</string>
   <string id="FieldHeading">Heading</string>
   <string id="FieldTrainingStatus">Training Status</string>
   <string id="FieldRace5k">Race Predictor: 5K</string>

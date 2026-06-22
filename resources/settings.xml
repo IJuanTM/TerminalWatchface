@@ -165,6 +165,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -183,6 +185,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -257,6 +261,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -275,6 +281,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -349,6 +357,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -367,6 +377,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -443,6 +455,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -461,6 +475,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -535,6 +551,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -553,6 +571,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -627,6 +647,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -645,6 +667,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -721,6 +745,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -739,6 +765,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -813,6 +841,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -831,6 +861,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -905,6 +937,8 @@
       <listEntry value="43">@Strings.FieldGpsLat</listEntry>
       <listEntry value="44">@Strings.FieldGpsLon</listEntry>
       <listEntry value="45">@Strings.FieldGpsAccuracy</listEntry>
+      <listEntry value="55">@Strings.FieldGpsLatLon</listEntry>
+      <listEntry value="56">@Strings.FieldGpsLatLonAcc</listEntry>
       <listEntry value="46">@Strings.FieldHeading</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="49">@Strings.FieldRace5k</listEntry>
@@ -923,6 +957,8 @@
       <listEntry value="18">@Strings.FieldWxTempMinMax</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
+      <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
+      <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
