@@ -187,6 +187,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -283,6 +285,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -379,6 +383,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -477,6 +483,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -573,6 +581,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -669,6 +679,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -767,6 +779,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -863,6 +877,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>
@@ -959,6 +975,8 @@
       <listEntry value="20">@Strings.FieldWxTempWind</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
+      <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
     </settingConfig>
   </setting>

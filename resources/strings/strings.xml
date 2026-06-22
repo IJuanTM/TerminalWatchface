@@ -107,6 +107,8 @@
   <string id="FieldWxTempWind">Weather: Temp + Wind</string>
   <string id="FieldWxWindPrecip">Weather: Wind + Rain</string>
   <string id="FieldWxTempUV">Weather: Temp + UV</string>
+  <string id="FieldWxUVPrecip">Weather: UV + Rain</string>
+  <string id="FieldWxUVWind">Weather: UV + Wind</string>
   <string id="FieldRecovery">Recovery Time</string>
   <string id="FieldMoveBar">Move Bar</string>
   <string id="FieldTempWrist">Wrist Temperature</string>

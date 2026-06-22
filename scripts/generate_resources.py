@@ -47,7 +47,8 @@ FIELDS_ALL = [
     (16, "FieldWxCond"),       (13, "FieldWxPrecip"),     (14, "FieldWxWind"),
     (15, "FieldWxUV"),         (17, "FieldWxTempCond"),   (18, "FieldWxTempMinMax"),
     (19, "FieldWxCondPrecip"), (20, "FieldWxTempWind"),   (57, "FieldWxWindPrecip"),
-    (58, "FieldWxTempUV"),    (33, "FieldWxForecast"),
+    (58, "FieldWxTempUV"),    (59, "FieldWxUVPrecip"),
+    (60, "FieldWxUVWind"),    (33, "FieldWxForecast"),
 ]
 
 # Graph-capable sensor fields.
@@ -303,6 +304,8 @@ def gen_strings():
         ("FieldWxTempWind",    "Weather: Temp + Wind"),
         ("FieldWxWindPrecip",  "Weather: Wind + Rain"),
         ("FieldWxTempUV",      "Weather: Temp + UV"),
+        ("FieldWxUVPrecip",    "Weather: UV + Rain"),
+        ("FieldWxUVWind",      "Weather: UV + Wind"),
         ("FieldRecovery",      "Recovery Time"),
         ("FieldMoveBar",       "Move Bar"),
         ("FieldTempWrist",     "Wrist Temperature"),
