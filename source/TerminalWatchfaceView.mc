@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.30.0";
+const APP_VERSION = "0.30.1";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -996,7 +996,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 y,
                 _rowBuf[0],
                 _wxTemp,
-                " " + _wxCond,
+                " | " + _wxCond,
                 labelColor,
                 valueColor
             );
@@ -1010,7 +1010,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 y,
                 _rowBuf[0],
                 _wxTemp,
-                " " + _wxWind,
+                " | " + _wxWind,
                 labelColor,
                 valueColor
             );
@@ -1028,7 +1028,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 cx,
                 y,
                 _rowBuf[0],
-                " " + _wxPrecip,
+                " | " + _wxPrecip,
                 labelColor,
                 valueColor
             );
@@ -1041,7 +1041,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 cx,
                 y,
                 _rowBuf[0],
-                " " + _wxWind,
+                " | " + _wxWind,
                 labelColor,
                 valueColor
             );
@@ -1057,7 +1057,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             x += dc.getTextWidthInPixels(_wxTemp, _font);
             _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valueColor);
             x += _degW;
-            var uvPfx = _wxUnit + " UV:";
+            var uvPfx = _wxUnit + " | ";
             dc.drawText(x, y, _font, uvPfx, Graphics.TEXT_JUSTIFY_LEFT);
             x += dc.getTextWidthInPixels(uvPfx, _font);
             _drawUvTag(dc, x, y, valueColor);
@@ -1174,7 +1174,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var gx = cx + _pad + _charW;
-        var gw = _charW * 16;
+        var gw = _charW * 12;
         var barH = _fh;
         var barY = y;
         dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
@@ -3357,12 +3357,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_WX_COND_PRECIP) {
             _rowBuf[0] = "Weather";
-            _rowBuf[1] = _wxCond + " " + _wxPrecip;
+            _rowBuf[1] = _wxCond + " | " + _wxPrecip;
             return;
         }
         if (field == FIELD_WX_WIND_PRECIP) {
             _rowBuf[0] = "Wind";
-            _rowBuf[1] = _wxWind + " " + _wxPrecip;
+            _rowBuf[1] = _wxWind + " | " + _wxPrecip;
             return;
         }
         if (field == FIELD_STRESS) {
@@ -3677,7 +3677,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _rowBuf[1] =
                     lat.abs().format("%.5f") +
                     (lat >= 0.0 ? "N" : "S") +
-                    " " +
+                    " | " +
                     lon.abs().format("%.5f") +
                     (lon >= 0.0 ? "E" : "W");
                 return;
@@ -3707,7 +3707,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _rowBuf[1] =
                     lat.abs().format("%.4f") +
                     (lat >= 0.0 ? "N" : "S") +
-                    " " +
+                    " | " +
                     lon.abs().format("%.4f") +
                     (lon >= 0.0 ? "E" : "W") +
                     accLabel;
