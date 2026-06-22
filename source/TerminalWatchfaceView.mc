@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.26.0";
+const APP_VERSION = "0.27.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -68,6 +68,10 @@ const FIELD_RACE_HALF = 51;
 const FIELD_RACE_MARATHON = 52;
 const FIELD_SLEEP_TIME = 53;
 const FIELD_WAKE_TIME = 54;
+const FIELD_GPS_LAT_LON = 55;
+const FIELD_GPS_LAT_LON_ACC = 56;
+const FIELD_WX_WIND_PRECIP = 57;
+const FIELD_WX_TEMP_UV = 58;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -443,7 +447,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     f == FIELD_GPS_LAT ||
                     f == FIELD_GPS_LON ||
                     f == FIELD_GPS_ACCURACY ||
-                    f == FIELD_HEADING
+                    f == FIELD_HEADING ||
+                    f == FIELD_GPS_LAT_LON ||
+                    f == FIELD_GPS_LAT_LON_ACC
                 ) {
                     needsGps = true;
                 }
@@ -976,6 +982,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 "Temp",
                 _wxTemp,
                 " " + _wxWind,
+                labelColor,
+                valueColor
+            );
+            return;
+        }
+        if (field == FIELD_WX_TEMP_UV) {
+            _drawTempRow(
+                dc,
+                cx,
+                y,
+                "Temp",
+                _wxTemp,
+                " UV:" + _wxUv,
                 labelColor,
                 valueColor
             );
@@ -3233,6 +3252,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _wxCond + " " + _wxPrecip;
             return;
         }
+        if (field == FIELD_WX_WIND_PRECIP) {
+            _rowBuf[0] = "Wind";
+            _rowBuf[1] = _wxWind + " " + _wxPrecip;
+            return;
+        }
         if (field == FIELD_STRESS) {
             _rowBuf[0] = "Stress";
             _rowBuf[1] = _cachedStress;
@@ -3535,6 +3559,56 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "-";
             return;
         }
+        if (field == FIELD_GPS_LAT_LON) {
+            var pos = _posInfo;
+            if (pos != null && pos.position != null) {
+                var coords = (pos.position as Position.Location).toDegrees();
+                var lat = coords[0] as Double;
+                var lon = coords[1] as Double;
+                _rowBuf[0] = "GPS";
+                _rowBuf[1] =
+                    lat.abs().format("%.5f") +
+                    (lat >= 0.0 ? "N" : "S") +
+                    " " +
+                    lon.abs().format("%.5f") +
+                    (lon >= 0.0 ? "E" : "W");
+                return;
+            }
+            _rowBuf[0] = "GPS";
+            _rowBuf[1] = "-";
+            return;
+        }
+        if (field == FIELD_GPS_LAT_LON_ACC) {
+            var pos = _posInfo;
+            if (pos != null && pos.position != null) {
+                var coords = (pos.position as Position.Location).toDegrees();
+                var lat = coords[0] as Double;
+                var lon = coords[1] as Double;
+                var acc = pos.accuracy;
+                var accLabel = "";
+                if (acc == Position.QUALITY_GOOD) {
+                    accLabel = " [GOOD]";
+                } else if (acc == Position.QUALITY_USABLE) {
+                    accLabel = " [USE]";
+                } else if (acc == Position.QUALITY_POOR) {
+                    accLabel = " [POOR]";
+                } else if (acc == Position.QUALITY_LAST_KNOWN) {
+                    accLabel = " [LAST]";
+                }
+                _rowBuf[0] = "GPS";
+                _rowBuf[1] =
+                    lat.abs().format("%.4f") +
+                    (lat >= 0.0 ? "N" : "S") +
+                    " " +
+                    lon.abs().format("%.4f") +
+                    (lon >= 0.0 ? "E" : "W") +
+                    accLabel;
+                return;
+            }
+            _rowBuf[0] = "GPS";
+            _rowBuf[1] = "-";
+            return;
+        }
         if (field == FIELD_FLOORS) {
             if (_amInfo == null) {
                 _rowBuf[0] = "Floors";
@@ -3570,6 +3644,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_WX_TEMP_WIND) {
             _rowBuf[0] = "Temp";
             _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxWind;
+            return;
+        }
+        if (field == FIELD_WX_TEMP_UV) {
+            _rowBuf[0] = "Temp";
+            _rowBuf[1] = _wxTemp + _wxUnit + " UV:" + _wxUv;
             return;
         }
         if (field == FIELD_WX_TEMP_MINMAX) {
@@ -3860,7 +3939,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (c.uvIndex != null) {
-            _wxUv = (c.uvIndex as Float).format("%.0f");
+            var uv = (c.uvIndex as Float).toNumber();
+            _wxUv =
+                uv.toString() +
+                (uv <= 2 ? " [LOW]" : uv <= 7 ? " [MEDIUM]" : " [HIGH]");
         }
         if (c.condition != null) {
             _wxCond = _condStr(c.condition as Number);
@@ -3885,8 +3967,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _condStr(cond as Number) as String {
         switch (cond) {
             case Weather.CONDITION_CLEAR:
+            case Weather.CONDITION_MOSTLY_CLEAR:
+            case Weather.CONDITION_FAIR:
                 return "[CLEAR]";
             case Weather.CONDITION_PARTLY_CLOUDY:
+            case Weather.CONDITION_PARTLY_CLEAR:
                 return "[PCLOUD]";
             case Weather.CONDITION_MOSTLY_CLOUDY:
             case Weather.CONDITION_CLOUDY:
@@ -3900,15 +3985,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             case Weather.CONDITION_LIGHT_SHOWERS:
             case Weather.CONDITION_HEAVY_SHOWERS:
             case Weather.CONDITION_DRIZZLE:
+            case Weather.CONDITION_UNKNOWN_PRECIPITATION:
+            case Weather.CONDITION_CHANCE_OF_SHOWERS:
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN:
                 return "[RAIN]";
             case Weather.CONDITION_SNOW:
             case Weather.CONDITION_LIGHT_SNOW:
             case Weather.CONDITION_HEAVY_SNOW:
+            case Weather.CONDITION_FLURRIES:
+            case Weather.CONDITION_CHANCE_OF_SNOW:
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_SNOW:
                 return "[SNOW]";
             case Weather.CONDITION_WINDY:
                 return "[WINDY]";
             case Weather.CONDITION_THUNDERSTORMS:
             case Weather.CONDITION_SCATTERED_THUNDERSTORMS:
+            case Weather.CONDITION_CHANCE_OF_THUNDERSTORMS:
+            case Weather.CONDITION_SQUALL:
+            case Weather.CONDITION_HURRICANE:
+            case Weather.CONDITION_TROPICAL_STORM:
                 return "[STORM]";
             case Weather.CONDITION_WINTRY_MIX:
             case Weather.CONDITION_LIGHT_RAIN_SNOW:
@@ -3916,13 +4011,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             case Weather.CONDITION_RAIN_SNOW:
             case Weather.CONDITION_FREEZING_RAIN:
             case Weather.CONDITION_ICE:
+            case Weather.CONDITION_SLEET:
+            case Weather.CONDITION_ICE_SNOW:
+            case Weather.CONDITION_CHANCE_OF_RAIN_SNOW:
+            case Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN_SNOW:
                 return "[MIX]";
             case Weather.CONDITION_FOG:
             case Weather.CONDITION_MIST:
                 return "[FOG]";
             case Weather.CONDITION_HAZY:
+            case Weather.CONDITION_HAZE:
             case Weather.CONDITION_SMOKE:
             case Weather.CONDITION_DUST:
+            case Weather.CONDITION_SAND:
+            case Weather.CONDITION_SANDSTORM:
+            case Weather.CONDITION_VOLCANIC_ASH:
                 return "[HAZY]";
             case Weather.CONDITION_HAIL:
                 return "[HAIL]";
