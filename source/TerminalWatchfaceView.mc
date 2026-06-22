@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.29.0";
+const APP_VERSION = "0.30.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -124,6 +124,15 @@ const SCANLINE_SPACING = 3;
 const SCANLINE_COLORS =
     [0x000000, 0x0d0d0d, 0x1a1a1a, 0x2a2a2a] as Array<Number>;
 
+// 0=shadow, 1=bar bg, 2=axes, 3=mean line/no-data
+const GRAYS =
+    [
+        0x222222, // 0  shadow
+        0x444444, // 1  bar background
+        0x666666, // 2  graph axes
+        0x888888, // 3  mean line, no-data text
+    ] as Array<Number>;
+
 const DAY_NAMES =
     ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as Array<String>;
 const MONTH_NAMES =
@@ -207,7 +216,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compWeeklyRun as Number? = null;
     private var _compWeeklyBike as Number? = null;
     private var _posInfo as Position.Info? = null;
-    private var _isAsleep as Boolean = false;
     private var _compTrainingStatus as String? = null;
     private var _compRace5k as Number? = null;
     private var _compRace10k as Number? = null;
@@ -766,7 +774,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
             var startX = (_w - _bmpBoltW - spacedW - daysW) / 2;
             _drawIcon(dc, startX, y + (_smallFh - _boltH) / 2, ICON_BOLT, 3);
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 startX + _bmpBoltW,
                 y,
@@ -787,7 +795,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         var startX = (_w - batW - daysW) / 2;
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
         dc.drawText(startX, y, _fontSmall, batText, Graphics.TEXT_JUSTIFY_LEFT);
         if (hasDays) {
             dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
@@ -1169,7 +1177,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _charW * 16;
         var barH = _fh;
         var barY = y;
-        dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(gx, barY, gw, barH);
         var frac = steps.toFloat() / goal.toFloat();
         if (frac > 1.0) {
@@ -1203,7 +1211,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var valY = y + (_fh - _smallFh) / 2 - 1;
             var valX = gx + gw / 2;
             var stepsStr = steps.format("%0" + goalStr.length() + "d");
-            dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(GRAYS[0], Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 valX - 1,
                 valY - 1,
@@ -1316,10 +1324,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return _wxUvNum <= 2
             ? " [LOW]"
             : _wxUvNum <= 5
-              ? " [MODERATE]"
+              ? " [AVG]"
               : _wxUvNum <= 7
-                ? " [MEDIUM]"
-                : " [HIGH]";
+                ? " [HIGH]"
+                : " [MAX]";
     }
 
     // Draws UV number in valIdx color, UV level tag in UV color, returns x after tag.
@@ -1428,19 +1436,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    private function _dim(c as Number) as Number {
-        if (!_isAsleep) {
-            return c;
-        }
-        return (
-            (((((c >> 16) & 0xff) * 3) / 10) << 16) |
-            (((((c >> 8) & 0xff) * 3) / 10) << 8) |
-            (((c & 0xff) * 3) / 10)
-        );
-    }
-
     private function _colorFromIdx(idx as Number) as Number {
-        return _dim(idx >= 0 && idx < 10 ? COLORS[idx] : 0xffffff);
+        return idx >= 0 && idx < 10 ? COLORS[idx] : 0xffffff;
     }
 
     // Gradient: blue(-20°C) → cyan(0°C) → green-yellow(7°C) → yellow(16°C) → orange(25°C) → red(40°C)
@@ -1494,16 +1491,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fraction as Float
     ) as Number {
         if (colorIdx == COLOR_GRAD) {
-            return _dim(_valueColor(fraction));
+            return _valueColor(fraction);
         }
         if (colorIdx == COLOR_GRAD_REV) {
-            return _dim(_valueColor(1.0 - fraction));
+            return _valueColor(1.0 - fraction);
         }
         if (colorIdx == COLOR_GRAD_TEMP) {
-            return _dim(_valueTempColor(fraction));
+            return _valueTempColor(fraction);
         }
         if (colorIdx == COLOR_GRAD_TEMP_REV) {
-            return _dim(_valueTempColor(1.0 - fraction));
+            return _valueTempColor(1.0 - fraction);
         }
         return _colorFromIdx(colorIdx);
     }
@@ -1606,7 +1603,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         if (data == null) {
             _drawGraphAxes(dc, gx, gw, y);
-            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx + gw / 2,
                 y + gh / 2 - _tinyFh / 2 - 1,
@@ -2476,7 +2473,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gw as Number,
         y as Number
     ) as Void {
-        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
         dc.drawLine(gx - 1, y, gx - 1, y + _fh - 1);
         dc.drawLine(gx - 1, y + _fh - 1, gx + gw, y + _fh - 1);
         dc.drawLine(gx + gw, y, gx + gw, y + _fh - 1);
@@ -2597,7 +2594,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             meanFrac = 1.0;
         }
         var color =
-            colorIdx >= COLOR_GRAD ? _gradColor(colorIdx, meanFrac) : 0x888888;
+            colorIdx >= COLOR_GRAD ? _gradColor(colorIdx, meanFrac) : GRAYS[3];
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawDashedH(dc, gx, gx + gw, meanY);
     }
@@ -3114,7 +3111,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             _drawGraphAxes(dc, gx, gw, y);
-            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 gx + gw / 2,
                 y + gh / 2 - _tinyFh / 2 - 1,
@@ -4266,11 +4263,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onEnterSleep() as Void {
-        _isAsleep = true;
         _lastPhase = -1;
     }
     public function onExitSleep() as Void {
-        _isAsleep = false;
         WatchUi.requestUpdate();
     }
 }
