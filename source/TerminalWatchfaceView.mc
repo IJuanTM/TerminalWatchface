@@ -1048,7 +1048,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var gx = cx + _pad + _charW;
-        var gw = _charW * 10;
+        var gw = _charW * 16;
         var barH = _fh;
         var barY = y;
         dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
@@ -1083,14 +1083,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
         if (showValue) {
             var valY = y + (_fh - _smallFh) / 2 - 1;
-            var textColor =
-                fillW >= gw / 2 ? 0x000000 : _colorFromIdx(valueColor);
-            dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
+            var valX = gx + gw / 2;
+            var stepsStr = steps.format("%0" + goalStr.length() + "d");
+            dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
-                gx + gw / 2,
+                valX - 1,
+                valY - 1,
+                _fontSmall,
+                stepsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY - 1,
+                _fontSmall,
+                stepsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX - 1,
+                valY + 1,
+                _fontSmall,
+                stepsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY + 1,
+                _fontSmall,
+                stepsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                valX,
                 valY,
                 _fontSmall,
-                steps.format("%0" + goalStr.length() + "d"),
+                stepsStr,
                 Graphics.TEXT_JUSTIFY_CENTER
             );
             if (steps >= goal) {
