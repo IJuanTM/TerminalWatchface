@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.32.0";
+const APP_VERSION = "0.32.1";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -219,8 +219,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxUvNum as Number = -1;
     private var _wxCond as String = "-";
     private var _wxForecastData as Array<Float>? = null;
-    private var _wxForecastRevCache as Dictionary = {};
-    private var _wxForecastRevCacheMin as Number = -1;
     private var _wxLow as String = "-";
     private var _wxHigh as String = "-";
     private var _sizeSet as Number = 0; // 0 = lineHeight 28 (default), 1 = lineHeight 30 (SpaceMono)
@@ -275,7 +273,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _batW as Number = 0;
     private var _batDaysW as Number = 0;
     private var _charging as Boolean = false;
-    private var _cachedNotifLabel as String = "";
     private var _resolvedPhase as Number = -1;
     private var _resolvedFields as Array<Number> = [7, 7, 7] as Array<Number>;
     private var _needsLiveActivity as Boolean = true;
@@ -284,9 +281,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _resolvedValueC as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _rowBuf as Array<String> = ["", ""] as Array<String>;
     private var _timeBuf as Array<String> = ["Time", ""] as Array<String>;
-    private var _timeLastMin as Number = -1;
-    private var _timeHMpart as String = "";
-    private var _timeAmPm as String = "";
     private var _dateBuf as Array<String> = ["Date", ""] as Array<String>;
     private var _lastDateDay as Number = -1;
     private var _dateFormat as Number = 0;
@@ -385,6 +379,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             comp = iter.next() as Complications.Complication?;
         }
+    }
+
+    public function invalidateSettings() as Void {
+        _resolvedPhase = -1;
+        _graphCacheMin = -1;
+        _graphBmpCache = {};
+        _graphBmpDualCache = {};
+        _lastDateDay = -1;
     }
 
     (:extendedCode)
@@ -527,7 +529,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 settings.notificationCount != null
                     ? settings.notificationCount as Number
                     : 0;
-            _cachedNotifLabel = "[" + _notifCount.toString() + "]";
             _amInfo = ActivityMonitor.getInfo();
             _refreshComplications();
             _refreshPointSamples();
@@ -777,7 +778,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         var textY = y - 32 - _smallFh;
-        var label = _cachedNotifLabel;
+        var label = "[" + _notifCount.toString() + "]";
         dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _w / 2,
@@ -798,12 +799,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? dc.getTextWidthInPixels(daysText, _fontSmall)
                 : 0;
         }
-        var batW = _batW;
-        var daysW = _batDaysW;
         if (_charging) {
             var spaced = " " + batText;
             var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
-            var startX = (_w - _bmpBoltW - spacedW - daysW) / 2;
+            var startX = (_w - _bmpBoltW - spacedW - _batDaysW) / 2;
             _drawIcon(dc, startX, y + (_smallFh - _boltH) / 2, ICON_BOLT, 3);
             dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
@@ -825,13 +824,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return;
         }
-        var startX = (_w - batW - daysW) / 2;
+        var startX = (_w - _batW - _batDaysW) / 2;
         dc.setColor(_colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
         dc.drawText(startX, y, _fontSmall, batText, Graphics.TEXT_JUSTIFY_LEFT);
         if (hasDays) {
             dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
-                startX + batW,
+                startX + _batW,
                 y,
                 _fontSmall,
                 daysText,
@@ -1536,49 +1535,42 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         colorIdx as Number,
         fraction as Float
     ) as Number {
-        if (colorIdx == COLOR_GRAD_TRI) {
-            return _gradFromStops(TRI_GRAD, fraction);
+        switch (colorIdx) {
+            case COLOR_GRAD_TRI:
+                return _gradFromStops(TRI_GRAD, fraction);
+            case COLOR_GRAD_TRI_REV:
+                return _gradFromStops(TRI_GRAD, 1.0 - fraction);
+            case COLOR_GRAD_TEMP_CUSTOM:
+                return _gradFromStops(TEMP_GRADS[0] as Array<Number>, fraction);
+            case COLOR_GRAD_TEMP_CUSTOM_REV:
+                return _gradFromStops(
+                    TEMP_GRADS[0] as Array<Number>,
+                    1.0 - fraction
+                );
+            case COLOR_GRAD_TEMP_SPECTRAL:
+                return _gradFromStops(TEMP_GRADS[1] as Array<Number>, fraction);
+            case COLOR_GRAD_TEMP_SPECTRAL_REV:
+                return _gradFromStops(
+                    TEMP_GRADS[1] as Array<Number>,
+                    1.0 - fraction
+                );
+            case COLOR_GRAD_TEMP_TURBO:
+                return _gradFromStops(TEMP_GRADS[2] as Array<Number>, fraction);
+            case COLOR_GRAD_TEMP_TURBO_REV:
+                return _gradFromStops(
+                    TEMP_GRADS[2] as Array<Number>,
+                    1.0 - fraction
+                );
+            case COLOR_GRAD_TEMP_INFERNO:
+                return _gradFromStops(TEMP_GRADS[3] as Array<Number>, fraction);
+            case COLOR_GRAD_TEMP_INFERNO_REV:
+                return _gradFromStops(
+                    TEMP_GRADS[3] as Array<Number>,
+                    1.0 - fraction
+                );
+            default:
+                return _colorFromIdx(colorIdx);
         }
-        if (colorIdx == COLOR_GRAD_TRI_REV) {
-            return _gradFromStops(TRI_GRAD, 1.0 - fraction);
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_CUSTOM) {
-            return _gradFromStops(TEMP_GRADS[0] as Array<Number>, fraction);
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_CUSTOM_REV) {
-            return _gradFromStops(
-                TEMP_GRADS[0] as Array<Number>,
-                1.0 - fraction
-            );
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_SPECTRAL) {
-            return _gradFromStops(TEMP_GRADS[1] as Array<Number>, fraction);
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_SPECTRAL_REV) {
-            return _gradFromStops(
-                TEMP_GRADS[1] as Array<Number>,
-                1.0 - fraction
-            );
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_TURBO) {
-            return _gradFromStops(TEMP_GRADS[2] as Array<Number>, fraction);
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_TURBO_REV) {
-            return _gradFromStops(
-                TEMP_GRADS[2] as Array<Number>,
-                1.0 - fraction
-            );
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_INFERNO) {
-            return _gradFromStops(TEMP_GRADS[3] as Array<Number>, fraction);
-        }
-        if (colorIdx == COLOR_GRAD_TEMP_INFERNO_REV) {
-            return _gradFromStops(
-                TEMP_GRADS[3] as Array<Number>,
-                1.0 - fraction
-            );
-        }
-        return _colorFromIdx(colorIdx);
     }
 
     private function _getGradRange(
@@ -2924,18 +2916,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gx = cx + _pad + _charW * 2;
         var gh = _fh - 2;
 
-        if (_wxForecastRevCacheMin != _wxLastMin) {
-            _wxForecastRevCache = {};
-            _wxForecastRevCacheMin = _wxLastMin;
-        }
-        var data = _wxForecastRevCache.get(hours) as Array<Float>?;
-        if (data == null) {
-            var revData = new Array<Float>[n];
-            for (var i = 0; i < n; i++) {
-                revData[i] = (all as Array<Float>)[n - 1 - i];
-            }
-            _wxForecastRevCache.put(hours, revData);
-            data = revData;
+        var data = new Array<Float>[n];
+        for (var i = 0; i < n; i++) {
+            data[i] = (all as Array<Float>)[n - 1 - i];
         }
 
         _minMax(data);
@@ -3926,25 +3909,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _timeParts() as Array<String> {
         var t = System.getClockTime();
-        if (t.min != _timeLastMin) {
-            _timeLastMin = t.min;
-            if (!_is24Hour) {
-                var h = t.hour % 12;
-                if (h == 0) {
-                    h = 12;
-                }
-                _timeHMpart = h.toString() + ":" + t.min.format("%02d");
-                _timeAmPm = t.hour >= 12 ? "pm" : "am";
-            } else {
-                _timeHMpart =
-                    t.hour.format("%02d") + ":" + t.min.format("%02d");
-                _timeAmPm = "";
+        var hm = "";
+        var ampm = "";
+        if (!_is24Hour) {
+            var h = t.hour % 12;
+            if (h == 0) {
+                h = 12;
             }
+            hm = h.toString() + ":" + t.min.format("%02d");
+            ampm = t.hour >= 12 ? "pm" : "am";
+        } else {
+            hm = t.hour.format("%02d") + ":" + t.min.format("%02d");
+            ampm = "";
         }
         _timeBuf[1] =
-            _timeHMpart +
-            (_showSeconds ? ":" + t.sec.format("%02d") : "") +
-            _timeAmPm;
+            hm + (_showSeconds ? ":" + t.sec.format("%02d") : "") + ampm;
         return _timeBuf;
     }
 

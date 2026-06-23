@@ -20,7 +20,9 @@ class TerminalWatchfaceApp extends Application.AppBase {
 
     public function onSettingsChanged() as Void {
         if (_view != null) {
-            (_view as TerminalWatchfaceView).reloadFont();
+            var v = _view as TerminalWatchfaceView;
+            v.reloadFont();
+            v.invalidateSettings();
         }
         WatchUi.requestUpdate();
     }
