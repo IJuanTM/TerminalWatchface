@@ -76,10 +76,16 @@
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
   <string id="ColorPurple">Purple</string>
-  <string id="ColorGrad">Gradient (low->high)</string>
-  <string id="ColorGradRev">Gradient (high->low)</string>
-  <string id="ColorGradTemp">Temp (cold->hot)</string>
-  <string id="ColorGradTempRev">Temp (hot->cold)</string>
+  <string id="GradTriColor">Tri-color (low->high)</string>
+  <string id="GradTriColorRev">Tri-color (high->low)</string>
+  <string id="GradTempCustom">Temp: Custom (cold->hot)</string>
+  <string id="GradTempCustomRev">Temp: Custom (hot->cold)</string>
+  <string id="GradTempSpectral">Temp: Spectral (cold->hot)</string>
+  <string id="GradTempSpectralRev">Temp: Spectral (hot->cold)</string>
+  <string id="GradTempTurbo">Temp: Turbo (cold->hot)</string>
+  <string id="GradTempTurboRev">Temp: Turbo (hot->cold)</string>
+  <string id="GradTempInferno">Temp: Inferno (cold->hot)</string>
+  <string id="GradTempInfernoRev">Temp: Inferno (hot->cold)</string>
 
   <!-- Shared: field options -->
   <string id="FieldNone">None (hidden)</string>

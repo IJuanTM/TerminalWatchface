@@ -959,10 +959,6 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1019,10 +1015,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
@@ -1037,10 +1039,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1095,10 +1103,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
@@ -1113,10 +1127,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1171,10 +1191,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
@@ -1189,10 +1215,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1247,10 +1279,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
@@ -1265,10 +1303,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1323,10 +1367,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryColor" title="@Strings.TempWristSecondaryColor">
@@ -1341,10 +1391,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1399,10 +1455,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryColor" title="@Strings.ElevationSecondaryColor">
@@ -1417,10 +1479,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1475,10 +1543,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
@@ -1493,10 +1567,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 
@@ -1534,10 +1614,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.ColorGrad</listEntry>
-      <listEntry value="11">@Strings.ColorGradRev</listEntry>
-      <listEntry value="12">@Strings.ColorGradTemp</listEntry>
-      <listEntry value="13">@Strings.ColorGradTempRev</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
 

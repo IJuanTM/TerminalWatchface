@@ -120,7 +120,7 @@
   <property id="wxForecastViewMode" type="number">2</property>
   <property id="wxForecastGraphType" type="number">1</property>
   <property id="wxForecastTimeFrame" type="number">12</property>
-  <property id="wxForecastGraphColor" type="number">12</property>
+  <property id="wxForecastGraphColor" type="number">16</property>
 
   <!-- Debug -->
   <property id="showVersion" type="boolean">false</property>

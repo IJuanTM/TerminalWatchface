@@ -18,12 +18,15 @@ OUT_SETTINGS   = os.path.join(ROOT, "resources", "settings.xml")
 # Shared data definitions
 # ---------------------------------------------------------------------------
 
-COLORS_FULL = [  # 0-13, includes gradient options — used for graph lines
-    (0,  "ColorWhite"),       (1,  "ColorGreen"),    (2,  "ColorCyan"),
-    (3,  "ColorYellow"),      (4,  "ColorOrange"),   (5,  "ColorRed"),
-    (6,  "ColorBlue"),        (7,  "ColorMagenta"),  (8,  "ColorLightGrey"),
-    (9,  "ColorPurple"),      (10, "ColorGrad"),     (11, "ColorGradRev"),
-    (12, "ColorGradTemp"),    (13, "ColorGradTempRev"),
+COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
+    (0,  "ColorWhite"),            (1,  "ColorGreen"),         (2,  "ColorCyan"),
+    (3,  "ColorYellow"),           (4,  "ColorOrange"),        (5,  "ColorRed"),
+    (6,  "ColorBlue"),             (7,  "ColorMagenta"),       (8,  "ColorLightGrey"),
+    (9,  "ColorPurple"),           (10, "GradTriColor"),       (11, "GradTriColorRev"),
+    (12, "GradTempCustom"),        (13, "GradTempCustomRev"),
+    (14, "GradTempSpectral"),      (15, "GradTempSpectralRev"),
+    (16, "GradTempTurbo"),         (17, "GradTempTurboRev"),
+    (18, "GradTempInferno"),       (19, "GradTempInfernoRev"),
 ]
 
 COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
@@ -225,7 +228,7 @@ def gen_properties():
     lines.append(prop("wxForecastViewMode",   "number", 2))  # graph+value
     lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
-    lines.append(prop("wxForecastGraphColor", "number", 12))  # ColorGradTemp (cold->hot)
+    lines.append(prop("wxForecastGraphColor", "number", 16))  # GradTempTurbo (cold->hot)
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -289,15 +292,26 @@ def gen_strings():
 
     lines.append("\n  <!-- Shared: color options -->")
     color_labels = [
-        ("ColorWhite",       "White"),               ("ColorGreen",   "Green"),
-        ("ColorCyan",        "Cyan"),                ("ColorYellow",  "Yellow"),
-        ("ColorOrange",      "Orange"),              ("ColorRed",     "Red"),
-        ("ColorBlue",        "Blue"),                ("ColorMagenta", "Magenta"),
-        ("ColorLightGrey",   "Light Grey"),          ("ColorPurple",  "Purple"),
-        ("ColorGrad",        "Gradient (low->high)"),
-        ("ColorGradRev",     "Gradient (high->low)"),
-        ("ColorGradTemp",    "Temp (cold->hot)"),
-        ("ColorGradTempRev", "Temp (hot->cold)"),
+        ("ColorWhite",          "White"),
+        ("ColorGreen",          "Green"),
+        ("ColorCyan",           "Cyan"),
+        ("ColorYellow",         "Yellow"),
+        ("ColorOrange",         "Orange"),
+        ("ColorRed",            "Red"),
+        ("ColorBlue",           "Blue"),
+        ("ColorMagenta",        "Magenta"),
+        ("ColorLightGrey",      "Light Grey"),
+        ("ColorPurple",         "Purple"),
+        ("GradTriColor",        "Tri-color (low->high)"),
+        ("GradTriColorRev",     "Tri-color (high->low)"),
+        ("GradTempCustom",      "Temp: Custom (cold->hot)"),
+        ("GradTempCustomRev",   "Temp: Custom (hot->cold)"),
+        ("GradTempSpectral",    "Temp: Spectral (cold->hot)"),
+        ("GradTempSpectralRev", "Temp: Spectral (hot->cold)"),
+        ("GradTempTurbo",       "Temp: Turbo (cold->hot)"),
+        ("GradTempTurboRev",    "Temp: Turbo (hot->cold)"),
+        ("GradTempInferno",     "Temp: Inferno (cold->hot)"),
+        ("GradTempInfernoRev",  "Temp: Inferno (hot->cold)"),
     ]
     for sid, text in color_labels:
         lines.append(s(sid, text))
@@ -512,7 +526,7 @@ def gen_settings():
     parts.append("\n  <!-- Steps -->")
     parts.append(setting_bool("stepsShowBar",      "StepsShowBar"))
     parts.append(setting_bool("stepsShowBarValue", "StepsShowBarValue"))
-    parts.append(color_setting("stepsBarColor", "StepsBarColor"))
+    parts.append(color_setting("stepsBarColor", "StepsBarColor", COLORS_TEXT))
 
     # Graph fields
     parts.append("\n  <!-- Graph settings per supported field type -->")

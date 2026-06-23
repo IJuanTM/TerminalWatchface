@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.31.2";
+const APP_VERSION = "0.32.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -87,10 +87,16 @@ const SEC_NONE = 0;
 const SEC_LINE = 1;
 const SEC_BAR = 2;
 
-const COLOR_GRAD = 10;
-const COLOR_GRAD_REV = 11;
-const COLOR_GRAD_TEMP = 12;
-const COLOR_GRAD_TEMP_REV = 13;
+const COLOR_GRAD_TRI = 10;
+const COLOR_GRAD_TRI_REV = 11;
+const COLOR_GRAD_TEMP_CUSTOM = 12;
+const COLOR_GRAD_TEMP_CUSTOM_REV = 13;
+const COLOR_GRAD_TEMP_SPECTRAL = 14;
+const COLOR_GRAD_TEMP_SPECTRAL_REV = 15;
+const COLOR_GRAD_TEMP_TURBO = 16;
+const COLOR_GRAD_TEMP_TURBO_REV = 17;
+const COLOR_GRAD_TEMP_INFERNO = 18;
+const COLOR_GRAD_TEMP_INFERNO_REV = 19;
 
 // Indices into this array are used as the SecondaryField property value
 const GRAPH_FIELDS =
@@ -118,6 +124,31 @@ const COLORS =
         0xbbbbbb, // 8  light grey
         0xaa77ff, // 9  purple
     ] as Array<Number>;
+
+const TEMP_GRADS =
+    [
+        [
+            0x192041, 0x263061, 0x1c5594, 0x4398c2, 0x8ca73a, 0xe8d130,
+            0xea8313, 0xf35827, 0xc9101f, 0x8f0002,
+        ],
+        [
+            0x5e4fa2, 0x388eba, 0x75c8a5, 0xbfe5a0, 0xf1f9a9, 0xfeeea2,
+            0xfdbf6f, 0xf67b4a, 0xd8434e, 0x9e0142,
+        ],
+        [
+            // Turbo
+            0x30123b, 0x4f48ae, 0x5892d8, 0x2cd1c8, 0x40f872, 0xbced22,
+            0xfab00a, 0xfa8009, 0xe74a08, 0x7a0402,
+        ],
+        [
+            // Inferno
+            0x000003, 0x150222, 0x330446, 0x59114f, 0x7f2148, 0xa6372d,
+            0xca5d12, 0xe78d06, 0xf9be25, 0xfbfea4,
+        ],
+    ] as Array<Array<Number> >;
+
+// green → orange → red, using COLORS[1], COLORS[4], COLORS[5]
+const TRI_GRAD = [0x55ff77, 0xff9944, 0xff5555] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
 // Overlay color per intensity (0=off handled separately, 1=subtle, 2=medium, 3=strong)
@@ -905,7 +936,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 "wxForecastViewMode",
                 VIEW_GRAPH_VALUE
             );
-            _lineGraphColor[li] = _getProp("wxForecastGraphColor", 12);
+            _lineGraphColor[li] = _getProp("wxForecastGraphColor", 16);
             _lineGraphType[li] = _getProp("wxForecastGraphType", GRAPH_BAR);
             _linePeriodMin[li] = _getProp("wxForecastTimeFrame", 12);
             return;
@@ -1472,49 +1503,32 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return idx >= 0 && idx < 10 ? COLORS[idx] : 0xffffff;
     }
 
-    // Gradient: blue(-20°C) → cyan(0°C) → green-yellow(7°C) → yellow(16°C) → orange(25°C) → red(40°C)
-    // Breakpoints at fractions 0.0/0.25/0.45/0.60/0.75/1.0 for range [-20,40].
-    // Gradient: -20 white | -10 cyan | 2 blue | 14 green | 22 yellow | 26 red | 34 magenta | 40
-    // Fractions: 0.0 | 0.1667 | 0.3667 | 0.5667 | 0.7 | 0.7667 | 0.9 | 1.0
-    private function _valueTempColor(fraction as Float) as Number {
-        var r = 0;
-        var g = 0;
-        var b = 0;
-        if (fraction <= 0.1667) {
-            var t = fraction / 0.1667;
-            r = (255.0 - t * 170.0).toNumber();
-            g = 255;
-            b = 255;
-        } else if (fraction <= 0.3667) {
-            var t = (fraction - 0.1667) / 0.2;
-            r = 85;
-            g = (255.0 - t * 170.0).toNumber();
-            b = 255;
-        } else if (fraction <= 0.5667) {
-            var t = (fraction - 0.3667) / 0.2;
-            r = 85;
-            g = (85.0 + t * 170.0).toNumber();
-            b = (255.0 - t * 170.0).toNumber();
-        } else if (fraction <= 0.7) {
-            var t = (fraction - 0.5667) / 0.1333;
-            r = (85.0 + t * 170.0).toNumber();
-            g = 255;
-            b = 85;
-        } else if (fraction <= 0.7667) {
-            var t = (fraction - 0.7) / 0.0667;
-            r = 255;
-            g = (255.0 - t * 170.0).toNumber();
-            b = 85;
-        } else if (fraction <= 0.9) {
-            var t = (fraction - 0.7667) / 0.1333;
-            r = 255;
-            g = 85;
-            b = (85.0 + t * 170.0).toNumber();
-        } else {
-            r = 255;
-            g = 85;
-            b = 255;
+    private function _gradFromStops(
+        stops as Array<Number>,
+        fraction as Float
+    ) as Number {
+        var n = stops.size();
+        if (fraction <= 0.0) {
+            return stops[0] as Number;
         }
+        if (fraction >= 1.0) {
+            return stops[n - 1] as Number;
+        }
+        var scaled = fraction * (n - 1).toFloat();
+        var i = scaled.toNumber();
+        if (i >= n - 1) {
+            return stops[n - 1] as Number;
+        }
+        var t = scaled - i.toFloat();
+        var ca = stops[i] as Number;
+        var cb = stops[i + 1] as Number;
+        var r =
+            ((ca >> 16) & 0xff) +
+            (t * (((cb >> 16) & 0xff) - ((ca >> 16) & 0xff))).toNumber();
+        var g =
+            ((ca >> 8) & 0xff) +
+            (t * (((cb >> 8) & 0xff) - ((ca >> 8) & 0xff))).toNumber();
+        var b = (ca & 0xff) + (t * ((cb & 0xff) - (ca & 0xff))).toNumber();
         return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
     }
 
@@ -1522,17 +1536,47 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         colorIdx as Number,
         fraction as Float
     ) as Number {
-        if (colorIdx == COLOR_GRAD) {
-            return _valueColor(fraction);
+        if (colorIdx == COLOR_GRAD_TRI) {
+            return _gradFromStops(TRI_GRAD, fraction);
         }
-        if (colorIdx == COLOR_GRAD_REV) {
-            return _valueColor(1.0 - fraction);
+        if (colorIdx == COLOR_GRAD_TRI_REV) {
+            return _gradFromStops(TRI_GRAD, 1.0 - fraction);
         }
-        if (colorIdx == COLOR_GRAD_TEMP) {
-            return _valueTempColor(fraction);
+        if (colorIdx == COLOR_GRAD_TEMP_CUSTOM) {
+            return _gradFromStops(TEMP_GRADS[0] as Array<Number>, fraction);
         }
-        if (colorIdx == COLOR_GRAD_TEMP_REV) {
-            return _valueTempColor(1.0 - fraction);
+        if (colorIdx == COLOR_GRAD_TEMP_CUSTOM_REV) {
+            return _gradFromStops(
+                TEMP_GRADS[0] as Array<Number>,
+                1.0 - fraction
+            );
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_SPECTRAL) {
+            return _gradFromStops(TEMP_GRADS[1] as Array<Number>, fraction);
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_SPECTRAL_REV) {
+            return _gradFromStops(
+                TEMP_GRADS[1] as Array<Number>,
+                1.0 - fraction
+            );
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_TURBO) {
+            return _gradFromStops(TEMP_GRADS[2] as Array<Number>, fraction);
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_TURBO_REV) {
+            return _gradFromStops(
+                TEMP_GRADS[2] as Array<Number>,
+                1.0 - fraction
+            );
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_INFERNO) {
+            return _gradFromStops(TEMP_GRADS[3] as Array<Number>, fraction);
+        }
+        if (colorIdx == COLOR_GRAD_TEMP_INFERNO_REV) {
+            return _gradFromStops(
+                TEMP_GRADS[3] as Array<Number>,
+                1.0 - fraction
+            );
         }
         return _colorFromIdx(colorIdx);
     }
@@ -1543,7 +1587,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dataMinV as Float,
         dataRange as Float
     ) as Void {
-        if (colorIdx >= COLOR_GRAD) {
+        if (colorIdx >= COLOR_GRAD_TEMP_CUSTOM) {
+            _grMin = -20.0;
+            _grRange = 60.0;
+            return;
+        }
+        if (colorIdx >= COLOR_GRAD_TRI) {
             var gMin = 0.0 as Float;
             var gMax = 0.0 as Float;
             if (
@@ -1559,12 +1608,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             } else if (field == FIELD_SPO2) {
                 gMin = 85.0;
                 gMax = 100.0;
-            } else if (
-                field == FIELD_TEMP_WRIST ||
-                field == FIELD_WX_FORECAST
-            ) {
-                gMin = -20.0;
-                gMax = 40.0;
             } else {
                 _grMin = dataMinV;
                 _grRange = dataRange;
@@ -2464,7 +2507,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         minFrac as Float,
         ageSec as Number
     ) as Void {
-        var isGrad = colorIdx >= COLOR_GRAD;
+        var isGrad = colorIdx >= COLOR_GRAD_TRI;
         dc.setColor(
             isGrad ? _gradColor(colorIdx, maxFrac) : _colorFromIdx(0),
             Graphics.COLOR_TRANSPARENT
@@ -2633,7 +2676,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             meanFrac = 1.0;
         }
         var color =
-            colorIdx >= COLOR_GRAD ? _gradColor(colorIdx, meanFrac) : GRAYS[3];
+            colorIdx >= COLOR_GRAD_TRI
+                ? _gradColor(colorIdx, meanFrac)
+                : GRAYS[3];
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawDashedH(dc, gx, gx + gw, meanY);
     }
@@ -2730,24 +2775,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             dc.fillRectangle(bx, y + gh - barH, bw, barH);
         }
-    }
-
-    private function _valueColor(fraction as Float) as Number {
-        var r = 0;
-        var g = 0;
-        var b = 0;
-        if (fraction <= 0.5) {
-            var t = fraction * 2.0;
-            r = (85.0 + t * 170.0).toNumber();
-            g = (255.0 - t * 102.0).toNumber();
-            b = (119.0 - t * 51.0).toNumber();
-        } else {
-            var t = (fraction - 0.5) * 2.0;
-            r = 255;
-            g = (153.0 - t * 68.0).toNumber();
-            b = (68.0 + t * 17.0).toNumber();
-        }
-        return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
     }
 
     private function _drawGradBars(
@@ -2978,7 +3005,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minV,
             maxV,
             "+" + hours.toString() + "h",
-            0,
+            lineColor,
             maxFrac,
             minFrac,
             -1
@@ -3079,7 +3106,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradRange as Float,
         maxGap as Number
     ) as Void {
-        var isGrad = colorIdx >= COLOR_GRAD;
+        var isGrad = colorIdx >= COLOR_GRAD_TRI;
         if (graphType == GRAPH_BAR) {
             if (isGrad) {
                 _drawGradBars(
