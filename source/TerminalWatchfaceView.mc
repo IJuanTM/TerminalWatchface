@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.33.1";
+const APP_VERSION = "0.33.2";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -259,6 +259,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _graphBmpDualCache as Dictionary = {};
     private var _is24Hour as Boolean = true;
     private var _showSeconds as Boolean = false;
+    private var _leftPad as Number = 4;
     private var _scanlineIntensity as Number = 2;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
@@ -532,6 +533,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _metric = settings.distanceUnits == System.UNIT_METRIC;
             _is24Hour = settings.is24Hour;
             _showSeconds = _getBoolProp("showSeconds");
+            _leftPad = _getProp("leftPadding", 4);
             _scanlineIntensity = _getProp("scanlines", 2);
             _wxUnit = _metric ? "C" : "F";
             _notifCount =
@@ -633,7 +635,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _metricsValid = true;
         }
         var step = _fh + 16;
-        var cx = _w / 2 - _charW * 6;
+        var cx = _w / 2 - _charW * _leftPad;
 
         var v0 = _resolvedFields[0] != FIELD_NONE;
         var v1 = _resolvedFields[1] != FIELD_NONE;
@@ -2982,7 +2984,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var all = _wxForecastData;
         if (all == null) {
-            _rowBuf[0] = "Forecast";
+            _rowBuf[0] = "Temp Hour";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -2990,7 +2992,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var cnt = all.size();
         var n = hours < cnt ? hours : cnt;
         if (n < 2) {
-            _rowBuf[0] = "Forecast";
+            _rowBuf[0] = "Temp Hour";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3030,7 +3032,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minFrac = 1.0;
         }
 
-        _rowBuf[0] = "Forecast";
+        _rowBuf[0] = "Temp Hour";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         _drawMeanLine(
@@ -3354,7 +3356,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var all = _wxForecastPrecipData;
         if (all == null) {
-            _rowBuf[0] = "Rain Hourly";
+            _rowBuf[0] = "Rain %";
             _rowBuf[1] = _wxPrecip;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3362,7 +3364,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var cnt = all.size();
         var n = hours < cnt ? hours : cnt;
         if (n < 2) {
-            _rowBuf[0] = "Rain Hourly";
+            _rowBuf[0] = "Rain %";
             _rowBuf[1] = _wxPrecip;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3398,7 +3400,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (minFrac > 1.0) {
             minFrac = 1.0;
         }
-        _rowBuf[0] = "Rain Hourly";
+        _rowBuf[0] = "Rain %";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         _drawMeanLine(
@@ -3472,7 +3474,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var highs = _wxDailyForecastHigh;
         var lows = _wxDailyForecastLow;
         if (highs == null || lows == null) {
-            _rowBuf[0] = "Temp Daily";
+            _rowBuf[0] = "Temp Day";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3485,7 +3487,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var n = days < avail ? days : avail;
         if (n < 2) {
-            _rowBuf[0] = "Temp Daily";
+            _rowBuf[0] = "Temp Day";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3514,7 +3516,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _getGradRange(FIELD_WX_FORECAST, colorIdx, allMin, range);
         var gradMin = _grMin;
         var gradRange = _grRange;
-        _rowBuf[0] = "Temp Daily";
+        _rowBuf[0] = "Temp Day";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var ghf = gh.toFloat();
@@ -3872,17 +3874,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _getFieldParts(field as Number) as Void {
         if (field == FIELD_HR) {
             if (_acInfo == null) {
-                _rowBuf[0] = "Heart";
+                _rowBuf[0] = "Heart Rate";
                 _rowBuf[1] = "-";
                 return;
             }
             var a = _acInfo as Activity.Info;
             if (a.currentHeartRate != null) {
-                _rowBuf[0] = "Heart";
+                _rowBuf[0] = "Heart Rate";
                 _rowBuf[1] = (a.currentHeartRate as Number).toString() + " bpm";
                 return;
             }
-            _rowBuf[0] = "Heart";
+            _rowBuf[0] = "Heart Rate";
             _rowBuf[1] = "-";
             return;
         }
@@ -3959,22 +3961,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_ACTIVE_MIN) {
             if (_amInfo == null) {
-                _rowBuf[0] = "Int Mins Wk";
+                _rowBuf[0] = "Int Mins";
                 _rowBuf[1] = "0";
                 return;
             }
             var mins = (_amInfo as ActivityMonitor.Info).activeMinutesWeek;
             if (mins != null && mins.total != null) {
-                _rowBuf[0] = "Int Mins Wk";
+                _rowBuf[0] = "Int Mins";
                 _rowBuf[1] = (mins.total as Number).toString();
                 return;
             }
-            _rowBuf[0] = "Int Mins Wk";
+            _rowBuf[0] = "Int Mins";
             _rowBuf[1] = "0";
             return;
         }
         if (field == FIELD_WX_PRECIP) {
-            _rowBuf[0] = "Rain";
+            _rowBuf[0] = "Rain %";
             _rowBuf[1] = _wxPrecip;
             return;
         }
@@ -4141,22 +4143,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_FORECAST) {
-            _rowBuf[0] = "Forecast";
+            _rowBuf[0] = "Temp Hour";
             _rowBuf[1] = _wxTemp + _wxUnit;
             return;
         }
         if (field == FIELD_WX_FORECAST_PRECIP) {
-            _rowBuf[0] = "Rain Hourly";
+            _rowBuf[0] = "Rain %";
             _rowBuf[1] = _wxPrecip;
             return;
         }
         if (field == FIELD_WX_FORECAST_DAILY) {
-            _rowBuf[0] = "Temp Daily";
+            _rowBuf[0] = "Temp Day";
             _rowBuf[1] = _wxTemp + _wxUnit;
             return;
         }
         if (field == FIELD_LACTATE_HR) {
-            _rowBuf[0] = "Lact HR";
+            _rowBuf[0] = "Lactate HR";
             if (_amInfo != null) {
                 var info = _amInfo as ActivityMonitor.Info;
                 if (
@@ -4320,11 +4322,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (pos != null && pos.heading != null) {
                 var deg = ((pos.heading as Float) * 57.29577951).toNumber();
                 deg = ((deg % 360) + 360) % 360;
-                _rowBuf[0] = "Hdg";
+                _rowBuf[0] = "Heading";
                 _rowBuf[1] = deg.toString() + "°";
                 return;
             }
-            _rowBuf[0] = "Hdg";
+            _rowBuf[0] = "Heading";
             _rowBuf[1] = "-";
             return;
         }
@@ -4338,7 +4340,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _rowBuf[1] = lat.format("%.5f") + ", " + lon.format("%.5f");
                 return;
             }
-            _rowBuf[0] = "GPS Lat+Lon";
+            _rowBuf[0] = "Lat+Lon";
             _rowBuf[1] = "-";
             return;
         }
@@ -4466,7 +4468,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_TRAINING_STATUS) {
-            _rowBuf[0] = "Train Status";
+            _rowBuf[0] = "Training";
             _rowBuf[1] =
                 _compTrainingStatus != null
                     ? _compTrainingStatus as String

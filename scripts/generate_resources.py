@@ -190,7 +190,8 @@ def gen_properties():
     lines.append(prop("scanlines",  "number", 2))
 
     lines.append("\n  <!-- Display options -->")
-    lines.append(prop("showSeconds",       "boolean", "false"))
+    lines.append(prop("leftPadding",        "number",  4))
+    lines.append(prop("showSeconds",        "boolean", "false"))
     lines.append(prop("showYear",          "boolean", "false"))
     lines.append(prop("dateFormat",        "number",  0))
     lines.append(prop("watchCommandStyle", "number",  2))
@@ -274,7 +275,8 @@ def gen_strings():
     lines.append(s("ScanlinesStrong",   "Strong"))
 
     lines.append("\n  <!-- Display options -->")
-    lines.append(s("ShowSeconds",         "Show Seconds"))
+    lines.append(s("LeftPadding",          "Left Padding"))
+    lines.append(s("ShowSeconds",          "Show Seconds"))
     lines.append(s("ShowYear",            "Show Year in Date"))
     lines.append(s("DateFormat",          "Date Format"))
     lines.append(s("DateFormatDayMon",    "Day Month (Mon, 1 Jan)"))
@@ -519,6 +521,9 @@ def gen_settings():
         (1, "@Strings.WatchCommandLinux"),
         (2, "@Strings.WatchCommandBare"),
     ]))
+
+    parts.append(setting_list("leftPadding", "LeftPadding",
+        [(i, str(i)) for i in range(9)]))
 
     # Time row
     parts.append("\n  <!-- Time row -->")

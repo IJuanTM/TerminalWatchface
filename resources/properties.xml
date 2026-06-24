@@ -5,6 +5,7 @@
   <property id="scanlines" type="number">2</property>
 
   <!-- Display options -->
+  <property id="leftPadding" type="number">4</property>
   <property id="showSeconds" type="boolean">false</property>
   <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>
