@@ -54,6 +54,8 @@ FIELDS_ALL = [
     (19, "FieldWxCondPrecip"), (20, "FieldWxTempWind"),   (57, "FieldWxWindPrecip"),
     (58, "FieldWxTempUV"),    (59, "FieldWxUVPrecip"),
     (60, "FieldWxUVWind"),    (33, "FieldWxForecast"),
+    (61, "FieldWxForecastPrecip"), (62, "FieldWxForecastDaily"),
+    (63, "FieldLactateHR"),
 ]
 
 # Graph-capable sensor fields.
@@ -122,6 +124,8 @@ GRAPH_MODE_OPTIONS = [
     (2, "@Strings.GraphModeBarGraph"),
     (3, "@Strings.GraphModeLineCurrent"),
     (4, "@Strings.GraphModeBarCurrent"),
+    (5, "@Strings.GraphModeAreaGraph"),
+    (6, "@Strings.GraphModeAreaCurrent"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -229,6 +233,17 @@ def gen_properties():
     lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
     lines.append(prop("wxForecastGraphColor", "number", 16))  # GradTempTurbo (cold->hot)
+
+    lines.append("\n  <!-- Rain Forecast -->")
+    lines.append(prop("wxForecastPrecipViewMode",   "number", 2))  # graph+value
+    lines.append(prop("wxForecastPrecipGraphType",  "number", 1))  # bar
+    lines.append(prop("wxForecastPrecipTimeFrame",  "number", 12))  # 12h
+    lines.append(prop("wxForecastPrecipGraphColor", "number", 6))   # blue
+
+    lines.append("\n  <!-- Day Forecast -->")
+    lines.append(prop("wxForecastDailyViewMode",    "number", 2))   # graph+value
+    lines.append(prop("wxForecastDailyDays",        "number", 5))   # 5 days
+    lines.append(prop("wxForecastDailyGraphColor",  "number", 16))  # GradTempTurbo
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -353,7 +368,10 @@ def gen_strings():
         ("FieldHRMax",         "Heart Rate (Max)"),
         ("FieldPressure",      "Pressure"),
         ("FieldElevation",     "Elevation (Baro)"),
-        ("FieldWxForecast",    "Weather: Forecast"),
+        ("FieldWxForecast",         "Weather: Forecast"),
+        ("FieldWxForecastPrecip",  "Weather: Rain Forecast"),
+        ("FieldWxForecastDaily",   "Weather: Day Forecast"),
+        ("FieldLactateHR",         "Lactate Threshold HR"),
         ("FieldVo2Max",        "VO2 Max"),
         ("FieldSpeed",         "Speed"),
         ("FieldSleep",         "Sleep"),
@@ -386,6 +404,8 @@ def gen_strings():
     lines.append(s("GraphModeBarGraph",    "Bar graph"))
     lines.append(s("GraphModeLineCurrent", "Line + current value"))
     lines.append(s("GraphModeBarCurrent",  "Bar + current value"))
+    lines.append(s("GraphModeAreaGraph",   "Area graph"))
+    lines.append(s("GraphModeAreaCurrent", "Area + current value"))
 
     lines.append("\n  <!-- Shared: forecast view mode options -->")
     lines.append(s("ViewModeGraph",        "Graph"))
@@ -400,6 +420,7 @@ def gen_strings():
     lines.append("\n  <!-- Shared: graph type options (forecast) -->")
     lines.append(s("GraphTypeLine", "Line"))
     lines.append(s("GraphTypeBar",  "Bar"))
+    lines.append(s("GraphTypeArea", "Area"))
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
     lines.append(s("SecTypeNone", "None (hidden)"))
@@ -435,6 +456,20 @@ def gen_strings():
     lines.append(s("TimeFrameForecast6h",  "6 hours ahead"))
     lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
+
+    lines.append("\n  <!-- Graph settings: Rain Forecast -->")
+    lines.append(s("WxForecastPrecipViewMode",   "Rain Forecast: View Mode"))
+    lines.append(s("WxForecastPrecipGraphType",  "Rain Forecast: Graph Type"))
+    lines.append(s("WxForecastPrecipTimeFrame",  "Rain Forecast: Hours Ahead"))
+    lines.append(s("WxForecastPrecipGraphColor", "Rain Forecast: Graph Color"))
+
+    lines.append("\n  <!-- Graph settings: Day Forecast -->")
+    lines.append(s("WxForecastDailyViewMode",    "Day Forecast: View Mode"))
+    lines.append(s("WxForecastDailyDays",        "Day Forecast: Days"))
+    lines.append(s("WxForecastDailyGraphColor",  "Day Forecast: Color"))
+    lines.append(s("TimeFrameForecastDays3", "3 days"))
+    lines.append(s("TimeFrameForecastDays5", "5 days"))
+    lines.append(s("TimeFrameForecastDays7", "7 days"))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("ShowVersion", "Show App Version (testing)"))
@@ -542,10 +577,36 @@ def gen_settings():
     ]))
     parts.append(setting_list("wxForecastGraphType", "WxForecastGraphType", [
         (0, "@Strings.GraphTypeLine"), (1, "@Strings.GraphTypeBar"),
+        (2, "@Strings.GraphTypeArea"),
     ]))
     parts.append(setting_list("wxForecastTimeFrame", "WxForecastTimeFrame",
                                [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES]))
     parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
+
+    # Rain Forecast
+    parts.append("\n  <!-- Rain Forecast -->")
+    parts.append(setting_list("wxForecastPrecipViewMode", "WxForecastPrecipViewMode", [
+        (1, "@Strings.ViewModeGraph"), (2, "@Strings.ViewModeGraphCurrent"),
+    ]))
+    parts.append(setting_list("wxForecastPrecipGraphType", "WxForecastPrecipGraphType", [
+        (0, "@Strings.GraphTypeLine"), (1, "@Strings.GraphTypeBar"),
+        (2, "@Strings.GraphTypeArea"),
+    ]))
+    parts.append(setting_list("wxForecastPrecipTimeFrame", "WxForecastPrecipTimeFrame",
+                               [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES]))
+    parts.append(color_setting("wxForecastPrecipGraphColor", "WxForecastPrecipGraphColor"))
+
+    # Day Forecast
+    parts.append("\n  <!-- Day Forecast -->")
+    parts.append(setting_list("wxForecastDailyViewMode", "WxForecastDailyViewMode", [
+        (1, "@Strings.ViewModeGraph"), (2, "@Strings.ViewModeGraphCurrent"),
+    ]))
+    parts.append(setting_list("wxForecastDailyDays", "WxForecastDailyDays", [
+        (3, "@Strings.TimeFrameForecastDays3"),
+        (5, "@Strings.TimeFrameForecastDays5"),
+        (7, "@Strings.TimeFrameForecastDays7"),
+    ]))
+    parts.append(color_setting("wxForecastDailyGraphColor", "WxForecastDailyGraphColor"))
 
     # Debug
     parts.append("\n  <!-- Debug -->")

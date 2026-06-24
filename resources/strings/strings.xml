@@ -124,6 +124,9 @@
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
   <string id="FieldWxForecast">Weather: Forecast</string>
+  <string id="FieldWxForecastPrecip">Weather: Rain Forecast</string>
+  <string id="FieldWxForecastDaily">Weather: Day Forecast</string>
+  <string id="FieldLactateHR">Lactate Threshold HR</string>
   <string id="FieldVo2Max">VO2 Max</string>
   <string id="FieldSpeed">Speed</string>
   <string id="FieldSleep">Sleep</string>
@@ -153,6 +156,8 @@
   <string id="GraphModeBarGraph">Bar graph</string>
   <string id="GraphModeLineCurrent">Line + current value</string>
   <string id="GraphModeBarCurrent">Bar + current value</string>
+  <string id="GraphModeAreaGraph">Area graph</string>
+  <string id="GraphModeAreaCurrent">Area + current value</string>
 
   <!-- Shared: forecast view mode options -->
   <string id="ViewModeGraph">Graph</string>
@@ -167,6 +172,7 @@
   <!-- Shared: graph type options (forecast) -->
   <string id="GraphTypeLine">Line</string>
   <string id="GraphTypeBar">Bar</string>
+  <string id="GraphTypeArea">Area</string>
 
   <!-- Shared: secondary graph type options -->
   <string id="SecTypeNone">None (hidden)</string>
@@ -247,6 +253,20 @@
   <string id="TimeFrameForecast6h">6 hours ahead</string>
   <string id="TimeFrameForecast12h">12 hours ahead</string>
   <string id="TimeFrameForecast24h">24 hours ahead</string>
+
+  <!-- Graph settings: Rain Forecast -->
+  <string id="WxForecastPrecipViewMode">Rain Forecast: View Mode</string>
+  <string id="WxForecastPrecipGraphType">Rain Forecast: Graph Type</string>
+  <string id="WxForecastPrecipTimeFrame">Rain Forecast: Hours Ahead</string>
+  <string id="WxForecastPrecipGraphColor">Rain Forecast: Graph Color</string>
+
+  <!-- Graph settings: Day Forecast -->
+  <string id="WxForecastDailyViewMode">Day Forecast: View Mode</string>
+  <string id="WxForecastDailyDays">Day Forecast: Days</string>
+  <string id="WxForecastDailyGraphColor">Day Forecast: Color</string>
+  <string id="TimeFrameForecastDays3">3 days</string>
+  <string id="TimeFrameForecastDays5">5 days</string>
+  <string id="TimeFrameForecastDays7">7 days</string>
 
   <!-- Debug -->
   <string id="ShowVersion">Show App Version (testing)</string>

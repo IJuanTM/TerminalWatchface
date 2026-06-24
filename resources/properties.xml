@@ -122,6 +122,17 @@
   <property id="wxForecastTimeFrame" type="number">12</property>
   <property id="wxForecastGraphColor" type="number">16</property>
 
+  <!-- Rain Forecast -->
+  <property id="wxForecastPrecipViewMode" type="number">2</property>
+  <property id="wxForecastPrecipGraphType" type="number">1</property>
+  <property id="wxForecastPrecipTimeFrame" type="number">12</property>
+  <property id="wxForecastPrecipGraphColor" type="number">6</property>
+
+  <!-- Day Forecast -->
+  <property id="wxForecastDailyViewMode" type="number">2</property>
+  <property id="wxForecastDailyDays" type="number">5</property>
+  <property id="wxForecastDailyGraphColor" type="number">16</property>
+
   <!-- Debug -->
   <property id="showVersion" type="boolean">false</property>
 

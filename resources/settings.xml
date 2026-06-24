@@ -162,6 +162,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -252,6 +255,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
@@ -342,6 +348,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
@@ -434,6 +443,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -524,6 +536,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
@@ -614,6 +629,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
@@ -706,6 +724,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -796,6 +817,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
@@ -886,6 +910,9 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
@@ -972,6 +999,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
@@ -1060,6 +1089,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
@@ -1148,6 +1179,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
@@ -1236,6 +1269,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
@@ -1324,6 +1359,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
@@ -1412,6 +1449,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
@@ -1500,6 +1539,8 @@
       <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
       <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
@@ -1592,6 +1633,7 @@
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
       <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
@@ -1603,6 +1645,92 @@
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastGraphColor" title="@Strings.WxForecastGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Rain Forecast -->
+  <setting propertyKey="@Properties.wxForecastPrecipViewMode" title="@Strings.WxForecastPrecipViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastPrecipGraphType" title="@Strings.WxForecastPrecipGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastPrecipTimeFrame" title="@Strings.WxForecastPrecipTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastPrecipGraphColor" title="@Strings.WxForecastPrecipGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Day Forecast -->
+  <setting propertyKey="@Properties.wxForecastDailyViewMode" title="@Strings.WxForecastDailyViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyDays" title="@Strings.WxForecastDailyDays">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
+      <listEntry value="5">@Strings.TimeFrameForecastDays5</listEntry>
+      <listEntry value="7">@Strings.TimeFrameForecastDays7</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyGraphColor" title="@Strings.WxForecastDailyGraphColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>
