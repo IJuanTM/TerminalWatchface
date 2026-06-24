@@ -162,8 +162,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -255,8 +255,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -348,8 +348,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -443,8 +443,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -536,8 +536,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -629,8 +629,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -724,8 +724,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -817,8 +817,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>
@@ -910,8 +910,8 @@
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
+      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
     </settingConfig>
   </setting>

@@ -123,9 +123,9 @@
   <string id="FieldHRMax">Heart Rate (Max)</string>
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
-  <string id="FieldWxForecast">Weather: Forecast</string>
-  <string id="FieldWxForecastPrecip">Weather: Rain Forecast</string>
-  <string id="FieldWxForecastDaily">Weather: Day Forecast</string>
+  <string id="FieldWxForecast">Temp Hourly</string>
+  <string id="FieldWxForecastPrecip">Rain Hourly</string>
+  <string id="FieldWxForecastDaily">Temp Daily</string>
   <string id="FieldLactateHR">Lactate Threshold HR</string>
   <string id="FieldVo2Max">VO2 Max</string>
   <string id="FieldSpeed">Speed</string>
@@ -244,29 +244,29 @@
   <string id="PressureGraphColor">Pressure: Graph Color</string>
   <string id="PressureSecondaryColor">Pressure: 2nd Graph Color</string>
 
-  <!-- Graph settings: Weather Forecast -->
-  <string id="WxForecastViewMode">Forecast: View Mode</string>
-  <string id="WxForecastGraphType">Forecast: Graph Type</string>
-  <string id="WxForecastTimeFrame">Forecast: Time Frame</string>
-  <string id="WxForecastGraphColor">Forecast: Graph Color</string>
+  <!-- Graph settings: Temp Hourly Forecast -->
+  <string id="WxForecastViewMode">Temp Hourly: View Mode</string>
+  <string id="WxForecastGraphType">Temp Hourly: Graph Type</string>
+  <string id="WxForecastTimeFrame">Temp Hourly: Time Frame</string>
+  <string id="WxForecastGraphColor">Temp Hourly: Graph Color</string>
   <string id="TimeFrameForecast3h">3 hours ahead</string>
   <string id="TimeFrameForecast6h">6 hours ahead</string>
   <string id="TimeFrameForecast12h">12 hours ahead</string>
   <string id="TimeFrameForecast24h">24 hours ahead</string>
 
-  <!-- Graph settings: Rain Forecast -->
-  <string id="WxForecastPrecipViewMode">Rain Forecast: View Mode</string>
-  <string id="WxForecastPrecipGraphType">Rain Forecast: Graph Type</string>
-  <string id="WxForecastPrecipTimeFrame">Rain Forecast: Hours Ahead</string>
-  <string id="WxForecastPrecipGraphColor">Rain Forecast: Graph Color</string>
-
-  <!-- Graph settings: Day Forecast -->
-  <string id="WxForecastDailyViewMode">Day Forecast: View Mode</string>
-  <string id="WxForecastDailyDays">Day Forecast: Days</string>
-  <string id="WxForecastDailyGraphColor">Day Forecast: Color</string>
+  <!-- Graph settings: Temp Daily Forecast -->
+  <string id="WxForecastDailyViewMode">Temp Daily: View Mode</string>
+  <string id="WxForecastDailyDays">Temp Daily: Days</string>
+  <string id="WxForecastDailyGraphColor">Temp Daily: Graph Color</string>
   <string id="TimeFrameForecastDays3">3 days</string>
   <string id="TimeFrameForecastDays5">5 days</string>
   <string id="TimeFrameForecastDays7">7 days</string>
+
+  <!-- Graph settings: Rain Hourly Forecast -->
+  <string id="WxForecastPrecipViewMode">Rain Hourly: View Mode</string>
+  <string id="WxForecastPrecipGraphType">Rain Hourly: Graph Type</string>
+  <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
+  <string id="WxForecastPrecipGraphColor">Rain Hourly: Graph Color</string>
 
   <!-- Debug -->
   <string id="ShowVersion">Show App Version (testing)</string>

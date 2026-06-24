@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.33.0";
+const APP_VERSION = "0.33.1";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -3354,7 +3354,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var all = _wxForecastPrecipData;
         if (all == null) {
-            _rowBuf[0] = "Rain Fcst";
+            _rowBuf[0] = "Rain Hourly";
             _rowBuf[1] = _wxPrecip;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3362,7 +3362,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var cnt = all.size();
         var n = hours < cnt ? hours : cnt;
         if (n < 2) {
-            _rowBuf[0] = "Rain Fcst";
+            _rowBuf[0] = "Rain Hourly";
             _rowBuf[1] = _wxPrecip;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3398,7 +3398,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (minFrac > 1.0) {
             minFrac = 1.0;
         }
-        _rowBuf[0] = "Rain Fcst";
+        _rowBuf[0] = "Rain Hourly";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         _drawMeanLine(
@@ -3472,7 +3472,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var highs = _wxDailyForecastHigh;
         var lows = _wxDailyForecastLow;
         if (highs == null || lows == null) {
-            _rowBuf[0] = "Day Fcst";
+            _rowBuf[0] = "Temp Daily";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3485,7 +3485,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var n = days < avail ? days : avail;
         if (n < 2) {
-            _rowBuf[0] = "Day Fcst";
+            _rowBuf[0] = "Temp Daily";
             _rowBuf[1] = _wxTemp + _wxUnit;
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             return;
@@ -3514,7 +3514,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _getGradRange(FIELD_WX_FORECAST, colorIdx, allMin, range);
         var gradMin = _grMin;
         var gradRange = _grRange;
-        _rowBuf[0] = "Day Fcst";
+        _rowBuf[0] = "Temp Daily";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var ghf = gh.toFloat();
@@ -3994,12 +3994,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_COND_PRECIP) {
-            _rowBuf[0] = "Cond + Rain";
+            _rowBuf[0] = "Cond+Rain";
             _rowBuf[1] = _wxCond + " | " + _wxPrecip;
             return;
         }
         if (field == FIELD_WX_WIND_PRECIP) {
-            _rowBuf[0] = "Wind + Rain";
+            _rowBuf[0] = "Wind+Rain";
             _rowBuf[1] = _wxWind + " | " + _wxPrecip;
             return;
         }
@@ -4146,12 +4146,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_FORECAST_PRECIP) {
-            _rowBuf[0] = "Rain Fcst";
+            _rowBuf[0] = "Rain Hourly";
             _rowBuf[1] = _wxPrecip;
             return;
         }
         if (field == FIELD_WX_FORECAST_DAILY) {
-            _rowBuf[0] = "Day Fcst";
+            _rowBuf[0] = "Temp Daily";
             _rowBuf[1] = _wxTemp + _wxUnit;
             return;
         }
@@ -4338,7 +4338,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _rowBuf[1] = lat.format("%.5f") + ", " + lon.format("%.5f");
                 return;
             }
-            _rowBuf[0] = "GPS";
+            _rowBuf[0] = "GPS Lat+Lon";
             _rowBuf[1] = "-";
             return;
         }
@@ -4396,27 +4396,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_TEMP_COND) {
-            _rowBuf[0] = "Temp + Cond";
+            _rowBuf[0] = "Temp+Cond";
             _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxCond;
             return;
         }
         if (field == FIELD_WX_TEMP_WIND) {
-            _rowBuf[0] = "Temp + Wind";
+            _rowBuf[0] = "Temp+Wind";
             _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxWind;
             return;
         }
         if (field == FIELD_WX_TEMP_UV) {
-            _rowBuf[0] = "Temp + UV";
+            _rowBuf[0] = "Temp+UV";
             _rowBuf[1] = _wxTemp + _wxUnit + " UV:" + _wxUv;
             return;
         }
         if (field == FIELD_WX_UV_PRECIP) {
-            _rowBuf[0] = "UV + Rain";
+            _rowBuf[0] = "UV+Rain";
             _rowBuf[1] = _wxUv + " " + _wxPrecip;
             return;
         }
         if (field == FIELD_WX_UV_WIND) {
-            _rowBuf[0] = "UV + Wind";
+            _rowBuf[0] = "UV+Wind";
             _rowBuf[1] = _wxUv + " " + _wxWind;
             return;
         }
