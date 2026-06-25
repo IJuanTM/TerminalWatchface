@@ -188,7 +188,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -283,7 +322,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -378,7 +456,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -473,7 +590,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
@@ -568,7 +724,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
@@ -663,7 +858,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
@@ -758,7 +992,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
@@ -853,7 +1126,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
@@ -948,7 +1260,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
@@ -1043,7 +1394,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuaternaryLabelColor" title="@Strings.Line3QuaternaryLabelColor">
@@ -1138,7 +1528,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuaternaryLabelColor" title="@Strings.Line4QuaternaryLabelColor">
@@ -1233,7 +1662,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuaternaryLabelColor" title="@Strings.Line5QuaternaryLabelColor">
@@ -1328,7 +1796,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuinaryLabelColor" title="@Strings.Line3QuinaryLabelColor">
@@ -1423,7 +1930,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuinaryLabelColor" title="@Strings.Line4QuinaryLabelColor">
@@ -1518,7 +2064,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuinaryLabelColor" title="@Strings.Line5QuinaryLabelColor">
@@ -1613,7 +2198,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SenaryLabelColor" title="@Strings.Line3SenaryLabelColor">
@@ -1708,7 +2332,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SenaryLabelColor" title="@Strings.Line4SenaryLabelColor">
@@ -1803,7 +2466,46 @@
       <listEntry value="33">@Strings.FieldWxForecast</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
+      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
+      <listEntry value="65">@Strings.FieldPace</listEntry>
+      <listEntry value="66">@Strings.FieldPaceAvg</listEntry>
+      <listEntry value="67">@Strings.FieldWxHumidity</listEntry>
+      <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
+      <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
+      <listEntry value="70">@Strings.FieldWxCloud</listEntry>
+      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
+      <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
+      <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
+      <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="78">@Strings.FieldRacePace5k</listEntry>
+      <listEntry value="79">@Strings.FieldRacePace10k</listEntry>
+      <listEntry value="80">@Strings.FieldRacePaceHalf</listEntry>
+      <listEntry value="81">@Strings.FieldRacePaceMarathon</listEntry>
+      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
+      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="87">@Strings.FieldPaceAndAvg</listEntry>
+      <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
+      <listEntry value="89">@Strings.FieldBbStress</listEntry>
+      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
+      <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
+      <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
+      <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
+      <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
+      <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
+      <listEntry value="99">@Strings.FieldSleepSchedule</listEntry>
+      <listEntry value="100">@Strings.FieldVo2Training</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SenaryLabelColor" title="@Strings.Line5SenaryLabelColor">
@@ -1892,6 +2594,14 @@
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
       <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.hrGraphValueMode" title="@Strings.HRGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
@@ -1984,6 +2694,14 @@
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.bodyBatGraphValueMode" title="@Strings.BodyBatGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
     <settingConfig type="list">
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
@@ -2072,6 +2790,14 @@
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
       <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.stressGraphValueMode" title="@Strings.StressGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
@@ -2164,6 +2890,14 @@
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.spo2GraphValueMode" title="@Strings.SpO2GraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
     <settingConfig type="list">
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
@@ -2252,6 +2986,14 @@
       <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
       <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.tempWristGraphValueMode" title="@Strings.TempWristGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
@@ -2344,6 +3086,14 @@
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.elevationGraphValueMode" title="@Strings.ElevationGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
     <settingConfig type="list">
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
@@ -2434,6 +3184,14 @@
       <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.pressureGraphValueMode" title="@Strings.PressureGraphValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
     <settingConfig type="list">
       <listEntry value="0">@Strings.SecTypeNone</listEntry>
@@ -2517,7 +3275,14 @@
     <settingConfig type="list">
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
-      <listEntry value="3">@Strings.ViewModeGraphMinMax</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastValueMode" title="@Strings.WxForecastValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">
@@ -2567,6 +3332,14 @@
       <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.wxForecastPrecipValueMode" title="@Strings.WxForecastPrecipValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.wxForecastPrecipGraphType" title="@Strings.WxForecastPrecipGraphType">
     <settingConfig type="list">
       <listEntry value="0">@Strings.GraphTypeLine</listEntry>
@@ -2614,6 +3387,14 @@
       <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.wxForecastDailyValueMode" title="@Strings.WxForecastDailyValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.wxForecastDailyDays" title="@Strings.WxForecastDailyDays">
     <settingConfig type="list">
       <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
@@ -2622,6 +3403,226 @@
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastDailyGraphColor" title="@Strings.WxForecastDailyGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Wind Forecast -->
+  <setting propertyKey="@Properties.wxForecastWindViewMode" title="@Strings.WxForecastWindViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastWindValueMode" title="@Strings.WxForecastWindValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastWindGraphType" title="@Strings.WxForecastWindGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastWindTimeFrame" title="@Strings.WxForecastWindTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastWindGraphColor" title="@Strings.WxForecastWindGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Humidity Forecast -->
+  <setting propertyKey="@Properties.wxForecastHumidityViewMode" title="@Strings.WxForecastHumidityViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityValueMode" title="@Strings.WxForecastHumidityValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphType" title="@Strings.WxForecastHumidityGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityTimeFrame" title="@Strings.WxForecastHumidityTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphColor" title="@Strings.WxForecastHumidityGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- UV Forecast -->
+  <setting propertyKey="@Properties.wxForecastUvViewMode" title="@Strings.WxForecastUvViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastUvValueMode" title="@Strings.WxForecastUvValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastUvGraphType" title="@Strings.WxForecastUvGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastUvTimeFrame" title="@Strings.WxForecastUvTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastUvGraphColor" title="@Strings.WxForecastUvGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Cloud Forecast -->
+  <setting propertyKey="@Properties.wxForecastCloudViewMode" title="@Strings.WxForecastCloudViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastCloudValueMode" title="@Strings.WxForecastCloudValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMinMax</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastCloudGraphType" title="@Strings.WxForecastCloudGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastCloudTimeFrame" title="@Strings.WxForecastCloudTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastCloudGraphColor" title="@Strings.WxForecastCloudGraphColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>

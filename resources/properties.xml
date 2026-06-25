@@ -92,6 +92,7 @@
 
   <!-- HR -->
   <property id="hrGraphMode" type="number">3</property>
+  <property id="hrGraphValueMode" type="number">0</property>
   <property id="hrSecondaryType" type="number">0</property>
   <property id="hrSecondaryField" type="number">1</property>
   <property id="hrTimeFrame" type="number">60</property>
@@ -100,6 +101,7 @@
 
   <!-- BodyBat -->
   <property id="bodyBatGraphMode" type="number">0</property>
+  <property id="bodyBatGraphValueMode" type="number">0</property>
   <property id="bodyBatSecondaryType" type="number">0</property>
   <property id="bodyBatSecondaryField" type="number">2</property>
   <property id="bodyBatTimeFrame" type="number">60</property>
@@ -108,6 +110,7 @@
 
   <!-- Stress -->
   <property id="stressGraphMode" type="number">3</property>
+  <property id="stressGraphValueMode" type="number">1</property>
   <property id="stressSecondaryType" type="number">0</property>
   <property id="stressSecondaryField" type="number">0</property>
   <property id="stressTimeFrame" type="number">60</property>
@@ -116,6 +119,7 @@
 
   <!-- SpO2 -->
   <property id="spo2GraphMode" type="number">0</property>
+  <property id="spo2GraphValueMode" type="number">2</property>
   <property id="spo2SecondaryType" type="number">0</property>
   <property id="spo2SecondaryField" type="number">0</property>
   <property id="spo2TimeFrame" type="number">60</property>
@@ -124,6 +128,7 @@
 
   <!-- TempWrist -->
   <property id="tempWristGraphMode" type="number">0</property>
+  <property id="tempWristGraphValueMode" type="number">1</property>
   <property id="tempWristSecondaryType" type="number">0</property>
   <property id="tempWristSecondaryField" type="number">0</property>
   <property id="tempWristTimeFrame" type="number">60</property>
@@ -132,6 +137,7 @@
 
   <!-- Elevation -->
   <property id="elevationGraphMode" type="number">6</property>
+  <property id="elevationGraphValueMode" type="number">0</property>
   <property id="elevationSecondaryType" type="number">0</property>
   <property id="elevationSecondaryField" type="number">6</property>
   <property id="elevationTimeFrame" type="number">480</property>
@@ -140,6 +146,7 @@
 
   <!-- Pressure -->
   <property id="pressureGraphMode" type="number">3</property>
+  <property id="pressureGraphValueMode" type="number">1</property>
   <property id="pressureSecondaryType" type="number">0</property>
   <property id="pressureSecondaryField" type="number">5</property>
   <property id="pressureTimeFrame" type="number">30</property>
@@ -148,20 +155,51 @@
 
   <!-- Weather Forecast -->
   <property id="wxForecastViewMode" type="number">1</property>
+  <property id="wxForecastValueMode" type="number">1</property>
   <property id="wxForecastGraphType" type="number">1</property>
-  <property id="wxForecastTimeFrame" type="number">6</property>
+  <property id="wxForecastTimeFrame" type="number">12</property>
   <property id="wxForecastGraphColor" type="number">16</property>
 
   <!-- Rain Forecast -->
   <property id="wxForecastPrecipViewMode" type="number">2</property>
+  <property id="wxForecastPrecipValueMode" type="number">1</property>
   <property id="wxForecastPrecipGraphType" type="number">1</property>
-  <property id="wxForecastPrecipTimeFrame" type="number">6</property>
+  <property id="wxForecastPrecipTimeFrame" type="number">12</property>
   <property id="wxForecastPrecipGraphColor" type="number">6</property>
 
   <!-- Day Forecast -->
   <property id="wxForecastDailyViewMode" type="number">2</property>
+  <property id="wxForecastDailyValueMode" type="number">2</property>
   <property id="wxForecastDailyDays" type="number">5</property>
   <property id="wxForecastDailyGraphColor" type="number">16</property>
+
+  <!-- Wind Forecast -->
+  <property id="wxForecastWindViewMode" type="number">2</property>
+  <property id="wxForecastWindValueMode" type="number">1</property>
+  <property id="wxForecastWindGraphType" type="number">1</property>
+  <property id="wxForecastWindTimeFrame" type="number">12</property>
+  <property id="wxForecastWindGraphColor" type="number">4</property>
+
+  <!-- Humidity Forecast -->
+  <property id="wxForecastHumidityViewMode" type="number">2</property>
+  <property id="wxForecastHumidityValueMode" type="number">1</property>
+  <property id="wxForecastHumidityGraphType" type="number">1</property>
+  <property id="wxForecastHumidityTimeFrame" type="number">12</property>
+  <property id="wxForecastHumidityGraphColor" type="number">2</property>
+
+  <!-- UV Forecast -->
+  <property id="wxForecastUvViewMode" type="number">2</property>
+  <property id="wxForecastUvValueMode" type="number">2</property>
+  <property id="wxForecastUvGraphType" type="number">1</property>
+  <property id="wxForecastUvTimeFrame" type="number">12</property>
+  <property id="wxForecastUvGraphColor" type="number">3</property>
+
+  <!-- Cloud Forecast -->
+  <property id="wxForecastCloudViewMode" type="number">2</property>
+  <property id="wxForecastCloudValueMode" type="number">1</property>
+  <property id="wxForecastCloudGraphType" type="number">1</property>
+  <property id="wxForecastCloudTimeFrame" type="number">12</property>
+  <property id="wxForecastCloudGraphColor" type="number">8</property>
 
   <!-- Debug -->
   <property id="showVersion" type="boolean">false</property>
