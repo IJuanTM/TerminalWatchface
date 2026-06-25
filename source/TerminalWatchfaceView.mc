@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.35.0";
+const APP_VERSION = "0.35.1";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -282,6 +282,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxLastMin as Number = -1;
     private var _metric as Boolean = false;
     private var _notifCount as Number = 0;
+    private var _notifLabel as String = "";
+    private var _notifLastMs as Number = -5000;
     private var _compSleepScore as Number? = null;
     private var _compSunrise as Number? = null;
     private var _compSunset as Number? = null;
@@ -329,12 +331,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _resolvedFields as Array<Number> = [7, 7, 7] as Array<Number>;
     private var _needsLiveActivity as Boolean = true;
     private var _needsGps as Boolean = false;
+    private var _needsForecast as Boolean = true;
     private var _resolvedLabelC as Array<Number> = [8, 8, 8] as Array<Number>;
     private var _resolvedValueC as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _rowBuf as Array<String> = ["", ""] as Array<String>;
     private var _timeBuf as Array<String> = ["Time", ""] as Array<String>;
     private var _dateBuf as Array<String> = ["Date", ""] as Array<String>;
     private var _lastDateDay as Number = -1;
+    private var _cachedTimeMin as Number = -1;
+    private var _cachedTimeHM as String = "";
     private var _dateFormat as Number = 0;
     private var _showYear as Boolean = false;
     private var _line1LabelC as Number = 8;
@@ -492,6 +497,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _graphBmpCache = {};
         _graphBmpDualCache = {};
         _lastDateDay = -1;
+        _cachedTimeMin = -1;
     }
 
     (:extendedCode)
@@ -566,6 +572,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     public function onUpdate(dc as Dc) as Void {
         var now = System.getTimer();
+        if (now - _notifLastMs >= 5000) {
+            _notifLastMs = now;
+            var nc = System.getDeviceSettings().notificationCount;
+            var newCount = nc != null ? nc as Number : 0;
+            if (newCount != _notifCount) {
+                _notifCount = newCount;
+                _notifLabel = "[" + newCount.toString() + "]";
+            }
+        }
         var nowMoment = Time.now();
         var phase = _getPhase(nowMoment.value());
         _cursorOn = (now / 1000) % 2 == 0;
@@ -609,8 +624,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     needsGps = true;
                 }
             }
+            var needsForecast = false;
+            for (var i = 0; i < 3; i++) {
+                var f = _resolvedFields[i];
+                if (
+                    f == FIELD_WX_FORECAST ||
+                    f == FIELD_WX_FORECAST_PRECIP ||
+                    f == FIELD_WX_FORECAST_DAILY ||
+                    f == FIELD_WX_FORECAST_WIND ||
+                    f == FIELD_WX_FORECAST_HUMIDITY ||
+                    f == FIELD_WX_FORECAST_UV ||
+                    f == FIELD_WX_FORECAST_CLOUD
+                ) {
+                    needsForecast = true;
+                }
+            }
             _needsLiveActivity = needsAct;
             _needsGps = needsGps;
+            _needsForecast = needsForecast;
         }
         if (_needsLiveActivity) {
             _acInfo = Activity.getActivityInfo();
@@ -638,10 +669,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _areaShowLine = _getBoolProp("areaShowLine");
             _scanlineIntensity = _getProp("scanlines", 2);
             _wxUnit = _metric ? "C" : "F";
-            _notifCount =
-                settings.notificationCount != null
-                    ? settings.notificationCount as Number
-                    : 0;
             _amInfo = ActivityMonitor.getInfo();
             _refreshComplications();
             _refreshPointSamples();
@@ -894,13 +921,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         var textY = y - 32 - _smallFh;
-        var label = "[" + _notifCount.toString() + "]";
         dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             _w / 2,
             textY,
             _fontSmall,
-            label,
+            _notifLabel,
             Graphics.TEXT_JUSTIFY_CENTER
         );
     }
@@ -5602,21 +5628,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _timeParts() as Array<String> {
         var t = System.getClockTime();
-        var hm = "";
-        var ampm = "";
-        if (!_is24Hour) {
-            var h = t.hour % 12;
-            if (h == 0) {
-                h = 12;
+        if (t.min != _cachedTimeMin) {
+            _cachedTimeMin = t.min;
+            if (!_is24Hour) {
+                var h = t.hour % 12;
+                if (h == 0) {
+                    h = 12;
+                }
+                _cachedTimeHM = h.toString() + ":" + t.min.format("%02d");
+            } else {
+                _cachedTimeHM =
+                    t.hour.format("%02d") + ":" + t.min.format("%02d");
             }
-            hm = h.toString() + ":" + t.min.format("%02d");
-            ampm = t.hour >= 12 ? "pm" : "am";
-        } else {
-            hm = t.hour.format("%02d") + ":" + t.min.format("%02d");
-            ampm = "";
         }
+        var ampm = !_is24Hour ? (t.hour >= 12 ? "pm" : "am") : "";
         _timeBuf[1] =
-            hm + (_showSeconds ? ":" + t.sec.format("%02d") : "") + ampm;
+            _cachedTimeHM +
+            (_showSeconds ? ":" + t.sec.format("%02d") : "") +
+            ampm;
         return _timeBuf;
     }
 
@@ -5862,69 +5891,73 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var tf = c.temperature as Float;
             _wxHeatIndex = _calcHeatIndex(tf, _wxHumidityNum);
         }
-        var forecast = Weather.getHourlyForecast();
-        if (forecast != null && forecast.size() > 0) {
-            var cnt = forecast.size() < 24 ? forecast.size() : 24;
-            var arr = new Array<Float>[cnt];
-            var precipArr = new Array<Float>[cnt];
-            var windArr = new Array<Float>[cnt];
-            var humArr = new Array<Float>[cnt];
-            var uvArr = new Array<Float>[cnt];
-            var cloudArr = new Array<Float>[cnt];
-            for (var i = 0; i < cnt; i++) {
-                var h = forecast[i];
-                if (h.temperature != null) {
-                    arr[i] = h.temperature as Float;
+        if (_needsForecast) {
+            var forecast = Weather.getHourlyForecast();
+            if (forecast != null && forecast.size() > 0) {
+                var cnt = forecast.size() < 24 ? forecast.size() : 24;
+                var arr = new Array<Float>[cnt];
+                var precipArr = new Array<Float>[cnt];
+                var windArr = new Array<Float>[cnt];
+                var humArr = new Array<Float>[cnt];
+                var uvArr = new Array<Float>[cnt];
+                var cloudArr = new Array<Float>[cnt];
+                for (var i = 0; i < cnt; i++) {
+                    var h = forecast[i];
+                    if (h.temperature != null) {
+                        arr[i] = h.temperature as Float;
+                    }
+                    if (h.precipitationChance != null) {
+                        precipArr[i] = (
+                            h.precipitationChance as Number
+                        ).toFloat();
+                    }
+                    if (h.windSpeed != null) {
+                        windArr[i] = h.windSpeed as Float;
+                    }
+                    if (h.relativeHumidity != null) {
+                        humArr[i] = (h.relativeHumidity as Number).toFloat();
+                    }
+                    if (h.uvIndex != null) {
+                        uvArr[i] = h.uvIndex as Float;
+                    }
+                    if (h.cloudCover != null) {
+                        cloudArr[i] = (h.cloudCover as Number).toFloat();
+                    }
                 }
-                if (h.precipitationChance != null) {
-                    precipArr[i] = (h.precipitationChance as Number).toFloat();
-                }
-                if (h.windSpeed != null) {
-                    windArr[i] = h.windSpeed as Float;
-                }
-                if (h.relativeHumidity != null) {
-                    humArr[i] = (h.relativeHumidity as Number).toFloat();
-                }
-                if (h.uvIndex != null) {
-                    uvArr[i] = h.uvIndex as Float;
-                }
-                if (h.cloudCover != null) {
-                    cloudArr[i] = (h.cloudCover as Number).toFloat();
-                }
+                _wxForecastData = arr;
+                _wxForecastPrecipData = precipArr;
+                _wxForecastWindData = windArr;
+                _wxForecastHumidityData = humArr;
+                _wxForecastUvData = uvArr;
+                _wxForecastCloudData = cloudArr;
+            } else {
+                _wxForecastData = null;
+                _wxForecastPrecipData = null;
+                _wxForecastWindData = null;
+                _wxForecastHumidityData = null;
+                _wxForecastUvData = null;
+                _wxForecastCloudData = null;
             }
-            _wxForecastData = arr;
-            _wxForecastPrecipData = precipArr;
-            _wxForecastWindData = windArr;
-            _wxForecastHumidityData = humArr;
-            _wxForecastUvData = uvArr;
-            _wxForecastCloudData = cloudArr;
-        } else {
-            _wxForecastData = null;
-            _wxForecastPrecipData = null;
-            _wxForecastWindData = null;
-            _wxForecastHumidityData = null;
-            _wxForecastUvData = null;
-            _wxForecastCloudData = null;
-        }
-        var daily = Weather.getDailyForecast();
-        if (daily != null && daily.size() >= 2) {
-            var dcnt = daily.size() < 7 ? daily.size() : 7;
-            var dhigh = new Array<Float>[dcnt];
-            var dlow = new Array<Float>[dcnt];
-            for (var i = 0; i < dcnt; i++) {
-                var dfc = daily[i];
-                if (dfc.highTemperature != null) {
-                    dhigh[i] = dfc.highTemperature as Float;
+            var daily = Weather.getDailyForecast();
+            if (daily != null && daily.size() >= 2) {
+                var dcnt = daily.size() < 7 ? daily.size() : 7;
+                var dhigh = new Array<Float>[dcnt];
+                var dlow = new Array<Float>[dcnt];
+                for (var i = 0; i < dcnt; i++) {
+                    var dfc = daily[i];
+                    if (dfc.highTemperature != null) {
+                        dhigh[i] = dfc.highTemperature as Float;
+                    }
+                    if (dfc.lowTemperature != null) {
+                        dlow[i] = dfc.lowTemperature as Float;
+                    }
                 }
-                if (dfc.lowTemperature != null) {
-                    dlow[i] = dfc.lowTemperature as Float;
-                }
+                _wxDailyForecastHigh = dhigh;
+                _wxDailyForecastLow = dlow;
+            } else {
+                _wxDailyForecastHigh = null;
+                _wxDailyForecastLow = null;
             }
-            _wxDailyForecastHigh = dhigh;
-            _wxDailyForecastLow = dlow;
-        } else {
-            _wxDailyForecastHigh = null;
-            _wxDailyForecastLow = null;
         }
     }
 
