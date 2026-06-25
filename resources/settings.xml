@@ -185,7 +185,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -199,7 +199,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -319,7 +319,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -333,7 +333,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -453,7 +453,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -467,7 +467,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -587,7 +587,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -601,7 +601,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -721,7 +721,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -735,7 +735,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -855,7 +855,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -869,7 +869,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -989,7 +989,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1003,7 +1003,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1123,7 +1123,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1137,7 +1137,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1257,7 +1257,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1271,7 +1271,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1391,7 +1391,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1405,7 +1405,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1525,7 +1525,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1539,7 +1539,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1659,7 +1659,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1673,7 +1673,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1793,7 +1793,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1807,7 +1807,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -1927,7 +1927,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -1941,7 +1941,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -2061,7 +2061,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -2075,7 +2075,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -2195,7 +2195,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -2209,7 +2209,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -2329,7 +2329,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -2343,7 +2343,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
@@ -2463,7 +2463,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecast</listEntry>
+      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
       <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
@@ -2477,7 +2477,7 @@
       <listEntry value="68">@Strings.FieldWxDewPoint</listEntry>
       <listEntry value="69">@Strings.FieldWxVisibility</listEntry>
       <listEntry value="70">@Strings.FieldWxCloud</listEntry>
-      <listEntry value="102">@Strings.FieldWxHighLow</listEntry>
+      <listEntry value="102">@Strings.FieldWxLowHigh</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
       <listEntry value="72">@Strings.FieldWxHeatIndex</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>

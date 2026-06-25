@@ -54,13 +54,13 @@ FIELDS_ALL = [
     (19, "FieldWxCondPrecip"), (20, "FieldWxTempWind"),   (57, "FieldWxWindPrecip"),
     (58, "FieldWxTempUV"),    (59, "FieldWxUVPrecip"),
     (60, "FieldWxUVWind"),
-    (33, "FieldWxForecast"), (62, "FieldWxForecastDaily"), (61, "FieldWxForecastPrecip"),
+    (33, "FieldWxForecastTemp"), (62, "FieldWxForecastDaily"), (61, "FieldWxForecastPrecip"),
     (64, "FieldWxForecastWind"), (73, "FieldWxForecastHumidity"),
     (85, "FieldWxForecastUv"),   (86, "FieldWxForecastCloud"),
     (63, "FieldLactateHR"),
     (65, "FieldPace"), (66, "FieldPaceAvg"),
     (67, "FieldWxHumidity"), (68, "FieldWxDewPoint"), (69, "FieldWxVisibility"),
-    (70, "FieldWxCloud"), (102, "FieldWxHighLow"), (71, "FieldWxHumidityDew"), (72, "FieldWxHeatIndex"),
+    (70, "FieldWxCloud"), (102, "FieldWxLowHigh"), (71, "FieldWxHumidityDew"), (72, "FieldWxHeatIndex"),
     (74, "FieldTrainingEffect"),
     (75, "FieldTotalAscent"), (76, "FieldTotalDescent"),
     (77, "FieldNotifications"),
@@ -87,13 +87,13 @@ FIELDS_ALL = [
 # sec_field_default is an index into GRAPH_SEC_FIELDS below.
 GRAPH_FIELDS = [
     #  key         skey         mode std sfd  tfd  gcd scd vmd
-    ("hr",        "HR",        3, 0, 1,  60,  5, 0, 0),  # current HR
-    ("bodyBat",   "BodyBat",   0, 0, 2,  60,  0, 0, 0),  # current body battery
-    ("stress",    "Stress",    3, 0, 0,  60, 10, 0, 1),  # avg stress
-    ("spo2",      "SpO2",      0, 0, 0,  60,  0, 0, 2),  # min/max SpO2
-    ("tempWrist", "TempWrist", 0, 0, 0,  60,  0, 0, 1),  # avg wrist temp
-    ("elevation", "Elevation", 6, 0, 6,  480, 1, 0, 0),  # current elevation
-    ("pressure",  "Pressure",  3, 0, 5,  30,  0, 0, 1),  # avg pressure
+    ("hr",        "HR",        3, 0, 1,  60,  5, 0, 0),  # current HR; red solid line
+    ("bodyBat",   "BodyBat",   6, 0, 2, 240, 11, 0, 0),  # area+current, 4h trend; reversed tri-color (high=green, low=red)
+    ("stress",    "Stress",    3, 0, 0, 120, 10, 0, 1),  # avg stress, 2h context; tri-color (low=green, high=red)
+    ("spo2",      "SpO2",      0, 0, 0,  60,  2, 0, 2),  # min/max SpO2; cyan
+    ("tempWrist", "TempWrist", 3, 0, 0,  60, 16, 0, 1),  # line+current, avg; turbo gradient for temperature
+    ("elevation", "Elevation", 6, 0, 6, 480,  1, 0, 0),  # current elevation
+    ("pressure",  "Pressure",  3, 0, 5, 120,  2, 0, 1),  # avg pressure, 2h; cyan (atmospheric)
 ]
 
 # Secondary field options shared by all graph secondary-field pickers
@@ -127,30 +127,30 @@ GRAPH_DISPLAY_NAMES = {
 
 # Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
 LINE_SLOTS = [
-    # R1 (Primary)
-    (3, "Primary",    58, 6, 0),  # Temp+UV, blue
+    # R1 (Primary) - shown longest; at-a-glance essentials
+    (3, "Primary",    33, 6, 0),  # Temp Hourly forecast graph, blue
     (4, "Primary",     0, 1, 0),  # Steps, green
     (5, "Primary",     1, 5, 0),  # HR, red
     # R2 (Secondary)
-    (3, "Secondary",  33, 6, 0),  # Temp Hour, blue
+    (3, "Secondary",  61, 6, 0),  # Rain Hourly forecast, blue
     (4, "Secondary",  32, 1, 0),  # Elevation, green
-    (5, "Secondary",   1, 5, 0),  # HR, red
+    (5, "Secondary",  21, 5, 0),  # Stress, red
     # R3 (Tertiary)
-    (3, "Tertiary",   61, 6, 0),  # Rain Hour, blue
-    (4, "Tertiary",    4, 1, 0),  # Distance Day, green
-    (5, "Tertiary",   21, 5, 0),  # Stress, red
+    (3, "Tertiary",   64, 6, 0),  # Wind Hourly forecast, blue
+    (4, "Tertiary",    4, 1, 0),  # Distance (daily), green
+    (5, "Tertiary",    7, 8, 0),  # None
     # R4 (Quaternary)
-    (3, "Quaternary", 62, 6, 0),  # Temp Day, blue
-    (4, "Quaternary", 56, 1, 0),  # GPS Lat+Lon+Acc, green
-    (5, "Quaternary", 21, 5, 0),  # Stress, red
-    # R5 (Quinary) - empty
-    (3, "Quinary",     7, 6, 0),
-    (4, "Quinary",     7, 1, 0),
-    (5, "Quinary",     7, 5, 0),
-    # R6 (Senary) - empty
-    (3, "Senary",      7, 6, 0),
-    (4, "Senary",      7, 1, 0),
-    (5, "Senary",      7, 5, 0),
+    (3, "Quaternary", 62, 6, 0),  # Temp Daily forecast, blue
+    (4, "Quaternary",  7, 8, 0),  # None
+    (5, "Quaternary",  7, 8, 0),  # None
+    # R5 (Quinary)
+    (3, "Quinary",     7, 8, 0),  # None
+    (4, "Quinary",     7, 8, 0),  # None
+    (5, "Quinary",     7, 8, 0),  # None
+    # R6 (Senary)
+    (3, "Senary",      7, 8, 0),  # None
+    (4, "Senary",      7, 8, 0),  # None
+    (5, "Senary",      7, 8, 0),  # None
 ]
 
 # Graph mode options shared by all sensor graph fields
@@ -276,7 +276,7 @@ def gen_properties():
         lines.append(prop(f"{key}SecondaryColor", "number", scd))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastViewMode",   "number", 1))   # graph only
+    lines.append(prop("wxForecastViewMode",   "number", 2))   # graph + current
     lines.append(prop("wxForecastValueMode",  "number", 1))   # avg
     lines.append(prop("wxForecastGraphType",  "number", 1))   # bar
     lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
@@ -300,7 +300,7 @@ def gen_properties():
     lines.append(prop("wxForecastWindValueMode",    "number", 1))  # avg
     lines.append(prop("wxForecastWindGraphType",    "number", 1))  # bar
     lines.append(prop("wxForecastWindTimeFrame",    "number", 12)) # 12h
-    lines.append(prop("wxForecastWindGraphColor",   "number", 4))  # orange
+    lines.append(prop("wxForecastWindGraphColor",   "number", 6))  # blue
 
     lines.append("\n  <!-- Humidity Forecast -->")
     lines.append(prop("wxForecastHumidityViewMode",  "number", 2)) # graph+value
@@ -454,7 +454,7 @@ def gen_strings():
         ("FieldHRMax",         "Heart Rate (Max)"),
         ("FieldPressure",      "Pressure"),
         ("FieldElevation",     "Elevation (Baro)"),
-        ("FieldWxForecast",        "Temp Hourly"),
+        ("FieldWxForecastTemp",        "Temp Hourly"),
         ("FieldWxForecastPrecip",  "Rain Hourly"),
         ("FieldWxForecastDaily",   "Temp Daily"),
         ("FieldLactateHR",         "Lactate Threshold HR"),
@@ -490,7 +490,7 @@ def gen_strings():
         ("FieldWxDewPoint",         "Dew Point"),
         ("FieldWxVisibility",       "Visibility"),
         ("FieldWxCloud",            "Cloud Cover"),
-        ("FieldWxHighLow",          "Wx High / Low Temp"),
+        ("FieldWxLowHigh",          "Wx Low / High Temp"),
         ("FieldWxHumidityDew",      "Humidity + Dew Point"),
         ("FieldWxHeatIndex",        "Heat Index"),
         ("FieldTrainingEffect",     "Training Effect"),

@@ -24,7 +24,7 @@
   <property id="line2ValueColor" type="number">0</property>
 
   <!-- Line 3 -->
-  <property id="line3Primary" type="number">58</property>
+  <property id="line3Primary" type="number">33</property>
   <property id="line3PrimaryLabelColor" type="number">6</property>
   <property id="line3PrimaryValueColor" type="number">0</property>
 
@@ -37,50 +37,50 @@
   <property id="line5Primary" type="number">1</property>
   <property id="line5PrimaryLabelColor" type="number">5</property>
   <property id="line5PrimaryValueColor" type="number">0</property>
-  <property id="line3Secondary" type="number">33</property>
+  <property id="line3Secondary" type="number">61</property>
   <property id="line3SecondaryLabelColor" type="number">6</property>
   <property id="line3SecondaryValueColor" type="number">0</property>
   <property id="line4Secondary" type="number">32</property>
   <property id="line4SecondaryLabelColor" type="number">1</property>
   <property id="line4SecondaryValueColor" type="number">0</property>
-  <property id="line5Secondary" type="number">1</property>
+  <property id="line5Secondary" type="number">21</property>
   <property id="line5SecondaryLabelColor" type="number">5</property>
   <property id="line5SecondaryValueColor" type="number">0</property>
-  <property id="line3Tertiary" type="number">61</property>
+  <property id="line3Tertiary" type="number">64</property>
   <property id="line3TertiaryLabelColor" type="number">6</property>
   <property id="line3TertiaryValueColor" type="number">0</property>
   <property id="line4Tertiary" type="number">4</property>
   <property id="line4TertiaryLabelColor" type="number">1</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
-  <property id="line5Tertiary" type="number">21</property>
-  <property id="line5TertiaryLabelColor" type="number">5</property>
+  <property id="line5Tertiary" type="number">7</property>
+  <property id="line5TertiaryLabelColor" type="number">8</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
   <property id="line3Quaternary" type="number">62</property>
   <property id="line3QuaternaryLabelColor" type="number">6</property>
   <property id="line3QuaternaryValueColor" type="number">0</property>
-  <property id="line4Quaternary" type="number">56</property>
-  <property id="line4QuaternaryLabelColor" type="number">1</property>
+  <property id="line4Quaternary" type="number">7</property>
+  <property id="line4QuaternaryLabelColor" type="number">8</property>
   <property id="line4QuaternaryValueColor" type="number">0</property>
-  <property id="line5Quaternary" type="number">21</property>
-  <property id="line5QuaternaryLabelColor" type="number">5</property>
+  <property id="line5Quaternary" type="number">7</property>
+  <property id="line5QuaternaryLabelColor" type="number">8</property>
   <property id="line5QuaternaryValueColor" type="number">0</property>
   <property id="line3Quinary" type="number">7</property>
-  <property id="line3QuinaryLabelColor" type="number">6</property>
+  <property id="line3QuinaryLabelColor" type="number">8</property>
   <property id="line3QuinaryValueColor" type="number">0</property>
   <property id="line4Quinary" type="number">7</property>
-  <property id="line4QuinaryLabelColor" type="number">1</property>
+  <property id="line4QuinaryLabelColor" type="number">8</property>
   <property id="line4QuinaryValueColor" type="number">0</property>
   <property id="line5Quinary" type="number">7</property>
-  <property id="line5QuinaryLabelColor" type="number">5</property>
+  <property id="line5QuinaryLabelColor" type="number">8</property>
   <property id="line5QuinaryValueColor" type="number">0</property>
   <property id="line3Senary" type="number">7</property>
-  <property id="line3SenaryLabelColor" type="number">6</property>
+  <property id="line3SenaryLabelColor" type="number">8</property>
   <property id="line3SenaryValueColor" type="number">0</property>
   <property id="line4Senary" type="number">7</property>
-  <property id="line4SenaryLabelColor" type="number">1</property>
+  <property id="line4SenaryLabelColor" type="number">8</property>
   <property id="line4SenaryValueColor" type="number">0</property>
   <property id="line5Senary" type="number">7</property>
-  <property id="line5SenaryLabelColor" type="number">5</property>
+  <property id="line5SenaryLabelColor" type="number">8</property>
   <property id="line5SenaryValueColor" type="number">0</property>
 
   <!-- Steps -->
@@ -100,12 +100,12 @@
   <property id="hrSecondaryColor" type="number">0</property>
 
   <!-- BodyBat -->
-  <property id="bodyBatGraphMode" type="number">0</property>
+  <property id="bodyBatGraphMode" type="number">6</property>
   <property id="bodyBatGraphValueMode" type="number">0</property>
   <property id="bodyBatSecondaryType" type="number">0</property>
   <property id="bodyBatSecondaryField" type="number">2</property>
-  <property id="bodyBatTimeFrame" type="number">60</property>
-  <property id="bodyBatGraphColor" type="number">0</property>
+  <property id="bodyBatTimeFrame" type="number">240</property>
+  <property id="bodyBatGraphColor" type="number">11</property>
   <property id="bodyBatSecondaryColor" type="number">0</property>
 
   <!-- Stress -->
@@ -113,7 +113,7 @@
   <property id="stressGraphValueMode" type="number">1</property>
   <property id="stressSecondaryType" type="number">0</property>
   <property id="stressSecondaryField" type="number">0</property>
-  <property id="stressTimeFrame" type="number">60</property>
+  <property id="stressTimeFrame" type="number">120</property>
   <property id="stressGraphColor" type="number">10</property>
   <property id="stressSecondaryColor" type="number">0</property>
 
@@ -123,16 +123,16 @@
   <property id="spo2SecondaryType" type="number">0</property>
   <property id="spo2SecondaryField" type="number">0</property>
   <property id="spo2TimeFrame" type="number">60</property>
-  <property id="spo2GraphColor" type="number">0</property>
+  <property id="spo2GraphColor" type="number">2</property>
   <property id="spo2SecondaryColor" type="number">0</property>
 
   <!-- TempWrist -->
-  <property id="tempWristGraphMode" type="number">0</property>
+  <property id="tempWristGraphMode" type="number">3</property>
   <property id="tempWristGraphValueMode" type="number">1</property>
   <property id="tempWristSecondaryType" type="number">0</property>
   <property id="tempWristSecondaryField" type="number">0</property>
   <property id="tempWristTimeFrame" type="number">60</property>
-  <property id="tempWristGraphColor" type="number">0</property>
+  <property id="tempWristGraphColor" type="number">16</property>
   <property id="tempWristSecondaryColor" type="number">0</property>
 
   <!-- Elevation -->
@@ -149,12 +149,12 @@
   <property id="pressureGraphValueMode" type="number">1</property>
   <property id="pressureSecondaryType" type="number">0</property>
   <property id="pressureSecondaryField" type="number">5</property>
-  <property id="pressureTimeFrame" type="number">30</property>
-  <property id="pressureGraphColor" type="number">0</property>
+  <property id="pressureTimeFrame" type="number">120</property>
+  <property id="pressureGraphColor" type="number">2</property>
   <property id="pressureSecondaryColor" type="number">0</property>
 
   <!-- Weather Forecast -->
-  <property id="wxForecastViewMode" type="number">1</property>
+  <property id="wxForecastViewMode" type="number">2</property>
   <property id="wxForecastValueMode" type="number">1</property>
   <property id="wxForecastGraphType" type="number">1</property>
   <property id="wxForecastTimeFrame" type="number">12</property>
@@ -178,7 +178,7 @@
   <property id="wxForecastWindValueMode" type="number">1</property>
   <property id="wxForecastWindGraphType" type="number">1</property>
   <property id="wxForecastWindTimeFrame" type="number">12</property>
-  <property id="wxForecastWindGraphColor" type="number">4</property>
+  <property id="wxForecastWindGraphColor" type="number">6</property>
 
   <!-- Humidity Forecast -->
   <property id="wxForecastHumidityViewMode" type="number">2</property>

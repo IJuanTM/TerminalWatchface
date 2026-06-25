@@ -157,7 +157,7 @@
   <string id="FieldHRMax">Heart Rate (Max)</string>
   <string id="FieldPressure">Pressure</string>
   <string id="FieldElevation">Elevation (Baro)</string>
-  <string id="FieldWxForecast">Temp Hourly</string>
+  <string id="FieldWxForecastTemp">Temp Hourly</string>
   <string id="FieldWxForecastPrecip">Rain Hourly</string>
   <string id="FieldWxForecastDaily">Temp Daily</string>
   <string id="FieldLactateHR">Lactate Threshold HR</string>
@@ -193,7 +193,7 @@
   <string id="FieldWxDewPoint">Dew Point</string>
   <string id="FieldWxVisibility">Visibility</string>
   <string id="FieldWxCloud">Cloud Cover</string>
-  <string id="FieldWxHighLow">Wx High / Low Temp</string>
+  <string id="FieldWxLowHigh">Wx Low / High Temp</string>
   <string id="FieldWxHumidityDew">Humidity + Dew Point</string>
   <string id="FieldWxHeatIndex">Heat Index</string>
   <string id="FieldTrainingEffect">Training Effect</string>
