@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.33.2";
+const APP_VERSION = "0.34.0";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -260,6 +260,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _is24Hour as Boolean = true;
     private var _showSeconds as Boolean = false;
     private var _leftPad as Number = 4;
+    private var _areaOpacity as Number = 64;
+    private var _areaShowLine as Boolean = true;
     private var _scanlineIntensity as Number = 2;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
@@ -534,6 +536,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _is24Hour = settings.is24Hour;
             _showSeconds = _getBoolProp("showSeconds");
             _leftPad = _getProp("leftPadding", 4);
+            _areaOpacity = _getProp("areaOpacity", 64);
+            _areaShowLine = _getBoolProp("areaShowLine");
             _scanlineIntensity = _getProp("scanlines", 2);
             _wxUnit = _metric ? "C" : "F";
             _notifCount =
@@ -884,54 +888,60 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _resolveAllLines(phase as Number) as Void {
-        var s3 = _getProp("line3Secondary", FIELD_NONE);
-        var t3 = _getProp("line3Tertiary", FIELD_NONE);
-        if (phase == 1 && s3 != FIELD_NONE) {
-            _resolvedFields[0] = s3;
-            _resolvedLabelC[0] = _getProp("line3SecondaryLabelColor", 8);
-            _resolvedValueC[0] = _getProp("line3SecondaryValueColor", 0);
-        } else if (phase == 2 && t3 != FIELD_NONE) {
-            _resolvedFields[0] = t3;
-            _resolvedLabelC[0] = _getProp("line3TertiaryLabelColor", 8);
-            _resolvedValueC[0] = _getProp("line3TertiaryValueColor", 0);
-        } else {
-            _resolvedFields[0] = _getProp("line3Primary", FIELD_NONE);
-            _resolvedLabelC[0] = _getProp("line3PrimaryLabelColor", 8);
-            _resolvedValueC[0] = _getProp("line3PrimaryValueColor", 0);
-        }
-        var s4 = _getProp("line4Secondary", FIELD_NONE);
-        var t4 = _getProp("line4Tertiary", FIELD_NONE);
-        if (phase == 1 && s4 != FIELD_NONE) {
-            _resolvedFields[1] = s4;
-            _resolvedLabelC[1] = _getProp("line4SecondaryLabelColor", 8);
-            _resolvedValueC[1] = _getProp("line4SecondaryValueColor", 0);
-        } else if (phase == 2 && t4 != FIELD_NONE) {
-            _resolvedFields[1] = t4;
-            _resolvedLabelC[1] = _getProp("line4TertiaryLabelColor", 8);
-            _resolvedValueC[1] = _getProp("line4TertiaryValueColor", 0);
-        } else {
-            _resolvedFields[1] = _getProp("line4Primary", FIELD_NONE);
-            _resolvedLabelC[1] = _getProp("line4PrimaryLabelColor", 8);
-            _resolvedValueC[1] = _getProp("line4PrimaryValueColor", 0);
-        }
-        var s5 = _getProp("line5Secondary", FIELD_NONE);
-        var t5 = _getProp("line5Tertiary", FIELD_NONE);
-        if (phase == 1 && s5 != FIELD_NONE) {
-            _resolvedFields[2] = s5;
-            _resolvedLabelC[2] = _getProp("line5SecondaryLabelColor", 8);
-            _resolvedValueC[2] = _getProp("line5SecondaryValueColor", 0);
-        } else if (phase == 2 && t5 != FIELD_NONE) {
-            _resolvedFields[2] = t5;
-            _resolvedLabelC[2] = _getProp("line5TertiaryLabelColor", 8);
-            _resolvedValueC[2] = _getProp("line5TertiaryValueColor", 0);
-        } else {
-            _resolvedFields[2] = _getProp("line5Primary", FIELD_NONE);
-            _resolvedLabelC[2] = _getProp("line5PrimaryLabelColor", 8);
-            _resolvedValueC[2] = _getProp("line5PrimaryValueColor", 0);
-        }
+        _resolveOneLine(0, "line3", phase);
+        _resolveOneLine(1, "line4", phase);
+        _resolveOneLine(2, "line5", phase);
         _resolveLineGraph(0);
         _resolveLineGraph(1);
         _resolveLineGraph(2);
+    }
+
+    private function _resolveOneLine(
+        idx as Number,
+        key as String,
+        phase as Number
+    ) as Void {
+        var slots =
+            [
+                [
+                    key + "Secondary",
+                    key + "SecondaryLabelColor",
+                    key + "SecondaryValueColor",
+                ],
+                [
+                    key + "Tertiary",
+                    key + "TertiaryLabelColor",
+                    key + "TertiaryValueColor",
+                ],
+                [
+                    key + "Quaternary",
+                    key + "QuaternaryLabelColor",
+                    key + "QuaternaryValueColor",
+                ],
+                [
+                    key + "Quinary",
+                    key + "QuinaryLabelColor",
+                    key + "QuinaryValueColor",
+                ],
+                [
+                    key + "Senary",
+                    key + "SenaryLabelColor",
+                    key + "SenaryValueColor",
+                ],
+            ] as Array<Array<String> >;
+        if (phase >= 1 && phase <= 5) {
+            var s = slots[phase - 1] as Array<String>;
+            var f = _getProp(s[0], FIELD_NONE);
+            if (f != FIELD_NONE) {
+                _resolvedFields[idx] = f;
+                _resolvedLabelC[idx] = _getProp(s[1], 8);
+                _resolvedValueC[idx] = _getProp(s[2], 0);
+                return;
+            }
+        }
+        _resolvedFields[idx] = _getProp(key + "Primary", FIELD_NONE);
+        _resolvedLabelC[idx] = _getProp(key + "PrimaryLabelColor", 8);
+        _resolvedValueC[idx] = _getProp(key + "PrimaryValueColor", 0);
     }
 
     private function _resolveLineGraph(li as Number) as Void {
@@ -1601,6 +1611,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             (t * (((cb >> 8) & 0xff) - ((ca >> 8) & 0xff))).toNumber();
         var b = (ca & 0xff) + (t * ((cb & 0xff) - (ca & 0xff))).toNumber();
         return ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
+    }
+
+    private function _withAlpha(color as Number, alpha as Number) as Number {
+        return (alpha << 24) | (color & 0xffffff);
     }
 
     private function _gradColor(
@@ -2712,6 +2726,37 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.drawLine(x2 - f, y, x2 - 1, y);
     }
 
+    private function _drawDashedV(
+        dc as Dc,
+        x as Number,
+        y1 as Number,
+        y2 as Number
+    ) as Void {
+        var h = y2 - y1;
+        if (h <= 0) {
+            return;
+        }
+        if (h <= 3) {
+            dc.drawLine(x, y1, x, y2 - 1);
+            return;
+        }
+        var n = (h + 5) / 4;
+        if (n < 2) {
+            n = 2;
+        }
+        var f = (h + 6 - 4 * n) / 2;
+        if (f < 1) {
+            f = 1;
+        }
+        dc.drawLine(x, y1, x, y1 + f - 1);
+        var yp = y1 + f + 2;
+        for (var i = 1; i < n - 1; i++) {
+            dc.drawLine(x, yp, x, yp + 1);
+            yp += 4;
+        }
+        dc.drawLine(x, y2 - f, x, y2 - 1);
+    }
+
     private function _drawMeanLine(
         dc as Dc,
         data as Array<Float>,
@@ -3248,13 +3293,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 py = y;
             }
             if (prevX >= 0 && i - prevI <= maxGap) {
-                var dx = x - prevX;
+                var dx = prevX - x;
                 if (dx == 0) {
                     dc.drawLine(x, py < prevPY ? py : prevPY, x, bottom);
                 } else {
-                    for (var px = prevX; px <= x; px++) {
-                        var lerpY =
-                            prevPY + ((px - prevX) * (py - prevPY)) / dx;
+                    for (var px = x; px <= prevX; px++) {
+                        var lerpY = py + ((px - x) * (prevPY - py)) / dx;
                         dc.drawLine(px, lerpY, px, bottom);
                     }
                 }
@@ -3303,12 +3347,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 py = y;
             }
             if (prevX >= 0 && i - prevI <= maxGap) {
-                var dx = x - prevX;
-                for (var px = prevX; px <= x; px++) {
+                var dx = prevX - x;
+                for (var px = x; px <= prevX; px++) {
                     var lerpV =
-                        prevV +
-                        ((px - prevX).toFloat() * (v - prevV)) / dx.toFloat();
-                    var lerpY = prevPY + ((px - prevX) * (py - prevPY)) / dx;
+                        v + ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
+                    var lerpY = py + ((px - x) * (prevPY - py)) / dx;
                     var frac = (lerpV - gradMinV) / gradRange;
                     if (frac < 0.0) {
                         frac = 0.0;
@@ -3316,10 +3359,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     if (frac > 1.0) {
                         frac = 1.0;
                     }
-                    dc.setColor(
-                        _gradColor(colorIdx, frac),
-                        Graphics.COLOR_TRANSPARENT
-                    );
+                    dc.setStroke(_withAlpha(_gradColor(colorIdx, frac), 64));
                     dc.drawLine(px, lerpY, px, bottom);
                 }
             } else {
@@ -3331,7 +3371,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     frac = 1.0;
                 }
                 dc.setColor(
-                    _gradColor(colorIdx, frac),
+                    _withAlpha(_gradColor(colorIdx, frac), 64),
                     Graphics.COLOR_TRANSPARENT
                 );
                 dc.drawLine(x, py, x, bottom);
@@ -3521,6 +3561,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var ghf = gh.toFloat();
         var bottom = y + gh;
+        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
+        for (var si = 1; si < n; si++) {
+            _drawDashedV(dc, gx + (si * gw) / n - 1, y, y + gh);
+        }
         for (var i = 0; i < n; i++) {
             if (highsArr[i] == null || lowsArr[i] == null) {
                 continue;
@@ -3594,14 +3638,39 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _formatGraphLabel(FIELD_WX_FORECAST, allMin),
             Graphics.TEXT_JUSTIFY_RIGHT
         );
+        var dayNames =
+            ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as Array<String>;
+        var todayDow = 0;
+        if (_clockInfo != null) {
+            var ci = _clockInfo as Gregorian.Info;
+            var yr = ci.year as Number;
+            var mo = ci.month as Number;
+            var t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4] as Array<Number>;
+            if (mo < 3) {
+                yr -= 1;
+            }
+            todayDow =
+                (yr +
+                    yr / 4 -
+                    yr / 100 +
+                    yr / 400 +
+                    t[mo - 1] +
+                    (ci.day as Number)) %
+                7;
+        }
         dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            gx + gw,
-            y + gh + 1,
-            _fontTiny,
-            n.toString() + "d",
-            Graphics.TEXT_JUSTIFY_RIGHT
-        );
+        for (var di = 0; di < n; di++) {
+            var slotX = gx + (di * gw) / n;
+            var slotEnd = gx + ((di + 1) * gw) / n;
+            var bw = slotEnd - slotX - (di < n - 1 ? 1 : 0);
+            dc.drawText(
+                slotX + bw / 2,
+                y + gh + 1,
+                _fontTiny,
+                dayNames[(todayDow + di) % 7],
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+        }
         if (viewMode == VIEW_GRAPH_VALUE) {
             var vx = gx + gw + _charW;
             var vy = y + (_fh - _smallFh) / 2 - 1;
@@ -3684,12 +3753,42 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     gradRange,
                     maxGap
                 );
+                if (_areaShowLine) {
+                    _drawGradLine(
+                        dc,
+                        data,
+                        gx,
+                        gw,
+                        y,
+                        gh,
+                        minV,
+                        range,
+                        colorIdx,
+                        gradMinV,
+                        gradRange,
+                        maxGap
+                    );
+                }
             } else {
-                dc.setColor(
-                    _colorFromIdx(colorIdx),
-                    Graphics.COLOR_TRANSPARENT
-                );
+                dc.setStroke(_withAlpha(_colorFromIdx(colorIdx), _areaOpacity));
                 _drawAreaLine(dc, data, gx, gw, y, gh, minV, range, maxGap);
+                if (_areaShowLine) {
+                    dc.setColor(
+                        _colorFromIdx(colorIdx),
+                        Graphics.COLOR_TRANSPARENT
+                    );
+                    _drawGraphLine(
+                        dc,
+                        data,
+                        gx,
+                        gw,
+                        y,
+                        gh,
+                        minV,
+                        range,
+                        maxGap
+                    );
+                }
             }
         } else {
             if (isGrad) {
@@ -3996,12 +4095,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_COND_PRECIP) {
-            _rowBuf[0] = "Cond+Rain";
+            _rowBuf[0] = "Cond + Rain";
             _rowBuf[1] = _wxCond + " | " + _wxPrecip;
             return;
         }
         if (field == FIELD_WX_WIND_PRECIP) {
-            _rowBuf[0] = "Wind+Rain";
+            _rowBuf[0] = "Wind + Rain";
             _rowBuf[1] = _wxWind + " | " + _wxPrecip;
             return;
         }
@@ -4340,7 +4439,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _rowBuf[1] = lat.format("%.5f") + ", " + lon.format("%.5f");
                 return;
             }
-            _rowBuf[0] = "Lat+Lon";
+            _rowBuf[0] = "Lat + Lon";
             _rowBuf[1] = "-";
             return;
         }
@@ -4398,27 +4497,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_TEMP_COND) {
-            _rowBuf[0] = "Temp+Cond";
+            _rowBuf[0] = "Temp + Cond";
             _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxCond;
             return;
         }
         if (field == FIELD_WX_TEMP_WIND) {
-            _rowBuf[0] = "Temp+Wind";
+            _rowBuf[0] = "Temp + Wind";
             _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxWind;
             return;
         }
         if (field == FIELD_WX_TEMP_UV) {
-            _rowBuf[0] = "Temp+UV";
+            _rowBuf[0] = "Temp + UV";
             _rowBuf[1] = _wxTemp + _wxUnit + " UV:" + _wxUv;
             return;
         }
         if (field == FIELD_WX_UV_PRECIP) {
-            _rowBuf[0] = "UV+Rain";
+            _rowBuf[0] = "UV + Rain";
             _rowBuf[1] = _wxUv + " " + _wxPrecip;
             return;
         }
         if (field == FIELD_WX_UV_WIND) {
-            _rowBuf[0] = "UV+Wind";
+            _rowBuf[0] = "UV + Wind";
             _rowBuf[1] = _wxUv + " " + _wxWind;
             return;
         }
@@ -4867,7 +4966,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _getPhase(nowSec as Number) as Number {
         var mainSec = _rotateMainMs / 1000;
         var altSec = _rotateAltMs / 1000;
-        var cycle = mainSec + 2 * altSec;
+        var cycle = mainSec + 5 * altSec;
         var pos = nowSec % cycle;
         if (pos < 0) {
             pos += cycle;
@@ -4875,10 +4974,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (pos < mainSec) {
             return 0;
         }
-        if (pos < mainSec + altSec) {
-            return 1;
-        }
-        return 2;
+        pos -= mainSec;
+        return pos / altSec + 1;
     }
 
     private function _getProp(key as String, defaultVal as Number) as Number {

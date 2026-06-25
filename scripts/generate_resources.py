@@ -68,10 +68,10 @@ FIELDS_ALL = [
 GRAPH_FIELDS = [
     ("hr",        "HR",        3, 0, 1,  60,  5, 0),  # line + current value
     ("bodyBat",   "BodyBat",   0, 0, 2,  60,  0, 0),  # value only
-    ("stress",    "Stress",    1, 0, 0,  60, 10, 0),  # line graph, gradient color
+    ("stress",    "Stress",    3, 0, 0,  60, 10, 0),  # line + current value, gradient color
     ("spo2",      "SpO2",      0, 0, 0,  60,  0, 0),  # value only
     ("tempWrist", "TempWrist", 0, 0, 0,  60,  0, 0),  # value only
-    ("elevation", "Elevation", 3, 0, 6,  480, 1, 0),  # line + current value
+    ("elevation", "Elevation", 6, 0, 6,  480, 1, 0),  # area + current value
     ("pressure",  "Pressure",  3, 0, 5,  30,  0, 0),  # line + current value
 ]
 
@@ -106,15 +106,30 @@ GRAPH_DISPLAY_NAMES = {
 
 # Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
 LINE_SLOTS = [
-    (3, "Primary",   33, 6, 0),  # Forecast, blue label
-    (3, "Secondary", 60, 6, 0),  # UV+Wind, blue label
-    (3, "Tertiary",  19, 6, 0),  # Cond+Rain, blue label
-    (4, "Primary",    0, 1, 0),  # Steps, green label, white value text
-    (4, "Secondary", 32, 1, 0),  # Elevation, green label
-    (4, "Tertiary",   4, 1, 0),  # Distance day, green label
-    (5, "Primary",    1, 5, 0),  # HR, red label
-    (5, "Secondary", 21, 5, 0),  # Stress, red label
-    (5, "Tertiary",  2, 5, 0),   # Calories day, red label
+    # R1 (Primary)
+    (3, "Primary",    58, 6, 0),  # Temp+UV, blue
+    (4, "Primary",     0, 1, 0),  # Steps, green
+    (5, "Primary",     1, 5, 0),  # HR, red
+    # R2 (Secondary)
+    (3, "Secondary",  33, 6, 0),  # Temp Hour, blue
+    (4, "Secondary",  32, 1, 0),  # Elevation, green
+    (5, "Secondary",   1, 5, 0),  # HR, red
+    # R3 (Tertiary)
+    (3, "Tertiary",   61, 6, 0),  # Rain Hour, blue
+    (4, "Tertiary",    4, 1, 0),  # Distance Day, green
+    (5, "Tertiary",   21, 5, 0),  # Stress, red
+    # R4 (Quaternary)
+    (3, "Quaternary", 62, 6, 0),  # Temp Day, blue
+    (4, "Quaternary", 56, 1, 0),  # GPS Lat+Lon+Acc, green
+    (5, "Quaternary", 21, 5, 0),  # Stress, red
+    # R5 (Quinary) - empty
+    (3, "Quinary",     7, 6, 0),
+    (4, "Quinary",     7, 1, 0),
+    (5, "Quinary",     7, 5, 0),
+    # R6 (Senary) - empty
+    (3, "Senary",      7, 6, 0),
+    (4, "Senary",      7, 1, 0),
+    (5, "Senary",      7, 5, 0),
 ]
 
 # Graph mode options shared by all sensor graph fields
@@ -191,12 +206,14 @@ def gen_properties():
 
     lines.append("\n  <!-- Display options -->")
     lines.append(prop("leftPadding",        "number",  4))
+    lines.append(prop("areaOpacity",        "number",  64))
+    lines.append(prop("areaShowLine",       "boolean", "true"))
     lines.append(prop("showSeconds",        "boolean", "false"))
     lines.append(prop("showYear",          "boolean", "false"))
     lines.append(prop("dateFormat",        "number",  0))
     lines.append(prop("watchCommandStyle", "number",  2))
     lines.append(prop("rotateInterval",    "number",  10))
-    lines.append(prop("rotateIntervalAlt", "number",  3))
+    lines.append(prop("rotateIntervalAlt", "number",  5))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -230,15 +247,15 @@ def gen_properties():
         lines.append(prop(f"{key}SecondaryColor", "number", scd))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastViewMode",   "number", 2))  # graph+value
+    lines.append(prop("wxForecastViewMode",   "number", 1))  # graph only
     lines.append(prop("wxForecastGraphType",  "number", 1))  # bar
-    lines.append(prop("wxForecastTimeFrame",  "number", 12))  # 12h
+    lines.append(prop("wxForecastTimeFrame",  "number", 6))   # 6h
     lines.append(prop("wxForecastGraphColor", "number", 16))  # GradTempTurbo (cold->hot)
 
     lines.append("\n  <!-- Rain Forecast -->")
     lines.append(prop("wxForecastPrecipViewMode",   "number", 2))  # graph+value
     lines.append(prop("wxForecastPrecipGraphType",  "number", 1))  # bar
-    lines.append(prop("wxForecastPrecipTimeFrame",  "number", 12))  # 12h
+    lines.append(prop("wxForecastPrecipTimeFrame",  "number", 6))   # 6h
     lines.append(prop("wxForecastPrecipGraphColor", "number", 6))   # blue
 
     lines.append("\n  <!-- Day Forecast -->")
@@ -276,6 +293,12 @@ def gen_strings():
 
     lines.append("\n  <!-- Display options -->")
     lines.append(s("LeftPadding",          "Left Padding"))
+    lines.append(s("AreaOpacity",          "Area Graph: Opacity"))
+    lines.append(s("AreaOpacity25",        "25%"))
+    lines.append(s("AreaOpacity50",        "50%"))
+    lines.append(s("AreaOpacity75",        "75%"))
+    lines.append(s("AreaOpacity100",       "100%"))
+    lines.append(s("AreaShowLine",         "Area Graph: Show Line"))
     lines.append(s("ShowSeconds",          "Show Seconds"))
     lines.append(s("ShowYear",            "Show Year in Date"))
     lines.append(s("DateFormat",          "Date Format"))
@@ -299,9 +322,10 @@ def gen_strings():
     lines.append(s("Line2LabelColor", "Date: Label Color"))
     lines.append(s("Line2ValueColor", "Date: Value Color"))
 
-    lines.append("\n  <!-- Configurable lines (R2/R3 = rotation slots 2 and 3) -->")
+    _slot_r = {"Primary": "", "Secondary": " (R2)", "Tertiary": " (R3)", "Quaternary": " (R4)", "Quinary": " (R5)", "Senary": " (R6)"}
+    lines.append("\n  <!-- Configurable lines (R2-R6 = rotation slots 2 to 6) -->")
     for ln, slot, *_ in LINE_SLOTS:
-        suffix = "" if slot == "Primary" else f" (R{'2' if slot=='Secondary' else '3'})"
+        suffix = _slot_r[slot]
         k = f"Line{ln}{slot}"
         lines.append(s(f"{k}",            f"Line {ln}: Field{suffix}"))
         lines.append(s(f"{k}LabelColor",  f"Line {ln}: Label Color{suffix}"))
@@ -524,6 +548,13 @@ def gen_settings():
 
     parts.append(setting_list("leftPadding", "LeftPadding",
         [(i, str(i)) for i in range(9)]))
+    parts.append(setting_list("areaOpacity", "AreaOpacity", [
+        (64,  "@Strings.AreaOpacity25"),
+        (128, "@Strings.AreaOpacity50"),
+        (192, "@Strings.AreaOpacity75"),
+        (255, "@Strings.AreaOpacity100"),
+    ]))
+    parts.append(setting_bool("areaShowLine", "AreaShowLine"))
 
     # Time row
     parts.append("\n  <!-- Time row -->")
