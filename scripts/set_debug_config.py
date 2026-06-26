@@ -3,9 +3,9 @@
 Applies a debug config to properties.xml so the next build picks it up.
 
 Usage:
-    python scripts/switch_config.py                  # list available configs
-    python scripts/switch_config.py config_graphs_bar
-    python scripts/switch_config.py reset            # restore original defaults
+    python scripts/set_debug_config.py                  # list available configs
+    python scripts/set_debug_config.py config_graphs_bar
+    python scripts/set_debug_config.py reset            # restore original defaults
 """
 
 import json
@@ -124,7 +124,7 @@ def main():
         for name in sorted(configs):
             print(f"  {name}")
         print("  reset")
-        print(f"\nUsage: python scripts/switch_config.py <config_name>")
+        print(f"\nUsage: python scripts/set_debug_config.py <config_name>")
         return
 
     name = sys.argv[1]
