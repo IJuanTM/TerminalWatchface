@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.37.1";
+const APP_VERSION = "0.37.2";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -3958,19 +3958,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             if (prevX >= 0 && i - prevI <= maxGap) {
                 var dx = prevX - x;
-                for (var px = x; px <= prevX; px++) {
-                    var lerpV =
-                        v + ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
-                    var lerpY = py + ((px - x) * (prevPY - py)) / dx;
-                    var frac = (lerpV - gradMinV) / gradRange;
+                if (dx == 0) {
+                    var frac = (v - gradMinV) / gradRange;
                     if (frac < 0.0) {
                         frac = 0.0;
                     }
                     if (frac > 1.0) {
                         frac = 1.0;
                     }
-                    dc.setStroke(_withAlpha(_gradColor(colorIdx, frac), 64));
-                    dc.drawLine(px, lerpY, px, bottom);
+                    dc.setStroke(
+                        _withAlpha(_gradColor(colorIdx, frac), _areaOpacity)
+                    );
+                    dc.drawLine(x, py < prevPY ? py : prevPY, x, bottom);
+                } else {
+                    for (var px = x; px <= prevX; px++) {
+                        var lerpV =
+                            v +
+                            ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
+                        var lerpY = py + ((px - x) * (prevPY - py)) / dx;
+                        var frac = (lerpV - gradMinV) / gradRange;
+                        if (frac < 0.0) {
+                            frac = 0.0;
+                        }
+                        if (frac > 1.0) {
+                            frac = 1.0;
+                        }
+                        dc.setStroke(
+                            _withAlpha(_gradColor(colorIdx, frac), _areaOpacity)
+                        );
+                        dc.drawLine(px, lerpY, px, bottom);
+                    }
                 }
             } else {
                 var frac = (v - gradMinV) / gradRange;
@@ -3980,9 +3997,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (frac > 1.0) {
                     frac = 1.0;
                 }
-                dc.setColor(
-                    _withAlpha(_gradColor(colorIdx, frac), 64),
-                    Graphics.COLOR_TRANSPARENT
+                dc.setStroke(
+                    _withAlpha(_gradColor(colorIdx, frac), _areaOpacity)
                 );
                 dc.drawLine(x, py, x, bottom);
             }
