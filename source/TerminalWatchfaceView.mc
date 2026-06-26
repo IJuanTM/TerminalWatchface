@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.37.2";
+const APP_VERSION = "0.37.3";
 
 const FIELD_STEPS = 0;
 const FIELD_HR = 1;
@@ -170,6 +170,21 @@ const COLORS =
         0xff55ff, // 7  magenta
         0xbbbbbb, // 8  light grey
         0xaa77ff, // 9  purple
+    ] as Array<Number>;
+
+// 50% brightness versions of COLORS — for subordinate labels, not configurable
+const COLOR_DIM =
+    [
+        0x7f7f7f, // 0  white
+        0x2a7f3b, // 1  green
+        0x2a7f7f, // 2  cyan
+        0x7f772a, // 3  yellow
+        0x7f4c22, // 4  orange
+        0x7f2a2a, // 5  red
+        0x334c7f, // 6  blue
+        0x7f2a7f, // 7  magenta
+        0x5d5d5d, // 8  light grey
+        0x553b7f, // 9  purple
     ] as Array<Number>;
 
 const TEMP_GRADS =
@@ -929,18 +944,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         y as Number,
         field as Number,
         str as String
-    ) as Void {
+    ) as Number {
         if (field == FIELD_TEMP_WRIST) {
+            var afterNum = _drawSmallTempNum(dc, x, y, str);
             dc.drawText(
-                _drawSmallTempNum(dc, x, y, str),
+                afterNum,
                 y,
                 _fontSmall,
                 _wxUnit,
                 Graphics.TEXT_JUSTIFY_LEFT
             );
+            return afterNum + dc.getTextWidthInPixels(_wxUnit, _fontSmall);
         } else {
             dc.drawText(x, y, _fontSmall, str, Graphics.TEXT_JUSTIFY_LEFT);
+            return x + dc.getTextWidthInPixels(str, _fontSmall);
         }
+    }
+
+    private function _drawValueModeLabel(
+        dc as Dc,
+        rightX as Number,
+        y as Number,
+        mode as Number
+    ) as Void {
+        var label = mode == 0 ? "c" : mode == 1 ? "a" : mode == 3 ? "m" : null;
+        if (label == null) {
+            return;
+        }
+        var color =
+            mode == 0 ? COLOR_DIM[1] : mode == 1 ? COLOR_DIM[5] : COLOR_DIM[6];
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            rightX + _charW / 2,
+            y - 4,
+            _fontTiny,
+            label,
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
     }
 
     private function _drawIcon(
@@ -3811,6 +3851,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _wxUnit,
                     Graphics.TEXT_JUSTIFY_LEFT
                 );
+                _drawValueModeLabel(
+                    dc,
+                    vx + dc.getTextWidthInPixels(_wxUnit, _fontSmall),
+                    y,
+                    valueMode
+                );
             }
         }
     }
@@ -4115,20 +4161,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
+            var valStr = _graphValueStr(
+                FIELD_WX_FORECAST_PRECIP,
+                data,
+                minV,
+                maxV,
+                valueMode,
+                _wxPrecip
+            );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                _graphValueStr(
-                    FIELD_WX_FORECAST_PRECIP,
-                    data,
-                    minV,
-                    maxV,
-                    valueMode,
-                    _wxPrecip
-                ),
-                Graphics.TEXT_JUSTIFY_LEFT
+            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
+            _drawValueModeLabel(
+                dc,
+                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
+                y,
+                valueMode
             );
         }
     }
@@ -4239,20 +4288,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
+            var valStr = _graphValueStr(
+                FIELD_WX_FORECAST_WIND,
+                data,
+                minV,
+                maxV,
+                valueMode,
+                _wxWind
+            );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                _graphValueStr(
-                    FIELD_WX_FORECAST_WIND,
-                    data,
-                    minV,
-                    maxV,
-                    valueMode,
-                    _wxWind
-                ),
-                Graphics.TEXT_JUSTIFY_LEFT
+            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
+            _drawValueModeLabel(
+                dc,
+                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
+                y,
+                valueMode
             );
         }
     }
@@ -4507,6 +4559,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _fontSmall,
                     _wxUnit,
                     Graphics.TEXT_JUSTIFY_LEFT
+                );
+                _drawValueModeLabel(
+                    dc,
+                    vx + dc.getTextWidthInPixels(_wxUnit, _fontSmall),
+                    y,
+                    valueMode
                 );
             }
         }
@@ -4781,7 +4839,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 valueStr
             );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            _drawGraphValueLabel(dc, valX, valY, field, valStr2);
+            var valEndX = _drawGraphValueLabel(dc, valX, valY, field, valStr2);
+            _drawValueModeLabel(dc, valEndX, y, valueMode);
         }
     }
 
@@ -6451,20 +6510,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
+            var valStr = _graphValueStr(
+                FIELD_WX_FORECAST_HUMIDITY,
+                data,
+                minV,
+                maxV,
+                valueMode,
+                _wxHumidity
+            );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                _graphValueStr(
-                    FIELD_WX_FORECAST_HUMIDITY,
-                    data,
-                    minV,
-                    maxV,
-                    valueMode,
-                    _wxHumidity
-                ),
-                Graphics.TEXT_JUSTIFY_LEFT
+            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
+            _drawValueModeLabel(
+                dc,
+                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
+                y,
+                valueMode
             );
         }
     }
@@ -6574,20 +6636,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
+            var valStr = _graphValueStr(
+                FIELD_WX_FORECAST_UV,
+                data,
+                minV,
+                maxV,
+                valueMode,
+                _wxUv
+            );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                _graphValueStr(
-                    FIELD_WX_FORECAST_UV,
-                    data,
-                    minV,
-                    maxV,
-                    valueMode,
-                    _wxUv
-                ),
-                Graphics.TEXT_JUSTIFY_LEFT
+            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
+            _drawValueModeLabel(
+                dc,
+                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
+                y,
+                valueMode
             );
         }
     }
@@ -6697,20 +6762,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             -1
         );
         if (viewMode == VIEW_GRAPH_VALUE) {
+            var vx = gx + gw + _charW;
+            var vy = y + (_fh - _smallFh) / 2 - 1;
+            var valStr = _graphValueStr(
+                FIELD_WX_FORECAST_CLOUD,
+                data,
+                minV,
+                maxV,
+                valueMode,
+                _wxCloudCover
+            );
             dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
-                gx + gw + _charW,
-                y + (_fh - _smallFh) / 2 - 1,
-                _fontSmall,
-                _graphValueStr(
-                    FIELD_WX_FORECAST_CLOUD,
-                    data,
-                    minV,
-                    maxV,
-                    valueMode,
-                    _wxCloudCover
-                ),
-                Graphics.TEXT_JUSTIFY_LEFT
+            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
+            _drawValueModeLabel(
+                dc,
+                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
+                y,
+                valueMode
             );
         }
     }
