@@ -265,6 +265,7 @@
   <string id="TimeFrame2h">2 hours</string>
   <string id="TimeFrame4h">4 hours</string>
   <string id="TimeFrame8h">8 hours</string>
+  <string id="TimeFrame12h">12 hours</string>
   <string id="TimeFrame24h">24 hours</string>
 
   <!-- Graph settings: Heart Rate -->

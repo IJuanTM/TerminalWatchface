@@ -197,6 +197,7 @@ GRAPH_TIME_FRAMES = [
     (120, "TimeFrame2h"),
     (240, "TimeFrame4h"),
     (480, "TimeFrame8h"),
+    (720, "TimeFrame12h"),
     (1440, "TimeFrame24h"),
 ]
 
@@ -221,29 +222,29 @@ GRAPH_DISPLAY_NAMES = {
 # Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
 LINE_SLOTS = [
     # R1 (Primary) - shown longest; at-a-glance essentials
-    (3, "Primary", 33, 6, 0),  # Temp Hourly forecast graph, blue
-    (4, "Primary", 0, 1, 0),  # Steps, green
-    (5, "Primary", 1, 5, 0),  # HR, red
+    (3, "Primary", 33, 6, 0),    # Temp Hourly forecast graph, blue
+    (4, "Primary", 0, 1, 0),     # Steps, green
+    (5, "Primary", 1, 5, 0),     # HR, red
     # R2 (Secondary)
-    (3, "Secondary", 61, 6, 0),  # Rain Hourly forecast, blue
+    (3, "Secondary", 97, 6, 0),  # Humidity + Rain, blue
     (4, "Secondary", 32, 1, 0),  # Elevation, green
     (5, "Secondary", 21, 5, 0),  # Stress, red
     # R3 (Tertiary)
-    (3, "Tertiary", 64, 6, 0),  # Wind Hourly forecast, blue
-    (4, "Tertiary", 4, 1, 0),  # Distance (daily), green
-    (5, "Tertiary", 7, 8, 0),  # None
+    (3, "Tertiary", 60, 6, 0),   # UV + Wind, blue
+    (4, "Tertiary", 4, 1, 0),    # Distance (daily), green
+    (5, "Tertiary", 2, 5, 0),    # Calories (daily), red
     # R4 (Quaternary)
-    (3, "Quaternary", 62, 6, 0),  # Temp Daily forecast, blue
-    (4, "Quaternary", 7, 8, 0),  # None
-    (5, "Quaternary", 7, 8, 0),  # None
+    (3, "Quaternary", 62, 6, 0), # Temp Daily forecast, blue
+    (4, "Quaternary", 6, 1, 0),  # Floors, green
+    (5, "Quaternary", 29, 5, 0), # Active Minutes (daily), red
     # R5 (Quinary)
-    (3, "Quinary", 7, 8, 0),  # None
-    (4, "Quinary", 7, 8, 0),  # None
-    (5, "Quinary", 7, 8, 0),  # None
+    (3, "Quinary", 7, 6, 0),     # None, blue
+    (4, "Quinary", 7, 1, 0),     # None, green
+    (5, "Quinary", 7, 5, 0),     # None, red
     # R6 (Senary)
-    (3, "Senary", 7, 8, 0),  # None
-    (4, "Senary", 7, 8, 0),  # None
-    (5, "Senary", 7, 8, 0),  # None
+    (3, "Senary", 7, 6, 0),      # None, blue
+    (4, "Senary", 7, 1, 0),      # None, green
+    (5, "Senary", 7, 5, 0),      # None, red
 ]
 
 # Graph mode options shared by all sensor graph fields
@@ -382,7 +383,7 @@ def gen_properties():
 
     lines.append("\n  <!-- Weather Forecast -->")
     lines.append(prop("wxForecastViewMode", "number", 2))  # graph + current
-    lines.append(prop("wxForecastValueMode", "number", 1))  # avg
+    lines.append(prop("wxForecastValueMode", "number", 0))  # current
     lines.append(prop("wxForecastGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastGraphColor", "number", 16))  # GradTempTurbo (cold->hot)
@@ -691,6 +692,7 @@ def gen_strings():
     lines.append(s("TimeFrame2h", "2 hours"))
     lines.append(s("TimeFrame4h", "4 hours"))
     lines.append(s("TimeFrame8h", "8 hours"))
+    lines.append(s("TimeFrame12h", "12 hours"))
     lines.append(s("TimeFrame24h", "24 hours"))
 
     # Graph settings strings — one block per graph field

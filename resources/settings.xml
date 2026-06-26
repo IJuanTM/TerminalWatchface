@@ -2630,6 +2630,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -2728,6 +2729,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -2826,6 +2828,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -2924,6 +2927,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -3022,6 +3026,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -3120,6 +3125,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
@@ -3218,6 +3224,7 @@
       <listEntry value="120">@Strings.TimeFrame2h</listEntry>
       <listEntry value="240">@Strings.TimeFrame4h</listEntry>
       <listEntry value="480">@Strings.TimeFrame8h</listEntry>
+      <listEntry value="720">@Strings.TimeFrame12h</listEntry>
       <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
     </settingConfig>
   </setting>
