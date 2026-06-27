@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.40.3";
+const APP_VERSION = "0.40.4";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -2033,9 +2033,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fillW = (frac * gw.toFloat()).toNumber();
         if (fillW > 0) {
-            var fillColor =
-                steps >= goal ? _colorFromIdx(1) : _colorFromIdx(barColor);
-            dc.setColor(fillColor, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_colorFromIdx(barColor), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(gx, barY, fillW, barH);
         }
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
@@ -2179,9 +2177,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fillW = (frac * gw.toFloat()).toNumber();
         if (fillW > 0) {
-            var fillColor =
-                floors >= goal ? _colorFromIdx(1) : _colorFromIdx(barColor);
-            dc.setColor(fillColor, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_colorFromIdx(barColor), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(gx, barY, fillW, barH);
         }
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
@@ -2296,9 +2292,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fillW = (frac * gw.toFloat()).toNumber();
         if (fillW > 0) {
-            var fillColor =
-                current >= goal ? _colorFromIdx(1) : _colorFromIdx(barColor);
-            dc.setColor(fillColor, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_colorFromIdx(barColor), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(gx, barY, fillW, barH);
         }
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
@@ -5311,17 +5305,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_CAL_ACT) {
             if (_acInfo == null) {
-                _rowBuf[0] = "Active Cals";
+                _rowBuf[0] = "Act Cals";
                 _rowBuf[1] = "0 kcal";
                 return;
             }
             var a = _acInfo as Activity.Info;
             if (a.calories != null) {
-                _rowBuf[0] = "Active Cals";
+                _rowBuf[0] = "Act Cals";
                 _rowBuf[1] = (a.calories as Number).toString() + " kcal";
                 return;
             }
-            _rowBuf[0] = "Active Cals";
+            _rowBuf[0] = "Act Cals";
             _rowBuf[1] = "0 kcal";
             return;
         }
@@ -5364,17 +5358,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_ACTIVE_MIN_DAY) {
             if (_amInfo == null) {
-                _rowBuf[0] = "Active Min";
+                _rowBuf[0] = "Act Min";
                 _rowBuf[1] = "0";
                 return;
             }
             var mins = (_amInfo as ActivityMonitor.Info).activeMinutesDay;
             if (mins != null && mins.total != null) {
-                _rowBuf[0] = "Active Min";
+                _rowBuf[0] = "Act Min";
                 _rowBuf[1] = (mins.total as Number).toString();
                 return;
             }
-            _rowBuf[0] = "Active Min";
+            _rowBuf[0] = "Act Min";
             _rowBuf[1] = "0";
             return;
         }
