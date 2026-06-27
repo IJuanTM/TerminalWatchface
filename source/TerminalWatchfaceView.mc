@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.40.1";
+const APP_VERSION = "0.40.2";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -601,6 +601,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _graphCacheMin = -1;
         _graphCache = {};
         _graphCacheTimes = {};
+        _graphEffPeriod = {};
         _graphBmpCache = {};
         _graphBmpDualCache = {};
         _lastDateDay = -1;
@@ -917,7 +918,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var step = _fh + 16;
         var cx = _screenW / 2 - _charW * _leftPad;
-        _graphW = _charW * 10;
         _graphX = cx + _splitPad + _charW * 2;
         _graphH = _fh - 2;
 
@@ -3251,7 +3251,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         field as Number,
         periodMin as Number
     ) as Array<Float>? {
-        var cacheKey = field * 10000 + periodMin;
+        var cacheKey = _graphW * 100000 + field * 10000 + periodMin;
         var nowUnixMin = _nowUnixMin;
         if (_graphCacheTimes.hasKey(cacheKey)) {
             var lastMin = _graphCacheTimes.get(cacheKey) as Number;
@@ -4225,7 +4225,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var fcstTempBmp = _renderGraphToBitmap(
-            FIELD_WX_FCST_TEMP * 10000 + hours,
+            _graphW * 100000 + FIELD_WX_FCST_TEMP * 10000 + hours,
             graphType,
             lineColor,
             data,
@@ -4556,7 +4556,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var fcstBmp = _renderGraphToBitmap(
-            fieldConst * 10000 + hours,
+            _graphW * 100000 + fieldConst * 10000 + hours,
             graphType,
             lineColor,
             data,
@@ -5062,7 +5062,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (maxGap < 1) {
             maxGap = 1;
         }
-        var cacheKey = field * 10000 + periodMin;
+        var cacheKey = _graphW * 100000 + field * 10000 + periodMin;
         var graphBmp = _renderGraphToBitmap(
             cacheKey,
             graphType,
