@@ -146,14 +146,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -228,6 +233,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -280,14 +295,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -362,6 +382,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -414,14 +444,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -496,6 +531,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -548,14 +593,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -630,6 +680,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
@@ -682,14 +742,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -764,6 +829,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
@@ -816,14 +891,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -898,6 +978,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
@@ -950,14 +1040,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1032,6 +1127,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
@@ -1084,14 +1189,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1166,6 +1276,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
@@ -1218,14 +1338,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1300,6 +1425,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
@@ -1352,14 +1487,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1434,6 +1574,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuaternaryLabelColor" title="@Strings.Line3QuaternaryLabelColor">
@@ -1486,14 +1636,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1568,6 +1723,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuaternaryLabelColor" title="@Strings.Line4QuaternaryLabelColor">
@@ -1620,14 +1785,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1702,6 +1872,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuaternaryLabelColor" title="@Strings.Line5QuaternaryLabelColor">
@@ -1754,14 +1934,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1836,6 +2021,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuinaryLabelColor" title="@Strings.Line3QuinaryLabelColor">
@@ -1888,14 +2083,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -1970,6 +2170,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuinaryLabelColor" title="@Strings.Line4QuinaryLabelColor">
@@ -2022,14 +2232,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -2104,6 +2319,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuinaryLabelColor" title="@Strings.Line5QuinaryLabelColor">
@@ -2156,14 +2381,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -2238,6 +2468,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SenaryLabelColor" title="@Strings.Line3SenaryLabelColor">
@@ -2290,14 +2530,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -2372,6 +2617,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SenaryLabelColor" title="@Strings.Line4SenaryLabelColor">
@@ -2424,14 +2679,19 @@
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
       <listEntry value="28">@Strings.FieldWristTemp</listEntry>
-      <listEntry value="84">@Strings.FieldSolar</listEntry>
-      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="103">@Strings.FieldHrResting</listEntry>
+      <listEntry value="104">@Strings.FieldHrRestingAvg</listEntry>
+      <listEntry value="110">@Strings.FieldHrRestingBoth</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
       <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
       <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
+      <listEntry value="113">@Strings.FieldBodyBatRestHR</listEntry>
+      <listEntry value="114">@Strings.FieldSleepRecovery</listEntry>
+      <listEntry value="115">@Strings.FieldHrMeanMax</listEntry>
+      <listEntry value="116">@Strings.FieldCalTotalAct</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
       <listEntry value="25">@Strings.FieldCalAct</listEntry>
       <listEntry value="4">@Strings.FieldDistance</listEntry>
@@ -2506,6 +2766,16 @@
       <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
+      <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
+      <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
+      <listEntry value="108">@Strings.FieldWxFcstCond3d</listEntry>
+      <listEntry value="111">@Strings.FieldWxCondFcst1d</listEntry>
+      <listEntry value="112">@Strings.FieldWxFcstCond12d</listEntry>
+      <listEntry value="105">@Strings.FieldWxSeaPress</listEntry>
+      <listEntry value="109">@Strings.FieldWxObsTime</listEntry>
+      <listEntry value="77">@Strings.FieldNotifications</listEntry>
+      <listEntry value="84">@Strings.FieldSolar</listEntry>
+      <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SenaryLabelColor" title="@Strings.Line5SenaryLabelColor">
@@ -2568,6 +2838,50 @@
     <settingConfig type="boolean" />
   </setting>
   <setting propertyKey="@Properties.stepsBarColor" title="@Strings.StepsBarColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Floors -->
+  <setting propertyKey="@Properties.floorsShowBar" title="@Strings.FloorsShowBar">
+    <settingConfig type="boolean" />
+  </setting>
+  <setting propertyKey="@Properties.floorsShowBarValue" title="@Strings.FloorsShowBarValue">
+    <settingConfig type="boolean" />
+  </setting>
+  <setting propertyKey="@Properties.floorsBarColor" title="@Strings.FloorsBarColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Intensity Minutes (Weekly) -->
+  <setting propertyKey="@Properties.intensityMinShowBar" title="@Strings.IntensityMinShowBar">
+    <settingConfig type="boolean" />
+  </setting>
+  <setting propertyKey="@Properties.intensityMinShowBarValue" title="@Strings.IntensityMinShowBarValue">
+    <settingConfig type="boolean" />
+  </setting>
+  <setting propertyKey="@Properties.intensityMinBarColor" title="@Strings.IntensityMinBarColor">
     <settingConfig type="list">
       <listEntry value="0">@Strings.ColorWhite</listEntry>
       <listEntry value="1">@Strings.ColorGreen</listEntry>

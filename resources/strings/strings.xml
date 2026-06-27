@@ -140,14 +140,19 @@
   <string id="FieldTrainingStatus">Training Status</string>
   <string id="FieldTrainingEffect">Training Effect</string>
   <string id="FieldWristTemp">Wrist Temperature</string>
-  <string id="FieldSolar">Solar Input</string>
-  <string id="FieldNotifications">Notifications</string>
+  <string id="FieldHrResting">Resting HR</string>
+  <string id="FieldHrRestingAvg">Resting HR (7-day Avg)</string>
+  <string id="FieldHrRestingBoth">Resting HR + 7-day Avg</string>
   <string id="FieldHrSpo2">HR + SpO2</string>
   <string id="FieldRespSpo2">Respiration + SpO2</string>
   <string id="FieldBodyBatStress">Body Battery + Stress</string>
   <string id="FieldBodyBatRecovery">Body Battery + Recovery</string>
   <string id="FieldStressRecovery">Stress + Recovery</string>
   <string id="FieldVo2Training">VO2 Max + Training</string>
+  <string id="FieldBodyBatRestHR">Body Battery + Resting HR</string>
+  <string id="FieldSleepRecovery">Sleep Score + Recovery</string>
+  <string id="FieldHrMeanMax">HR: Avg + Max (Activity)</string>
+  <string id="FieldCalTotalAct">Calories: Daily + Activity</string>
   <string id="FieldCalories">Calories (Daily)</string>
   <string id="FieldCalAct">Calories (Activity)</string>
   <string id="FieldDistance">Distance (Daily)</string>
@@ -222,6 +227,16 @@
   <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
   <string id="FieldWxFcstUv">Forecast: UV (Hourly)</string>
   <string id="FieldWxFcstCloud">Forecast: Cloud (Hourly)</string>
+  <string id="FieldWxFcstCond1d">Forecast: Condition (+1 day)</string>
+  <string id="FieldWxFcstCond2d">Forecast: Condition (+2 days)</string>
+  <string id="FieldWxFcstCond3d">Forecast: Condition (+3 days)</string>
+  <string id="FieldWxCondFcst1d">Weather: Condition + Tomorrow</string>
+  <string id="FieldWxFcstCond12d">Forecast: +1d + +2d Condition</string>
+  <string id="FieldWxSeaPress">Weather: Sea Level Pressure</string>
+  <string id="FieldWxObsTime">Weather: Data Age</string>
+  <string id="FieldNotifications">Notifications</string>
+  <string id="FieldSolar">Solar Input</string>
+  <string id="FieldSolarBattery">Solar Input + Watch Battery</string>
 
   <!-- Shared: graph mode options (sensor graphs) -->
   <string id="GraphModeValue">Value only</string>
@@ -247,6 +262,16 @@
   <string id="StepsShowBar">Steps: Show Progress Bar</string>
   <string id="StepsShowBarValue">Steps: Show Value in Bar</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
+
+  <!-- Floors -->
+  <string id="FloorsShowBar">Floors: Show Progress Bar</string>
+  <string id="FloorsShowBarValue">Floors: Show Value in Bar</string>
+  <string id="FloorsBarColor">Floors: Bar Color</string>
+
+  <!-- Intensity Minutes (Weekly) -->
+  <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
+  <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
+  <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
 
   <!-- Shared: graph type options (forecast) -->
   <string id="GraphTypeLine">Line</string>

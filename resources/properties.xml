@@ -88,6 +88,16 @@
   <property id="stepsShowBarValue" type="boolean">true</property>
   <property id="stepsBarColor" type="number">1</property>
 
+  <!-- Floors -->
+  <property id="floorsShowBar" type="boolean">true</property>
+  <property id="floorsShowBarValue" type="boolean">true</property>
+  <property id="floorsBarColor" type="number">1</property>
+
+  <!-- Intensity Minutes (Weekly) -->
+  <property id="intensityMinShowBar" type="boolean">true</property>
+  <property id="intensityMinShowBarValue" type="boolean">true</property>
+  <property id="intensityMinBarColor" type="number">3</property>
+
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->

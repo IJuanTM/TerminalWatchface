@@ -64,8 +64,9 @@ FIELDS_ALL = [
     (48, "FieldTrainingStatus"),
     (74, "FieldTrainingEffect"),
     (28, "FieldWristTemp"),
-    (84, "FieldSolar"),
-    (77, "FieldNotifications"),
+    (103, "FieldHrResting"),
+    (104, "FieldHrRestingAvg"),
+    (110, "FieldHrRestingBoth"),
     # Fitness combos
     (88, "FieldHrSpo2"),
     (94, "FieldRespSpo2"),
@@ -73,6 +74,10 @@ FIELDS_ALL = [
     (90, "FieldBodyBatRecovery"),
     (101, "FieldStressRecovery"),
     (100, "FieldVo2Training"),
+    (113, "FieldBodyBatRestHR"),
+    (114, "FieldSleepRecovery"),
+    (115, "FieldHrMeanMax"),
+    (116, "FieldCalTotalAct"),
     # Calories / Distance / Speed
     (2, "FieldCalories"),
     (25, "FieldCalAct"),
@@ -157,6 +162,19 @@ FIELDS_ALL = [
     (73, "FieldWxFcstHumidity"),
     (85, "FieldWxFcstUv"),
     (86, "FieldWxFcstCloud"),
+    # Weather: forecast conditions (from complications)
+    (106, "FieldWxFcstCond1d"),
+    (107, "FieldWxFcstCond2d"),
+    (108, "FieldWxFcstCond3d"),
+    (111, "FieldWxCondFcst1d"),
+    (112, "FieldWxFcstCond12d"),
+    # Weather: station
+    (105, "FieldWxSeaPress"),
+    (109, "FieldWxObsTime"),
+    # Watch / System
+    (77, "FieldNotifications"),
+    (84, "FieldSolar"),
+    (117, "FieldSolarBattery"),
 ]
 
 # Graph-capable sensor fields.
@@ -371,6 +389,16 @@ def gen_properties():
     lines.append(prop("stepsShowBarValue", "boolean", "true"))
     lines.append(prop("stepsBarColor", "number", 1))  # green
 
+    lines.append("\n  <!-- Floors -->")
+    lines.append(prop("floorsShowBar", "boolean", "true"))
+    lines.append(prop("floorsShowBarValue", "boolean", "true"))
+    lines.append(prop("floorsBarColor", "number", 1))  # green
+
+    lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
+    lines.append(prop("intensityMinShowBar", "boolean", "true"))
+    lines.append(prop("intensityMinShowBarValue", "boolean", "true"))
+    lines.append(prop("intensityMinBarColor", "number", 3))  # yellow
+
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for key, skey, mode, std, sfd, tfd, gcd, scd, vmd in GRAPH_FIELDS:
         lines.append(f"\n  <!-- {skey} -->")
@@ -556,8 +584,9 @@ def gen_strings():
         ("FieldTrainingStatus", "Training Status"),
         ("FieldTrainingEffect", "Training Effect"),
         ("FieldWristTemp", "Wrist Temperature"),
-        ("FieldSolar", "Solar Input"),
-        ("FieldNotifications", "Notifications"),
+        ("FieldHrResting", "Resting HR"),
+        ("FieldHrRestingAvg", "Resting HR (7-day Avg)"),
+        ("FieldHrRestingBoth", "Resting HR + 7-day Avg"),
         # Fitness combos
         ("FieldHrSpo2", "HR + SpO2"),
         ("FieldRespSpo2", "Respiration + SpO2"),
@@ -565,6 +594,10 @@ def gen_strings():
         ("FieldBodyBatRecovery", "Body Battery + Recovery"),
         ("FieldStressRecovery", "Stress + Recovery"),
         ("FieldVo2Training", "VO2 Max + Training"),
+        ("FieldBodyBatRestHR", "Body Battery + Resting HR"),
+        ("FieldSleepRecovery", "Sleep Score + Recovery"),
+        ("FieldHrMeanMax", "HR: Avg + Max (Activity)"),
+        ("FieldCalTotalAct", "Calories: Daily + Activity"),
         # Calories / Distance / Speed
         ("FieldCalories", "Calories (Daily)"),
         ("FieldCalAct", "Calories (Activity)"),
@@ -649,6 +682,19 @@ def gen_strings():
         ("FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
         ("FieldWxFcstUv", "Forecast: UV (Hourly)"),
         ("FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
+        # Weather: forecast conditions
+        ("FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
+        ("FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
+        ("FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
+        ("FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
+        ("FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
+        # Weather: station
+        ("FieldWxSeaPress", "Weather: Sea Level Pressure"),
+        ("FieldWxObsTime", "Weather: Data Age"),
+        # Watch / System
+        ("FieldNotifications", "Notifications"),
+        ("FieldSolar", "Solar Input"),
+        ("FieldSolarBattery", "Solar Input + Watch Battery"),
     ]
     for sid, text in field_labels:
         lines.append(s(sid, text))
@@ -677,6 +723,16 @@ def gen_strings():
     lines.append(s("StepsShowBar", "Steps: Show Progress Bar"))
     lines.append(s("StepsShowBarValue", "Steps: Show Value in Bar"))
     lines.append(s("StepsBarColor", "Steps: Bar Color"))
+
+    lines.append("\n  <!-- Floors -->")
+    lines.append(s("FloorsShowBar", "Floors: Show Progress Bar"))
+    lines.append(s("FloorsShowBarValue", "Floors: Show Value in Bar"))
+    lines.append(s("FloorsBarColor", "Floors: Bar Color"))
+
+    lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
+    lines.append(s("IntensityMinShowBar", "Intensity Min: Show Progress Bar"))
+    lines.append(s("IntensityMinShowBarValue", "Intensity Min: Show Value in Bar"))
+    lines.append(s("IntensityMinBarColor", "Intensity Min: Bar Color"))
 
     lines.append("\n  <!-- Shared: graph type options (forecast) -->")
     lines.append(s("GraphTypeLine", "Line"))
@@ -938,6 +994,20 @@ def gen_settings():
     parts.append(setting_bool("stepsShowBar", "StepsShowBar"))
     parts.append(setting_bool("stepsShowBarValue", "StepsShowBarValue"))
     parts.append(color_setting("stepsBarColor", "StepsBarColor", COLORS_TEXT))
+
+    # Floors
+    parts.append("\n  <!-- Floors -->")
+    parts.append(setting_bool("floorsShowBar", "FloorsShowBar"))
+    parts.append(setting_bool("floorsShowBarValue", "FloorsShowBarValue"))
+    parts.append(color_setting("floorsBarColor", "FloorsBarColor", COLORS_TEXT))
+
+    # Intensity Minutes
+    parts.append("\n  <!-- Intensity Minutes (Weekly) -->")
+    parts.append(setting_bool("intensityMinShowBar", "IntensityMinShowBar"))
+    parts.append(setting_bool("intensityMinShowBarValue", "IntensityMinShowBarValue"))
+    parts.append(
+        color_setting("intensityMinBarColor", "IntensityMinBarColor", COLORS_TEXT)
+    )
 
     # Graph fields
     parts.append("\n  <!-- Graph settings per supported field type -->")

@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.38.2";
+const APP_VERSION = "0.39.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -141,6 +141,29 @@ const FIELD_WX_FCST_WIND = 64;
 const FIELD_WX_FCST_HUMIDITY = 73;
 const FIELD_WX_FCST_UV = 85;
 const FIELD_WX_FCST_CLOUD = 86;
+
+// --- Resting HR ---
+const FIELD_HR_RESTING = 103;
+const FIELD_HR_RESTING_AVG = 104;
+
+// --- Weather: station ---
+const FIELD_WX_SEA_PRESS = 105;
+const FIELD_WX_OBS_TIME = 109;
+
+// --- Weather: forecast conditions (from complications) ---
+const FIELD_WX_FCST_COND_1D = 106;
+const FIELD_WX_FCST_COND_2D = 107;
+const FIELD_WX_FCST_COND_3D = 108;
+
+// --- New combos ---
+const FIELD_HR_RESTING_BOTH = 110;
+const FIELD_WX_COND_FCST_1D = 111;
+const FIELD_WX_FCST_COND_12D = 112;
+const FIELD_BODY_BAT_REST_HR = 113;
+const FIELD_SLEEP_RECOVERY = 114;
+const FIELD_HR_MEAN_MAX = 115;
+const FIELD_CAL_TOTAL_ACT = 116;
+const FIELD_SOLAR_BATTERY = 117;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -373,6 +396,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _cachedElevation as String = "-";
     private var _cachedStress as String = "-";
     private var _cachedVo2Max as String = "-";
+    private var _cachedRestingHR as String = "-";
+    private var _cachedAvgRestingHR as String = "-";
     private var _cachedSleepTime as String = "-";
     private var _cachedWakeTime as String = "-";
     private var _wxForecastPrecipData as Array<Float>? = null;
@@ -424,12 +449,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxVisibility as String = "-";
     private var _wxCloudCover as String = "-";
     private var _wxHeatIndex as String = "-";
+    private var _wxObsAge as String = "-";
     private var _compNotifications as Number? = null;
     private var _compRacePace5k as Float? = null;
     private var _compRacePace10k as Float? = null;
     private var _compRacePaceHalf as Float? = null;
     private var _compRacePaceMarathon as Float? = null;
     private var _compSolar as Number? = null;
+    private var _compFcstCond1d as Number? = null;
+    private var _compFcstCond2d as Number? = null;
+    private var _compFcstCond3d as Number? = null;
+    private var _compSeaLevelPressure as Float? = null;
     private var _wxForecastUvData as Array<Float>? = null;
     private var _wxForecastCloudData as Array<Float>? = null;
     private var _cachedPressureTrend as Number = 0;
@@ -469,6 +499,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _compRacePaceHalf = null;
         _compRacePaceMarathon = null;
         _compSolar = null;
+        _compFcstCond1d = null;
+        _compFcstCond2d = null;
+        _compFcstCond3d = null;
+        _compSeaLevelPressure = null;
         var iter = Complications.getComplications();
         var comp = iter.next() as Complications.Complication?;
         while (comp != null) {
@@ -538,6 +572,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _compRacePaceMarathon = v as Float;
                 } else if (t == Complications.COMPLICATION_TYPE_SOLAR_INPUT) {
                     _compSolar = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_FORECAST_WEATHER_1DAY
+                ) {
+                    _compFcstCond1d = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_FORECAST_WEATHER_2DAY
+                ) {
+                    _compFcstCond2d = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_FORECAST_WEATHER_3DAY
+                ) {
+                    _compFcstCond3d = v as Number;
+                } else if (
+                    t == Complications.COMPLICATION_TYPE_SEA_LEVEL_PRESSURE
+                ) {
+                    _compSeaLevelPressure = v as Float;
                 }
             }
             comp = iter.next() as Complications.Complication?;
@@ -690,7 +740,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     f == FIELD_PACE_AND_AVG ||
                     f == FIELD_HR_SPO2 ||
                     f == FIELD_ASCENT_DESCENT ||
-                    f == FIELD_RESP_SPO2
+                    f == FIELD_RESP_SPO2 ||
+                    f == FIELD_HR_MEAN_MAX ||
+                    f == FIELD_CAL_TOTAL_ACT
                 ) {
                     needsAct = true;
                 }
@@ -778,6 +830,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 vo2 = profile.vo2maxCycling;
             }
             _cachedVo2Max = vo2 != null ? (vo2 as Number).toString() : "-";
+            if (
+                profile has :restingHeartRate &&
+                profile.restingHeartRate != null
+            ) {
+                _cachedRestingHR = (
+                    profile.restingHeartRate as Number
+                ).toString();
+            } else {
+                _cachedRestingHR = "-";
+            }
+            if (
+                profile has :averageRestingHeartRate &&
+                profile.averageRestingHeartRate != null
+            ) {
+                _cachedAvgRestingHR = (
+                    profile.averageRestingHeartRate as Number
+                ).toString();
+            } else {
+                _cachedAvgRestingHR = "-";
+            }
             if (
                 profile has :upcomingSleepTime &&
                 profile.upcomingSleepTime != null
@@ -1225,6 +1297,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineGraphColor[li] = _getProp("stepsBarColor", 1);
             return;
         }
+        if (field == FIELD_FLOORS) {
+            var showBar = _getBoolProp("floorsShowBar");
+            var showVal = _getBoolProp("floorsShowBarValue");
+            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
+            _lineGraphColor[li] = _getProp("floorsBarColor", 1);
+            return;
+        }
+        if (field == FIELD_INTENSITY_MIN) {
+            var showBar = _getBoolProp("intensityMinShowBar");
+            var showVal = _getBoolProp("intensityMinShowBarValue");
+            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
+            _lineGraphColor[li] = _getProp("intensityMinBarColor", 3);
+            return;
+        }
         if (field == FIELD_WX_FCST_TEMP) {
             var wxvm = _getProp("wxForecastViewMode", VIEW_GRAPH_VALUE);
             if (wxvm == VIEW_GRAPH_MAXMIN) {
@@ -1363,6 +1449,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         li as Number
     ) as Void {
         if (field == FIELD_FLOORS) {
+            var vm = _lineViewMode[li];
+            if (vm == 1 || vm == 2) {
+                _drawFloorsBarRow(
+                    dc,
+                    cx,
+                    y,
+                    labelColor,
+                    valueColor,
+                    vm == 2,
+                    _lineGraphColor[li]
+                );
+                return;
+            }
             _drawFloorsRow(dc, cx, y, labelColor, valueColor);
             return;
         }
@@ -1865,6 +1964,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return;
         }
+        if (field == FIELD_INTENSITY_MIN) {
+            var vm = _lineViewMode[li];
+            if (vm == 1 || vm == 2) {
+                _drawIntensityMinBarRow(
+                    dc,
+                    cx,
+                    y,
+                    labelColor,
+                    valueColor,
+                    vm == 2,
+                    _lineGraphColor[li]
+                );
+                return;
+            }
+        }
         _getFieldParts(field);
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
     }
@@ -2009,6 +2123,236 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
+    private function _drawFloorsBarRow(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        labelColor as Number,
+        valueColor as Number,
+        showValue as Boolean,
+        barColor as Number
+    ) as Void {
+        if (_amInfo == null) {
+            return;
+        }
+        var info = _amInfo as ActivityMonitor.Info;
+        var floors =
+            info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
+        var goal = 10;
+        if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
+            goal = info.floorsClimbedGoal as Number;
+        }
+        if (goal <= 0) {
+            goal = 10;
+        }
+        _rowBuf[0] = "Floors";
+        _rowBuf[1] = "";
+        _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+        var gx = cx + _splitPad + _charW;
+        var gw = _charW * 12;
+        var barH = _fh;
+        var barY = y;
+        dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
+        dc.fillRectangle(gx, barY, gw, barH);
+        var frac = floors.toFloat() / goal.toFloat();
+        if (frac > 1.0) {
+            frac = 1.0;
+        }
+        var fillW = (frac * gw.toFloat()).toNumber();
+        if (fillW > 0) {
+            var fillColor =
+                floors >= goal ? _colorFromIdx(1) : _colorFromIdx(barColor);
+            dc.setColor(fillColor, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(gx, barY, fillW, barH);
+        }
+        var labelY = y + (_fh - _tinyFh) / 2 - 1;
+        var goalStr = goal.toString();
+        dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            gx - 4,
+            labelY,
+            _fontTiny,
+            "0",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx + gw + 4,
+            labelY,
+            _fontTiny,
+            goalStr,
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+        if (showValue) {
+            var valY = y + (_fh - _smallFh) / 2 - 1;
+            var valX = gx + gw / 2;
+            var floorsStr = floors.format("%0" + goalStr.length() + "d");
+            dc.setColor(GRAYS[0], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                valX - 1,
+                valY - 1,
+                _fontSmall,
+                floorsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY - 1,
+                _fontSmall,
+                floorsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX - 1,
+                valY + 1,
+                _fontSmall,
+                floorsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY + 1,
+                _fontSmall,
+                floorsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                valX,
+                valY,
+                _fontSmall,
+                floorsStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            if (floors >= goal) {
+                dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+                dc.drawText(
+                    gx + gw + _charW * (goalStr.length() - 1),
+                    valY,
+                    _fontSmall,
+                    "[GOAL]",
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+            }
+        }
+    }
+
+    private function _drawIntensityMinBarRow(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        labelColor as Number,
+        valueColor as Number,
+        showValue as Boolean,
+        barColor as Number
+    ) as Void {
+        if (_amInfo == null) {
+            return;
+        }
+        var info = _amInfo as ActivityMonitor.Info;
+        var mins = info.activeMinutesWeek;
+        var current =
+            mins != null && mins.total != null ? mins.total as Number : 0;
+        var goal = 150;
+        if (
+            info has :activeMinutesWeekGoal &&
+            info.activeMinutesWeekGoal != null
+        ) {
+            goal = info.activeMinutesWeekGoal as Number;
+        }
+        if (goal <= 0) {
+            goal = 150;
+        }
+        _rowBuf[0] = "Intens Min";
+        _rowBuf[1] = "";
+        _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+        var gx = cx + _splitPad + _charW;
+        var gw = _charW * 12;
+        var barH = _fh;
+        var barY = y;
+        dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
+        dc.fillRectangle(gx, barY, gw, barH);
+        var frac = current.toFloat() / goal.toFloat();
+        if (frac > 1.0) {
+            frac = 1.0;
+        }
+        var fillW = (frac * gw.toFloat()).toNumber();
+        if (fillW > 0) {
+            var fillColor =
+                current >= goal ? _colorFromIdx(1) : _colorFromIdx(barColor);
+            dc.setColor(fillColor, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(gx, barY, fillW, barH);
+        }
+        var labelY = y + (_fh - _tinyFh) / 2 - 1;
+        var goalStr = goal.toString();
+        dc.setColor(_colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            gx - 4,
+            labelY,
+            _fontTiny,
+            "0",
+            Graphics.TEXT_JUSTIFY_RIGHT
+        );
+        dc.drawText(
+            gx + gw + 4,
+            labelY,
+            _fontTiny,
+            goalStr,
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
+        if (showValue) {
+            var valY = y + (_fh - _smallFh) / 2 - 1;
+            var valX = gx + gw / 2;
+            var curStr = current.format("%0" + goalStr.length() + "d");
+            dc.setColor(GRAYS[0], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                valX - 1,
+                valY - 1,
+                _fontSmall,
+                curStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY - 1,
+                _fontSmall,
+                curStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX - 1,
+                valY + 1,
+                _fontSmall,
+                curStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.drawText(
+                valX + 1,
+                valY + 1,
+                _fontSmall,
+                curStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            dc.setColor(_colorFromIdx(valueColor), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                valX,
+                valY,
+                _fontSmall,
+                curStr,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            if (current >= goal) {
+                dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+                dc.drawText(
+                    gx + gw + _charW * (goalStr.length() - 1),
+                    valY,
+                    _fontSmall,
+                    "[GOAL]",
+                    Graphics.TEXT_JUSTIFY_LEFT
+                );
+            }
+        }
     }
 
     private function _drawUpDownRow(
@@ -5798,6 +6142,147 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     : "-";
             return;
         }
+        if (field == FIELD_HR_RESTING_BOTH) {
+            _rowBuf[0] = "HR Rest/Avg";
+            _rowBuf[1] = _cachedRestingHR + " | " + _cachedAvgRestingHR;
+            return;
+        }
+        if (field == FIELD_WX_COND_FCST_1D) {
+            var tomorrow =
+                _compFcstCond1d != null
+                    ? _condStr(_compFcstCond1d as Number)
+                    : "-";
+            _rowBuf[0] = "Cond/+1d";
+            _rowBuf[1] = _wxCond + " | " + tomorrow;
+            return;
+        }
+        if (field == FIELD_WX_FCST_COND_12D) {
+            var d1 =
+                _compFcstCond1d != null
+                    ? _condStr(_compFcstCond1d as Number)
+                    : "-";
+            var d2 =
+                _compFcstCond2d != null
+                    ? _condStr(_compFcstCond2d as Number)
+                    : "-";
+            _rowBuf[0] = "+1d/+2d";
+            _rowBuf[1] = d1 + " | " + d2;
+            return;
+        }
+        if (field == FIELD_BODY_BAT_REST_HR) {
+            _rowBuf[0] = "Bat+RestHR";
+            _rowBuf[1] = _cachedBodyBat + " | " + _cachedRestingHR;
+            return;
+        }
+        if (field == FIELD_SLEEP_RECOVERY) {
+            var sleep =
+                _compSleepScore != null
+                    ? (_compSleepScore as Number).toString()
+                    : "-";
+            var rec = "-";
+            if (_amInfo != null) {
+                var info = _amInfo as ActivityMonitor.Info;
+                if (info.timeToRecovery != null) {
+                    rec = (info.timeToRecovery as Number).toString() + "h";
+                }
+            }
+            _rowBuf[0] = "Sleep+Rec";
+            _rowBuf[1] = sleep + " | " + rec;
+            return;
+        }
+        if (field == FIELD_HR_RESTING) {
+            _rowBuf[0] = "HR Rest";
+            _rowBuf[1] = _cachedRestingHR;
+            return;
+        }
+        if (field == FIELD_HR_RESTING_AVG) {
+            _rowBuf[0] = "HR RestAvg";
+            _rowBuf[1] = _cachedAvgRestingHR;
+            return;
+        }
+        if (field == FIELD_WX_SEA_PRESS) {
+            _rowBuf[0] = "Sea Press";
+            _rowBuf[1] =
+                _compSeaLevelPressure != null
+                    ? ((_compSeaLevelPressure as Float) / 100.0).format(
+                          "%.1f"
+                      ) + " hPa"
+                    : "-";
+            return;
+        }
+        if (field == FIELD_WX_OBS_TIME) {
+            _rowBuf[0] = "WX Age";
+            _rowBuf[1] = _wxObsAge;
+            return;
+        }
+        if (field == FIELD_WX_FCST_COND_1D) {
+            _rowBuf[0] = "Fcst +1d";
+            _rowBuf[1] =
+                _compFcstCond1d != null
+                    ? _condStr(_compFcstCond1d as Number)
+                    : "-";
+            return;
+        }
+        if (field == FIELD_WX_FCST_COND_2D) {
+            _rowBuf[0] = "Fcst +2d";
+            _rowBuf[1] =
+                _compFcstCond2d != null
+                    ? _condStr(_compFcstCond2d as Number)
+                    : "-";
+            return;
+        }
+        if (field == FIELD_WX_FCST_COND_3D) {
+            _rowBuf[0] = "Fcst +3d";
+            _rowBuf[1] =
+                _compFcstCond3d != null
+                    ? _condStr(_compFcstCond3d as Number)
+                    : "-";
+            return;
+        }
+        if (field == FIELD_HR_MEAN_MAX) {
+            var avg = "-";
+            var max = "-";
+            if (_acInfo != null) {
+                var a = _acInfo as Activity.Info;
+                if (a.averageHeartRate != null) {
+                    avg = (a.averageHeartRate as Number).toString();
+                }
+                if (a.maxHeartRate != null) {
+                    max = (a.maxHeartRate as Number).toString();
+                }
+            }
+            _rowBuf[0] = "HR Avg/Max";
+            _rowBuf[1] = avg + " | " + max;
+            return;
+        }
+        if (field == FIELD_CAL_TOTAL_ACT) {
+            var total = "-";
+            var act = "-";
+            if (_amInfo != null) {
+                var info = _amInfo as ActivityMonitor.Info;
+                if (info.calories != null) {
+                    total = (info.calories as Number).toString();
+                }
+            }
+            if (_acInfo != null) {
+                var a = _acInfo as Activity.Info;
+                if (a.calories != null) {
+                    act = (a.calories as Number).toString();
+                }
+            }
+            _rowBuf[0] = "Cal Tot/Act";
+            _rowBuf[1] = total + " | " + act;
+            return;
+        }
+        if (field == FIELD_SOLAR_BATTERY) {
+            var solar =
+                _compSolar != null
+                    ? (_compSolar as Number).toString() + "%"
+                    : "-";
+            _rowBuf[0] = "Solar/Bat";
+            _rowBuf[1] = solar + " | " + _batText;
+            return;
+        }
         _rowBuf[0] = "";
         _rowBuf[1] = "";
         return;
@@ -5902,7 +6387,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _refreshPointSamples() as Void {
-        if (_fieldNeeded(FIELD_BODY_BAT)) {
+        if (
+            _fieldNeeded(FIELD_BODY_BAT) ||
+            _fieldNeeded(FIELD_BODY_BAT_STRESS) ||
+            _fieldNeeded(FIELD_BODY_BAT_RECOVERY) ||
+            _fieldNeeded(FIELD_BODY_BAT_REST_HR)
+        ) {
             var sample = SensorHistory.getBodyBatteryHistory({}).next();
             if (sample != null && sample.data != null) {
                 var d = sample.data;
@@ -5963,7 +6453,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _cachedElevation = _altStr(elev);
             }
         }
-        if (_fieldNeeded(FIELD_STRESS)) {
+        if (
+            _fieldNeeded(FIELD_STRESS) ||
+            _fieldNeeded(FIELD_BODY_BAT_STRESS) ||
+            _fieldNeeded(FIELD_STRESS_RECOVERY)
+        ) {
             var amRef = _amInfo;
             if (
                 amRef != null &&
@@ -6060,6 +6554,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (c.cloudCover != null) {
             _wxCloudCover = (c.cloudCover as Number).toString() + "%";
+        }
+        if (c has :observationTime && c.observationTime != null) {
+            var ageS =
+                Time.now().value() - (c.observationTime as Time.Moment).value();
+            if (ageS < 0) {
+                ageS = 0;
+            }
+            _wxObsAge = (ageS / 60).toString() + "m";
+        } else {
+            _wxObsAge = "-";
         }
         if (c.temperature != null && _wxHumidityNum >= 0) {
             var tf = c.temperature as Float;
