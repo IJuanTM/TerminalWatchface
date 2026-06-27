@@ -3696,6 +3696,7 @@
     <settingConfig type="list">
       <listEntry value="1">@Strings.ViewModeGraph</listEntry>
       <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="3">@Strings.ViewModeGraphMaxMin</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastValueMode" title="@Strings.WxForecastValueMode">

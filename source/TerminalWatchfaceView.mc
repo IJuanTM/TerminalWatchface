@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.40.0";
+const APP_VERSION = "0.40.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -599,6 +599,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     public function invalidateSettings() as Void {
         _resolvedPhase = -1;
         _graphCacheMin = -1;
+        _graphCache = {};
+        _graphCacheTimes = {};
         _graphBmpCache = {};
         _graphBmpDualCache = {};
         _lastDateDay = -1;

@@ -336,6 +336,10 @@ def field_entries(fields):
     return [(v, f"@Strings.{s}") for v, s in fields]
 
 
+def width_entries():
+    return [(v, f"@Strings.{s}") for v, s in GRAPH_WIDTH_OPTIONS]
+
+
 def color_setting(prop_key, title_key, colors=COLORS_FULL):
     return setting_list(prop_key, title_key, color_entries(colors))
 
@@ -870,9 +874,7 @@ def gen_strings():
 
 
 def width_setting(prop_key, title_key):
-    return setting_list(
-        prop_key, title_key, [(v, f"@Strings.{s}") for v, s in GRAPH_WIDTH_OPTIONS]
-    )
+    return setting_list(prop_key, title_key, width_entries())
 
 
 def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
@@ -1069,6 +1071,7 @@ def gen_settings():
             [
                 (1, "@Strings.ViewModeGraph"),
                 (2, "@Strings.ViewModeGraphCurrent"),
+                (3, "@Strings.ViewModeGraphMaxMin"),
             ],
         )
     )
