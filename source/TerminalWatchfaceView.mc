@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.38.0";
+const APP_VERSION = "0.38.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -3783,37 +3783,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         graphType as Number
     ) as Void {
         var all = _wxForecastData;
-        if (all == null) {
-            _drawTempRow(
-                dc,
-                cx,
-                y,
-                "Temp Fcst",
-                _wxTemp,
-                "",
-                labelColor,
-                valueColor
-            );
-            return;
-        }
-        var n = hours < all.size() ? hours : all.size();
-        if (n < 2) {
-            _drawTempRow(
-                dc,
-                cx,
-                y,
-                "Temp Fcst",
-                _wxTemp,
-                "",
-                labelColor,
-                valueColor
-            );
-            return;
-        }
-
         var gw = _charW * 10;
         var gx = cx + _splitPad + _charW * 2;
         var gh = _fh - 2;
+        var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
+        if (n < 2) {
+            _rowBuf[0] = "Temp Fcst";
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            _drawGraphAxes(dc, gx, gw, y);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx + gw / 2,
+                y + gh / 2 - _tinyFh / 2 - 1,
+                _fontTiny,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            return;
+        }
 
         var data = new Array<Float>[n];
         for (var i = 0; i < n; i++) {
@@ -4158,22 +4146,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fieldConst as Number,
         minRange as Float
     ) as Void {
-        if (all == null || all.size() < 2) {
-            _rowBuf[0] = label;
-            _rowBuf[1] = fallbackValue;
-            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            return;
-        }
-        var n = hours < all.size() ? hours : all.size();
-        if (n < 2) {
-            _rowBuf[0] = label;
-            _rowBuf[1] = fallbackValue;
-            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            return;
-        }
         var gw = _charW * 10;
         var gx = cx + _splitPad + _charW * 2;
         var gh = _fh - 2;
+        var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
+        if (n < 2) {
+            _rowBuf[0] = label;
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            _drawGraphAxes(dc, gx, gw, y);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx + gw / 2,
+                y + gh / 2 - _tinyFh / 2 - 1,
+                _fontTiny,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+            return;
+        }
         var data = new Array<Float>[n];
         for (var i = 0; i < n; i++) {
             data[i] = (all as Array<Float>)[n - 1 - i];
@@ -4346,16 +4337,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var highs = _wxDailyForecastHigh;
         var lows = _wxDailyForecastLow;
+        var gw = _charW * 10;
+        var gx = cx + _splitPad + _charW * 2;
+        var gh = _fh - 2;
         if (highs == null || lows == null) {
-            _drawTempRow(
-                dc,
-                cx,
-                y,
-                "Day Fcst",
-                _wxTemp,
-                "",
-                labelColor,
-                valueColor
+            _rowBuf[0] = "Day Fcst";
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            _drawGraphAxes(dc, gx, gw, y);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx + gw / 2,
+                y + gh / 2 - _tinyFh / 2 - 1,
+                _fontTiny,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER
             );
             return;
         }
@@ -4367,21 +4363,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var n = days < avail ? days : avail;
         if (n < 2) {
-            _drawTempRow(
-                dc,
-                cx,
-                y,
-                "Day Fcst",
-                _wxTemp,
-                "",
-                labelColor,
-                valueColor
+            _rowBuf[0] = "Day Fcst";
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            _drawGraphAxes(dc, gx, gw, y);
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                gx + gw / 2,
+                y + gh / 2 - _tinyFh / 2 - 1,
+                _fontTiny,
+                "no data",
+                Graphics.TEXT_JUSTIFY_CENTER
             );
             return;
         }
-        var gw = _charW * 10;
-        var gx = cx + _splitPad + _charW * 2;
-        var gh = _fh - 2;
         var allMin = 1.0e38 as Float;
         var allMax = -1.0e38 as Float;
         for (var i = 0; i < n; i++) {
