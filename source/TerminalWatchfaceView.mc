@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.39.1";
+const APP_VERSION = "0.40.0";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -433,6 +433,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _linePeriodMin as Array<Number> = [60, 60, 60] as Array<Number>;
     private var _lineGraphColor as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineGraphType as Array<Number> = [0, 0, 0] as Array<Number>;
+    private var _lineGraphWidth as Array<Number> =
+        [10, 10, 10] as Array<Number>;
     private var _lineSecType as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecField as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecColor as Array<Number> = [0, 0, 0] as Array<Number>;
@@ -1289,12 +1291,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lineGraphType[li] = GRAPH_LINE;
         _linePeriodMin[li] = 60;
         _lineGraphColor[li] = 0;
+        _lineGraphWidth[li] = 10;
         var field = _resolvedFields[li];
         if (field == FIELD_STEPS) {
             var showBar = _getBoolProp("stepsShowBar");
             var showVal = _getBoolProp("stepsShowBarValue");
             _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
             _lineGraphColor[li] = _getProp("stepsBarColor", 1);
+            _lineGraphWidth[li] = _getProp("stepsBarWidth", 10);
             return;
         }
         if (field == FIELD_FLOORS) {
@@ -1302,6 +1306,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var showVal = _getBoolProp("floorsShowBarValue");
             _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
             _lineGraphColor[li] = _getProp("floorsBarColor", 1);
+            _lineGraphWidth[li] = _getProp("floorsBarWidth", 10);
             return;
         }
         if (field == FIELD_INTENSITY_MIN) {
@@ -1309,6 +1314,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var showVal = _getBoolProp("intensityMinShowBarValue");
             _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
             _lineGraphColor[li] = _getProp("intensityMinBarColor", 3);
+            _lineGraphWidth[li] = _getProp("intensityMinBarWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_TEMP) {
@@ -1323,6 +1329,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineGraphColor[li] = _getProp("wxForecastGraphColor", 16);
             _lineGraphType[li] = _getProp("wxForecastGraphType", GRAPH_BAR);
             _linePeriodMin[li] = _getProp("wxForecastTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_PRECIP) {
@@ -1337,6 +1344,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 GRAPH_BAR
             );
             _linePeriodMin[li] = _getProp("wxForecastPrecipTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastPrecipGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_DAILY) {
@@ -1347,6 +1355,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineValueMode[li] = _getProp("wxForecastDailyValueMode", 2);
             _lineGraphColor[li] = _getProp("wxForecastDailyGraphColor", 16);
             _linePeriodMin[li] = _getProp("wxForecastDailyDays", 5);
+            _lineGraphWidth[li] = _getProp("wxForecastDailyGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_WIND) {
@@ -1358,6 +1367,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineGraphColor[li] = _getProp("wxForecastWindGraphColor", 6);
             _lineGraphType[li] = _getProp("wxForecastWindGraphType", GRAPH_BAR);
             _linePeriodMin[li] = _getProp("wxForecastWindTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastWindGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_HUMIDITY) {
@@ -1372,6 +1382,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 GRAPH_BAR
             );
             _linePeriodMin[li] = _getProp("wxForecastHumidityTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastHumidityGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_UV) {
@@ -1383,6 +1394,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineGraphColor[li] = _getProp("wxForecastUvGraphColor", 3);
             _lineGraphType[li] = _getProp("wxForecastUvGraphType", GRAPH_BAR);
             _linePeriodMin[li] = _getProp("wxForecastUvTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastUvGraphWidth", 10);
             return;
         }
         if (field == FIELD_WX_FCST_CLOUD) {
@@ -1397,6 +1409,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 GRAPH_BAR
             );
             _linePeriodMin[li] = _getProp("wxForecastCloudTimeFrame", 12);
+            _lineGraphWidth[li] = _getProp("wxForecastCloudGraphWidth", 10);
             return;
         }
         var gk = _fieldGraphKey(field);
@@ -1437,6 +1450,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineSecField[li] = sidx;
             _lineSecColor[li] = _getProp(gk + "SecondaryColor", 0);
         }
+        _lineGraphWidth[li] = _getProp(gk + "GraphWidth", 10);
     }
 
     private function _drawLineRow(
@@ -1448,6 +1462,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valueColor as Number,
         li as Number
     ) as Void {
+        _graphW = _charW * _lineGraphWidth[li];
         if (field == FIELD_FLOORS) {
             var vm = _lineViewMode[li];
             if (vm == 1 || vm == 2) {
@@ -2005,7 +2020,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var gx = cx + _splitPad + _charW;
-        var gw = _charW * 12;
+        var gw = _graphW;
         var barH = _fh;
         var barY = y;
         dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
@@ -2151,7 +2166,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var gx = cx + _splitPad + _charW;
-        var gw = _charW * 12;
+        var gw = _graphW;
         var barH = _fh;
         var barY = y;
         dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
@@ -2268,7 +2283,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var gx = cx + _splitPad + _charW;
-        var gw = _charW * 12;
+        var gw = _graphW;
         var barH = _fh;
         var barY = y;
         dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);

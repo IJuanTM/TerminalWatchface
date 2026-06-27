@@ -185,17 +185,14 @@ FIELDS_ALL = [
 #                     3=line+current value, 4=bar+current value
 # sec_field_default is an index into GRAPH_SEC_FIELDS below.
 GRAPH_FIELDS = [
-    # fmt: off
-    #  key           skey         mode std sfd  tfd  gcd scd vmd
-    ("hr",        "HR",        3, 0, 1,  60,  5, 0, 0),  # line+current, 1h; red
-    ("bodyBat",   "BodyBat",   6, 0, 2, 240, 11, 0, 0),  # area+current, 4h; tri-color rev
-    ("stress",    "Stress",    3, 0, 0, 120, 10, 0, 1),  # line+current, 2h; tri-color
-    ("spo2",      "SpO2",      0, 0, 0,  60,  2, 0, 2),  # value only; cyan
-    ("tempWrist", "TempWrist", 3, 0, 0,  60, 16, 0, 1),  # line+current, 1h; turbo
-    ("elevation", "Elevation", 6, 0, 6, 480,  1, 0, 0),  # area+current, 8h; green
-    ("pressure",  "Pressure",  3, 0, 5, 120,  2, 0, 1),
-    # line+current, 2h; cyan
-    # fmt: on
+    # key skey mode std sfd tfd gcd scd vmd
+    ("hr", "HR", 3, 0, 1, 60, 5, 0, 0),  # line+current, 1h; red
+    ("bodyBat", "BodyBat", 6, 0, 2, 240, 11, 0, 0),  # area+current, 4h; tri-color rev
+    ("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),  # line+current, 2h; tri-color
+    ("spo2", "SpO2", 0, 0, 0, 60, 2, 0, 2),  # value only; cyan
+    ("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),  # line+current, 1h; turbo
+    ("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),  # area+current, 8h; green
+    ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),  # line+current, 2h; cyan
 ]
 
 # Secondary field options shared by all graph secondary-field pickers
@@ -225,6 +222,15 @@ FORECAST_TIME_FRAMES = [
     (6, "TimeFrameForecast6h"),
     (12, "TimeFrameForecast12h"),
     (24, "TimeFrameForecast24h"),
+]
+
+GRAPH_WIDTH_OPTIONS = [
+    (6, "GraphWidth6"),
+    (8, "GraphWidth8"),
+    (10, "GraphWidth10"),
+    (12, "GraphWidth12"),
+    (14, "GraphWidth14"),
+    (16, "GraphWidth16"),
 ]
 
 # Display names for GRAPH_FIELDS entries — used in both strings.xml and settings.xml
@@ -388,16 +394,19 @@ def gen_properties():
     lines.append(prop("stepsShowBar", "boolean", "true"))
     lines.append(prop("stepsShowBarValue", "boolean", "true"))
     lines.append(prop("stepsBarColor", "number", 1))  # green
+    lines.append(prop("stepsBarWidth", "number", 10))
 
     lines.append("\n  <!-- Floors -->")
     lines.append(prop("floorsShowBar", "boolean", "true"))
     lines.append(prop("floorsShowBarValue", "boolean", "true"))
     lines.append(prop("floorsBarColor", "number", 1))  # green
+    lines.append(prop("floorsBarWidth", "number", 10))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
     lines.append(prop("intensityMinShowBar", "boolean", "true"))
     lines.append(prop("intensityMinShowBarValue", "boolean", "true"))
     lines.append(prop("intensityMinBarColor", "number", 3))  # yellow
+    lines.append(prop("intensityMinBarWidth", "number", 10))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for key, skey, mode, std, sfd, tfd, gcd, scd, vmd in GRAPH_FIELDS:
@@ -409,6 +418,7 @@ def gen_properties():
         lines.append(prop(f"{key}TimeFrame", "number", tfd))
         lines.append(prop(f"{key}GraphColor", "number", gcd))
         lines.append(prop(f"{key}SecondaryColor", "number", scd))
+        lines.append(prop(f"{key}GraphWidth", "number", 10))
 
     lines.append("\n  <!-- Weather Forecast -->")
     lines.append(prop("wxForecastViewMode", "number", 2))  # graph + current
@@ -418,6 +428,7 @@ def gen_properties():
     lines.append(
         prop("wxForecastGraphColor", "number", 16)
     )  # GradTempTurbo (cold->hot)
+    lines.append(prop("wxForecastGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Rain Forecast -->")
     lines.append(prop("wxForecastPrecipViewMode", "number", 2))  # graph+value
@@ -425,12 +436,14 @@ def gen_properties():
     lines.append(prop("wxForecastPrecipGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastPrecipTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastPrecipGraphColor", "number", 6))  # blue
+    lines.append(prop("wxForecastPrecipGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Day Forecast -->")
     lines.append(prop("wxForecastDailyViewMode", "number", 2))  # graph+value
     lines.append(prop("wxForecastDailyValueMode", "number", 2))  # max/min
     lines.append(prop("wxForecastDailyDays", "number", 5))  # 5 days
     lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
+    lines.append(prop("wxForecastDailyGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Wind Forecast -->")
     lines.append(prop("wxForecastWindViewMode", "number", 2))  # graph+value
@@ -438,6 +451,7 @@ def gen_properties():
     lines.append(prop("wxForecastWindGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastWindTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastWindGraphColor", "number", 6))  # blue
+    lines.append(prop("wxForecastWindGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Humidity Forecast -->")
     lines.append(prop("wxForecastHumidityViewMode", "number", 2))  # graph+value
@@ -445,6 +459,7 @@ def gen_properties():
     lines.append(prop("wxForecastHumidityGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastHumidityTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastHumidityGraphColor", "number", 2))  # cyan
+    lines.append(prop("wxForecastHumidityGraphWidth", "number", 10))
 
     lines.append("\n  <!-- UV Forecast -->")
     lines.append(prop("wxForecastUvViewMode", "number", 2))  # graph+value
@@ -452,6 +467,7 @@ def gen_properties():
     lines.append(prop("wxForecastUvGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastUvTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastUvGraphColor", "number", 3))  # yellow
+    lines.append(prop("wxForecastUvGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Cloud Forecast -->")
     lines.append(prop("wxForecastCloudViewMode", "number", 2))  # graph+value
@@ -459,6 +475,7 @@ def gen_properties():
     lines.append(prop("wxForecastCloudGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastCloudTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastCloudGraphColor", "number", 8))  # light grey
+    lines.append(prop("wxForecastCloudGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -719,20 +736,31 @@ def gen_strings():
     lines.append(s("ViewModeGraphCurrent", "Graph + Current"))
     lines.append(s("ViewModeGraphMaxMin", "Graph + Max/Min"))
 
+    lines.append("\n  <!-- Shared: graph width options -->")
+    lines.append(s("GraphWidth6", "6 chars"))
+    lines.append(s("GraphWidth8", "8 chars"))
+    lines.append(s("GraphWidth10", "10 chars (default)"))
+    lines.append(s("GraphWidth12", "12 chars"))
+    lines.append(s("GraphWidth14", "14 chars"))
+    lines.append(s("GraphWidth16", "16 chars"))
+
     lines.append("\n  <!-- Steps -->")
     lines.append(s("StepsShowBar", "Steps: Show Progress Bar"))
     lines.append(s("StepsShowBarValue", "Steps: Show Value in Bar"))
     lines.append(s("StepsBarColor", "Steps: Bar Color"))
+    lines.append(s("StepsBarWidth", "Steps: Bar Width"))
 
     lines.append("\n  <!-- Floors -->")
     lines.append(s("FloorsShowBar", "Floors: Show Progress Bar"))
     lines.append(s("FloorsShowBarValue", "Floors: Show Value in Bar"))
     lines.append(s("FloorsBarColor", "Floors: Bar Color"))
+    lines.append(s("FloorsBarWidth", "Floors: Bar Width"))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
     lines.append(s("IntensityMinShowBar", "Intensity Min: Show Progress Bar"))
     lines.append(s("IntensityMinShowBarValue", "Intensity Min: Show Value in Bar"))
     lines.append(s("IntensityMinBarColor", "Intensity Min: Bar Color"))
+    lines.append(s("IntensityMinBarWidth", "Intensity Min: Bar Width"))
 
     lines.append("\n  <!-- Shared: graph type options (forecast) -->")
     lines.append(s("GraphTypeLine", "Line"))
@@ -765,6 +793,7 @@ def gen_strings():
         lines.append(s(f"{skey}TimeFrame", f"{display}: Time Frame"))
         lines.append(s(f"{skey}GraphColor", f"{display}: Graph Color"))
         lines.append(s(f"{skey}SecondaryColor", f"{display}: 2nd Graph Color"))
+        lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
     lines.append(s("WxForecastViewMode", "Temp Hourly: View Mode"))
@@ -772,6 +801,7 @@ def gen_strings():
     lines.append(s("WxForecastGraphType", "Temp Hourly: Graph Type"))
     lines.append(s("WxForecastTimeFrame", "Temp Hourly: Time Frame"))
     lines.append(s("WxForecastGraphColor", "Temp Hourly: Graph Color"))
+    lines.append(s("WxForecastGraphWidth", "Temp Hourly: Graph Width"))
     lines.append(s("TimeFrameForecast3h", "3 hours ahead"))
     lines.append(s("TimeFrameForecast6h", "6 hours ahead"))
     lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
@@ -782,6 +812,7 @@ def gen_strings():
     lines.append(s("WxForecastDailyValueMode", "Temp Daily: Value Mode"))
     lines.append(s("WxForecastDailyDays", "Temp Daily: Days"))
     lines.append(s("WxForecastDailyGraphColor", "Temp Daily: Graph Color"))
+    lines.append(s("WxForecastDailyGraphWidth", "Temp Daily: Graph Width"))
     lines.append(s("TimeFrameForecastDays3", "3 days"))
     lines.append(s("TimeFrameForecastDays5", "5 days"))
     lines.append(s("TimeFrameForecastDays7", "7 days"))
@@ -792,6 +823,7 @@ def gen_strings():
     lines.append(s("WxForecastPrecipGraphType", "Rain Hourly: Graph Type"))
     lines.append(s("WxForecastPrecipTimeFrame", "Rain Hourly: Hours Ahead"))
     lines.append(s("WxForecastPrecipGraphColor", "Rain Hourly: Graph Color"))
+    lines.append(s("WxForecastPrecipGraphWidth", "Rain Hourly: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Wind Hourly Forecast -->")
     lines.append(s("WxForecastWindViewMode", "Wind Hourly: View Mode"))
@@ -799,6 +831,7 @@ def gen_strings():
     lines.append(s("WxForecastWindGraphType", "Wind Hourly: Graph Type"))
     lines.append(s("WxForecastWindTimeFrame", "Wind Hourly: Hours Ahead"))
     lines.append(s("WxForecastWindGraphColor", "Wind Hourly: Graph Color"))
+    lines.append(s("WxForecastWindGraphWidth", "Wind Hourly: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Humidity Hourly Forecast -->")
     lines.append(s("WxForecastHumidityViewMode", "Humidity Hourly: View Mode"))
@@ -806,6 +839,7 @@ def gen_strings():
     lines.append(s("WxForecastHumidityGraphType", "Humidity Hourly: Graph Type"))
     lines.append(s("WxForecastHumidityTimeFrame", "Humidity Hourly: Hours Ahead"))
     lines.append(s("WxForecastHumidityGraphColor", "Humidity Hourly: Graph Color"))
+    lines.append(s("WxForecastHumidityGraphWidth", "Humidity Hourly: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: UV Hourly Forecast -->")
     lines.append(s("WxForecastUvViewMode", "UV Hourly: View Mode"))
@@ -813,6 +847,7 @@ def gen_strings():
     lines.append(s("WxForecastUvGraphType", "UV Hourly: Graph Type"))
     lines.append(s("WxForecastUvTimeFrame", "UV Hourly: Hours Ahead"))
     lines.append(s("WxForecastUvGraphColor", "UV Hourly: Graph Color"))
+    lines.append(s("WxForecastUvGraphWidth", "UV Hourly: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Cloud Hourly Forecast -->")
     lines.append(s("WxForecastCloudViewMode", "Cloud Hourly: View Mode"))
@@ -820,6 +855,7 @@ def gen_strings():
     lines.append(s("WxForecastCloudGraphType", "Cloud Hourly: Graph Type"))
     lines.append(s("WxForecastCloudTimeFrame", "Cloud Hourly: Hours Ahead"))
     lines.append(s("WxForecastCloudGraphColor", "Cloud Hourly: Graph Color"))
+    lines.append(s("WxForecastCloudGraphWidth", "Cloud Hourly: Graph Width"))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("ShowVersion", "Show App Version (testing)"))
@@ -831,6 +867,12 @@ def gen_strings():
 # ---------------------------------------------------------------------------
 # settings.xml
 # ---------------------------------------------------------------------------
+
+
+def width_setting(prop_key, title_key):
+    return setting_list(
+        prop_key, title_key, [(v, f"@Strings.{s}") for v, s in GRAPH_WIDTH_OPTIONS]
+    )
 
 
 def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
@@ -872,6 +914,7 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
     )
     blocks.append(color_setting(f"{key}GraphColor", f"{skey}GraphColor"))
     blocks.append(color_setting(f"{key}SecondaryColor", f"{skey}SecondaryColor"))
+    blocks.append(width_setting(f"{key}GraphWidth", f"{skey}GraphWidth"))
 
     return "\n".join(blocks)
 
@@ -994,12 +1037,14 @@ def gen_settings():
     parts.append(setting_bool("stepsShowBar", "StepsShowBar"))
     parts.append(setting_bool("stepsShowBarValue", "StepsShowBarValue"))
     parts.append(color_setting("stepsBarColor", "StepsBarColor", COLORS_TEXT))
+    parts.append(width_setting("stepsBarWidth", "StepsBarWidth"))
 
     # Floors
     parts.append("\n  <!-- Floors -->")
     parts.append(setting_bool("floorsShowBar", "FloorsShowBar"))
     parts.append(setting_bool("floorsShowBarValue", "FloorsShowBarValue"))
     parts.append(color_setting("floorsBarColor", "FloorsBarColor", COLORS_TEXT))
+    parts.append(width_setting("floorsBarWidth", "FloorsBarWidth"))
 
     # Intensity Minutes
     parts.append("\n  <!-- Intensity Minutes (Weekly) -->")
@@ -1008,6 +1053,7 @@ def gen_settings():
     parts.append(
         color_setting("intensityMinBarColor", "IntensityMinBarColor", COLORS_TEXT)
     )
+    parts.append(width_setting("intensityMinBarWidth", "IntensityMinBarWidth"))
 
     # Graph fields
     parts.append("\n  <!-- Graph settings per supported field type -->")
@@ -1050,6 +1096,7 @@ def gen_settings():
         )
     )
     parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
+    parts.append(width_setting("wxForecastGraphWidth", "WxForecastGraphWidth"))
 
     # Rain Forecast
     parts.append("\n  <!-- Rain Forecast -->")
@@ -1091,6 +1138,9 @@ def gen_settings():
     parts.append(
         color_setting("wxForecastPrecipGraphColor", "WxForecastPrecipGraphColor")
     )
+    parts.append(
+        width_setting("wxForecastPrecipGraphWidth", "WxForecastPrecipGraphWidth")
+    )
 
     # Day Forecast
     parts.append("\n  <!-- Day Forecast -->")
@@ -1124,6 +1174,9 @@ def gen_settings():
     )
     parts.append(
         color_setting("wxForecastDailyGraphColor", "WxForecastDailyGraphColor")
+    )
+    parts.append(
+        width_setting("wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth")
     )
 
     # Wind Forecast
@@ -1164,6 +1217,7 @@ def gen_settings():
         )
     )
     parts.append(color_setting("wxForecastWindGraphColor", "WxForecastWindGraphColor"))
+    parts.append(width_setting("wxForecastWindGraphWidth", "WxForecastWindGraphWidth"))
 
     # Humidity Forecast
     parts.append("\n  <!-- Humidity Forecast -->")
@@ -1205,6 +1259,9 @@ def gen_settings():
     parts.append(
         color_setting("wxForecastHumidityGraphColor", "WxForecastHumidityGraphColor")
     )
+    parts.append(
+        width_setting("wxForecastHumidityGraphWidth", "WxForecastHumidityGraphWidth")
+    )
 
     # UV Forecast
     parts.append("\n  <!-- UV Forecast -->")
@@ -1242,6 +1299,7 @@ def gen_settings():
         )
     )
     parts.append(color_setting("wxForecastUvGraphColor", "WxForecastUvGraphColor"))
+    parts.append(width_setting("wxForecastUvGraphWidth", "WxForecastUvGraphWidth"))
 
     # Cloud Forecast
     parts.append("\n  <!-- Cloud Forecast -->")
@@ -1282,6 +1340,9 @@ def gen_settings():
     )
     parts.append(
         color_setting("wxForecastCloudGraphColor", "WxForecastCloudGraphColor")
+    )
+    parts.append(
+        width_setting("wxForecastCloudGraphWidth", "WxForecastCloudGraphWidth")
     )
 
     # Debug

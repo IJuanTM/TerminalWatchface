@@ -2851,6 +2851,16 @@
       <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.stepsBarWidth" title="@Strings.StepsBarWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Floors -->
   <setting propertyKey="@Properties.floorsShowBar" title="@Strings.FloorsShowBar">
@@ -2873,6 +2883,16 @@
       <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.floorsBarWidth" title="@Strings.FloorsBarWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Intensity Minutes (Weekly) -->
   <setting propertyKey="@Properties.intensityMinShowBar" title="@Strings.IntensityMinShowBar">
@@ -2893,6 +2913,16 @@
       <listEntry value="7">@Strings.ColorMagenta</listEntry>
       <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.intensityMinBarWidth" title="@Strings.IntensityMinBarWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -2996,6 +3026,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.hrGraphWidth" title="@Strings.HRGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Body Battery -->
   <setting propertyKey="@Properties.bodyBatGraphMode" title="@Strings.BodyBatGraphMode">
@@ -3093,6 +3133,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.bodyBatGraphWidth" title="@Strings.BodyBatGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3194,6 +3244,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.stressGraphWidth" title="@Strings.StressGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Blood O2 -->
   <setting propertyKey="@Properties.spo2GraphMode" title="@Strings.SpO2GraphMode">
@@ -3291,6 +3351,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.spo2GraphWidth" title="@Strings.SpO2GraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3392,6 +3462,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.tempWristGraphWidth" title="@Strings.TempWristGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Elevation -->
   <setting propertyKey="@Properties.elevationGraphMode" title="@Strings.ElevationGraphMode">
@@ -3489,6 +3569,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.elevationGraphWidth" title="@Strings.ElevationGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3590,6 +3680,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.pressureGraphWidth" title="@Strings.PressureGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Weather Forecast -->
   <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
@@ -3643,6 +3743,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastGraphWidth" title="@Strings.WxForecastGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3700,6 +3810,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.wxForecastPrecipGraphWidth" title="@Strings.WxForecastPrecipGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Day Forecast -->
   <setting propertyKey="@Properties.wxForecastDailyViewMode" title="@Strings.WxForecastDailyViewMode">
@@ -3745,6 +3865,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyGraphWidth" title="@Strings.WxForecastDailyGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3802,6 +3932,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.wxForecastWindGraphWidth" title="@Strings.WxForecastWindGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Humidity Forecast -->
   <setting propertyKey="@Properties.wxForecastHumidityViewMode" title="@Strings.WxForecastHumidityViewMode">
@@ -3855,6 +3995,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphWidth" title="@Strings.WxForecastHumidityGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 
@@ -3912,6 +4062,16 @@
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
     </settingConfig>
   </setting>
+  <setting propertyKey="@Properties.wxForecastUvGraphWidth" title="@Strings.WxForecastUvGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
 
   <!-- Cloud Forecast -->
   <setting propertyKey="@Properties.wxForecastCloudViewMode" title="@Strings.WxForecastCloudViewMode">
@@ -3965,6 +4125,16 @@
       <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
       <listEntry value="18">@Strings.GradTempInferno</listEntry>
       <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastCloudGraphWidth" title="@Strings.WxForecastCloudGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
     </settingConfig>
   </setting>
 

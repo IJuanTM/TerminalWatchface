@@ -258,20 +258,31 @@
   <string id="ViewModeGraphCurrent">Graph + Current</string>
   <string id="ViewModeGraphMaxMin">Graph + Max/Min</string>
 
+  <!-- Shared: graph width options -->
+  <string id="GraphWidth6">6 chars</string>
+  <string id="GraphWidth8">8 chars</string>
+  <string id="GraphWidth10">10 chars (default)</string>
+  <string id="GraphWidth12">12 chars</string>
+  <string id="GraphWidth14">14 chars</string>
+  <string id="GraphWidth16">16 chars</string>
+
   <!-- Steps -->
   <string id="StepsShowBar">Steps: Show Progress Bar</string>
   <string id="StepsShowBarValue">Steps: Show Value in Bar</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
+  <string id="StepsBarWidth">Steps: Bar Width</string>
 
   <!-- Floors -->
   <string id="FloorsShowBar">Floors: Show Progress Bar</string>
   <string id="FloorsShowBarValue">Floors: Show Value in Bar</string>
   <string id="FloorsBarColor">Floors: Bar Color</string>
+  <string id="FloorsBarWidth">Floors: Bar Width</string>
 
   <!-- Intensity Minutes (Weekly) -->
   <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
   <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
   <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
+  <string id="IntensityMinBarWidth">Intensity Min: Bar Width</string>
 
   <!-- Shared: graph type options (forecast) -->
   <string id="GraphTypeLine">Line</string>
@@ -301,6 +312,7 @@
   <string id="HRTimeFrame">Heart Rate: Time Frame</string>
   <string id="HRGraphColor">Heart Rate: Graph Color</string>
   <string id="HRSecondaryColor">Heart Rate: 2nd Graph Color</string>
+  <string id="HRGraphWidth">Heart Rate: Graph Width</string>
 
   <!-- Graph settings: Body Battery -->
   <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
@@ -310,6 +322,7 @@
   <string id="BodyBatTimeFrame">Body Battery: Time Frame</string>
   <string id="BodyBatGraphColor">Body Battery: Graph Color</string>
   <string id="BodyBatSecondaryColor">Body Battery: 2nd Graph Color</string>
+  <string id="BodyBatGraphWidth">Body Battery: Graph Width</string>
 
   <!-- Graph settings: Stress -->
   <string id="StressGraphMode">Stress: Graph Mode</string>
@@ -319,6 +332,7 @@
   <string id="StressTimeFrame">Stress: Time Frame</string>
   <string id="StressGraphColor">Stress: Graph Color</string>
   <string id="StressSecondaryColor">Stress: 2nd Graph Color</string>
+  <string id="StressGraphWidth">Stress: Graph Width</string>
 
   <!-- Graph settings: Blood O2 -->
   <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
@@ -328,6 +342,7 @@
   <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
   <string id="SpO2GraphColor">Blood O2: Graph Color</string>
   <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
+  <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
 
   <!-- Graph settings: Wrist Temp -->
   <string id="TempWristGraphMode">Wrist Temp: Graph Mode</string>
@@ -337,6 +352,7 @@
   <string id="TempWristTimeFrame">Wrist Temp: Time Frame</string>
   <string id="TempWristGraphColor">Wrist Temp: Graph Color</string>
   <string id="TempWristSecondaryColor">Wrist Temp: 2nd Graph Color</string>
+  <string id="TempWristGraphWidth">Wrist Temp: Graph Width</string>
 
   <!-- Graph settings: Elevation -->
   <string id="ElevationGraphMode">Elevation: Graph Mode</string>
@@ -346,6 +362,7 @@
   <string id="ElevationTimeFrame">Elevation: Time Frame</string>
   <string id="ElevationGraphColor">Elevation: Graph Color</string>
   <string id="ElevationSecondaryColor">Elevation: 2nd Graph Color</string>
+  <string id="ElevationGraphWidth">Elevation: Graph Width</string>
 
   <!-- Graph settings: Pressure -->
   <string id="PressureGraphMode">Pressure: Graph Mode</string>
@@ -355,6 +372,7 @@
   <string id="PressureTimeFrame">Pressure: Time Frame</string>
   <string id="PressureGraphColor">Pressure: Graph Color</string>
   <string id="PressureSecondaryColor">Pressure: 2nd Graph Color</string>
+  <string id="PressureGraphWidth">Pressure: Graph Width</string>
 
   <!-- Graph settings: Temp Hourly Forecast -->
   <string id="WxForecastViewMode">Temp Hourly: View Mode</string>
@@ -362,6 +380,7 @@
   <string id="WxForecastGraphType">Temp Hourly: Graph Type</string>
   <string id="WxForecastTimeFrame">Temp Hourly: Time Frame</string>
   <string id="WxForecastGraphColor">Temp Hourly: Graph Color</string>
+  <string id="WxForecastGraphWidth">Temp Hourly: Graph Width</string>
   <string id="TimeFrameForecast3h">3 hours ahead</string>
   <string id="TimeFrameForecast6h">6 hours ahead</string>
   <string id="TimeFrameForecast12h">12 hours ahead</string>
@@ -372,6 +391,7 @@
   <string id="WxForecastDailyValueMode">Temp Daily: Value Mode</string>
   <string id="WxForecastDailyDays">Temp Daily: Days</string>
   <string id="WxForecastDailyGraphColor">Temp Daily: Graph Color</string>
+  <string id="WxForecastDailyGraphWidth">Temp Daily: Graph Width</string>
   <string id="TimeFrameForecastDays3">3 days</string>
   <string id="TimeFrameForecastDays5">5 days</string>
   <string id="TimeFrameForecastDays7">7 days</string>
@@ -382,6 +402,7 @@
   <string id="WxForecastPrecipGraphType">Rain Hourly: Graph Type</string>
   <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
   <string id="WxForecastPrecipGraphColor">Rain Hourly: Graph Color</string>
+  <string id="WxForecastPrecipGraphWidth">Rain Hourly: Graph Width</string>
 
   <!-- Graph settings: Wind Hourly Forecast -->
   <string id="WxForecastWindViewMode">Wind Hourly: View Mode</string>
@@ -389,6 +410,7 @@
   <string id="WxForecastWindGraphType">Wind Hourly: Graph Type</string>
   <string id="WxForecastWindTimeFrame">Wind Hourly: Hours Ahead</string>
   <string id="WxForecastWindGraphColor">Wind Hourly: Graph Color</string>
+  <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
 
   <!-- Graph settings: Humidity Hourly Forecast -->
   <string id="WxForecastHumidityViewMode">Humidity Hourly: View Mode</string>
@@ -396,6 +418,7 @@
   <string id="WxForecastHumidityGraphType">Humidity Hourly: Graph Type</string>
   <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
   <string id="WxForecastHumidityGraphColor">Humidity Hourly: Graph Color</string>
+  <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
 
   <!-- Graph settings: UV Hourly Forecast -->
   <string id="WxForecastUvViewMode">UV Hourly: View Mode</string>
@@ -403,6 +426,7 @@
   <string id="WxForecastUvGraphType">UV Hourly: Graph Type</string>
   <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
   <string id="WxForecastUvGraphColor">UV Hourly: Graph Color</string>
+  <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
 
   <!-- Graph settings: Cloud Hourly Forecast -->
   <string id="WxForecastCloudViewMode">Cloud Hourly: View Mode</string>
@@ -410,6 +434,7 @@
   <string id="WxForecastCloudGraphType">Cloud Hourly: Graph Type</string>
   <string id="WxForecastCloudTimeFrame">Cloud Hourly: Hours Ahead</string>
   <string id="WxForecastCloudGraphColor">Cloud Hourly: Graph Color</string>
+  <string id="WxForecastCloudGraphWidth">Cloud Hourly: Graph Width</string>
 
   <!-- Debug -->
   <string id="ShowVersion">Show App Version (testing)</string>

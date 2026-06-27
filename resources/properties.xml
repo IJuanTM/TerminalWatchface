@@ -87,16 +87,19 @@
   <property id="stepsShowBar" type="boolean">true</property>
   <property id="stepsShowBarValue" type="boolean">true</property>
   <property id="stepsBarColor" type="number">1</property>
+  <property id="stepsBarWidth" type="number">10</property>
 
   <!-- Floors -->
   <property id="floorsShowBar" type="boolean">true</property>
   <property id="floorsShowBarValue" type="boolean">true</property>
   <property id="floorsBarColor" type="number">1</property>
+  <property id="floorsBarWidth" type="number">10</property>
 
   <!-- Intensity Minutes (Weekly) -->
   <property id="intensityMinShowBar" type="boolean">true</property>
   <property id="intensityMinShowBarValue" type="boolean">true</property>
   <property id="intensityMinBarColor" type="number">3</property>
+  <property id="intensityMinBarWidth" type="number">10</property>
 
   <!-- Graph settings per supported field type -->
 
@@ -108,6 +111,7 @@
   <property id="hrTimeFrame" type="number">60</property>
   <property id="hrGraphColor" type="number">5</property>
   <property id="hrSecondaryColor" type="number">0</property>
+  <property id="hrGraphWidth" type="number">10</property>
 
   <!-- BodyBat -->
   <property id="bodyBatGraphMode" type="number">6</property>
@@ -117,6 +121,7 @@
   <property id="bodyBatTimeFrame" type="number">240</property>
   <property id="bodyBatGraphColor" type="number">11</property>
   <property id="bodyBatSecondaryColor" type="number">0</property>
+  <property id="bodyBatGraphWidth" type="number">10</property>
 
   <!-- Stress -->
   <property id="stressGraphMode" type="number">3</property>
@@ -126,6 +131,7 @@
   <property id="stressTimeFrame" type="number">120</property>
   <property id="stressGraphColor" type="number">10</property>
   <property id="stressSecondaryColor" type="number">0</property>
+  <property id="stressGraphWidth" type="number">10</property>
 
   <!-- SpO2 -->
   <property id="spo2GraphMode" type="number">0</property>
@@ -135,6 +141,7 @@
   <property id="spo2TimeFrame" type="number">60</property>
   <property id="spo2GraphColor" type="number">2</property>
   <property id="spo2SecondaryColor" type="number">0</property>
+  <property id="spo2GraphWidth" type="number">10</property>
 
   <!-- TempWrist -->
   <property id="tempWristGraphMode" type="number">3</property>
@@ -144,6 +151,7 @@
   <property id="tempWristTimeFrame" type="number">60</property>
   <property id="tempWristGraphColor" type="number">16</property>
   <property id="tempWristSecondaryColor" type="number">0</property>
+  <property id="tempWristGraphWidth" type="number">10</property>
 
   <!-- Elevation -->
   <property id="elevationGraphMode" type="number">6</property>
@@ -153,6 +161,7 @@
   <property id="elevationTimeFrame" type="number">480</property>
   <property id="elevationGraphColor" type="number">1</property>
   <property id="elevationSecondaryColor" type="number">0</property>
+  <property id="elevationGraphWidth" type="number">10</property>
 
   <!-- Pressure -->
   <property id="pressureGraphMode" type="number">3</property>
@@ -162,6 +171,7 @@
   <property id="pressureTimeFrame" type="number">120</property>
   <property id="pressureGraphColor" type="number">2</property>
   <property id="pressureSecondaryColor" type="number">0</property>
+  <property id="pressureGraphWidth" type="number">10</property>
 
   <!-- Weather Forecast -->
   <property id="wxForecastViewMode" type="number">2</property>
@@ -169,6 +179,7 @@
   <property id="wxForecastGraphType" type="number">1</property>
   <property id="wxForecastTimeFrame" type="number">12</property>
   <property id="wxForecastGraphColor" type="number">16</property>
+  <property id="wxForecastGraphWidth" type="number">10</property>
 
   <!-- Rain Forecast -->
   <property id="wxForecastPrecipViewMode" type="number">2</property>
@@ -176,12 +187,14 @@
   <property id="wxForecastPrecipGraphType" type="number">1</property>
   <property id="wxForecastPrecipTimeFrame" type="number">12</property>
   <property id="wxForecastPrecipGraphColor" type="number">6</property>
+  <property id="wxForecastPrecipGraphWidth" type="number">10</property>
 
   <!-- Day Forecast -->
   <property id="wxForecastDailyViewMode" type="number">2</property>
   <property id="wxForecastDailyValueMode" type="number">2</property>
   <property id="wxForecastDailyDays" type="number">5</property>
   <property id="wxForecastDailyGraphColor" type="number">16</property>
+  <property id="wxForecastDailyGraphWidth" type="number">10</property>
 
   <!-- Wind Forecast -->
   <property id="wxForecastWindViewMode" type="number">2</property>
@@ -189,6 +202,7 @@
   <property id="wxForecastWindGraphType" type="number">1</property>
   <property id="wxForecastWindTimeFrame" type="number">12</property>
   <property id="wxForecastWindGraphColor" type="number">6</property>
+  <property id="wxForecastWindGraphWidth" type="number">10</property>
 
   <!-- Humidity Forecast -->
   <property id="wxForecastHumidityViewMode" type="number">2</property>
@@ -196,6 +210,7 @@
   <property id="wxForecastHumidityGraphType" type="number">1</property>
   <property id="wxForecastHumidityTimeFrame" type="number">12</property>
   <property id="wxForecastHumidityGraphColor" type="number">2</property>
+  <property id="wxForecastHumidityGraphWidth" type="number">10</property>
 
   <!-- UV Forecast -->
   <property id="wxForecastUvViewMode" type="number">2</property>
@@ -203,6 +218,7 @@
   <property id="wxForecastUvGraphType" type="number">1</property>
   <property id="wxForecastUvTimeFrame" type="number">12</property>
   <property id="wxForecastUvGraphColor" type="number">3</property>
+  <property id="wxForecastUvGraphWidth" type="number">10</property>
 
   <!-- Cloud Forecast -->
   <property id="wxForecastCloudViewMode" type="number">2</property>
@@ -210,6 +226,7 @@
   <property id="wxForecastCloudGraphType" type="number">1</property>
   <property id="wxForecastCloudTimeFrame" type="number">12</property>
   <property id="wxForecastCloudGraphColor" type="number">8</property>
+  <property id="wxForecastCloudGraphWidth" type="number">10</property>
 
   <!-- Debug -->
   <property id="showVersion" type="boolean">false</property>
