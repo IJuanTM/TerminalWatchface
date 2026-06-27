@@ -145,13 +145,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -159,7 +159,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -177,9 +177,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -213,7 +213,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -221,13 +221,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
@@ -279,13 +279,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -293,7 +293,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -311,9 +311,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -347,7 +347,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -355,13 +355,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
@@ -413,13 +413,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -427,7 +427,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -445,9 +445,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -481,7 +481,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -489,13 +489,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
@@ -547,13 +547,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -561,7 +561,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -579,9 +579,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -615,7 +615,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -623,13 +623,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
@@ -681,13 +681,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -695,7 +695,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -713,9 +713,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -749,7 +749,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -757,13 +757,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
@@ -815,13 +815,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -829,7 +829,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -847,9 +847,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -883,7 +883,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -891,13 +891,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
@@ -949,13 +949,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -963,7 +963,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -981,9 +981,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1017,7 +1017,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1025,13 +1025,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
@@ -1083,13 +1083,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1097,7 +1097,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1115,9 +1115,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1151,7 +1151,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1159,13 +1159,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
@@ -1217,13 +1217,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1231,7 +1231,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1249,9 +1249,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1285,7 +1285,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1293,13 +1293,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
@@ -1351,13 +1351,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1365,7 +1365,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1383,9 +1383,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1419,7 +1419,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1427,13 +1427,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuaternaryLabelColor" title="@Strings.Line3QuaternaryLabelColor">
@@ -1485,13 +1485,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1499,7 +1499,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1517,9 +1517,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1553,7 +1553,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1561,13 +1561,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuaternaryLabelColor" title="@Strings.Line4QuaternaryLabelColor">
@@ -1619,13 +1619,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1633,7 +1633,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1651,9 +1651,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1687,7 +1687,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1695,13 +1695,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuaternaryLabelColor" title="@Strings.Line5QuaternaryLabelColor">
@@ -1753,13 +1753,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1767,7 +1767,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1785,9 +1785,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1821,7 +1821,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1829,13 +1829,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3QuinaryLabelColor" title="@Strings.Line3QuinaryLabelColor">
@@ -1887,13 +1887,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -1901,7 +1901,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -1919,9 +1919,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -1955,7 +1955,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -1963,13 +1963,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4QuinaryLabelColor" title="@Strings.Line4QuinaryLabelColor">
@@ -2021,13 +2021,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -2035,7 +2035,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -2053,9 +2053,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -2089,7 +2089,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -2097,13 +2097,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5QuinaryLabelColor" title="@Strings.Line5QuinaryLabelColor">
@@ -2155,13 +2155,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -2169,7 +2169,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -2187,9 +2187,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -2223,7 +2223,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -2231,13 +2231,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line3SenaryLabelColor" title="@Strings.Line3SenaryLabelColor">
@@ -2289,13 +2289,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -2303,7 +2303,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -2321,9 +2321,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -2357,7 +2357,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -2365,13 +2365,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line4SenaryLabelColor" title="@Strings.Line4SenaryLabelColor">
@@ -2423,13 +2423,13 @@
       <listEntry value="63">@Strings.FieldLactateHR</listEntry>
       <listEntry value="48">@Strings.FieldTrainingStatus</listEntry>
       <listEntry value="74">@Strings.FieldTrainingEffect</listEntry>
-      <listEntry value="28">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="28">@Strings.FieldWristTemp</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="88">@Strings.FieldHrSpo2</listEntry>
       <listEntry value="94">@Strings.FieldRespSpo2</listEntry>
-      <listEntry value="89">@Strings.FieldBbStress</listEntry>
-      <listEntry value="90">@Strings.FieldBbRecovery</listEntry>
+      <listEntry value="89">@Strings.FieldBodyBatStress</listEntry>
+      <listEntry value="90">@Strings.FieldBodyBatRecovery</listEntry>
       <listEntry value="101">@Strings.FieldStressRecovery</listEntry>
       <listEntry value="100">@Strings.FieldVo2Training</listEntry>
       <listEntry value="2">@Strings.FieldCalories</listEntry>
@@ -2437,7 +2437,7 @@
       <listEntry value="4">@Strings.FieldDistance</listEntry>
       <listEntry value="35">@Strings.FieldSpeed</listEntry>
       <listEntry value="29">@Strings.FieldActiveMinDay</listEntry>
-      <listEntry value="10">@Strings.FieldActiveMin</listEntry>
+      <listEntry value="10">@Strings.FieldIntensityMin</listEntry>
       <listEntry value="5">@Strings.FieldAltitude</listEntry>
       <listEntry value="32">@Strings.FieldElevation</listEntry>
       <listEntry value="31">@Strings.FieldPressure</listEntry>
@@ -2455,9 +2455,9 @@
       <listEntry value="75">@Strings.FieldTotalAscent</listEntry>
       <listEntry value="76">@Strings.FieldTotalDescent</listEntry>
       <listEntry value="91">@Strings.FieldAscentDescent</listEntry>
-      <listEntry value="82">@Strings.FieldMetersClimbed</listEntry>
-      <listEntry value="83">@Strings.FieldMetersDescended</listEntry>
-      <listEntry value="92">@Strings.FieldClimbDescend</listEntry>
+      <listEntry value="82">@Strings.FieldClimbDay</listEntry>
+      <listEntry value="83">@Strings.FieldDescentDay</listEntry>
+      <listEntry value="92">@Strings.FieldClimbDescendDay</listEntry>
       <listEntry value="41">@Strings.FieldWeeklyRun</listEntry>
       <listEntry value="42">@Strings.FieldWeeklyBike</listEntry>
       <listEntry value="93">@Strings.FieldWeeklyDistances</listEntry>
@@ -2491,7 +2491,7 @@
       <listEntry value="58">@Strings.FieldWxTempUV</listEntry>
       <listEntry value="95">@Strings.FieldWxTempHumidity</listEntry>
       <listEntry value="96">@Strings.FieldWxTempPrecip</listEntry>
-      <listEntry value="18">@Strings.FieldWxTempMaxMin</listEntry>
+      <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
       <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
@@ -2499,13 +2499,13 @@
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
       <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
-      <listEntry value="33">@Strings.FieldWxForecastTemp</listEntry>
-      <listEntry value="61">@Strings.FieldWxForecastPrecip</listEntry>
-      <listEntry value="64">@Strings.FieldWxForecastWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxForecastDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxForecastHumidity</listEntry>
-      <listEntry value="85">@Strings.FieldWxForecastUv</listEntry>
-      <listEntry value="86">@Strings.FieldWxForecastCloud</listEntry>
+      <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
+      <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
+      <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.line5SenaryLabelColor" title="@Strings.Line5SenaryLabelColor">
@@ -2617,7 +2617,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -2716,7 +2716,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -2815,7 +2815,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -2914,7 +2914,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -3013,7 +3013,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -3112,7 +3112,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>
@@ -3211,7 +3211,7 @@
       <listEntry value="1">@Strings.FieldBodyBat</listEntry>
       <listEntry value="2">@Strings.FieldStress</listEntry>
       <listEntry value="3">@Strings.FieldSpO2</listEntry>
-      <listEntry value="4">@Strings.FieldTempWrist</listEntry>
+      <listEntry value="4">@Strings.FieldWristTemp</listEntry>
       <listEntry value="5">@Strings.FieldElevation</listEntry>
       <listEntry value="6">@Strings.FieldPressure</listEntry>
     </settingConfig>

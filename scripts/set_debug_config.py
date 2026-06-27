@@ -16,7 +16,13 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
-from generate_resources import gen_properties, write, OUT_PROPERTIES, GRAPH_FIELDS, FIELDS_ALL
+from generate_resources import (
+    gen_properties,
+    write,
+    OUT_PROPERTIES,
+    GRAPH_FIELDS,
+    FIELDS_ALL,
+)
 
 OUT_DEBUG_DIR = os.path.join(ROOT, "debug")
 
@@ -26,15 +32,19 @@ OUT_DEBUG_DIR = os.path.join(ROOT, "debug")
 
 # Line slot assignments for graph test configs
 # Line 3: all 6 hourly forecast graph fields (each has a GraphType setting)
-_DBG_LINE3 = [33, 61, 64, 86, 73, 85]   # temp, precip, wind, cloud, humidity, UV hourly
+_DBG_LINE3 = [33, 61, 64, 86, 73, 85]  # temp, precip, wind, cloud, humidity, UV hourly
 # Line 4: first 6 sensor graph fields
-_DBG_LINE4 = [1, 22, 21, 9, 28, 32]     # HR, BodyBat, Stress, SpO2, TempWrist, Elevation
+_DBG_LINE4 = [1, 22, 21, 9, 28, 32]  # HR, BodyBat, Stress, SpO2, TempWrist, Elevation
 # Line 5: remaining sensor graph field + repeats to fill all 6 slots
-_DBG_LINE5 = [31, 1, 22, 21, 9, 28]     # Pressure, then repeats from line 4
+_DBG_LINE5 = [31, 1, 22, 21, 9, 28]  # Pressure, then repeats from line 4
 
 _FORECAST_GRAPH_KEYS = [
-    "wxForecast", "wxForecastPrecip", "wxForecastWind",
-    "wxForecastHumidity", "wxForecastUv", "wxForecastCloud",
+    "wxForecast",
+    "wxForecastPrecip",
+    "wxForecastWind",
+    "wxForecastHumidity",
+    "wxForecastUv",
+    "wxForecastCloud",
 ]
 
 _SLOT_NAMES = ["Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary"]
@@ -47,9 +57,15 @@ _DBG_BAR_ONLY_SENSOR_KEYS = {"spo2"}
 
 def _graph_config(sensor_mode, forecast_type):
     p = {}
-    is_continuous = sensor_mode not in (0, 2, 4)  # true for line (1,3) and area (5,6) modes
+    is_continuous = sensor_mode not in (
+        0,
+        2,
+        4,
+    )  # true for line (1,3) and area (5,6) modes
     for key, *_ in GRAPH_FIELDS:
-        p[f"{key}GraphMode"] = 0 if (key in _DBG_BAR_ONLY_SENSOR_KEYS and is_continuous) else sensor_mode
+        p[f"{key}GraphMode"] = (
+            0 if (key in _DBG_BAR_ONLY_SENSOR_KEYS and is_continuous) else sensor_mode
+        )
     for fkey in _FORECAST_GRAPH_KEYS:
         p[f"{fkey}GraphType"] = forecast_type
         p[f"{fkey}ViewMode"] = 2
@@ -57,19 +73,29 @@ def _graph_config(sensor_mode, forecast_type):
     p["rotateInterval"] = 5
     p["rotateIntervalAlt"] = 0
     for slot, fid in zip(_SLOT_NAMES, _DBG_LINE3):
-        p[f"line3{slot}"] = 7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        p[f"line3{slot}"] = (
+            7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        )
     for slot, fid in zip(_SLOT_NAMES, _DBG_LINE4):
-        p[f"line4{slot}"] = 7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        p[f"line4{slot}"] = (
+            7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        )
     for slot, fid in zip(_SLOT_NAMES, _DBG_LINE5):
-        p[f"line5{slot}"] = 7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        p[f"line5{slot}"] = (
+            7 if (is_continuous and fid in _DBG_BAR_ONLY_FIELD_IDS) else fid
+        )
     return p
 
 
 def gen_debug_configs():
     configs = {
-        "config_graphs_line": _graph_config(3, 0),   # sensor: line+current, forecast: line
-        "config_graphs_bar":  _graph_config(4, 1),   # sensor: bar+current,  forecast: bar
-        "config_graphs_area": _graph_config(6, 2),   # sensor: area+current, forecast: area
+        "config_graphs_line": _graph_config(
+            3, 0
+        ),  # sensor: line+current, forecast: line
+        "config_graphs_bar": _graph_config(4, 1),  # sensor: bar+current,  forecast: bar
+        "config_graphs_area": _graph_config(
+            6, 2
+        ),  # sensor: area+current, forecast: area
     }
 
     # Value configs: cycle all non-None fields across 3 lines x 6 slots = 18 per config
@@ -99,15 +125,17 @@ def _write_debug_jsons(configs):
         with open(path, "w", encoding="utf-8", newline="\n") as f:
             json.dump(props, f, indent=2)
 
+
 # ---------------------------------------------------------------------------
 # Apply logic
 # ---------------------------------------------------------------------------
+
 
 def apply_overrides(xml, overrides):
     for pid, val in overrides.items():
         xml, n = re.subn(
             rf'(<property id="{re.escape(pid)}" type="[^"]+">)[^<]*(</property>)',
-            rf'\g<1>{val}\2',
+            rf"\g<1>{val}\2",
             xml,
         )
         if n == 0:

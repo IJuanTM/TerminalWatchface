@@ -13,109 +13,134 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.37.4";
+const APP_VERSION = "0.38.0";
 
-const FIELD_STEPS = 0;
-const FIELD_HR = 1;
-const FIELD_CALORIES = 2;
-const FIELD_DISTANCE = 4;
-const FIELD_ALTITUDE = 5;
-const FIELD_FLOORS = 6;
+// --- None ---
 const FIELD_NONE = 7;
-const FIELD_SPO2 = 9;
-const FIELD_ACTIVE_MIN = 10;
-const FIELD_WX_TEMP = 11;
-const FIELD_WX_FEELS = 12;
-const FIELD_WX_PRECIP = 13;
-const FIELD_WX_WIND = 14;
-const FIELD_WX_UV = 15;
-const FIELD_WX_COND = 16;
-const FIELD_WX_TEMP_COND = 17;
-const FIELD_WX_TEMP_MAXMIN = 18;
-const FIELD_WX_COND_PRECIP = 19;
-const FIELD_WX_TEMP_WIND = 20;
-const FIELD_STRESS = 21;
-const FIELD_BODY_BAT = 22;
-const FIELD_RESP = 23;
-const FIELD_HR_MEAN = 24;
-const FIELD_CAL_ACT = 25;
-const FIELD_RECOVERY = 26;
+
+// --- Fitness / Health ---
+const FIELD_STEPS = 0;
+const FIELD_FLOORS = 6;
 const FIELD_MOVE_BAR = 27;
-const FIELD_TEMP_WRIST = 28;
-const FIELD_ACTIVE_MIN_DAY = 29;
+const FIELD_HR = 1;
+const FIELD_HR_MEAN = 24;
 const FIELD_HR_MAX = 30;
-const FIELD_PRESSURE = 31;
-const FIELD_ELEVATION = 32;
-const FIELD_WX_FORECAST_TEMP = 33;
-const FIELD_VO2_MAX = 34;
-const FIELD_SPEED = 35;
+const FIELD_SPO2 = 9;
+const FIELD_RESP = 23;
+const FIELD_BODY_BAT = 22;
+const FIELD_STRESS = 21;
+const FIELD_RECOVERY = 26;
 const FIELD_SLEEP = 36;
-const FIELD_SUNRISE = 37;
-const FIELD_SUNSET = 38;
-const FIELD_SUNRISE_SUNSET = 39;
-const FIELD_CALENDAR = 40;
-const FIELD_WEEKLY_RUN = 41;
-const FIELD_WEEKLY_BIKE = 42;
-const FIELD_GPS_LAT = 43;
-const FIELD_GPS_LON = 44;
-const FIELD_GPS_ACCURACY = 45;
-const FIELD_HEADING = 46;
-const FIELD_ELAPSED = 47;
+const FIELD_VO2_MAX = 34;
+const FIELD_LACTATE_HR = 63;
 const FIELD_TRAINING_STATUS = 48;
+const FIELD_TRAINING_EFFECT = 74;
+const FIELD_WRIST_TEMP = 28;
+const FIELD_SOLAR = 84;
+const FIELD_NOTIFICATIONS = 77;
+
+// --- Fitness combos ---
+const FIELD_HR_SPO2 = 88;
+const FIELD_RESP_SPO2 = 94;
+const FIELD_BODY_BAT_STRESS = 89;
+const FIELD_BODY_BAT_RECOVERY = 90;
+const FIELD_STRESS_RECOVERY = 101;
+const FIELD_VO2_TRAINING = 100;
+
+// --- Calories / Distance / Speed ---
+const FIELD_CALORIES = 2;
+const FIELD_CAL_ACT = 25;
+const FIELD_DISTANCE = 4;
+const FIELD_SPEED = 35;
+const FIELD_ACTIVE_MIN_DAY = 29;
+const FIELD_INTENSITY_MIN = 10;
+
+// --- Altitude / Pressure ---
+const FIELD_ALTITUDE = 5;
+const FIELD_ELEVATION = 32;
+const FIELD_PRESSURE = 31;
+
+// --- Pace / Race ---
+const FIELD_PACE = 65;
+const FIELD_PACE_AVG = 66;
+const FIELD_PACE_AND_AVG = 87;
 const FIELD_RACE_5K = 49;
 const FIELD_RACE_10K = 50;
 const FIELD_RACE_HALF = 51;
 const FIELD_RACE_MARATHON = 52;
-const FIELD_SLEEP_TIME = 53;
-const FIELD_WAKE_TIME = 54;
-const FIELD_GPS_LAT_LON = 55;
-const FIELD_GPS_LAT_LON_ACC = 56;
-const FIELD_WX_WIND_PRECIP = 57;
-const FIELD_WX_TEMP_UV = 58;
-const FIELD_WX_UV_PRECIP = 59;
-const FIELD_WX_UV_WIND = 60;
-const FIELD_WX_FORECAST_PRECIP = 61;
-const FIELD_WX_FORECAST_DAILY = 62;
-const FIELD_LACTATE_HR = 63;
-const FIELD_WX_FORECAST_WIND = 64;
-const FIELD_PACE = 65;
-const FIELD_PACE_AVG = 66;
-const FIELD_WX_HUMIDITY = 67;
-const FIELD_WX_DEW_POINT = 68;
-const FIELD_WX_VISIBILITY = 69;
-const FIELD_WX_CLOUD = 70;
-const FIELD_WX_HUMIDITY_DEW = 71;
-const FIELD_WX_HEAT_INDEX = 72;
-const FIELD_WX_FORECAST_HUMIDITY = 73;
-const FIELD_TRAINING_EFFECT = 74;
-const FIELD_TOTAL_ASCENT = 75;
-const FIELD_TOTAL_DESCENT = 76;
-const FIELD_NOTIFICATIONS = 77;
 const FIELD_RACE_PACE_5K = 78;
 const FIELD_RACE_PACE_10K = 79;
 const FIELD_RACE_PACE_HALF = 80;
 const FIELD_RACE_PACE_MARATHON = 81;
-const FIELD_METERS_CLIMBED = 82;
-const FIELD_METERS_DESCENDED = 83;
-const FIELD_SOLAR = 84;
-const FIELD_WX_FORECAST_UV = 85;
-const FIELD_WX_FORECAST_CLOUD = 86;
-const FIELD_PACE_AND_AVG = 87;
-const FIELD_HR_SPO2 = 88;
-const FIELD_BB_STRESS = 89;
-const FIELD_BB_RECOVERY = 90;
+
+// --- Ascent / Descent ---
+const FIELD_TOTAL_ASCENT = 75;
+const FIELD_TOTAL_DESCENT = 76;
 const FIELD_ASCENT_DESCENT = 91;
-const FIELD_CLIMB_DESCEND = 92;
+const FIELD_CLIMB_DAY = 82;
+const FIELD_DESCENT_DAY = 83;
+const FIELD_CLIMB_DESCEND_DAY = 92;
+
+// --- Weekly ---
+const FIELD_WEEKLY_RUN = 41;
+const FIELD_WEEKLY_BIKE = 42;
 const FIELD_WEEKLY_DISTANCES = 93;
-const FIELD_RESP_SPO2 = 94;
+
+// --- GPS / Navigation ---
+const FIELD_GPS_LAT = 43;
+const FIELD_GPS_LON = 44;
+const FIELD_GPS_ACCURACY = 45;
+const FIELD_GPS_LAT_LON = 55;
+const FIELD_GPS_LAT_LON_ACC = 56;
+const FIELD_HEADING = 46;
+
+// --- Time / Calendar ---
+const FIELD_ELAPSED = 47;
+const FIELD_SUNRISE = 37;
+const FIELD_SUNSET = 38;
+const FIELD_SUNRISE_SUNSET = 39;
+const FIELD_CALENDAR = 40;
+const FIELD_SLEEP_TIME = 53;
+const FIELD_WAKE_TIME = 54;
+const FIELD_SLEEP_SCHEDULE = 99;
+
+// --- Weather: current ---
+const FIELD_WX_TEMP = 11;
+const FIELD_WX_FEELS = 12;
+const FIELD_WX_COND = 16;
+const FIELD_WX_PRECIP = 13;
+const FIELD_WX_WIND = 14;
+const FIELD_WX_UV = 15;
+const FIELD_WX_CLOUD = 70;
+const FIELD_WX_HUMIDITY = 67;
+const FIELD_WX_DEW_POINT = 68;
+const FIELD_WX_VISIBILITY = 69;
+const FIELD_WX_HEAT_INDEX = 72;
+const FIELD_WX_HIGH_LOW = 102;
+
+// --- Weather: combos ---
+const FIELD_WX_TEMP_COND = 17;
+const FIELD_WX_TEMP_WIND = 20;
+const FIELD_WX_TEMP_UV = 58;
 const FIELD_WX_TEMP_HUMIDITY = 95;
 const FIELD_WX_TEMP_PRECIP = 96;
+const FIELD_WX_TEMP_HIGH_LOW = 18;
+const FIELD_WX_COND_PRECIP = 19;
+const FIELD_WX_WIND_PRECIP = 57;
+const FIELD_WX_UV_PRECIP = 59;
+const FIELD_WX_UV_WIND = 60;
 const FIELD_WX_HUMIDITY_PRECIP = 97;
 const FIELD_WX_CLOUD_PRECIP = 98;
-const FIELD_SLEEP_SCHEDULE = 99;
-const FIELD_VO2_TRAINING = 100;
-const FIELD_STRESS_RECOVERY = 101;
-const FIELD_WX_HIGH_LOW = 102;
+const FIELD_WX_HUMIDITY_DEW = 71;
+
+// --- Weather: forecast ---
+const FIELD_WX_FCST_TEMP = 33;
+const FIELD_WX_FCST_PRECIP = 61;
+const FIELD_WX_FCST_DAILY = 62;
+const FIELD_WX_FCST_WIND = 64;
+const FIELD_WX_FCST_HUMIDITY = 73;
+const FIELD_WX_FCST_UV = 85;
+const FIELD_WX_FCST_CLOUD = 86;
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -152,7 +177,7 @@ const GRAPH_SEC_FIELDS =
         FIELD_BODY_BAT,
         FIELD_STRESS,
         FIELD_SPO2,
-        FIELD_TEMP_WRIST,
+        FIELD_WRIST_TEMP,
         FIELD_ELEVATION,
         FIELD_PRESSURE,
     ] as Array<Number>;
@@ -666,13 +691,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     needsGps = true;
                 }
                 if (
-                    f == FIELD_WX_FORECAST_TEMP ||
-                    f == FIELD_WX_FORECAST_PRECIP ||
-                    f == FIELD_WX_FORECAST_DAILY ||
-                    f == FIELD_WX_FORECAST_WIND ||
-                    f == FIELD_WX_FORECAST_HUMIDITY ||
-                    f == FIELD_WX_FORECAST_UV ||
-                    f == FIELD_WX_FORECAST_CLOUD
+                    f == FIELD_WX_FCST_TEMP ||
+                    f == FIELD_WX_FCST_PRECIP ||
+                    f == FIELD_WX_FCST_DAILY ||
+                    f == FIELD_WX_FCST_WIND ||
+                    f == FIELD_WX_FCST_HUMIDITY ||
+                    f == FIELD_WX_FCST_UV ||
+                    f == FIELD_WX_FCST_CLOUD
                 ) {
                     needsForecast = true;
                 }
@@ -942,7 +967,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         field as Number,
         str as String
     ) as Number {
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             var afterNum = _drawSmallTempNum(dc, x, y, str);
             dc.drawText(
                 afterNum,
@@ -1177,7 +1202,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineGraphColor[li] = _getProp("stepsBarColor", 1);
             return;
         }
-        if (field == FIELD_WX_FORECAST_TEMP) {
+        if (field == FIELD_WX_FCST_TEMP) {
             var wxvm = _getProp("wxForecastViewMode", VIEW_GRAPH_VALUE);
             if (wxvm == VIEW_GRAPH_MAXMIN) {
                 wxvm = VIEW_GRAPH_VALUE;
@@ -1191,7 +1216,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastTimeFrame", 12);
             return;
         }
-        if (field == FIELD_WX_FORECAST_PRECIP) {
+        if (field == FIELD_WX_FCST_PRECIP) {
             _lineViewMode[li] = _getProp(
                 "wxForecastPrecipViewMode",
                 VIEW_GRAPH_VALUE
@@ -1205,7 +1230,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastPrecipTimeFrame", 12);
             return;
         }
-        if (field == FIELD_WX_FORECAST_DAILY) {
+        if (field == FIELD_WX_FCST_DAILY) {
             _lineViewMode[li] = _getProp(
                 "wxForecastDailyViewMode",
                 VIEW_GRAPH_VALUE
@@ -1215,7 +1240,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastDailyDays", 5);
             return;
         }
-        if (field == FIELD_WX_FORECAST_WIND) {
+        if (field == FIELD_WX_FCST_WIND) {
             _lineViewMode[li] = _getProp(
                 "wxForecastWindViewMode",
                 VIEW_GRAPH_VALUE
@@ -1226,7 +1251,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastWindTimeFrame", 12);
             return;
         }
-        if (field == FIELD_WX_FORECAST_HUMIDITY) {
+        if (field == FIELD_WX_FCST_HUMIDITY) {
             _lineViewMode[li] = _getProp(
                 "wxForecastHumidityViewMode",
                 VIEW_GRAPH_VALUE
@@ -1240,7 +1265,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastHumidityTimeFrame", 12);
             return;
         }
-        if (field == FIELD_WX_FORECAST_UV) {
+        if (field == FIELD_WX_FCST_UV) {
             _lineViewMode[li] = _getProp(
                 "wxForecastUvViewMode",
                 VIEW_GRAPH_VALUE
@@ -1251,7 +1276,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _linePeriodMin[li] = _getProp("wxForecastUvTimeFrame", 12);
             return;
         }
-        if (field == FIELD_WX_FORECAST_CLOUD) {
+        if (field == FIELD_WX_FCST_CLOUD) {
             _lineViewMode[li] = _getProp(
                 "wxForecastCloudViewMode",
                 VIEW_GRAPH_VALUE
@@ -1318,7 +1343,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _drawFloorsRow(dc, cx, y, labelColor, valueColor);
             return;
         }
-        if (field == FIELD_WX_TEMP_MAXMIN) {
+        if (field == FIELD_WX_TEMP_HIGH_LOW) {
             _drawTempMaxMinRow(dc, cx, y, labelColor, valueColor);
             return;
         }
@@ -1466,7 +1491,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _drawMoveBarRow(dc, cx, y, labelColor, valueColor);
             return;
         }
-        if (field == FIELD_WX_FORECAST_TEMP) {
+        if (field == FIELD_WX_FCST_TEMP) {
             _drawForecastTempRow(
                 dc,
                 cx,
@@ -1481,7 +1506,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_PRECIP) {
+        if (field == FIELD_WX_FCST_PRECIP) {
             _drawForecastPrecipRow(
                 dc,
                 cx,
@@ -1496,7 +1521,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_DAILY) {
+        if (field == FIELD_WX_FCST_DAILY) {
             _drawForecastDailyRow(
                 dc,
                 cx,
@@ -1510,7 +1535,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_WIND) {
+        if (field == FIELD_WX_FCST_WIND) {
             _drawForecastWindRow(
                 dc,
                 cx,
@@ -1553,7 +1578,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_HUMIDITY) {
+        if (field == FIELD_WX_FCST_HUMIDITY) {
             _drawForecastHumidityRow(
                 dc,
                 cx,
@@ -1568,7 +1593,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_UV) {
+        if (field == FIELD_WX_FCST_UV) {
             _drawForecastUvRow(
                 dc,
                 cx,
@@ -1583,7 +1608,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_WX_FORECAST_CLOUD) {
+        if (field == FIELD_WX_FCST_CLOUD) {
             _drawForecastCloudRow(
                 dc,
                 cx,
@@ -1637,7 +1662,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return;
             }
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             _drawTempRow(
                 dc,
                 cx,
@@ -1724,7 +1749,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             return;
         }
-        if (field == FIELD_CLIMB_DESCEND) {
+        if (field == FIELD_CLIMB_DESCEND_DAY) {
             var up = "-";
             var dn = "-";
             if (_amInfo != null) {
@@ -2331,13 +2356,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             } else if (
                 field == FIELD_BODY_BAT ||
                 field == FIELD_STRESS ||
-                field == FIELD_WX_FORECAST_PRECIP ||
-                field == FIELD_WX_FORECAST_HUMIDITY ||
-                field == FIELD_WX_FORECAST_CLOUD
+                field == FIELD_WX_FCST_PRECIP ||
+                field == FIELD_WX_FCST_HUMIDITY ||
+                field == FIELD_WX_FCST_CLOUD
             ) {
                 gMin = 0.0;
                 gMax = 100.0;
-            } else if (field == FIELD_WX_FORECAST_UV) {
+            } else if (field == FIELD_WX_FCST_UV) {
                 gMin = 0.0;
                 gMax = 11.0;
             } else if (field == FIELD_SPO2) {
@@ -2376,7 +2401,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_SPO2) {
             return "O2";
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             return "Tmp";
         }
         if (field == FIELD_ELEVATION) {
@@ -2715,7 +2740,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_SPO2) {
             return "spo2";
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             return "tempWrist";
         }
         if (field == FIELD_ELEVATION) {
@@ -2836,7 +2861,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Returns how often (in minutes) each sensor field generates a new reading.
     // Used to avoid re-fetching history more often than the sensor updates.
     private function _fieldUpdateMin(field as Number) as Number {
-        if (field == FIELD_STRESS || field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_STRESS || field == FIELD_WRIST_TEMP) {
             return 3;
         }
         if (field == FIELD_BODY_BAT || field == FIELD_SPO2) {
@@ -2905,7 +2930,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 )
             );
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             return _cacheResult(
                 cacheKey,
                 _readIter(
@@ -2939,7 +2964,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _formatGraphLabel(field as Number, v as Float) as String {
-        if (field == FIELD_TEMP_WRIST || field == FIELD_WX_FORECAST_TEMP) {
+        if (field == FIELD_WRIST_TEMP || field == FIELD_WX_FCST_TEMP) {
             return _metric ? v.format("%.0f") : _celsiusToF(v).format("%.0f");
         }
         if (field == FIELD_ELEVATION) {
@@ -2951,18 +2976,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 : (v / 3386.39).format("%.1f");
         }
         if (
-            field == FIELD_WX_FORECAST_PRECIP ||
-            field == FIELD_WX_FORECAST_HUMIDITY ||
-            field == FIELD_WX_FORECAST_CLOUD
+            field == FIELD_WX_FCST_PRECIP ||
+            field == FIELD_WX_FCST_HUMIDITY ||
+            field == FIELD_WX_FCST_CLOUD
         ) {
             return v.format("%.0f") + "%";
         }
-        if (field == FIELD_WX_FORECAST_WIND) {
+        if (field == FIELD_WX_FCST_WIND) {
             return _metric
                 ? (v * 3.6).format("%.0f")
                 : (v * 2.237).format("%.0f");
         }
-        if (field == FIELD_WX_FORECAST_UV) {
+        if (field == FIELD_WX_FCST_UV) {
             return v.format("%.1f");
         }
         return v.toNumber().toString();
@@ -2979,7 +3004,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_BODY_BAT || field == FIELD_SPO2) {
             return "%";
         }
-        if (field == FIELD_WX_FORECAST_WIND) {
+        if (field == FIELD_WX_FCST_WIND) {
             return _metric ? "km/h" : "mph";
         }
         if (field == FIELD_ELEVATION) {
@@ -3802,7 +3827,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < 1.0) {
             range = 1.0;
         }
-        _calcGradRange(FIELD_WX_FORECAST_TEMP, lineColor, minV, range);
+        _calcGradRange(FIELD_WX_FCST_TEMP, lineColor, minV, range);
         var gradMinV = _gradMin;
         var gradRange = _gradRange;
         var maxFrac = (maxV - gradMinV) / gradRange;
@@ -3854,7 +3879,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawGraphAxes(dc, gx, gw, y);
         _drawSingleGraphLabels(
             dc,
-            FIELD_WX_FORECAST_TEMP,
+            FIELD_WX_FCST_TEMP,
             gx,
             gw,
             y,
@@ -3897,7 +3922,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
             } else {
                 var tStr = _graphValueStr(
-                    FIELD_WX_FORECAST_TEMP,
+                    FIELD_WX_FCST_TEMP,
                     data,
                     minV,
                     maxV,
@@ -4272,7 +4297,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "Rain %",
             _wxPrecip,
             _wxForecastPrecipData,
-            FIELD_WX_FORECAST_PRECIP,
+            FIELD_WX_FCST_PRECIP,
             1.0
         );
     }
@@ -4303,7 +4328,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "Wind Fcst",
             _wxWind,
             _wxForecastWindData,
-            FIELD_WX_FORECAST_WIND,
+            FIELD_WX_FCST_WIND,
             0.1
         );
     }
@@ -4375,7 +4400,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < 1.0) {
             range = 1.0;
         }
-        _calcGradRange(FIELD_WX_FORECAST_TEMP, colorIdx, allMin, range);
+        _calcGradRange(FIELD_WX_FCST_TEMP, colorIdx, allMin, range);
         var gradMin = _gradMin;
         var gradRange = _gradRange;
         _rowBuf[0] = "Day Fcst";
@@ -4446,7 +4471,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gx - 4,
             y - 4,
             _fontTiny,
-            _formatGraphLabel(FIELD_WX_FORECAST_TEMP, allMax),
+            _formatGraphLabel(FIELD_WX_FCST_TEMP, allMax),
             Graphics.TEXT_JUSTIFY_RIGHT
         );
         dc.setColor(
@@ -4457,7 +4482,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gx - 4,
             y + gh - _tinyFh + 4,
             _fontTiny,
-            _formatGraphLabel(FIELD_WX_FORECAST_TEMP, allMin),
+            _formatGraphLabel(FIELD_WX_FCST_TEMP, allMin),
             Graphics.TEXT_JUSTIFY_RIGHT
         );
         var dayNames = ["S", "M", "T", "W", "T", "F", "S"] as Array<String>;
@@ -4843,7 +4868,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     // Fields handled by special draw functions have early returns in _drawLineRow
-    // and never reach here: FLOORS, WX_TEMP, WX_FEELS, WX_TEMP_COND, WX_TEMP_MAXMIN, WX_TEMP_WIND,
+    // and never reach here: FLOORS, WX_TEMP, WX_FEELS, WX_TEMP_COND, WX_TEMP_HIGH_LOW, WX_TEMP_WIND,
     // WX_UV, WX_TEMP_UV, WX_UV_PRECIP, WX_UV_WIND
     private function _getFieldParts(field as Number) as Void {
         if (field == FIELD_HR) {
@@ -4933,7 +4958,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "-";
             return;
         }
-        if (field == FIELD_ACTIVE_MIN) {
+        if (field == FIELD_INTENSITY_MIN) {
             if (_amInfo == null) {
                 _rowBuf[0] = "Intens Min";
                 _rowBuf[1] = "0";
@@ -5069,7 +5094,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "-";
             return;
         }
-        if (field == FIELD_TEMP_WRIST) {
+        if (field == FIELD_WRIST_TEMP) {
             _rowBuf[0] = "Wrist Temp";
             _rowBuf[1] = _cachedTempWrist;
             return;
@@ -5122,17 +5147,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _cachedElevation;
             return;
         }
-        if (field == FIELD_WX_FORECAST_TEMP) {
+        if (field == FIELD_WX_FCST_TEMP) {
             _rowBuf[0] = "Temp Fcst";
             _rowBuf[1] = _wxTemp + _wxUnit;
             return;
         }
-        if (field == FIELD_WX_FORECAST_PRECIP) {
+        if (field == FIELD_WX_FCST_PRECIP) {
             _rowBuf[0] = "Rain %";
             _rowBuf[1] = _wxPrecip;
             return;
         }
-        if (field == FIELD_WX_FORECAST_DAILY) {
+        if (field == FIELD_WX_FCST_DAILY) {
             _rowBuf[0] = "Day Fcst";
             _rowBuf[1] = _wxTemp + _wxUnit;
             return;
@@ -5406,9 +5431,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _wxUv + " | " + _wxWind;
             return;
         }
-        if (field == FIELD_WX_TEMP_MAXMIN) {
+        if (field == FIELD_WX_TEMP_HIGH_LOW) {
             _rowBuf[0] = "Temp";
-            _rowBuf[1] = _wxHigh + "/" + _wxLow + _wxUnit;
+            _rowBuf[1] = _wxTemp + " " + _wxHigh + "/" + _wxLow + _wxUnit;
             return;
         }
         if (field == FIELD_STEPS) {
@@ -5499,7 +5524,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _cachedWakeTime;
             return;
         }
-        if (field == FIELD_WX_FORECAST_WIND) {
+        if (field == FIELD_WX_FCST_WIND) {
             _rowBuf[0] = "Wind Fcst";
             _rowBuf[1] = _wxWind;
             return;
@@ -5569,17 +5594,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _wxHeatIndex + _wxUnit;
             return;
         }
-        if (field == FIELD_WX_FORECAST_HUMIDITY) {
+        if (field == FIELD_WX_FCST_HUMIDITY) {
             _rowBuf[0] = "Hum Fcst";
             _rowBuf[1] = _wxHumidity;
             return;
         }
-        if (field == FIELD_WX_FORECAST_UV) {
+        if (field == FIELD_WX_FCST_UV) {
             _rowBuf[0] = "UV Fcst";
             _rowBuf[1] = _wxUv;
             return;
         }
-        if (field == FIELD_WX_FORECAST_CLOUD) {
+        if (field == FIELD_WX_FCST_CLOUD) {
             _rowBuf[0] = "Cloud Fcst";
             _rowBuf[1] = _wxCloudCover;
             return;
@@ -5616,7 +5641,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     : "-";
             return;
         }
-        if (field == FIELD_METERS_CLIMBED) {
+        if (field == FIELD_CLIMB_DAY) {
             _rowBuf[0] = "Climb Day";
             if (_amInfo != null) {
                 var info = _amInfo as ActivityMonitor.Info;
@@ -5631,7 +5656,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "-";
             return;
         }
-        if (field == FIELD_METERS_DESCENDED) {
+        if (field == FIELD_DESCENT_DAY) {
             _rowBuf[0] = "Descent Day";
             if (_amInfo != null) {
                 var info = _amInfo as ActivityMonitor.Info;
@@ -5694,12 +5719,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = hr + " | " + spo2;
             return;
         }
-        if (field == FIELD_BB_STRESS) {
+        if (field == FIELD_BODY_BAT_STRESS) {
             _rowBuf[0] = "Body+Stress";
             _rowBuf[1] = _cachedBodyBat + " | " + _cachedStress;
             return;
         }
-        if (field == FIELD_BB_RECOVERY) {
+        if (field == FIELD_BODY_BAT_RECOVERY) {
             var rec = "-";
             if (_amInfo != null) {
                 var info = _amInfo as ActivityMonitor.Info;
@@ -5745,7 +5770,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = up + " | " + dn;
             return;
         }
-        if (field == FIELD_CLIMB_DESCEND) {
+        if (field == FIELD_CLIMB_DESCEND_DAY) {
             var up = "-";
             var dn = "-";
             if (_amInfo != null) {
@@ -6022,7 +6047,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         : (d as Number).toString()) + "%";
             }
         }
-        if (_fieldNeeded(FIELD_TEMP_WRIST)) {
+        if (_fieldNeeded(FIELD_WRIST_TEMP)) {
             var sample = SensorHistory.getTemperatureHistory({}).next();
             if (sample != null && sample.data != null) {
                 var td = sample.data;
@@ -6433,7 +6458,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "Hum Fcst",
             _wxHumidity,
             _wxForecastHumidityData,
-            FIELD_WX_FORECAST_HUMIDITY,
+            FIELD_WX_FCST_HUMIDITY,
             1.0
         );
     }
@@ -6464,7 +6489,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "UV Fcst",
             _wxUv,
             _wxForecastUvData,
-            FIELD_WX_FORECAST_UV,
+            FIELD_WX_FCST_UV,
             0.5
         );
     }
@@ -6495,7 +6520,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "Cloud Fcst",
             _wxCloudCover,
             _wxForecastCloudData,
-            FIELD_WX_FORECAST_CLOUD,
+            FIELD_WX_FCST_CLOUD,
             1.0
         );
     }

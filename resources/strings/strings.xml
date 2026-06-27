@@ -139,13 +139,13 @@
   <string id="FieldLactateHR">Lactate Threshold HR</string>
   <string id="FieldTrainingStatus">Training Status</string>
   <string id="FieldTrainingEffect">Training Effect</string>
-  <string id="FieldTempWrist">Wrist Temperature</string>
+  <string id="FieldWristTemp">Wrist Temperature</string>
   <string id="FieldSolar">Solar Input</string>
   <string id="FieldNotifications">Notifications</string>
   <string id="FieldHrSpo2">HR + SpO2</string>
   <string id="FieldRespSpo2">Respiration + SpO2</string>
-  <string id="FieldBbStress">Body Battery + Stress</string>
-  <string id="FieldBbRecovery">Body Battery + Recovery</string>
+  <string id="FieldBodyBatStress">Body Battery + Stress</string>
+  <string id="FieldBodyBatRecovery">Body Battery + Recovery</string>
   <string id="FieldStressRecovery">Stress + Recovery</string>
   <string id="FieldVo2Training">VO2 Max + Training</string>
   <string id="FieldCalories">Calories (Daily)</string>
@@ -153,7 +153,7 @@
   <string id="FieldDistance">Distance (Daily)</string>
   <string id="FieldSpeed">Speed</string>
   <string id="FieldActiveMinDay">Active Minutes (Daily)</string>
-  <string id="FieldActiveMin">Intensity Minutes (Weekly)</string>
+  <string id="FieldIntensityMin">Intensity Minutes (Weekly)</string>
   <string id="FieldAltitude">Altitude</string>
   <string id="FieldElevation">Elevation (Baro)</string>
   <string id="FieldPressure">Pressure</string>
@@ -171,9 +171,9 @@
   <string id="FieldTotalAscent">Ascent (Activity)</string>
   <string id="FieldTotalDescent">Descent (Activity)</string>
   <string id="FieldAscentDescent">Ascent + Descent (Activity)</string>
-  <string id="FieldMetersClimbed">Climb (Daily)</string>
-  <string id="FieldMetersDescended">Descent (Daily)</string>
-  <string id="FieldClimbDescend">Climb + Descent (Daily)</string>
+  <string id="FieldClimbDay">Climb (Daily)</string>
+  <string id="FieldDescentDay">Descent (Daily)</string>
+  <string id="FieldClimbDescendDay">Climb + Descent (Daily)</string>
   <string id="FieldWeeklyRun">Distance (Weekly Run)</string>
   <string id="FieldWeeklyBike">Distance (Weekly Bike)</string>
   <string id="FieldWeeklyDistances">Distance (Weekly Run + Bike)</string>
@@ -207,7 +207,7 @@
   <string id="FieldWxTempUV">Weather: Temp + UV</string>
   <string id="FieldWxTempHumidity">Weather: Temp + Humidity</string>
   <string id="FieldWxTempPrecip">Weather: Temp + Rain</string>
-  <string id="FieldWxTempMaxMin">Weather: Temp + Max/Min</string>
+  <string id="FieldWxTempHighLow">Weather: Temp + High/Low</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
   <string id="FieldWxWindPrecip">Weather: Wind + Rain</string>
   <string id="FieldWxUVPrecip">Weather: UV + Rain</string>
@@ -215,13 +215,13 @@
   <string id="FieldWxHumidityPrecip">Weather: Humidity + Rain</string>
   <string id="FieldWxCloudPrecip">Weather: Cloud + Rain</string>
   <string id="FieldWxHumidityDew">Weather: Humidity + Dew Point</string>
-  <string id="FieldWxForecastTemp">Forecast: Temp (Hourly)</string>
-  <string id="FieldWxForecastPrecip">Forecast: Rain (Hourly)</string>
-  <string id="FieldWxForecastWind">Forecast: Wind (Hourly)</string>
-  <string id="FieldWxForecastDaily">Forecast: Temp (Daily)</string>
-  <string id="FieldWxForecastHumidity">Forecast: Humidity (Hourly)</string>
-  <string id="FieldWxForecastUv">Forecast: UV (Hourly)</string>
-  <string id="FieldWxForecastCloud">Forecast: Cloud (Hourly)</string>
+  <string id="FieldWxFcstTemp">Forecast: Temp (Hourly)</string>
+  <string id="FieldWxFcstPrecip">Forecast: Rain (Hourly)</string>
+  <string id="FieldWxFcstWind">Forecast: Wind (Hourly)</string>
+  <string id="FieldWxFcstDaily">Forecast: Temp (Daily)</string>
+  <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
+  <string id="FieldWxFcstUv">Forecast: UV (Hourly)</string>
+  <string id="FieldWxFcstCloud">Forecast: Cloud (Hourly)</string>
 
   <!-- Shared: graph mode options (sensor graphs) -->
   <string id="GraphModeValue">Value only</string>
