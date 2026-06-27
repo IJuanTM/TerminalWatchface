@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.40.2";
+const APP_VERSION = "0.40.3";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -1307,7 +1307,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var showBar = _getBoolProp("floorsShowBar");
             var showVal = _getBoolProp("floorsShowBarValue");
             _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
-            _lineGraphColor[li] = _getProp("floorsBarColor", 1);
+            _lineGraphColor[li] = _getProp("floorsBarColor", 5);
             _lineGraphWidth[li] = _getProp("floorsBarWidth", 10);
             return;
         }
@@ -1315,7 +1315,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var showBar = _getBoolProp("intensityMinShowBar");
             var showVal = _getBoolProp("intensityMinShowBarValue");
             _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
-            _lineGraphColor[li] = _getProp("intensityMinBarColor", 3);
+            _lineGraphColor[li] = _getProp("intensityMinBarColor", 5);
             _lineGraphWidth[li] = _getProp("intensityMinBarWidth", 10);
             return;
         }

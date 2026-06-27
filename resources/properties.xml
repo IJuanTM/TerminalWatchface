@@ -90,15 +90,15 @@
   <property id="stepsBarWidth" type="number">10</property>
 
   <!-- Floors -->
-  <property id="floorsShowBar" type="boolean">true</property>
+  <property id="floorsShowBar" type="boolean">false</property>
   <property id="floorsShowBarValue" type="boolean">true</property>
-  <property id="floorsBarColor" type="number">1</property>
+  <property id="floorsBarColor" type="number">5</property>
   <property id="floorsBarWidth" type="number">10</property>
 
   <!-- Intensity Minutes (Weekly) -->
   <property id="intensityMinShowBar" type="boolean">true</property>
   <property id="intensityMinShowBarValue" type="boolean">true</property>
-  <property id="intensityMinBarColor" type="number">3</property>
+  <property id="intensityMinBarColor" type="number">5</property>
   <property id="intensityMinBarWidth" type="number">10</property>
 
   <!-- Graph settings per supported field type -->

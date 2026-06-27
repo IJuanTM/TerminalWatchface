@@ -401,15 +401,15 @@ def gen_properties():
     lines.append(prop("stepsBarWidth", "number", 10))
 
     lines.append("\n  <!-- Floors -->")
-    lines.append(prop("floorsShowBar", "boolean", "true"))
+    lines.append(prop("floorsShowBar", "boolean", "false"))
     lines.append(prop("floorsShowBarValue", "boolean", "true"))
-    lines.append(prop("floorsBarColor", "number", 1))  # green
+    lines.append(prop("floorsBarColor", "number", 5))  # red
     lines.append(prop("floorsBarWidth", "number", 10))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
     lines.append(prop("intensityMinShowBar", "boolean", "true"))
     lines.append(prop("intensityMinShowBarValue", "boolean", "true"))
-    lines.append(prop("intensityMinBarColor", "number", 3))  # yellow
+    lines.append(prop("intensityMinBarColor", "number", 5))  # red
     lines.append(prop("intensityMinBarWidth", "number", 10))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
