@@ -52,7 +52,7 @@
   <property id="line4Tertiary" type="number">4</property>
   <property id="line4TertiaryLabelColor" type="number">1</property>
   <property id="line4TertiaryValueColor" type="number">0</property>
-  <property id="line5Tertiary" type="number">2</property>
+  <property id="line5Tertiary" type="number">25</property>
   <property id="line5TertiaryLabelColor" type="number">5</property>
   <property id="line5TertiaryValueColor" type="number">0</property>
   <property id="line3Quaternary" type="number">62</property>
@@ -61,7 +61,7 @@
   <property id="line4Quaternary" type="number">6</property>
   <property id="line4QuaternaryLabelColor" type="number">1</property>
   <property id="line4QuaternaryValueColor" type="number">0</property>
-  <property id="line5Quaternary" type="number">29</property>
+  <property id="line5Quaternary" type="number">10</property>
   <property id="line5QuaternaryLabelColor" type="number">5</property>
   <property id="line5QuaternaryValueColor" type="number">0</property>
   <property id="line3Quinary" type="number">7</property>
@@ -93,13 +93,13 @@
   <property id="floorsShowBar" type="boolean">false</property>
   <property id="floorsShowBarValue" type="boolean">true</property>
   <property id="floorsBarColor" type="number">5</property>
-  <property id="floorsBarWidth" type="number">10</property>
+  <property id="floorsBarWidth" type="number">8</property>
 
   <!-- Intensity Minutes (Weekly) -->
   <property id="intensityMinShowBar" type="boolean">true</property>
   <property id="intensityMinShowBarValue" type="boolean">true</property>
   <property id="intensityMinBarColor" type="number">5</property>
-  <property id="intensityMinBarWidth" type="number">10</property>
+  <property id="intensityMinBarWidth" type="number">8</property>
 
   <!-- Graph settings per supported field type -->
 

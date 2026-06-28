@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.41.0";
+const APP_VERSION = "0.41.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -2025,11 +2025,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _graphW;
         var barH = _fh;
         var barY = y;
-        dc.setColor(
-            _withAlpha(_colorFromIdx(barColor), 0x80),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.fillRectangle(gx, barY, gw, barH);
+        dc.setStroke(_withAlpha(_colorFromIdx(barColor), 0x40));
+        for (var bx = gx; bx < gx + gw; bx++) {
+            dc.drawLine(bx, barY, bx, barY + barH - 1);
+        }
         var frac = steps.toFloat() / goal.toFloat();
         if (frac > 1.0) {
             frac = 1.0;
@@ -2100,7 +2099,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (steps >= goal) {
                 dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
-                    gx + gw,
+                    gx + gw + 4 + dc.getTextWidthInPixels(goalStr, _fontTiny),
                     valY,
                     _fontSmall,
                     " [GOAL]",
@@ -2172,11 +2171,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _graphW;
         var barH = _fh;
         var barY = y;
-        dc.setColor(
-            _withAlpha(_colorFromIdx(barColor), 0x80),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.fillRectangle(gx, barY, gw, barH);
+        dc.setStroke(_withAlpha(_colorFromIdx(barColor), 0x40));
+        for (var bx = gx; bx < gx + gw; bx++) {
+            dc.drawLine(bx, barY, bx, barY + barH - 1);
+        }
         var frac = floors.toFloat() / goal.toFloat();
         if (frac > 1.0) {
             frac = 1.0;
@@ -2247,7 +2245,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (floors >= goal) {
                 dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
-                    gx + gw,
+                    gx + gw + 4 + dc.getTextWidthInPixels(goalStr, _fontTiny),
                     valY,
                     _fontSmall,
                     " [GOAL]",
@@ -2290,11 +2288,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gw = _graphW;
         var barH = _fh;
         var barY = y;
-        dc.setColor(
-            _withAlpha(_colorFromIdx(barColor), 0x80),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.fillRectangle(gx, barY, gw, barH);
+        dc.setStroke(_withAlpha(_colorFromIdx(barColor), 0x40));
+        for (var bx = gx; bx < gx + gw; bx++) {
+            dc.drawLine(bx, barY, bx, barY + barH - 1);
+        }
         var frac = current.toFloat() / goal.toFloat();
         if (frac > 1.0) {
             frac = 1.0;
@@ -2365,7 +2362,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (current >= goal) {
                 dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
-                    gx + gw,
+                    gx + gw + 4 + dc.getTextWidthInPixels(goalStr, _fontTiny),
                     valY,
                     _fontSmall,
                     " [GOAL]",

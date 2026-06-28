@@ -257,11 +257,11 @@ LINE_SLOTS = [
     # R3 (Tertiary)
     (3, "Tertiary", 60, 6, 0),  # UV + Wind, blue
     (4, "Tertiary", 4, 1, 0),  # Distance (daily), green
-    (5, "Tertiary", 2, 5, 0),  # Calories (daily), red
+    (5, "Tertiary", 25, 5, 0),  # Active Calories, red
     # R4 (Quaternary)
     (3, "Quaternary", 62, 6, 0),  # Temp Daily forecast, blue
     (4, "Quaternary", 6, 1, 0),  # Floors, green
-    (5, "Quaternary", 29, 5, 0),  # Active Minutes (daily), red
+    (5, "Quaternary", 10, 5, 0),  # Intensity Minutes (weekly), red
     # R5 (Quinary)
     (3, "Quinary", 7, 6, 0),  # None, blue
     (4, "Quinary", 7, 1, 0),  # None, green
@@ -404,13 +404,13 @@ def gen_properties():
     lines.append(prop("floorsShowBar", "boolean", "false"))
     lines.append(prop("floorsShowBarValue", "boolean", "true"))
     lines.append(prop("floorsBarColor", "number", 5))  # red
-    lines.append(prop("floorsBarWidth", "number", 10))
+    lines.append(prop("floorsBarWidth", "number", 8))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
     lines.append(prop("intensityMinShowBar", "boolean", "true"))
     lines.append(prop("intensityMinShowBarValue", "boolean", "true"))
     lines.append(prop("intensityMinBarColor", "number", 5))  # red
-    lines.append(prop("intensityMinBarWidth", "number", 10))
+    lines.append(prop("intensityMinBarWidth", "number", 8))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for key, skey, mode, std, sfd, tfd, gcd, scd, vmd in GRAPH_FIELDS:
