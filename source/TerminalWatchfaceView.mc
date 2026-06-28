@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.41.1";
+const APP_VERSION = "0.41.2";
 
 // --- None ---
 const FIELD_NONE = 7;
