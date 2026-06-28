@@ -181,6 +181,13 @@
   <property id="wxForecastGraphColor" type="number">16</property>
   <property id="wxForecastGraphWidth" type="number">10</property>
 
+  <!-- Day Forecast -->
+  <property id="wxForecastDailyViewMode" type="number">2</property>
+  <property id="wxForecastDailyValueMode" type="number">2</property>
+  <property id="wxForecastDailyDays" type="number">5</property>
+  <property id="wxForecastDailyGraphColor" type="number">16</property>
+  <property id="wxForecastDailyGraphWidth" type="number">10</property>
+
   <!-- Rain Forecast -->
   <property id="wxForecastPrecipViewMode" type="number">2</property>
   <property id="wxForecastPrecipValueMode" type="number">1</property>
@@ -188,13 +195,6 @@
   <property id="wxForecastPrecipTimeFrame" type="number">12</property>
   <property id="wxForecastPrecipGraphColor" type="number">6</property>
   <property id="wxForecastPrecipGraphWidth" type="number">10</property>
-
-  <!-- Day Forecast -->
-  <property id="wxForecastDailyViewMode" type="number">2</property>
-  <property id="wxForecastDailyValueMode" type="number">2</property>
-  <property id="wxForecastDailyDays" type="number">5</property>
-  <property id="wxForecastDailyGraphColor" type="number">16</property>
-  <property id="wxForecastDailyGraphWidth" type="number">10</property>
 
   <!-- Wind Forecast -->
   <property id="wxForecastWindViewMode" type="number">2</property>
@@ -204,14 +204,6 @@
   <property id="wxForecastWindGraphColor" type="number">6</property>
   <property id="wxForecastWindGraphWidth" type="number">10</property>
 
-  <!-- Humidity Forecast -->
-  <property id="wxForecastHumidityViewMode" type="number">2</property>
-  <property id="wxForecastHumidityValueMode" type="number">1</property>
-  <property id="wxForecastHumidityGraphType" type="number">1</property>
-  <property id="wxForecastHumidityTimeFrame" type="number">12</property>
-  <property id="wxForecastHumidityGraphColor" type="number">2</property>
-  <property id="wxForecastHumidityGraphWidth" type="number">10</property>
-
   <!-- UV Forecast -->
   <property id="wxForecastUvViewMode" type="number">2</property>
   <property id="wxForecastUvValueMode" type="number">2</property>
@@ -219,6 +211,14 @@
   <property id="wxForecastUvTimeFrame" type="number">12</property>
   <property id="wxForecastUvGraphColor" type="number">3</property>
   <property id="wxForecastUvGraphWidth" type="number">10</property>
+
+  <!-- Humidity Forecast -->
+  <property id="wxForecastHumidityViewMode" type="number">2</property>
+  <property id="wxForecastHumidityValueMode" type="number">1</property>
+  <property id="wxForecastHumidityGraphType" type="number">1</property>
+  <property id="wxForecastHumidityTimeFrame" type="number">12</property>
+  <property id="wxForecastHumidityGraphColor" type="number">2</property>
+  <property id="wxForecastHumidityGraphWidth" type="number">10</property>
 
   <!-- Cloud Forecast -->
   <property id="wxForecastCloudViewMode" type="number">2</property>

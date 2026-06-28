@@ -215,17 +215,17 @@
   <string id="FieldWxTempHighLow">Weather: Temp + High/Low</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
   <string id="FieldWxWindPrecip">Weather: Wind + Rain</string>
-  <string id="FieldWxUVPrecip">Weather: UV + Rain</string>
   <string id="FieldWxUVWind">Weather: UV + Wind</string>
+  <string id="FieldWxUVPrecip">Weather: UV + Rain</string>
   <string id="FieldWxHumidityPrecip">Weather: Humidity + Rain</string>
-  <string id="FieldWxCloudPrecip">Weather: Cloud + Rain</string>
   <string id="FieldWxHumidityDew">Weather: Humidity + Dew Point</string>
+  <string id="FieldWxCloudPrecip">Weather: Cloud + Rain</string>
   <string id="FieldWxFcstTemp">Forecast: Temp (Hourly)</string>
+  <string id="FieldWxFcstDaily">Forecast: Temp (Daily)</string>
   <string id="FieldWxFcstPrecip">Forecast: Rain (Hourly)</string>
   <string id="FieldWxFcstWind">Forecast: Wind (Hourly)</string>
-  <string id="FieldWxFcstDaily">Forecast: Temp (Daily)</string>
-  <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
   <string id="FieldWxFcstUv">Forecast: UV (Hourly)</string>
+  <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
   <string id="FieldWxFcstCloud">Forecast: Cloud (Hourly)</string>
   <string id="FieldWxFcstCond1d">Forecast: Condition (+1 day)</string>
   <string id="FieldWxFcstCond2d">Forecast: Condition (+2 days)</string>
@@ -412,14 +412,6 @@
   <string id="WxForecastWindGraphColor">Wind Hourly: Graph Color</string>
   <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
 
-  <!-- Graph settings: Humidity Hourly Forecast -->
-  <string id="WxForecastHumidityViewMode">Humidity Hourly: View Mode</string>
-  <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
-  <string id="WxForecastHumidityGraphType">Humidity Hourly: Graph Type</string>
-  <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
-  <string id="WxForecastHumidityGraphColor">Humidity Hourly: Graph Color</string>
-  <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
-
   <!-- Graph settings: UV Hourly Forecast -->
   <string id="WxForecastUvViewMode">UV Hourly: View Mode</string>
   <string id="WxForecastUvValueMode">UV Hourly: Value Mode</string>
@@ -427,6 +419,14 @@
   <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
   <string id="WxForecastUvGraphColor">UV Hourly: Graph Color</string>
   <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
+
+  <!-- Graph settings: Humidity Hourly Forecast -->
+  <string id="WxForecastHumidityViewMode">Humidity Hourly: View Mode</string>
+  <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
+  <string id="WxForecastHumidityGraphType">Humidity Hourly: Graph Type</string>
+  <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
+  <string id="WxForecastHumidityGraphColor">Humidity Hourly: Graph Color</string>
+  <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
 
   <!-- Graph settings: Cloud Hourly Forecast -->
   <string id="WxForecastCloudViewMode">Cloud Hourly: View Mode</string>

@@ -221,17 +221,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -370,17 +370,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -519,17 +519,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -668,17 +668,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -817,17 +817,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -966,17 +966,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1115,17 +1115,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1264,17 +1264,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1413,17 +1413,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1562,17 +1562,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1711,17 +1711,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -1860,17 +1860,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2009,17 +2009,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2158,17 +2158,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2307,17 +2307,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2456,17 +2456,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2605,17 +2605,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -2754,17 +2754,17 @@
       <listEntry value="18">@Strings.FieldWxTempHighLow</listEntry>
       <listEntry value="19">@Strings.FieldWxCondPrecip</listEntry>
       <listEntry value="57">@Strings.FieldWxWindPrecip</listEntry>
-      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="60">@Strings.FieldWxUVWind</listEntry>
+      <listEntry value="59">@Strings.FieldWxUVPrecip</listEntry>
       <listEntry value="97">@Strings.FieldWxHumidityPrecip</listEntry>
-      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="71">@Strings.FieldWxHumidityDew</listEntry>
+      <listEntry value="98">@Strings.FieldWxCloudPrecip</listEntry>
       <listEntry value="33">@Strings.FieldWxFcstTemp</listEntry>
+      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
       <listEntry value="61">@Strings.FieldWxFcstPrecip</listEntry>
       <listEntry value="64">@Strings.FieldWxFcstWind</listEntry>
-      <listEntry value="62">@Strings.FieldWxFcstDaily</listEntry>
-      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="85">@Strings.FieldWxFcstUv</listEntry>
+      <listEntry value="73">@Strings.FieldWxFcstHumidity</listEntry>
       <listEntry value="86">@Strings.FieldWxFcstCloud</listEntry>
       <listEntry value="106">@Strings.FieldWxFcstCond1d</listEntry>
       <listEntry value="107">@Strings.FieldWxFcstCond2d</listEntry>
@@ -3757,6 +3757,63 @@
     </settingConfig>
   </setting>
 
+  <!-- Day Forecast -->
+  <setting propertyKey="@Properties.wxForecastDailyViewMode" title="@Strings.WxForecastDailyViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyValueMode" title="@Strings.WxForecastDailyValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyDays" title="@Strings.WxForecastDailyDays">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
+      <listEntry value="5">@Strings.TimeFrameForecastDays5</listEntry>
+      <listEntry value="7">@Strings.TimeFrameForecastDays7</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyGraphColor" title="@Strings.WxForecastDailyGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastDailyGraphWidth" title="@Strings.WxForecastDailyGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
+
   <!-- Rain Forecast -->
   <setting propertyKey="@Properties.wxForecastPrecipViewMode" title="@Strings.WxForecastPrecipViewMode">
     <settingConfig type="list">
@@ -3812,63 +3869,6 @@
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastPrecipGraphWidth" title="@Strings.WxForecastPrecipGraphWidth">
-    <settingConfig type="list">
-      <listEntry value="6">@Strings.GraphWidth6</listEntry>
-      <listEntry value="8">@Strings.GraphWidth8</listEntry>
-      <listEntry value="10">@Strings.GraphWidth10</listEntry>
-      <listEntry value="12">@Strings.GraphWidth12</listEntry>
-      <listEntry value="14">@Strings.GraphWidth14</listEntry>
-      <listEntry value="16">@Strings.GraphWidth16</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Day Forecast -->
-  <setting propertyKey="@Properties.wxForecastDailyViewMode" title="@Strings.WxForecastDailyViewMode">
-    <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastDailyValueMode" title="@Strings.WxForecastDailyValueMode">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
-      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
-      <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
-      <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastDailyDays" title="@Strings.WxForecastDailyDays">
-    <settingConfig type="list">
-      <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
-      <listEntry value="5">@Strings.TimeFrameForecastDays5</listEntry>
-      <listEntry value="7">@Strings.TimeFrameForecastDays7</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastDailyGraphColor" title="@Strings.WxForecastDailyGraphColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.GradTriColor</listEntry>
-      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
-      <listEntry value="12">@Strings.GradTempCustom</listEntry>
-      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
-      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
-      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
-      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
-      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
-      <listEntry value="18">@Strings.GradTempInferno</listEntry>
-      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastDailyGraphWidth" title="@Strings.WxForecastDailyGraphWidth">
     <settingConfig type="list">
       <listEntry value="6">@Strings.GraphWidth6</listEntry>
       <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3944,71 +3944,6 @@
     </settingConfig>
   </setting>
 
-  <!-- Humidity Forecast -->
-  <setting propertyKey="@Properties.wxForecastHumidityViewMode" title="@Strings.WxForecastHumidityViewMode">
-    <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityValueMode" title="@Strings.WxForecastHumidityValueMode">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
-      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
-      <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
-      <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityGraphType" title="@Strings.WxForecastHumidityGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityTimeFrame" title="@Strings.WxForecastHumidityTimeFrame">
-    <settingConfig type="list">
-      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
-      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
-      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
-      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityGraphColor" title="@Strings.WxForecastHumidityGraphColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-      <listEntry value="10">@Strings.GradTriColor</listEntry>
-      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
-      <listEntry value="12">@Strings.GradTempCustom</listEntry>
-      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
-      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
-      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
-      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
-      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
-      <listEntry value="18">@Strings.GradTempInferno</listEntry>
-      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityGraphWidth" title="@Strings.WxForecastHumidityGraphWidth">
-    <settingConfig type="list">
-      <listEntry value="6">@Strings.GraphWidth6</listEntry>
-      <listEntry value="8">@Strings.GraphWidth8</listEntry>
-      <listEntry value="10">@Strings.GraphWidth10</listEntry>
-      <listEntry value="12">@Strings.GraphWidth12</listEntry>
-      <listEntry value="14">@Strings.GraphWidth14</listEntry>
-      <listEntry value="16">@Strings.GraphWidth16</listEntry>
-    </settingConfig>
-  </setting>
-
   <!-- UV Forecast -->
   <setting propertyKey="@Properties.wxForecastUvViewMode" title="@Strings.WxForecastUvViewMode">
     <settingConfig type="list">
@@ -4064,6 +3999,71 @@
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastUvGraphWidth" title="@Strings.WxForecastUvGraphWidth">
+    <settingConfig type="list">
+      <listEntry value="6">@Strings.GraphWidth6</listEntry>
+      <listEntry value="8">@Strings.GraphWidth8</listEntry>
+      <listEntry value="10">@Strings.GraphWidth10</listEntry>
+      <listEntry value="12">@Strings.GraphWidth12</listEntry>
+      <listEntry value="14">@Strings.GraphWidth14</listEntry>
+      <listEntry value="16">@Strings.GraphWidth16</listEntry>
+    </settingConfig>
+  </setting>
+
+  <!-- Humidity Forecast -->
+  <setting propertyKey="@Properties.wxForecastHumidityViewMode" title="@Strings.WxForecastHumidityViewMode">
+    <settingConfig type="list">
+      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
+      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityValueMode" title="@Strings.WxForecastHumidityValueMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphValueAvg</listEntry>
+      <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
+      <listEntry value="3">@Strings.GraphValueMean</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphType" title="@Strings.WxForecastHumidityGraphType">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
+      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
+      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityTimeFrame" title="@Strings.WxForecastHumidityTimeFrame">
+    <settingConfig type="list">
+      <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
+      <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
+      <listEntry value="12">@Strings.TimeFrameForecast12h</listEntry>
+      <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphColor" title="@Strings.WxForecastHumidityGraphColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+      <listEntry value="10">@Strings.GradTriColor</listEntry>
+      <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+      <listEntry value="12">@Strings.GradTempCustom</listEntry>
+      <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+      <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+      <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+      <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+      <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+      <listEntry value="18">@Strings.GradTempInferno</listEntry>
+      <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.wxForecastHumidityGraphWidth" title="@Strings.WxForecastHumidityGraphWidth">
     <settingConfig type="list">
       <listEntry value="6">@Strings.GraphWidth6</listEntry>
       <listEntry value="8">@Strings.GraphWidth8</listEntry>

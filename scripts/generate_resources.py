@@ -149,18 +149,18 @@ FIELDS_ALL = [
     (18, "FieldWxTempHighLow"),
     (19, "FieldWxCondPrecip"),
     (57, "FieldWxWindPrecip"),
-    (59, "FieldWxUVPrecip"),
     (60, "FieldWxUVWind"),
+    (59, "FieldWxUVPrecip"),
     (97, "FieldWxHumidityPrecip"),
-    (98, "FieldWxCloudPrecip"),
     (71, "FieldWxHumidityDew"),
+    (98, "FieldWxCloudPrecip"),
     # Weather forecast
     (33, "FieldWxFcstTemp"),
+    (62, "FieldWxFcstDaily"),
     (61, "FieldWxFcstPrecip"),
     (64, "FieldWxFcstWind"),
-    (62, "FieldWxFcstDaily"),
-    (73, "FieldWxFcstHumidity"),
     (85, "FieldWxFcstUv"),
+    (73, "FieldWxFcstHumidity"),
     (86, "FieldWxFcstCloud"),
     # Weather: forecast conditions (from complications)
     (106, "FieldWxFcstCond1d"),
@@ -434,6 +434,13 @@ def gen_properties():
     )  # GradTempTurbo (cold->hot)
     lines.append(prop("wxForecastGraphWidth", "number", 10))
 
+    lines.append("\n  <!-- Day Forecast -->")
+    lines.append(prop("wxForecastDailyViewMode", "number", 2))  # graph+value
+    lines.append(prop("wxForecastDailyValueMode", "number", 2))  # max/min
+    lines.append(prop("wxForecastDailyDays", "number", 5))  # 5 days
+    lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
+    lines.append(prop("wxForecastDailyGraphWidth", "number", 10))
+
     lines.append("\n  <!-- Rain Forecast -->")
     lines.append(prop("wxForecastPrecipViewMode", "number", 2))  # graph+value
     lines.append(prop("wxForecastPrecipValueMode", "number", 1))  # avg
@@ -441,13 +448,6 @@ def gen_properties():
     lines.append(prop("wxForecastPrecipTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastPrecipGraphColor", "number", 6))  # blue
     lines.append(prop("wxForecastPrecipGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- Day Forecast -->")
-    lines.append(prop("wxForecastDailyViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastDailyValueMode", "number", 2))  # max/min
-    lines.append(prop("wxForecastDailyDays", "number", 5))  # 5 days
-    lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
-    lines.append(prop("wxForecastDailyGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Wind Forecast -->")
     lines.append(prop("wxForecastWindViewMode", "number", 2))  # graph+value
@@ -457,14 +457,6 @@ def gen_properties():
     lines.append(prop("wxForecastWindGraphColor", "number", 6))  # blue
     lines.append(prop("wxForecastWindGraphWidth", "number", 10))
 
-    lines.append("\n  <!-- Humidity Forecast -->")
-    lines.append(prop("wxForecastHumidityViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastHumidityValueMode", "number", 1))  # avg
-    lines.append(prop("wxForecastHumidityGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastHumidityTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastHumidityGraphColor", "number", 2))  # cyan
-    lines.append(prop("wxForecastHumidityGraphWidth", "number", 10))
-
     lines.append("\n  <!-- UV Forecast -->")
     lines.append(prop("wxForecastUvViewMode", "number", 2))  # graph+value
     lines.append(prop("wxForecastUvValueMode", "number", 2))  # max/min
@@ -472,6 +464,14 @@ def gen_properties():
     lines.append(prop("wxForecastUvTimeFrame", "number", 12))  # 12h
     lines.append(prop("wxForecastUvGraphColor", "number", 3))  # yellow
     lines.append(prop("wxForecastUvGraphWidth", "number", 10))
+
+    lines.append("\n  <!-- Humidity Forecast -->")
+    lines.append(prop("wxForecastHumidityViewMode", "number", 2))  # graph+value
+    lines.append(prop("wxForecastHumidityValueMode", "number", 1))  # avg
+    lines.append(prop("wxForecastHumidityGraphType", "number", 1))  # bar
+    lines.append(prop("wxForecastHumidityTimeFrame", "number", 12))  # 12h
+    lines.append(prop("wxForecastHumidityGraphColor", "number", 2))  # cyan
+    lines.append(prop("wxForecastHumidityGraphWidth", "number", 10))
 
     lines.append("\n  <!-- Cloud Forecast -->")
     lines.append(prop("wxForecastCloudViewMode", "number", 2))  # graph+value
@@ -690,18 +690,18 @@ def gen_strings():
         ("FieldWxTempHighLow", "Weather: Temp + High/Low"),
         ("FieldWxCondPrecip", "Weather: Condition + Rain"),
         ("FieldWxWindPrecip", "Weather: Wind + Rain"),
-        ("FieldWxUVPrecip", "Weather: UV + Rain"),
         ("FieldWxUVWind", "Weather: UV + Wind"),
+        ("FieldWxUVPrecip", "Weather: UV + Rain"),
         ("FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
-        ("FieldWxCloudPrecip", "Weather: Cloud + Rain"),
         ("FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
+        ("FieldWxCloudPrecip", "Weather: Cloud + Rain"),
         # Weather forecast
         ("FieldWxFcstTemp", "Forecast: Temp (Hourly)"),
+        ("FieldWxFcstDaily", "Forecast: Temp (Daily)"),
         ("FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
         ("FieldWxFcstWind", "Forecast: Wind (Hourly)"),
-        ("FieldWxFcstDaily", "Forecast: Temp (Daily)"),
-        ("FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
         ("FieldWxFcstUv", "Forecast: UV (Hourly)"),
+        ("FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
         ("FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
         # Weather: forecast conditions
         ("FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
@@ -837,14 +837,6 @@ def gen_strings():
     lines.append(s("WxForecastWindGraphColor", "Wind Hourly: Graph Color"))
     lines.append(s("WxForecastWindGraphWidth", "Wind Hourly: Graph Width"))
 
-    lines.append("\n  <!-- Graph settings: Humidity Hourly Forecast -->")
-    lines.append(s("WxForecastHumidityViewMode", "Humidity Hourly: View Mode"))
-    lines.append(s("WxForecastHumidityValueMode", "Humidity Hourly: Value Mode"))
-    lines.append(s("WxForecastHumidityGraphType", "Humidity Hourly: Graph Type"))
-    lines.append(s("WxForecastHumidityTimeFrame", "Humidity Hourly: Hours Ahead"))
-    lines.append(s("WxForecastHumidityGraphColor", "Humidity Hourly: Graph Color"))
-    lines.append(s("WxForecastHumidityGraphWidth", "Humidity Hourly: Graph Width"))
-
     lines.append("\n  <!-- Graph settings: UV Hourly Forecast -->")
     lines.append(s("WxForecastUvViewMode", "UV Hourly: View Mode"))
     lines.append(s("WxForecastUvValueMode", "UV Hourly: Value Mode"))
@@ -852,6 +844,14 @@ def gen_strings():
     lines.append(s("WxForecastUvTimeFrame", "UV Hourly: Hours Ahead"))
     lines.append(s("WxForecastUvGraphColor", "UV Hourly: Graph Color"))
     lines.append(s("WxForecastUvGraphWidth", "UV Hourly: Graph Width"))
+
+    lines.append("\n  <!-- Graph settings: Humidity Hourly Forecast -->")
+    lines.append(s("WxForecastHumidityViewMode", "Humidity Hourly: View Mode"))
+    lines.append(s("WxForecastHumidityValueMode", "Humidity Hourly: Value Mode"))
+    lines.append(s("WxForecastHumidityGraphType", "Humidity Hourly: Graph Type"))
+    lines.append(s("WxForecastHumidityTimeFrame", "Humidity Hourly: Hours Ahead"))
+    lines.append(s("WxForecastHumidityGraphColor", "Humidity Hourly: Graph Color"))
+    lines.append(s("WxForecastHumidityGraphWidth", "Humidity Hourly: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Cloud Hourly Forecast -->")
     lines.append(s("WxForecastCloudViewMode", "Cloud Hourly: View Mode"))
@@ -970,10 +970,10 @@ def gen_settings():
             "areaOpacity",
             "AreaOpacity",
             [
-                (64, "@Strings.AreaOpacity25"),
-                (128, "@Strings.AreaOpacity50"),
-                (192, "@Strings.AreaOpacity75"),
-                (255, "@Strings.AreaOpacity100"),
+                (0x40, "@Strings.AreaOpacity25"),
+                (0x80, "@Strings.AreaOpacity50"),
+                (0xC0, "@Strings.AreaOpacity75"),
+                (0xFF, "@Strings.AreaOpacity100"),
             ],
         )
     )
@@ -1101,6 +1101,43 @@ def gen_settings():
     parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
     parts.append(width_setting("wxForecastGraphWidth", "WxForecastGraphWidth"))
 
+    # Day Forecast
+    parts.append("\n  <!-- Day Forecast -->")
+    parts.append(
+        setting_list(
+            "wxForecastDailyViewMode",
+            "WxForecastDailyViewMode",
+            [
+                (1, "@Strings.ViewModeGraph"),
+                (2, "@Strings.ViewModeGraphCurrent"),
+            ],
+        )
+    )
+    parts.append(
+        setting_list(
+            "wxForecastDailyValueMode",
+            "WxForecastDailyValueMode",
+            GRAPH_VALUE_MODE_OPTIONS,
+        )
+    )
+    parts.append(
+        setting_list(
+            "wxForecastDailyDays",
+            "WxForecastDailyDays",
+            [
+                (3, "@Strings.TimeFrameForecastDays3"),
+                (5, "@Strings.TimeFrameForecastDays5"),
+                (7, "@Strings.TimeFrameForecastDays7"),
+            ],
+        )
+    )
+    parts.append(
+        color_setting("wxForecastDailyGraphColor", "WxForecastDailyGraphColor")
+    )
+    parts.append(
+        width_setting("wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth")
+    )
+
     # Rain Forecast
     parts.append("\n  <!-- Rain Forecast -->")
     parts.append(
@@ -1145,43 +1182,6 @@ def gen_settings():
         width_setting("wxForecastPrecipGraphWidth", "WxForecastPrecipGraphWidth")
     )
 
-    # Day Forecast
-    parts.append("\n  <!-- Day Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastDailyViewMode",
-            "WxForecastDailyViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastDailyValueMode",
-            "WxForecastDailyValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastDailyDays",
-            "WxForecastDailyDays",
-            [
-                (3, "@Strings.TimeFrameForecastDays3"),
-                (5, "@Strings.TimeFrameForecastDays5"),
-                (7, "@Strings.TimeFrameForecastDays7"),
-            ],
-        )
-    )
-    parts.append(
-        color_setting("wxForecastDailyGraphColor", "WxForecastDailyGraphColor")
-    )
-    parts.append(
-        width_setting("wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth")
-    )
-
     # Wind Forecast
     parts.append("\n  <!-- Wind Forecast -->")
     parts.append(
@@ -1221,6 +1221,44 @@ def gen_settings():
     )
     parts.append(color_setting("wxForecastWindGraphColor", "WxForecastWindGraphColor"))
     parts.append(width_setting("wxForecastWindGraphWidth", "WxForecastWindGraphWidth"))
+
+    # UV Forecast
+    parts.append("\n  <!-- UV Forecast -->")
+    parts.append(
+        setting_list(
+            "wxForecastUvViewMode",
+            "WxForecastUvViewMode",
+            [
+                (1, "@Strings.ViewModeGraph"),
+                (2, "@Strings.ViewModeGraphCurrent"),
+            ],
+        )
+    )
+    parts.append(
+        setting_list(
+            "wxForecastUvValueMode", "WxForecastUvValueMode", GRAPH_VALUE_MODE_OPTIONS
+        )
+    )
+    parts.append(
+        setting_list(
+            "wxForecastUvGraphType",
+            "WxForecastUvGraphType",
+            [
+                (0, "@Strings.GraphTypeLine"),
+                (1, "@Strings.GraphTypeBar"),
+                (2, "@Strings.GraphTypeArea"),
+            ],
+        )
+    )
+    parts.append(
+        setting_list(
+            "wxForecastUvTimeFrame",
+            "WxForecastUvTimeFrame",
+            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
+        )
+    )
+    parts.append(color_setting("wxForecastUvGraphColor", "WxForecastUvGraphColor"))
+    parts.append(width_setting("wxForecastUvGraphWidth", "WxForecastUvGraphWidth"))
 
     # Humidity Forecast
     parts.append("\n  <!-- Humidity Forecast -->")
@@ -1265,44 +1303,6 @@ def gen_settings():
     parts.append(
         width_setting("wxForecastHumidityGraphWidth", "WxForecastHumidityGraphWidth")
     )
-
-    # UV Forecast
-    parts.append("\n  <!-- UV Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastUvViewMode",
-            "WxForecastUvViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvValueMode", "WxForecastUvValueMode", GRAPH_VALUE_MODE_OPTIONS
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvGraphType",
-            "WxForecastUvGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvTimeFrame",
-            "WxForecastUvTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(color_setting("wxForecastUvGraphColor", "WxForecastUvGraphColor"))
-    parts.append(width_setting("wxForecastUvGraphWidth", "WxForecastUvGraphWidth"))
 
     # Cloud Forecast
     parts.append("\n  <!-- Cloud Forecast -->")
