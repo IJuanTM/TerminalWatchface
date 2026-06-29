@@ -439,7 +439,7 @@ def gen_properties():
     lines.append(prop("wxForecastDailyValueMode", "number", 2))  # max/min
     lines.append(prop("wxForecastDailyDays", "number", 5))  # 5 days
     lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
-    lines.append(prop("wxForecastDailyGraphWidth", "number", 10))
+    lines.append(prop("wxForecastDailyGraphWidth", "number", 8))
 
     lines.append("\n  <!-- Rain Forecast -->")
     lines.append(prop("wxForecastPrecipViewMode", "number", 2))  # graph+value

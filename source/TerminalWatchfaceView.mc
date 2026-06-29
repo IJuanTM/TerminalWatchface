@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.41.2";
+const APP_VERSION = "0.41.3";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -1357,7 +1357,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineValueMode[li] = _getProp("wxForecastDailyValueMode", 2);
             _lineGraphColor[li] = _getProp("wxForecastDailyGraphColor", 16);
             _linePeriodMin[li] = _getProp("wxForecastDailyDays", 5);
-            _lineGraphWidth[li] = _getProp("wxForecastDailyGraphWidth", 10);
+            _lineGraphWidth[li] = _getProp("wxForecastDailyGraphWidth", 8);
             return;
         }
         if (field == FIELD_WX_FCST_WIND) {
@@ -6625,13 +6625,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _wxForecastHumidityData = humArr;
                 _wxForecastUvData = uvArr;
                 _wxForecastCloudData = cloudArr;
-            } else {
-                _wxForecastData = null;
-                _wxForecastPrecipData = null;
-                _wxForecastWindData = null;
-                _wxForecastHumidityData = null;
-                _wxForecastUvData = null;
-                _wxForecastCloudData = null;
             }
             var daily = Weather.getDailyForecast();
             if (daily != null && daily.size() >= 2) {
@@ -6649,9 +6642,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
                 _wxDailyForecastHigh = dhigh;
                 _wxDailyForecastLow = dlow;
-            } else {
-                _wxDailyForecastHigh = null;
-                _wxDailyForecastLow = null;
             }
         }
     }
