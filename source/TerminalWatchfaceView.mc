@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.41.4";
+const APP_VERSION = "0.42.0";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -378,6 +378,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _graphBmpDualCache as Dictionary = {};
     private var _is24Hour as Boolean = true;
     private var _showSeconds as Boolean = false;
+    private var _lowPower as Boolean = false;
     private var _leftPad as Number = 4;
     private var _areaOpacity as Number = 64;
     private var _areaShowLine as Boolean = true;
@@ -911,7 +912,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
+        if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
             _drawScanlines(dc, SCANLINE_COLORS[_scanlineIntensity]);
         }
 
@@ -938,6 +939,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var row = 0;
 
         _drawHeader(dc, y);
+
+        // Always-on mode: keep the exact same layout math, but draw only the
+        // time and date values (no labels, prompt, data lines or cursor) plus
+        // the kept header and footer. Scanlines are skipped to stay within the
+        // AMOLED always-on pixel budget.
+        if (_lowPower) {
+            _getTimeParts();
+            _drawAodValue(dc, cx, y + step, _cachedTimeStr, _line1ValueC);
+            _drawAodValue(
+                dc,
+                cx,
+                y + step * 2,
+                _getDateParts()[1],
+                _line2ValueC
+            );
+            var rowsLP = 3 + (v0 ? 1 : 0) + (v1 ? 1 : 0) + (v2 ? 1 : 0);
+            _drawFooter(dc, y + step * rowsLP + _fh + 32);
+            return;
+        }
+
         _drawPromptLine(dc, cx, y + step * row, _watchCmd);
         row++;
 
@@ -2004,6 +2025,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
                 return;
             }
+            _getFieldParts(field);
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            var info = _amInfo;
+            if (info != null) {
+                var mins = info.activeMinutesWeek;
+                var total =
+                    mins != null && mins.total != null
+                        ? mins.total as Number
+                        : 0;
+                var goal =
+                    info has :activeMinutesWeekGoal &&
+                    info.activeMinutesWeekGoal != null
+                        ? info.activeMinutesWeekGoal as Number
+                        : 150;
+                if (total >= goal) {
+                    dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(
+                        cx +
+                            _splitPad +
+                            dc.getTextWidthInPixels(_rowBuf[1], _font),
+                        y,
+                        _font,
+                        " [GOAL]",
+                        Graphics.TEXT_JUSTIFY_LEFT
+                    );
+                }
+            }
+            return;
         }
         _getFieldParts(field);
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
@@ -2071,6 +2120,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
+        var goal =
+            info has :floorsClimbedGoal && info.floorsClimbedGoal != null
+                ? info.floorsClimbedGoal as Number
+                : 10;
+        if (
+            (info.floorsClimbed != null ? info.floorsClimbed as Number : 0) >=
+            goal
+        ) {
+            x += dc.getTextWidthInPixels(dn, _font);
+            dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(x, y, _font, " [GOAL]", Graphics.TEXT_JUSTIFY_LEFT);
+        }
     }
 
     private function _drawFloorsBarRow(
@@ -2513,6 +2574,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
             }
         }
+    }
+
+    // Draws a row value only (no label or separator) at the normal value
+    // position. Used for the time and date in always-on mode.
+    private function _drawAodValue(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        value as String,
+        valueColorIdx as Number
+    ) as Void {
+        dc.setColor(_colorFromIdx(valueColorIdx), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            cx + _splitPad,
+            y,
+            _font,
+            value,
+            Graphics.TEXT_JUSTIFY_LEFT
+        );
     }
 
     private function _colorFromIdx(idx as Number) as Number {
@@ -6607,8 +6687,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     public function onEnterSleep() as Void {
         _lastPhase = -1;
+        _lowPower = true;
+        WatchUi.requestUpdate();
     }
     public function onExitSleep() as Void {
+        _lowPower = false;
         WatchUi.requestUpdate();
     }
 }
