@@ -24,64 +24,34 @@
   <property id="line2ValueColor" type="number">0</property>
 
   <!-- Line 3 -->
+  <property id="line3LabelColor" type="number">6</property>
+  <property id="line3ValueColor" type="number">0</property>
   <property id="line3Primary" type="number">33</property>
-  <property id="line3PrimaryLabelColor" type="number">6</property>
-  <property id="line3PrimaryValueColor" type="number">0</property>
 
   <!-- Line 4 -->
+  <property id="line4LabelColor" type="number">1</property>
+  <property id="line4ValueColor" type="number">0</property>
   <property id="line4Primary" type="number">0</property>
-  <property id="line4PrimaryLabelColor" type="number">1</property>
-  <property id="line4PrimaryValueColor" type="number">0</property>
 
   <!-- Line 5 -->
+  <property id="line5LabelColor" type="number">5</property>
+  <property id="line5ValueColor" type="number">0</property>
   <property id="line5Primary" type="number">1</property>
-  <property id="line5PrimaryLabelColor" type="number">5</property>
-  <property id="line5PrimaryValueColor" type="number">0</property>
   <property id="line3Secondary" type="number">97</property>
-  <property id="line3SecondaryLabelColor" type="number">6</property>
-  <property id="line3SecondaryValueColor" type="number">0</property>
   <property id="line4Secondary" type="number">32</property>
-  <property id="line4SecondaryLabelColor" type="number">1</property>
-  <property id="line4SecondaryValueColor" type="number">0</property>
   <property id="line5Secondary" type="number">21</property>
-  <property id="line5SecondaryLabelColor" type="number">5</property>
-  <property id="line5SecondaryValueColor" type="number">0</property>
   <property id="line3Tertiary" type="number">60</property>
-  <property id="line3TertiaryLabelColor" type="number">6</property>
-  <property id="line3TertiaryValueColor" type="number">0</property>
   <property id="line4Tertiary" type="number">4</property>
-  <property id="line4TertiaryLabelColor" type="number">1</property>
-  <property id="line4TertiaryValueColor" type="number">0</property>
   <property id="line5Tertiary" type="number">25</property>
-  <property id="line5TertiaryLabelColor" type="number">5</property>
-  <property id="line5TertiaryValueColor" type="number">0</property>
   <property id="line3Quaternary" type="number">62</property>
-  <property id="line3QuaternaryLabelColor" type="number">6</property>
-  <property id="line3QuaternaryValueColor" type="number">0</property>
   <property id="line4Quaternary" type="number">6</property>
-  <property id="line4QuaternaryLabelColor" type="number">1</property>
-  <property id="line4QuaternaryValueColor" type="number">0</property>
   <property id="line5Quaternary" type="number">10</property>
-  <property id="line5QuaternaryLabelColor" type="number">5</property>
-  <property id="line5QuaternaryValueColor" type="number">0</property>
   <property id="line3Quinary" type="number">7</property>
-  <property id="line3QuinaryLabelColor" type="number">6</property>
-  <property id="line3QuinaryValueColor" type="number">0</property>
   <property id="line4Quinary" type="number">7</property>
-  <property id="line4QuinaryLabelColor" type="number">1</property>
-  <property id="line4QuinaryValueColor" type="number">0</property>
   <property id="line5Quinary" type="number">7</property>
-  <property id="line5QuinaryLabelColor" type="number">5</property>
-  <property id="line5QuinaryValueColor" type="number">0</property>
   <property id="line3Senary" type="number">7</property>
-  <property id="line3SenaryLabelColor" type="number">6</property>
-  <property id="line3SenaryValueColor" type="number">0</property>
   <property id="line4Senary" type="number">7</property>
-  <property id="line4SenaryLabelColor" type="number">1</property>
-  <property id="line4SenaryValueColor" type="number">0</property>
   <property id="line5Senary" type="number">7</property>
-  <property id="line5SenaryLabelColor" type="number">5</property>
-  <property id="line5SenaryValueColor" type="number">0</property>
 
   <!-- Steps -->
   <property id="stepsShowBar" type="boolean">true</property>
@@ -174,9 +144,8 @@
   <property id="pressureGraphWidth" type="number">10</property>
 
   <!-- Weather Forecast -->
-  <property id="wxForecastViewMode" type="number">2</property>
+  <property id="wxForecastGraphMode" type="number">4</property>
   <property id="wxForecastValueMode" type="number">0</property>
-  <property id="wxForecastGraphType" type="number">1</property>
   <property id="wxForecastTimeFrame" type="number">12</property>
   <property id="wxForecastGraphColor" type="number">16</property>
   <property id="wxForecastGraphWidth" type="number">10</property>
@@ -189,41 +158,36 @@
   <property id="wxForecastDailyGraphWidth" type="number">8</property>
 
   <!-- Rain Forecast -->
-  <property id="wxForecastPrecipViewMode" type="number">2</property>
+  <property id="wxForecastPrecipGraphMode" type="number">4</property>
   <property id="wxForecastPrecipValueMode" type="number">1</property>
-  <property id="wxForecastPrecipGraphType" type="number">1</property>
   <property id="wxForecastPrecipTimeFrame" type="number">12</property>
   <property id="wxForecastPrecipGraphColor" type="number">6</property>
   <property id="wxForecastPrecipGraphWidth" type="number">10</property>
 
   <!-- Wind Forecast -->
-  <property id="wxForecastWindViewMode" type="number">2</property>
+  <property id="wxForecastWindGraphMode" type="number">4</property>
   <property id="wxForecastWindValueMode" type="number">1</property>
-  <property id="wxForecastWindGraphType" type="number">1</property>
   <property id="wxForecastWindTimeFrame" type="number">12</property>
   <property id="wxForecastWindGraphColor" type="number">6</property>
   <property id="wxForecastWindGraphWidth" type="number">10</property>
 
   <!-- UV Forecast -->
-  <property id="wxForecastUvViewMode" type="number">2</property>
+  <property id="wxForecastUvGraphMode" type="number">4</property>
   <property id="wxForecastUvValueMode" type="number">2</property>
-  <property id="wxForecastUvGraphType" type="number">1</property>
   <property id="wxForecastUvTimeFrame" type="number">12</property>
   <property id="wxForecastUvGraphColor" type="number">3</property>
   <property id="wxForecastUvGraphWidth" type="number">10</property>
 
   <!-- Humidity Forecast -->
-  <property id="wxForecastHumidityViewMode" type="number">2</property>
+  <property id="wxForecastHumidityGraphMode" type="number">4</property>
   <property id="wxForecastHumidityValueMode" type="number">1</property>
-  <property id="wxForecastHumidityGraphType" type="number">1</property>
   <property id="wxForecastHumidityTimeFrame" type="number">12</property>
   <property id="wxForecastHumidityGraphColor" type="number">2</property>
   <property id="wxForecastHumidityGraphWidth" type="number">10</property>
 
   <!-- Cloud Forecast -->
-  <property id="wxForecastCloudViewMode" type="number">2</property>
+  <property id="wxForecastCloudGraphMode" type="number">4</property>
   <property id="wxForecastCloudValueMode" type="number">1</property>
-  <property id="wxForecastCloudGraphType" type="number">1</property>
   <property id="wxForecastCloudTimeFrame" type="number">12</property>
   <property id="wxForecastCloudGraphColor" type="number">8</property>
   <property id="wxForecastCloudGraphWidth" type="number">10</property>

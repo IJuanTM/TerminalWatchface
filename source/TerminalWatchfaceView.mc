@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.42.0";
+const APP_VERSION = "0.42.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -168,7 +168,6 @@ const FIELD_SOLAR_BATTERY = 117;
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
 const VIEW_GRAPH_VALUE = 2;
-const VIEW_GRAPH_MAXMIN = 3;
 
 const GRAPH_LINE = 0;
 const GRAPH_BAR = 1;
@@ -1272,47 +1271,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         key as String,
         phase as Number
     ) as Void {
-        var slots =
-            [
-                [
-                    key + "Secondary",
-                    key + "SecondaryLabelColor",
-                    key + "SecondaryValueColor",
-                ],
-                [
-                    key + "Tertiary",
-                    key + "TertiaryLabelColor",
-                    key + "TertiaryValueColor",
-                ],
-                [
-                    key + "Quaternary",
-                    key + "QuaternaryLabelColor",
-                    key + "QuaternaryValueColor",
-                ],
-                [
-                    key + "Quinary",
-                    key + "QuinaryLabelColor",
-                    key + "QuinaryValueColor",
-                ],
-                [
-                    key + "Senary",
-                    key + "SenaryLabelColor",
-                    key + "SenaryValueColor",
-                ],
-            ] as Array<Array<String> >;
+        // Label and value colors are per line (shared across rotation slots);
+        // only the field changes as the line rotates.
+        var f = FIELD_NONE;
         if (phase >= 1 && phase <= 5) {
-            var s = slots[phase - 1] as Array<String>;
-            var f = _getProp(s[0], FIELD_NONE);
-            if (f != FIELD_NONE) {
-                _resolvedFields[li] = f;
-                _resolvedLabelC[li] = _getProp(s[1], 8);
-                _resolvedValueC[li] = _getProp(s[2], 0);
-                return;
-            }
+            f = _getProp(key + ROTATE_SLOT_NAMES[phase - 1], FIELD_NONE);
         }
-        _resolvedFields[li] = _getProp(key + "Primary", FIELD_NONE);
-        _resolvedLabelC[li] = _getProp(key + "PrimaryLabelColor", 8);
-        _resolvedValueC[li] = _getProp(key + "PrimaryValueColor", 0);
+        if (f == FIELD_NONE) {
+            f = _getProp(key + "Primary", FIELD_NONE);
+        }
+        _resolvedFields[li] = f;
+        _resolvedLabelC[li] = _getProp(key + "LabelColor", 8);
+        _resolvedValueC[li] = _getProp(key + "ValueColor", 0);
+    }
+
+    // Decodes an hourly forecast's merged graph mode (1=line, 2=bar,
+    // 3=line+current, 4=bar+current, 5=area, 6=area+current) into view mode and
+    // graph type, then reads its value mode, color, time frame and width. key is
+    // the property prefix, e.g. "wxForecastWind".
+    private function _resolveForecastGraph(
+        li as Number,
+        key as String,
+        colorDefault as Number,
+        valueDefault as Number
+    ) as Void {
+        var mode = _getProp(key + "GraphMode", 4);
+        _lineViewMode[li] =
+            mode == 3 || mode == 4 || mode == 6 ? VIEW_GRAPH_VALUE : VIEW_GRAPH;
+        _lineGraphType[li] =
+            mode == 2 || mode == 4
+                ? GRAPH_BAR
+                : mode == 5 || mode == 6
+                  ? GRAPH_AREA
+                  : GRAPH_LINE;
+        _lineValueMode[li] = _getProp(key + "ValueMode", valueDefault);
+        _lineGraphColor[li] = _getProp(key + "GraphColor", colorDefault);
+        _linePeriodMin[li] = _getProp(key + "TimeFrame", 12);
+        _lineGraphWidth[li] = _getProp(key + "GraphWidth", 10);
     }
 
     private function _resolveLineGraph(li as Number) as Void {
@@ -1349,33 +1344,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_FCST_TEMP) {
-            var wxvm = _getProp("wxForecastViewMode", VIEW_GRAPH_VALUE);
-            if (wxvm == VIEW_GRAPH_MAXMIN) {
-                wxvm = VIEW_GRAPH_VALUE;
-                _lineValueMode[li] = 2;
-            } else {
-                _lineValueMode[li] = _getProp("wxForecastValueMode", 1);
-            }
-            _lineViewMode[li] = wxvm;
-            _lineGraphColor[li] = _getProp("wxForecastGraphColor", 16);
-            _lineGraphType[li] = _getProp("wxForecastGraphType", GRAPH_BAR);
-            _linePeriodMin[li] = _getProp("wxForecastTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecast", 16, 0);
             return;
         }
         if (field == FIELD_WX_FCST_PRECIP) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastPrecipViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastPrecipValueMode", 1);
-            _lineGraphColor[li] = _getProp("wxForecastPrecipGraphColor", 6);
-            _lineGraphType[li] = _getProp(
-                "wxForecastPrecipGraphType",
-                GRAPH_BAR
-            );
-            _linePeriodMin[li] = _getProp("wxForecastPrecipTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastPrecipGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecastPrecip", 6, 1);
             return;
         }
         if (field == FIELD_WX_FCST_DAILY) {
@@ -1390,57 +1363,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (field == FIELD_WX_FCST_WIND) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastWindViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastWindValueMode", 1);
-            _lineGraphColor[li] = _getProp("wxForecastWindGraphColor", 6);
-            _lineGraphType[li] = _getProp("wxForecastWindGraphType", GRAPH_BAR);
-            _linePeriodMin[li] = _getProp("wxForecastWindTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastWindGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecastWind", 6, 1);
             return;
         }
         if (field == FIELD_WX_FCST_HUMIDITY) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastHumidityViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastHumidityValueMode", 1);
-            _lineGraphColor[li] = _getProp("wxForecastHumidityGraphColor", 2);
-            _lineGraphType[li] = _getProp(
-                "wxForecastHumidityGraphType",
-                GRAPH_BAR
-            );
-            _linePeriodMin[li] = _getProp("wxForecastHumidityTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastHumidityGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecastHumidity", 2, 1);
             return;
         }
         if (field == FIELD_WX_FCST_UV) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastUvViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastUvValueMode", 2);
-            _lineGraphColor[li] = _getProp("wxForecastUvGraphColor", 3);
-            _lineGraphType[li] = _getProp("wxForecastUvGraphType", GRAPH_BAR);
-            _linePeriodMin[li] = _getProp("wxForecastUvTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastUvGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecastUv", 3, 2);
             return;
         }
         if (field == FIELD_WX_FCST_CLOUD) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastCloudViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastCloudValueMode", 1);
-            _lineGraphColor[li] = _getProp("wxForecastCloudGraphColor", 8);
-            _lineGraphType[li] = _getProp(
-                "wxForecastCloudGraphType",
-                GRAPH_BAR
-            );
-            _linePeriodMin[li] = _getProp("wxForecastCloudTimeFrame", 12);
-            _lineGraphWidth[li] = _getProp("wxForecastCloudGraphWidth", 10);
+            _resolveForecastGraph(li, "wxForecastCloud", 8, 1);
             return;
         }
         var gk = _fieldGraphKey(field);

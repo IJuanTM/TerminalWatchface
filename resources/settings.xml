@@ -126,6 +126,34 @@
   </setting>
 
   <!-- Line 3 -->
+  <setting propertyKey="@Properties.line3LabelColor" title="@Strings.Line3LabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line3ValueColor" title="@Strings.Line3ValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.line3Primary" title="@Strings.Line3Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -245,36 +273,36 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3PrimaryLabelColor" title="@Strings.Line3PrimaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3PrimaryValueColor" title="@Strings.Line3PrimaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
 
   <!-- Line 4 -->
+  <setting propertyKey="@Properties.line4LabelColor" title="@Strings.Line4LabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line4ValueColor" title="@Strings.Line4ValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.line4Primary" title="@Strings.Line4Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -394,36 +422,36 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4PrimaryLabelColor" title="@Strings.Line4PrimaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4PrimaryValueColor" title="@Strings.Line4PrimaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
 
   <!-- Line 5 -->
+  <setting propertyKey="@Properties.line5LabelColor" title="@Strings.Line5LabelColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.line5ValueColor" title="@Strings.Line5ValueColor">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.ColorWhite</listEntry>
+      <listEntry value="1">@Strings.ColorGreen</listEntry>
+      <listEntry value="2">@Strings.ColorCyan</listEntry>
+      <listEntry value="3">@Strings.ColorYellow</listEntry>
+      <listEntry value="4">@Strings.ColorOrange</listEntry>
+      <listEntry value="5">@Strings.ColorRed</listEntry>
+      <listEntry value="6">@Strings.ColorBlue</listEntry>
+      <listEntry value="7">@Strings.ColorMagenta</listEntry>
+      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+      <listEntry value="9">@Strings.ColorPurple</listEntry>
+    </settingConfig>
+  </setting>
   <setting propertyKey="@Properties.line5Primary" title="@Strings.Line5Primary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -543,36 +571,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5PrimaryLabelColor" title="@Strings.Line5PrimaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5PrimaryValueColor" title="@Strings.Line5PrimaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 3 -->
   <setting propertyKey="@Properties.line3Secondary" title="@Strings.Line3Secondary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -692,36 +690,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3SecondaryLabelColor" title="@Strings.Line3SecondaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3SecondaryValueColor" title="@Strings.Line3SecondaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 4 -->
   <setting propertyKey="@Properties.line4Secondary" title="@Strings.Line4Secondary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -841,36 +809,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4SecondaryLabelColor" title="@Strings.Line4SecondaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4SecondaryValueColor" title="@Strings.Line4SecondaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 5 -->
   <setting propertyKey="@Properties.line5Secondary" title="@Strings.Line5Secondary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -990,36 +928,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5SecondaryLabelColor" title="@Strings.Line5SecondaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5SecondaryValueColor" title="@Strings.Line5SecondaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 3 -->
   <setting propertyKey="@Properties.line3Tertiary" title="@Strings.Line3Tertiary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1139,36 +1047,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3TertiaryLabelColor" title="@Strings.Line3TertiaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3TertiaryValueColor" title="@Strings.Line3TertiaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 4 -->
   <setting propertyKey="@Properties.line4Tertiary" title="@Strings.Line4Tertiary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1288,36 +1166,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4TertiaryLabelColor" title="@Strings.Line4TertiaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4TertiaryValueColor" title="@Strings.Line4TertiaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 5 -->
   <setting propertyKey="@Properties.line5Tertiary" title="@Strings.Line5Tertiary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1437,36 +1285,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5TertiaryLabelColor" title="@Strings.Line5TertiaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5TertiaryValueColor" title="@Strings.Line5TertiaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 3 -->
   <setting propertyKey="@Properties.line3Quaternary" title="@Strings.Line3Quaternary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1586,36 +1404,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3QuaternaryLabelColor" title="@Strings.Line3QuaternaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3QuaternaryValueColor" title="@Strings.Line3QuaternaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 4 -->
   <setting propertyKey="@Properties.line4Quaternary" title="@Strings.Line4Quaternary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1735,36 +1523,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4QuaternaryLabelColor" title="@Strings.Line4QuaternaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4QuaternaryValueColor" title="@Strings.Line4QuaternaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 5 -->
   <setting propertyKey="@Properties.line5Quaternary" title="@Strings.Line5Quaternary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -1884,36 +1642,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5QuaternaryLabelColor" title="@Strings.Line5QuaternaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5QuaternaryValueColor" title="@Strings.Line5QuaternaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 3 -->
   <setting propertyKey="@Properties.line3Quinary" title="@Strings.Line3Quinary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2033,36 +1761,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3QuinaryLabelColor" title="@Strings.Line3QuinaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3QuinaryValueColor" title="@Strings.Line3QuinaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 4 -->
   <setting propertyKey="@Properties.line4Quinary" title="@Strings.Line4Quinary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2182,36 +1880,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4QuinaryLabelColor" title="@Strings.Line4QuinaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4QuinaryValueColor" title="@Strings.Line4QuinaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 5 -->
   <setting propertyKey="@Properties.line5Quinary" title="@Strings.Line5Quinary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2331,36 +1999,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line5QuinaryLabelColor" title="@Strings.Line5QuinaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5QuinaryValueColor" title="@Strings.Line5QuinaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 3 -->
   <setting propertyKey="@Properties.line3Senary" title="@Strings.Line3Senary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2480,36 +2118,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line3SenaryLabelColor" title="@Strings.Line3SenaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line3SenaryValueColor" title="@Strings.Line3SenaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 4 -->
   <setting propertyKey="@Properties.line4Senary" title="@Strings.Line4Senary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2629,36 +2237,6 @@
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
     </settingConfig>
   </setting>
-  <setting propertyKey="@Properties.line4SenaryLabelColor" title="@Strings.Line4SenaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line4SenaryValueColor" title="@Strings.Line4SenaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-
-  <!-- Line 5 -->
   <setting propertyKey="@Properties.line5Senary" title="@Strings.Line5Senary">
     <settingConfig type="list">
       <listEntry value="7">@Strings.FieldNone</listEntry>
@@ -2776,34 +2354,6 @@
       <listEntry value="77">@Strings.FieldNotifications</listEntry>
       <listEntry value="84">@Strings.FieldSolar</listEntry>
       <listEntry value="117">@Strings.FieldSolarBattery</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5SenaryLabelColor" title="@Strings.Line5SenaryLabelColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.line5SenaryValueColor" title="@Strings.Line5SenaryValueColor">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.ColorWhite</listEntry>
-      <listEntry value="1">@Strings.ColorGreen</listEntry>
-      <listEntry value="2">@Strings.ColorCyan</listEntry>
-      <listEntry value="3">@Strings.ColorYellow</listEntry>
-      <listEntry value="4">@Strings.ColorOrange</listEntry>
-      <listEntry value="5">@Strings.ColorRed</listEntry>
-      <listEntry value="6">@Strings.ColorBlue</listEntry>
-      <listEntry value="7">@Strings.ColorMagenta</listEntry>
-      <listEntry value="8">@Strings.ColorLightGrey</listEntry>
-      <listEntry value="9">@Strings.ColorPurple</listEntry>
     </settingConfig>
   </setting>
 
@@ -3692,11 +3242,14 @@
   </setting>
 
   <!-- Weather Forecast -->
-  <setting propertyKey="@Properties.wxForecastViewMode" title="@Strings.WxForecastViewMode">
+  <setting propertyKey="@Properties.wxForecastGraphMode" title="@Strings.WxForecastGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
-      <listEntry value="3">@Strings.ViewModeGraphMaxMin</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastValueMode" title="@Strings.WxForecastValueMode">
@@ -3705,13 +3258,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastGraphType" title="@Strings.WxForecastGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
@@ -3815,10 +3361,14 @@
   </setting>
 
   <!-- Rain Forecast -->
-  <setting propertyKey="@Properties.wxForecastPrecipViewMode" title="@Strings.WxForecastPrecipViewMode">
+  <setting propertyKey="@Properties.wxForecastPrecipGraphMode" title="@Strings.WxForecastPrecipGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastPrecipValueMode" title="@Strings.WxForecastPrecipValueMode">
@@ -3827,13 +3377,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastPrecipGraphType" title="@Strings.WxForecastPrecipGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastPrecipTimeFrame" title="@Strings.WxForecastPrecipTimeFrame">
@@ -3880,10 +3423,14 @@
   </setting>
 
   <!-- Wind Forecast -->
-  <setting propertyKey="@Properties.wxForecastWindViewMode" title="@Strings.WxForecastWindViewMode">
+  <setting propertyKey="@Properties.wxForecastWindGraphMode" title="@Strings.WxForecastWindGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastWindValueMode" title="@Strings.WxForecastWindValueMode">
@@ -3892,13 +3439,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastWindGraphType" title="@Strings.WxForecastWindGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastWindTimeFrame" title="@Strings.WxForecastWindTimeFrame">
@@ -3945,10 +3485,14 @@
   </setting>
 
   <!-- UV Forecast -->
-  <setting propertyKey="@Properties.wxForecastUvViewMode" title="@Strings.WxForecastUvViewMode">
+  <setting propertyKey="@Properties.wxForecastUvGraphMode" title="@Strings.WxForecastUvGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastUvValueMode" title="@Strings.WxForecastUvValueMode">
@@ -3957,13 +3501,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastUvGraphType" title="@Strings.WxForecastUvGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastUvTimeFrame" title="@Strings.WxForecastUvTimeFrame">
@@ -4010,10 +3547,14 @@
   </setting>
 
   <!-- Humidity Forecast -->
-  <setting propertyKey="@Properties.wxForecastHumidityViewMode" title="@Strings.WxForecastHumidityViewMode">
+  <setting propertyKey="@Properties.wxForecastHumidityGraphMode" title="@Strings.WxForecastHumidityGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastHumidityValueMode" title="@Strings.WxForecastHumidityValueMode">
@@ -4022,13 +3563,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastHumidityGraphType" title="@Strings.WxForecastHumidityGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastHumidityTimeFrame" title="@Strings.WxForecastHumidityTimeFrame">
@@ -4075,10 +3609,14 @@
   </setting>
 
   <!-- Cloud Forecast -->
-  <setting propertyKey="@Properties.wxForecastCloudViewMode" title="@Strings.WxForecastCloudViewMode">
+  <setting propertyKey="@Properties.wxForecastCloudGraphMode" title="@Strings.WxForecastCloudGraphMode">
     <settingConfig type="list">
-      <listEntry value="1">@Strings.ViewModeGraph</listEntry>
-      <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
+      <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+      <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+      <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+      <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+      <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+      <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastCloudValueMode" title="@Strings.WxForecastCloudValueMode">
@@ -4087,13 +3625,6 @@
       <listEntry value="1">@Strings.GraphValueAvg</listEntry>
       <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
       <listEntry value="3">@Strings.GraphValueMean</listEntry>
-    </settingConfig>
-  </setting>
-  <setting propertyKey="@Properties.wxForecastCloudGraphType" title="@Strings.WxForecastCloudGraphType">
-    <settingConfig type="list">
-      <listEntry value="0">@Strings.GraphTypeLine</listEntry>
-      <listEntry value="1">@Strings.GraphTypeBar</listEntry>
-      <listEntry value="2">@Strings.GraphTypeArea</listEntry>
     </settingConfig>
   </setting>
   <setting propertyKey="@Properties.wxForecastCloudTimeFrame" title="@Strings.WxForecastCloudTimeFrame">

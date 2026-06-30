@@ -18,163 +18,165 @@ OUT_SETTINGS = os.path.join(ROOT, "resources", "settings.xml")
 # Shared data definitions
 # ---------------------------------------------------------------------------
 
+# (value, StringId, display text) — single source for both listEntries and strings.
 COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
-    (0, "ColorWhite"),
-    (1, "ColorGreen"),
-    (2, "ColorCyan"),
-    (3, "ColorYellow"),
-    (4, "ColorOrange"),
-    (5, "ColorRed"),
-    (6, "ColorBlue"),
-    (7, "ColorMagenta"),
-    (8, "ColorLightGrey"),
-    (9, "ColorPurple"),
-    (10, "GradTriColor"),
-    (11, "GradTriColorRev"),
-    (12, "GradTempCustom"),
-    (13, "GradTempCustomRev"),
-    (14, "GradTempSpectral"),
-    (15, "GradTempSpectralRev"),
-    (16, "GradTempTurbo"),
-    (17, "GradTempTurboRev"),
-    (18, "GradTempInferno"),
-    (19, "GradTempInfernoRev"),
+    (0, "ColorWhite", "White"),
+    (1, "ColorGreen", "Green"),
+    (2, "ColorCyan", "Cyan"),
+    (3, "ColorYellow", "Yellow"),
+    (4, "ColorOrange", "Orange"),
+    (5, "ColorRed", "Red"),
+    (6, "ColorBlue", "Blue"),
+    (7, "ColorMagenta", "Magenta"),
+    (8, "ColorLightGrey", "Light Grey"),
+    (9, "ColorPurple", "Purple"),
+    (10, "GradTriColor", "Tri-color (low->high)"),
+    (11, "GradTriColorRev", "Tri-color (high->low)"),
+    (12, "GradTempCustom", "Temp: Custom (cold->hot)"),
+    (13, "GradTempCustomRev", "Temp: Custom (hot->cold)"),
+    (14, "GradTempSpectral", "Temp: Spectral (cold->hot)"),
+    (15, "GradTempSpectralRev", "Temp: Spectral (hot->cold)"),
+    (16, "GradTempTurbo", "Temp: Turbo (cold->hot)"),
+    (17, "GradTempTurboRev", "Temp: Turbo (hot->cold)"),
+    (18, "GradTempInferno", "Temp: Inferno (cold->hot)"),
+    (19, "GradTempInfernoRev", "Temp: Inferno (hot->cold)"),
 ]
 
 COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
 
-# All fields available on the configurable lines (3/4/5)
+# All fields available on the configurable lines (3/4/5).
+# (value, StringId, display text) — single source for both listEntries and strings.
 FIELDS_ALL = [
-    (7, "FieldNone"),
+    (7, "FieldNone", "None (hidden)"),
     # Fitness / Health
-    (0, "FieldSteps"),
-    (6, "FieldFloors"),
-    (27, "FieldMoveBar"),
-    (1, "FieldHR"),
-    (24, "FieldHRMean"),
-    (30, "FieldHRMax"),
-    (9, "FieldSpO2"),
-    (23, "FieldResp"),
-    (22, "FieldBodyBat"),
-    (21, "FieldStress"),
-    (26, "FieldRecovery"),
-    (36, "FieldSleep"),
-    (34, "FieldVo2Max"),
-    (63, "FieldLactateHR"),
-    (48, "FieldTrainingStatus"),
-    (74, "FieldTrainingEffect"),
-    (28, "FieldWristTemp"),
-    (103, "FieldHrResting"),
-    (104, "FieldHrRestingAvg"),
-    (110, "FieldHrRestingBoth"),
+    (0, "FieldSteps", "Steps"),
+    (6, "FieldFloors", "Floors (Up / Down)"),
+    (27, "FieldMoveBar", "Move Bar"),
+    (1, "FieldHR", "Heart Rate"),
+    (24, "FieldHRMean", "Heart Rate (Average)"),
+    (30, "FieldHRMax", "Heart Rate (Max)"),
+    (9, "FieldSpO2", "Blood Oxygen (SpO2)"),
+    (23, "FieldResp", "Respiration Rate"),
+    (22, "FieldBodyBat", "Body Battery"),
+    (21, "FieldStress", "Stress Score"),
+    (26, "FieldRecovery", "Recovery Time"),
+    (36, "FieldSleep", "Sleep Score"),
+    (34, "FieldVo2Max", "VO2 Max"),
+    (63, "FieldLactateHR", "Lactate Threshold HR"),
+    (48, "FieldTrainingStatus", "Training Status"),
+    (74, "FieldTrainingEffect", "Training Effect"),
+    (28, "FieldWristTemp", "Wrist Temperature"),
+    (103, "FieldHrResting", "Resting HR"),
+    (104, "FieldHrRestingAvg", "Resting HR (7-day Avg)"),
+    (110, "FieldHrRestingBoth", "Resting HR + 7-day Avg"),
     # Fitness combos
-    (88, "FieldHrSpo2"),
-    (94, "FieldRespSpo2"),
-    (89, "FieldBodyBatStress"),
-    (90, "FieldBodyBatRecovery"),
-    (101, "FieldStressRecovery"),
-    (100, "FieldVo2Training"),
-    (113, "FieldBodyBatRestHR"),
-    (114, "FieldSleepRecovery"),
-    (115, "FieldHrMeanMax"),
-    (116, "FieldCalTotalAct"),
+    (88, "FieldHrSpo2", "HR + SpO2"),
+    (94, "FieldRespSpo2", "Respiration + SpO2"),
+    (89, "FieldBodyBatStress", "Body Battery + Stress"),
+    (90, "FieldBodyBatRecovery", "Body Battery + Recovery"),
+    (101, "FieldStressRecovery", "Stress + Recovery"),
+    (100, "FieldVo2Training", "VO2 Max + Training"),
+    (113, "FieldBodyBatRestHR", "Body Battery + Resting HR"),
+    (114, "FieldSleepRecovery", "Sleep Score + Recovery"),
+    (115, "FieldHrMeanMax", "HR: Avg + Max (Activity)"),
+    (116, "FieldCalTotalAct", "Calories: Daily + Activity"),
     # Calories / Distance / Speed
-    (2, "FieldCalories"),
-    (25, "FieldCalAct"),
-    (4, "FieldDistance"),
-    (35, "FieldSpeed"),
-    (29, "FieldActiveMinDay"),
-    (10, "FieldIntensityMin"),
+    (2, "FieldCalories", "Calories (Daily)"),
+    (25, "FieldCalAct", "Calories (Activity)"),
+    (4, "FieldDistance", "Distance (Daily)"),
+    (35, "FieldSpeed", "Speed"),
+    (29, "FieldActiveMinDay", "Active Minutes (Daily)"),
+    (10, "FieldIntensityMin", "Intensity Minutes (Weekly)"),
     # Altitude / Pressure
-    (5, "FieldAltitude"),
-    (32, "FieldElevation"),
-    (31, "FieldPressure"),
+    (5, "FieldAltitude", "Altitude"),
+    (32, "FieldElevation", "Elevation (Baro)"),
+    (31, "FieldPressure", "Pressure"),
     # Pace / Race
-    (65, "FieldPace"),
-    (66, "FieldPaceAvg"),
-    (87, "FieldPaceAndAvg"),
-    (49, "FieldRace5k"),
-    (50, "FieldRace10k"),
-    (51, "FieldRaceHalf"),
-    (52, "FieldRaceMarathon"),
-    (78, "FieldRacePace5k"),
-    (79, "FieldRacePace10k"),
-    (80, "FieldRacePaceHalf"),
-    (81, "FieldRacePaceMarathon"),
+    (65, "FieldPace", "Pace"),
+    (66, "FieldPaceAvg", "Pace (Average)"),
+    (87, "FieldPaceAndAvg", "Pace + Average"),
+    (49, "FieldRace5k", "Race Predictor: 5K"),
+    (50, "FieldRace10k", "Race Predictor: 10K"),
+    (51, "FieldRaceHalf", "Race Predictor: Half Marathon"),
+    (52, "FieldRaceMarathon", "Race Predictor: Marathon"),
+    (78, "FieldRacePace5k", "Race Pace: 5K"),
+    (79, "FieldRacePace10k", "Race Pace: 10K"),
+    (80, "FieldRacePaceHalf", "Race Pace: Half Marathon"),
+    (81, "FieldRacePaceMarathon", "Race Pace: Marathon"),
     # Ascent / Descent
-    (75, "FieldTotalAscent"),
-    (76, "FieldTotalDescent"),
-    (91, "FieldAscentDescent"),
-    (82, "FieldClimbDay"),
-    (83, "FieldDescentDay"),
-    (92, "FieldClimbDescendDay"),
+    (75, "FieldTotalAscent", "Ascent (Activity)"),
+    (76, "FieldTotalDescent", "Descent (Activity)"),
+    (91, "FieldAscentDescent", "Ascent + Descent (Activity)"),
+    (82, "FieldClimbDay", "Climb (Daily)"),
+    (83, "FieldDescentDay", "Descent (Daily)"),
+    (92, "FieldClimbDescendDay", "Climb + Descent (Daily)"),
     # Weekly
-    (41, "FieldWeeklyRun"),
-    (42, "FieldWeeklyBike"),
-    (93, "FieldWeeklyDistances"),
+    (41, "FieldWeeklyRun", "Distance (Weekly Run)"),
+    (42, "FieldWeeklyBike", "Distance (Weekly Bike)"),
+    (93, "FieldWeeklyDistances", "Distance (Weekly Run + Bike)"),
     # GPS / Navigation
-    (43, "FieldGpsLat"),
-    (44, "FieldGpsLon"),
-    (45, "FieldGpsAccuracy"),
-    (55, "FieldGpsLatLon"),
-    (56, "FieldGpsLatLonAcc"),
-    (46, "FieldHeading"),
+    (43, "FieldGpsLat", "GPS: Latitude"),
+    (44, "FieldGpsLon", "GPS: Longitude"),
+    (45, "FieldGpsAccuracy", "GPS: Accuracy"),
+    (55, "FieldGpsLatLon", "GPS: Lat + Lon"),
+    (56, "FieldGpsLatLonAcc", "GPS: Lat + Lon + Accuracy"),
+    (46, "FieldHeading", "Heading"),
     # Time / Calendar
-    (37, "FieldSunrise"),
-    (38, "FieldSunset"),
-    (39, "FieldSunriseSunset"),
-    (40, "FieldCalendar"),
-    (53, "FieldSleepTime"),
-    (54, "FieldWakeTime"),
-    (99, "FieldSleepSchedule"),
+    (37, "FieldSunrise", "Sunrise"),
+    (38, "FieldSunset", "Sunset"),
+    (39, "FieldSunriseSunset", "Sunrise + Sunset"),
+    (40, "FieldCalendar", "Calendar Event"),
+    (53, "FieldSleepTime", "Bedtime"),
+    (54, "FieldWakeTime", "Wake Time"),
+    (99, "FieldSleepSchedule", "Sleep Schedule (Bed + Wake)"),
     # Weather - current
-    (11, "FieldWxTemp"),
-    (12, "FieldWxFeels"),
-    (16, "FieldWxCond"),
-    (13, "FieldWxPrecip"),
-    (14, "FieldWxWind"),
-    (15, "FieldWxUV"),
-    (70, "FieldWxCloud"),
-    (67, "FieldWxHumidity"),
-    (68, "FieldWxDewPoint"),
-    (69, "FieldWxVisibility"),
-    (72, "FieldWxHeatIndex"),
-    (102, "FieldWxHighLow"),
+    (11, "FieldWxTemp", "Weather: Temperature"),
+    (12, "FieldWxFeels", "Weather: Feels Like"),
+    (16, "FieldWxCond", "Weather: Condition"),
+    (13, "FieldWxPrecip", "Weather: Rain Chance"),
+    (14, "FieldWxWind", "Weather: Wind Speed"),
+    (15, "FieldWxUV", "Weather: UV Index"),
+    (70, "FieldWxCloud", "Weather: Cloud Cover"),
+    (67, "FieldWxHumidity", "Weather: Humidity"),
+    (68, "FieldWxDewPoint", "Weather: Dew Point"),
+    (69, "FieldWxVisibility", "Weather: Visibility"),
+    (72, "FieldWxHeatIndex", "Weather: Heat Index"),
+    (102, "FieldWxHighLow", "Weather: High / Low Temp"),
     # Weather combos
-    (17, "FieldWxTempCond"),
-    (20, "FieldWxTempWind"),
-    (58, "FieldWxTempUV"),
-    (95, "FieldWxTempHumidity"),
-    (96, "FieldWxTempPrecip"),
-    (18, "FieldWxTempHighLow"),
-    (19, "FieldWxCondPrecip"),
-    (57, "FieldWxWindPrecip"),
-    (60, "FieldWxUVWind"),
-    (59, "FieldWxUVPrecip"),
-    (97, "FieldWxHumidityPrecip"),
-    (71, "FieldWxHumidityDew"),
-    (98, "FieldWxCloudPrecip"),
+    (17, "FieldWxTempCond", "Weather: Temp + Condition"),
+    (20, "FieldWxTempWind", "Weather: Temp + Wind"),
+    (58, "FieldWxTempUV", "Weather: Temp + UV"),
+    (95, "FieldWxTempHumidity", "Weather: Temp + Humidity"),
+    (96, "FieldWxTempPrecip", "Weather: Temp + Rain"),
+    (18, "FieldWxTempHighLow", "Weather: Temp + High/Low"),
+    (19, "FieldWxCondPrecip", "Weather: Condition + Rain"),
+    (57, "FieldWxWindPrecip", "Weather: Wind + Rain"),
+    (60, "FieldWxUVWind", "Weather: UV + Wind"),
+    (59, "FieldWxUVPrecip", "Weather: UV + Rain"),
+    (97, "FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
+    (71, "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
+    (98, "FieldWxCloudPrecip", "Weather: Cloud + Rain"),
     # Weather forecast
-    (33, "FieldWxFcstTemp"),
-    (62, "FieldWxFcstDaily"),
-    (61, "FieldWxFcstPrecip"),
-    (64, "FieldWxFcstWind"),
-    (85, "FieldWxFcstUv"),
-    (73, "FieldWxFcstHumidity"),
-    (86, "FieldWxFcstCloud"),
+    (33, "FieldWxFcstTemp", "Forecast: Temp (Hourly)"),
+    (62, "FieldWxFcstDaily", "Forecast: Temp (Daily)"),
+    (61, "FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
+    (64, "FieldWxFcstWind", "Forecast: Wind (Hourly)"),
+    (85, "FieldWxFcstUv", "Forecast: UV (Hourly)"),
+    (73, "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
+    (86, "FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
     # Weather: forecast conditions (from complications)
-    (106, "FieldWxFcstCond1d"),
-    (107, "FieldWxFcstCond2d"),
-    (108, "FieldWxFcstCond3d"),
-    (111, "FieldWxCondFcst1d"),
-    (112, "FieldWxFcstCond12d"),
+    (106, "FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
+    (107, "FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
+    (108, "FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
+    (111, "FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
+    (112, "FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
     # Weather: station
-    (105, "FieldWxSeaPress"),
-    (109, "FieldWxObsTime"),
+    (105, "FieldWxSeaPress", "Weather: Sea Level Pressure"),
+    (109, "FieldWxObsTime", "Weather: Data Age"),
     # Watch / System
-    (77, "FieldNotifications"),
-    (84, "FieldSolar"),
-    (117, "FieldSolarBattery"),
+    (77, "FieldNotifications", "Notifications"),
+    (84, "FieldSolar", "Solar Input"),
+    (117, "FieldSolarBattery", "Solar Input + Watch Battery"),
 ]
 
 # Graph-capable sensor fields.
@@ -290,6 +292,29 @@ GRAPH_VALUE_MODE_OPTIONS = [
     (3, "@Strings.GraphValueMean"),
 ]
 
+# Forecast graph mode reuses the sensor graph-mode encoding minus "value only"
+# (forecasts always draw a graph): 1=line, 2=bar, 3=line+current, 4=bar+current,
+# 5=area, 6=area+current.
+FORECAST_GRAPH_MODE_OPTIONS = GRAPH_MODE_OPTIONS[1:]
+
+# Two-option view mode for the daily forecast (graph vs graph + current).
+FORECAST_VIEW_MODE_OPTIONS = [
+    (1, "@Strings.ViewModeGraph"),
+    (2, "@Strings.ViewModeGraphCurrent"),
+]
+
+# Hourly forecast graphs that share an identical control layout (view mode,
+# value mode, graph type, hours-ahead time frame, color, width). Temp-hourly
+# and the daily forecast differ in shape and stay as explicit blocks.
+# (camelKey, StringPrefix, display, value_mode_default, graph_color_default)
+HOURLY_FORECASTS = [
+    ("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
+    ("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
+    ("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
+    ("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
+    ("wxForecastCloud", "WxForecastCloud", "Cloud Hourly", 1, 8),
+]
+
 # ---------------------------------------------------------------------------
 # XML helpers
 # ---------------------------------------------------------------------------
@@ -329,11 +354,11 @@ def setting_list(prop_key, title_key, entries, indent=1):
 
 
 def color_entries(colors):
-    return [(v, f"@Strings.{s}") for v, s in colors]
+    return [(v, f"@Strings.{s}") for v, s, *_ in colors]
 
 
 def field_entries(fields):
-    return [(v, f"@Strings.{s}") for v, s in fields]
+    return [(v, f"@Strings.{s}") for v, s, *_ in fields]
 
 
 def width_entries():
@@ -386,13 +411,14 @@ def gen_properties():
     lines.append(prop("line2LabelColor", "number", 8))
     lines.append(prop("line2ValueColor", "number", 0))
 
+    # One label/value color per line (shared across its rotation slots), then
+    # the field picker for each slot.
     for ln, slot, fd, lc, vc in LINE_SLOTS:
         if slot == "Primary":
             lines.append(f"\n  <!-- Line {ln} -->")
-        k = f"line{ln}{slot}"
-        lines.append(prop(f"{k}", "number", fd))
-        lines.append(prop(f"{k}LabelColor", "number", lc))
-        lines.append(prop(f"{k}ValueColor", "number", vc))
+            lines.append(prop(f"line{ln}LabelColor", "number", lc))
+            lines.append(prop(f"line{ln}ValueColor", "number", vc))
+        lines.append(prop(f"line{ln}{slot}", "number", fd))
 
     lines.append("\n  <!-- Steps -->")
     lines.append(prop("stepsShowBar", "boolean", "true"))
@@ -425,9 +451,8 @@ def gen_properties():
         lines.append(prop(f"{key}GraphWidth", "number", 10))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastViewMode", "number", 2))  # graph + current
+    lines.append(prop("wxForecastGraphMode", "number", 4))  # bar + current
     lines.append(prop("wxForecastValueMode", "number", 0))  # current
-    lines.append(prop("wxForecastGraphType", "number", 1))  # bar
     lines.append(prop("wxForecastTimeFrame", "number", 12))  # 12h
     lines.append(
         prop("wxForecastGraphColor", "number", 16)
@@ -441,45 +466,8 @@ def gen_properties():
     lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
     lines.append(prop("wxForecastDailyGraphWidth", "number", 8))
 
-    lines.append("\n  <!-- Rain Forecast -->")
-    lines.append(prop("wxForecastPrecipViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastPrecipValueMode", "number", 1))  # avg
-    lines.append(prop("wxForecastPrecipGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastPrecipTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastPrecipGraphColor", "number", 6))  # blue
-    lines.append(prop("wxForecastPrecipGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- Wind Forecast -->")
-    lines.append(prop("wxForecastWindViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastWindValueMode", "number", 1))  # avg
-    lines.append(prop("wxForecastWindGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastWindTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastWindGraphColor", "number", 6))  # blue
-    lines.append(prop("wxForecastWindGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- UV Forecast -->")
-    lines.append(prop("wxForecastUvViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastUvValueMode", "number", 2))  # max/min
-    lines.append(prop("wxForecastUvGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastUvTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastUvGraphColor", "number", 3))  # yellow
-    lines.append(prop("wxForecastUvGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- Humidity Forecast -->")
-    lines.append(prop("wxForecastHumidityViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastHumidityValueMode", "number", 1))  # avg
-    lines.append(prop("wxForecastHumidityGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastHumidityTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastHumidityGraphColor", "number", 2))  # cyan
-    lines.append(prop("wxForecastHumidityGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- Cloud Forecast -->")
-    lines.append(prop("wxForecastCloudViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastCloudValueMode", "number", 1))  # avg
-    lines.append(prop("wxForecastCloudGraphType", "number", 1))  # bar
-    lines.append(prop("wxForecastCloudTimeFrame", "number", 12))  # 12h
-    lines.append(prop("wxForecastCloudGraphColor", "number", 8))  # light grey
-    lines.append(prop("wxForecastCloudGraphWidth", "number", 10))
+    for row in HOURLY_FORECASTS:
+        lines.append(hourly_forecast_props(*row))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -552,172 +540,17 @@ def gen_strings():
     }
     lines.append("\n  <!-- Configurable lines (R2-R6 = rotation slots 2 to 6) -->")
     for ln, slot, *_ in LINE_SLOTS:
-        suffix = _slot_r[slot]
-        k = f"Line{ln}{slot}"
-        lines.append(s(f"{k}", f"Line {ln}: Field{suffix}"))
-        lines.append(s(f"{k}LabelColor", f"Line {ln}: Label Color{suffix}"))
-        lines.append(s(f"{k}ValueColor", f"Line {ln}: Value Color{suffix}"))
+        if slot == "Primary":
+            lines.append(s(f"Line{ln}LabelColor", f"Line {ln}: Label Color"))
+            lines.append(s(f"Line{ln}ValueColor", f"Line {ln}: Value Color"))
+        lines.append(s(f"Line{ln}{slot}", f"Line {ln}: Field{_slot_r[slot]}"))
 
     lines.append("\n  <!-- Shared: color options -->")
-    color_labels = [
-        ("ColorWhite", "White"),
-        ("ColorGreen", "Green"),
-        ("ColorCyan", "Cyan"),
-        ("ColorYellow", "Yellow"),
-        ("ColorOrange", "Orange"),
-        ("ColorRed", "Red"),
-        ("ColorBlue", "Blue"),
-        ("ColorMagenta", "Magenta"),
-        ("ColorLightGrey", "Light Grey"),
-        ("ColorPurple", "Purple"),
-        ("GradTriColor", "Tri-color (low->high)"),
-        ("GradTriColorRev", "Tri-color (high->low)"),
-        ("GradTempCustom", "Temp: Custom (cold->hot)"),
-        ("GradTempCustomRev", "Temp: Custom (hot->cold)"),
-        ("GradTempSpectral", "Temp: Spectral (cold->hot)"),
-        ("GradTempSpectralRev", "Temp: Spectral (hot->cold)"),
-        ("GradTempTurbo", "Temp: Turbo (cold->hot)"),
-        ("GradTempTurboRev", "Temp: Turbo (hot->cold)"),
-        ("GradTempInferno", "Temp: Inferno (cold->hot)"),
-        ("GradTempInfernoRev", "Temp: Inferno (hot->cold)"),
-    ]
-    for sid, text in color_labels:
+    for _v, sid, text in COLORS_FULL:
         lines.append(s(sid, text))
 
     lines.append("\n  <!-- Shared: field options -->")
-    field_labels = [
-        ("FieldNone", "None (hidden)"),
-        # Fitness / Health
-        ("FieldSteps", "Steps"),
-        ("FieldFloors", "Floors (Up / Down)"),
-        ("FieldMoveBar", "Move Bar"),
-        ("FieldHR", "Heart Rate"),
-        ("FieldHRMean", "Heart Rate (Average)"),
-        ("FieldHRMax", "Heart Rate (Max)"),
-        ("FieldSpO2", "Blood Oxygen (SpO2)"),
-        ("FieldResp", "Respiration Rate"),
-        ("FieldBodyBat", "Body Battery"),
-        ("FieldStress", "Stress Score"),
-        ("FieldRecovery", "Recovery Time"),
-        ("FieldSleep", "Sleep Score"),
-        ("FieldVo2Max", "VO2 Max"),
-        ("FieldLactateHR", "Lactate Threshold HR"),
-        ("FieldTrainingStatus", "Training Status"),
-        ("FieldTrainingEffect", "Training Effect"),
-        ("FieldWristTemp", "Wrist Temperature"),
-        ("FieldHrResting", "Resting HR"),
-        ("FieldHrRestingAvg", "Resting HR (7-day Avg)"),
-        ("FieldHrRestingBoth", "Resting HR + 7-day Avg"),
-        # Fitness combos
-        ("FieldHrSpo2", "HR + SpO2"),
-        ("FieldRespSpo2", "Respiration + SpO2"),
-        ("FieldBodyBatStress", "Body Battery + Stress"),
-        ("FieldBodyBatRecovery", "Body Battery + Recovery"),
-        ("FieldStressRecovery", "Stress + Recovery"),
-        ("FieldVo2Training", "VO2 Max + Training"),
-        ("FieldBodyBatRestHR", "Body Battery + Resting HR"),
-        ("FieldSleepRecovery", "Sleep Score + Recovery"),
-        ("FieldHrMeanMax", "HR: Avg + Max (Activity)"),
-        ("FieldCalTotalAct", "Calories: Daily + Activity"),
-        # Calories / Distance / Speed
-        ("FieldCalories", "Calories (Daily)"),
-        ("FieldCalAct", "Calories (Activity)"),
-        ("FieldDistance", "Distance (Daily)"),
-        ("FieldSpeed", "Speed"),
-        ("FieldActiveMinDay", "Active Minutes (Daily)"),
-        ("FieldIntensityMin", "Intensity Minutes (Weekly)"),
-        # Altitude / Pressure
-        ("FieldAltitude", "Altitude"),
-        ("FieldElevation", "Elevation (Baro)"),
-        ("FieldPressure", "Pressure"),
-        # Pace / Race
-        ("FieldPace", "Pace"),
-        ("FieldPaceAvg", "Pace (Average)"),
-        ("FieldPaceAndAvg", "Pace + Average"),
-        ("FieldRace5k", "Race Predictor: 5K"),
-        ("FieldRace10k", "Race Predictor: 10K"),
-        ("FieldRaceHalf", "Race Predictor: Half Marathon"),
-        ("FieldRaceMarathon", "Race Predictor: Marathon"),
-        ("FieldRacePace5k", "Race Pace: 5K"),
-        ("FieldRacePace10k", "Race Pace: 10K"),
-        ("FieldRacePaceHalf", "Race Pace: Half Marathon"),
-        ("FieldRacePaceMarathon", "Race Pace: Marathon"),
-        # Ascent / Descent
-        ("FieldTotalAscent", "Ascent (Activity)"),
-        ("FieldTotalDescent", "Descent (Activity)"),
-        ("FieldAscentDescent", "Ascent + Descent (Activity)"),
-        ("FieldClimbDay", "Climb (Daily)"),
-        ("FieldDescentDay", "Descent (Daily)"),
-        ("FieldClimbDescendDay", "Climb + Descent (Daily)"),
-        # Weekly
-        ("FieldWeeklyRun", "Distance (Weekly Run)"),
-        ("FieldWeeklyBike", "Distance (Weekly Bike)"),
-        ("FieldWeeklyDistances", "Distance (Weekly Run + Bike)"),
-        # GPS / Navigation
-        ("FieldGpsLat", "GPS: Latitude"),
-        ("FieldGpsLon", "GPS: Longitude"),
-        ("FieldGpsAccuracy", "GPS: Accuracy"),
-        ("FieldGpsLatLon", "GPS: Lat + Lon"),
-        ("FieldGpsLatLonAcc", "GPS: Lat + Lon + Accuracy"),
-        ("FieldHeading", "Heading"),
-        # Time / Calendar
-        ("FieldSunrise", "Sunrise"),
-        ("FieldSunset", "Sunset"),
-        ("FieldSunriseSunset", "Sunrise + Sunset"),
-        ("FieldCalendar", "Calendar Event"),
-        ("FieldSleepTime", "Bedtime"),
-        ("FieldWakeTime", "Wake Time"),
-        ("FieldSleepSchedule", "Sleep Schedule (Bed + Wake)"),
-        # Weather - current
-        ("FieldWxTemp", "Weather: Temperature"),
-        ("FieldWxFeels", "Weather: Feels Like"),
-        ("FieldWxCond", "Weather: Condition"),
-        ("FieldWxPrecip", "Weather: Rain Chance"),
-        ("FieldWxWind", "Weather: Wind Speed"),
-        ("FieldWxUV", "Weather: UV Index"),
-        ("FieldWxCloud", "Weather: Cloud Cover"),
-        ("FieldWxHumidity", "Weather: Humidity"),
-        ("FieldWxDewPoint", "Weather: Dew Point"),
-        ("FieldWxVisibility", "Weather: Visibility"),
-        ("FieldWxHeatIndex", "Weather: Heat Index"),
-        ("FieldWxHighLow", "Weather: High / Low Temp"),
-        # Weather combos
-        ("FieldWxTempCond", "Weather: Temp + Condition"),
-        ("FieldWxTempWind", "Weather: Temp + Wind"),
-        ("FieldWxTempUV", "Weather: Temp + UV"),
-        ("FieldWxTempHumidity", "Weather: Temp + Humidity"),
-        ("FieldWxTempPrecip", "Weather: Temp + Rain"),
-        ("FieldWxTempHighLow", "Weather: Temp + High/Low"),
-        ("FieldWxCondPrecip", "Weather: Condition + Rain"),
-        ("FieldWxWindPrecip", "Weather: Wind + Rain"),
-        ("FieldWxUVWind", "Weather: UV + Wind"),
-        ("FieldWxUVPrecip", "Weather: UV + Rain"),
-        ("FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
-        ("FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
-        ("FieldWxCloudPrecip", "Weather: Cloud + Rain"),
-        # Weather forecast
-        ("FieldWxFcstTemp", "Forecast: Temp (Hourly)"),
-        ("FieldWxFcstDaily", "Forecast: Temp (Daily)"),
-        ("FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
-        ("FieldWxFcstWind", "Forecast: Wind (Hourly)"),
-        ("FieldWxFcstUv", "Forecast: UV (Hourly)"),
-        ("FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
-        ("FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
-        # Weather: forecast conditions
-        ("FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
-        ("FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
-        ("FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
-        ("FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
-        ("FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
-        # Weather: station
-        ("FieldWxSeaPress", "Weather: Sea Level Pressure"),
-        ("FieldWxObsTime", "Weather: Data Age"),
-        # Watch / System
-        ("FieldNotifications", "Notifications"),
-        ("FieldSolar", "Solar Input"),
-        ("FieldSolarBattery", "Solar Input + Watch Battery"),
-    ]
-    for sid, text in field_labels:
+    for _v, sid, text in FIELDS_ALL:
         lines.append(s(sid, text))
 
     lines.append("\n  <!-- Shared: graph mode options (sensor graphs) -->")
@@ -735,10 +568,9 @@ def gen_strings():
     lines.append(s("GraphValueMaxMin", "Max / Min"))
     lines.append(s("GraphValueMean", "Mean (midpoint)"))
 
-    lines.append("\n  <!-- Shared: forecast view mode options -->")
+    lines.append("\n  <!-- Shared: forecast view mode options (daily) -->")
     lines.append(s("ViewModeGraph", "Graph"))
     lines.append(s("ViewModeGraphCurrent", "Graph + Current"))
-    lines.append(s("ViewModeGraphMaxMin", "Graph + Max/Min"))
 
     lines.append("\n  <!-- Shared: graph width options -->")
     lines.append(s("GraphWidth6", "6 chars"))
@@ -765,11 +597,6 @@ def gen_strings():
     lines.append(s("IntensityMinShowBarValue", "Intensity Min: Show Value in Bar"))
     lines.append(s("IntensityMinBarColor", "Intensity Min: Bar Color"))
     lines.append(s("IntensityMinBarWidth", "Intensity Min: Bar Width"))
-
-    lines.append("\n  <!-- Shared: graph type options (forecast) -->")
-    lines.append(s("GraphTypeLine", "Line"))
-    lines.append(s("GraphTypeBar", "Bar"))
-    lines.append(s("GraphTypeArea", "Area"))
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
     lines.append(s("SecTypeNone", "None (hidden)"))
@@ -800,9 +627,8 @@ def gen_strings():
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
-    lines.append(s("WxForecastViewMode", "Temp Hourly: View Mode"))
+    lines.append(s("WxForecastGraphMode", "Temp Hourly: Graph Mode"))
     lines.append(s("WxForecastValueMode", "Temp Hourly: Value Mode"))
-    lines.append(s("WxForecastGraphType", "Temp Hourly: Graph Type"))
     lines.append(s("WxForecastTimeFrame", "Temp Hourly: Time Frame"))
     lines.append(s("WxForecastGraphColor", "Temp Hourly: Graph Color"))
     lines.append(s("WxForecastGraphWidth", "Temp Hourly: Graph Width"))
@@ -821,45 +647,8 @@ def gen_strings():
     lines.append(s("TimeFrameForecastDays5", "5 days"))
     lines.append(s("TimeFrameForecastDays7", "7 days"))
 
-    lines.append("\n  <!-- Graph settings: Rain Hourly Forecast -->")
-    lines.append(s("WxForecastPrecipViewMode", "Rain Hourly: View Mode"))
-    lines.append(s("WxForecastPrecipValueMode", "Rain Hourly: Value Mode"))
-    lines.append(s("WxForecastPrecipGraphType", "Rain Hourly: Graph Type"))
-    lines.append(s("WxForecastPrecipTimeFrame", "Rain Hourly: Hours Ahead"))
-    lines.append(s("WxForecastPrecipGraphColor", "Rain Hourly: Graph Color"))
-    lines.append(s("WxForecastPrecipGraphWidth", "Rain Hourly: Graph Width"))
-
-    lines.append("\n  <!-- Graph settings: Wind Hourly Forecast -->")
-    lines.append(s("WxForecastWindViewMode", "Wind Hourly: View Mode"))
-    lines.append(s("WxForecastWindValueMode", "Wind Hourly: Value Mode"))
-    lines.append(s("WxForecastWindGraphType", "Wind Hourly: Graph Type"))
-    lines.append(s("WxForecastWindTimeFrame", "Wind Hourly: Hours Ahead"))
-    lines.append(s("WxForecastWindGraphColor", "Wind Hourly: Graph Color"))
-    lines.append(s("WxForecastWindGraphWidth", "Wind Hourly: Graph Width"))
-
-    lines.append("\n  <!-- Graph settings: UV Hourly Forecast -->")
-    lines.append(s("WxForecastUvViewMode", "UV Hourly: View Mode"))
-    lines.append(s("WxForecastUvValueMode", "UV Hourly: Value Mode"))
-    lines.append(s("WxForecastUvGraphType", "UV Hourly: Graph Type"))
-    lines.append(s("WxForecastUvTimeFrame", "UV Hourly: Hours Ahead"))
-    lines.append(s("WxForecastUvGraphColor", "UV Hourly: Graph Color"))
-    lines.append(s("WxForecastUvGraphWidth", "UV Hourly: Graph Width"))
-
-    lines.append("\n  <!-- Graph settings: Humidity Hourly Forecast -->")
-    lines.append(s("WxForecastHumidityViewMode", "Humidity Hourly: View Mode"))
-    lines.append(s("WxForecastHumidityValueMode", "Humidity Hourly: Value Mode"))
-    lines.append(s("WxForecastHumidityGraphType", "Humidity Hourly: Graph Type"))
-    lines.append(s("WxForecastHumidityTimeFrame", "Humidity Hourly: Hours Ahead"))
-    lines.append(s("WxForecastHumidityGraphColor", "Humidity Hourly: Graph Color"))
-    lines.append(s("WxForecastHumidityGraphWidth", "Humidity Hourly: Graph Width"))
-
-    lines.append("\n  <!-- Graph settings: Cloud Hourly Forecast -->")
-    lines.append(s("WxForecastCloudViewMode", "Cloud Hourly: View Mode"))
-    lines.append(s("WxForecastCloudValueMode", "Cloud Hourly: Value Mode"))
-    lines.append(s("WxForecastCloudGraphType", "Cloud Hourly: Graph Type"))
-    lines.append(s("WxForecastCloudTimeFrame", "Cloud Hourly: Hours Ahead"))
-    lines.append(s("WxForecastCloudGraphColor", "Cloud Hourly: Graph Color"))
-    lines.append(s("WxForecastCloudGraphWidth", "Cloud Hourly: Graph Width"))
+    for row in HOURLY_FORECASTS:
+        lines.append(hourly_forecast_strings(*row))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("ShowVersion", "Show App Version (testing)"))
@@ -919,6 +708,56 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
     blocks.append(width_setting(f"{key}GraphWidth", f"{skey}GraphWidth"))
 
     return "\n".join(blocks)
+
+
+def forecast_tf_entries():
+    return [(v, f"@Strings.{sid}") for v, sid in FORECAST_TIME_FRAMES]
+
+
+# Per-generator block builders for the shape-identical hourly forecasts. value
+# mode and color vary per field; the section comment uses the first display
+# word (e.g. "Rain Forecast") for properties/settings.
+def hourly_forecast_props(key, skey, display, vmode, color):
+    return "\n".join(
+        [
+            f"\n  <!-- {display.split()[0]} Forecast -->",
+            prop(f"{key}GraphMode", "number", 4),  # bar + current
+            prop(f"{key}ValueMode", "number", vmode),
+            prop(f"{key}TimeFrame", "number", 12),
+            prop(f"{key}GraphColor", "number", color),
+            prop(f"{key}GraphWidth", "number", 10),
+        ]
+    )
+
+
+def hourly_forecast_strings(key, skey, display, vmode, color):
+    return "\n".join(
+        [
+            f"\n  <!-- Graph settings: {display} Forecast -->",
+            string(f"{skey}GraphMode", f"{display}: Graph Mode"),
+            string(f"{skey}ValueMode", f"{display}: Value Mode"),
+            string(f"{skey}TimeFrame", f"{display}: Hours Ahead"),
+            string(f"{skey}GraphColor", f"{display}: Graph Color"),
+            string(f"{skey}GraphWidth", f"{display}: Graph Width"),
+        ]
+    )
+
+
+def hourly_forecast_settings(key, skey, display, vmode, color):
+    return "\n".join(
+        [
+            f"\n  <!-- {display.split()[0]} Forecast -->",
+            setting_list(
+                f"{key}GraphMode", f"{skey}GraphMode", FORECAST_GRAPH_MODE_OPTIONS
+            ),
+            setting_list(
+                f"{key}ValueMode", f"{skey}ValueMode", GRAPH_VALUE_MODE_OPTIONS
+            ),
+            setting_list(f"{key}TimeFrame", f"{skey}TimeFrame", forecast_tf_entries()),
+            color_setting(f"{key}GraphColor", f"{skey}GraphColor"),
+            width_setting(f"{key}GraphWidth", f"{skey}GraphWidth"),
+        ]
+    )
 
 
 def gen_settings():
@@ -1005,20 +844,18 @@ def gen_settings():
     parts.append(color_setting("line2LabelColor", "Line2LabelColor", COLORS_TEXT))
     parts.append(color_setting("line2ValueColor", "Line2ValueColor", COLORS_TEXT))
 
-    # Configurable lines 3/4/5
-    prev_ln = None
+    # Configurable lines 3/4/5: one label/value color per line, then a field
+    # picker per rotation slot.
     for ln, slot, fd, lc, vc in LINE_SLOTS:
-        if ln != prev_ln:
+        if slot == "Primary":
             parts.append(f"\n  <!-- Line {ln} -->")
-            prev_ln = ln
-        k = f"line{ln}{slot}"
-        parts.append(field_setting(k, f"Line{ln}{slot}"))
-        parts.append(
-            color_setting(f"{k}LabelColor", f"Line{ln}{slot}LabelColor", COLORS_TEXT)
-        )
-        parts.append(
-            color_setting(f"{k}ValueColor", f"Line{ln}{slot}ValueColor", COLORS_TEXT)
-        )
+            parts.append(
+                color_setting(f"line{ln}LabelColor", f"Line{ln}LabelColor", COLORS_TEXT)
+            )
+            parts.append(
+                color_setting(f"line{ln}ValueColor", f"Line{ln}ValueColor", COLORS_TEXT)
+            )
+        parts.append(field_setting(f"line{ln}{slot}", f"Line{ln}{slot}"))
 
     # Rotation (after the lines it applies to)
     rotate_options = [
@@ -1066,13 +903,7 @@ def gen_settings():
     parts.append("\n  <!-- Weather Forecast -->")
     parts.append(
         setting_list(
-            "wxForecastViewMode",
-            "WxForecastViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-                (3, "@Strings.ViewModeGraphMaxMin"),
-            ],
+            "wxForecastGraphMode", "WxForecastGraphMode", FORECAST_GRAPH_MODE_OPTIONS
         )
     )
     parts.append(
@@ -1082,20 +913,7 @@ def gen_settings():
     )
     parts.append(
         setting_list(
-            "wxForecastGraphType",
-            "WxForecastGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastTimeFrame",
-            "WxForecastTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
+            "wxForecastTimeFrame", "WxForecastTimeFrame", forecast_tf_entries()
         )
     )
     parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
@@ -1107,10 +925,7 @@ def gen_settings():
         setting_list(
             "wxForecastDailyViewMode",
             "WxForecastDailyViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
+            FORECAST_VIEW_MODE_OPTIONS,
         )
     )
     parts.append(
@@ -1138,215 +953,9 @@ def gen_settings():
         width_setting("wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth")
     )
 
-    # Rain Forecast
-    parts.append("\n  <!-- Rain Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastPrecipViewMode",
-            "WxForecastPrecipViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastPrecipValueMode",
-            "WxForecastPrecipValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastPrecipGraphType",
-            "WxForecastPrecipGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastPrecipTimeFrame",
-            "WxForecastPrecipTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(
-        color_setting("wxForecastPrecipGraphColor", "WxForecastPrecipGraphColor")
-    )
-    parts.append(
-        width_setting("wxForecastPrecipGraphWidth", "WxForecastPrecipGraphWidth")
-    )
-
-    # Wind Forecast
-    parts.append("\n  <!-- Wind Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastWindViewMode",
-            "WxForecastWindViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastWindValueMode",
-            "WxForecastWindValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastWindGraphType",
-            "WxForecastWindGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastWindTimeFrame",
-            "WxForecastWindTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(color_setting("wxForecastWindGraphColor", "WxForecastWindGraphColor"))
-    parts.append(width_setting("wxForecastWindGraphWidth", "WxForecastWindGraphWidth"))
-
-    # UV Forecast
-    parts.append("\n  <!-- UV Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastUvViewMode",
-            "WxForecastUvViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvValueMode", "WxForecastUvValueMode", GRAPH_VALUE_MODE_OPTIONS
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvGraphType",
-            "WxForecastUvGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastUvTimeFrame",
-            "WxForecastUvTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(color_setting("wxForecastUvGraphColor", "WxForecastUvGraphColor"))
-    parts.append(width_setting("wxForecastUvGraphWidth", "WxForecastUvGraphWidth"))
-
-    # Humidity Forecast
-    parts.append("\n  <!-- Humidity Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastHumidityViewMode",
-            "WxForecastHumidityViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastHumidityValueMode",
-            "WxForecastHumidityValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastHumidityGraphType",
-            "WxForecastHumidityGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastHumidityTimeFrame",
-            "WxForecastHumidityTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(
-        color_setting("wxForecastHumidityGraphColor", "WxForecastHumidityGraphColor")
-    )
-    parts.append(
-        width_setting("wxForecastHumidityGraphWidth", "WxForecastHumidityGraphWidth")
-    )
-
-    # Cloud Forecast
-    parts.append("\n  <!-- Cloud Forecast -->")
-    parts.append(
-        setting_list(
-            "wxForecastCloudViewMode",
-            "WxForecastCloudViewMode",
-            [
-                (1, "@Strings.ViewModeGraph"),
-                (2, "@Strings.ViewModeGraphCurrent"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastCloudValueMode",
-            "WxForecastCloudValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastCloudGraphType",
-            "WxForecastCloudGraphType",
-            [
-                (0, "@Strings.GraphTypeLine"),
-                (1, "@Strings.GraphTypeBar"),
-                (2, "@Strings.GraphTypeArea"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastCloudTimeFrame",
-            "WxForecastCloudTimeFrame",
-            [(v, f"@Strings.{s}") for v, s in FORECAST_TIME_FRAMES],
-        )
-    )
-    parts.append(
-        color_setting("wxForecastCloudGraphColor", "WxForecastCloudGraphColor")
-    )
-    parts.append(
-        width_setting("wxForecastCloudGraphWidth", "WxForecastCloudGraphWidth")
-    )
+    # Hourly forecasts (precip/wind/UV/humidity/cloud) share an identical layout
+    for row in HOURLY_FORECASTS:
+        parts.append(hourly_forecast_settings(*row))
 
     # Debug
     parts.append("\n  <!-- Debug -->")
