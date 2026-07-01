@@ -2,6 +2,7 @@
   <string id="AppName">TerminalWatchface</string>
 
   <!-- Appearance -->
+  <string id="AppearanceGroup">Appearance</string>
   <string id="FontChoice">Font</string>
   <string id="FontJetBrainsMono">JetBrains Mono</string>
   <string id="FontSpaceMono">Space Mono</string>
@@ -30,44 +31,129 @@
   <string id="DateFormatMDY">MM-DD-YYYY</string>
   <string id="DateFormatDayNum">Day Name + Number (Mon 14)</string>
   <string id="DateFormatDMon">Date + Month (14 Jun)</string>
+  <string id="ScreenGroup">Screens</string>
+  <string id="Screen2Enabled">Screen 2: Enabled</string>
+  <string id="Screen3Enabled">Screen 3: Enabled</string>
+  <string id="RotationGroup">Rotation</string>
   <string id="RotateInterval">Rotation: Main Duration</string>
   <string id="RotateIntervalAlt">Rotation: Alt Duration</string>
+  <string id="ActiveScreen">Active Screen</string>
+  <string id="Screen1">Screen 1</string>
+  <string id="Screen2">Screen 2</string>
+  <string id="Screen3">Screen 3</string>
   <string id="WatchCommandStyle">Command Style</string>
   <string id="WatchCommandWindows">Windows (watch.bat)</string>
   <string id="WatchCommandLinux">Linux (watch.sh)</string>
   <string id="WatchCommandBare">Bare (watch)</string>
 
   <!-- Fixed rows -->
+  <string id="TimeRowGroup">Time Row</string>
   <string id="Line1LabelColor">Time: Label Color</string>
   <string id="Line1ValueColor">Time: Value Color</string>
+  <string id="DateRowGroup">Date Row</string>
   <string id="Line2LabelColor">Date: Label Color</string>
   <string id="Line2ValueColor">Date: Value Color</string>
 
-  <!-- Configurable lines (R2-R6 = rotation slots 2 to 6) -->
-  <string id="Line3LabelColor">Line 3: Label Color</string>
-  <string id="Line3ValueColor">Line 3: Value Color</string>
-  <string id="Line3Primary">Line 3: Field</string>
-  <string id="Line4LabelColor">Line 4: Label Color</string>
-  <string id="Line4ValueColor">Line 4: Value Color</string>
-  <string id="Line4Primary">Line 4: Field</string>
-  <string id="Line5LabelColor">Line 5: Label Color</string>
-  <string id="Line5ValueColor">Line 5: Value Color</string>
-  <string id="Line5Primary">Line 5: Field</string>
-  <string id="Line3Secondary">Line 3: Field (R2)</string>
-  <string id="Line4Secondary">Line 4: Field (R2)</string>
-  <string id="Line5Secondary">Line 5: Field (R2)</string>
-  <string id="Line3Tertiary">Line 3: Field (R3)</string>
-  <string id="Line4Tertiary">Line 4: Field (R3)</string>
-  <string id="Line5Tertiary">Line 5: Field (R3)</string>
-  <string id="Line3Quaternary">Line 3: Field (R4)</string>
-  <string id="Line4Quaternary">Line 4: Field (R4)</string>
-  <string id="Line5Quaternary">Line 5: Field (R4)</string>
-  <string id="Line3Quinary">Line 3: Field (R5)</string>
-  <string id="Line4Quinary">Line 4: Field (R5)</string>
-  <string id="Line5Quinary">Line 5: Field (R5)</string>
-  <string id="Line3Senary">Line 3: Field (R6)</string>
-  <string id="Line4Senary">Line 4: Field (R6)</string>
-  <string id="Line5Senary">Line 5: Field (R6)</string>
+  <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->
+  <string id="Screen1Line3MainGroup">Screen 1 - Line 3</string>
+  <string id="Screen1Line3RotationGroup">Screen 1 - Line 3 (Field Rotations)</string>
+  <string id="Screen1Line3Enabled">Screen 1 - Line 3: Enabled</string>
+  <string id="Screen1Line3LabelColor">Screen 1 - Line 3: Label Color</string>
+  <string id="Screen1Line3ValueColor">Screen 1 - Line 3: Value Color</string>
+  <string id="Screen1Line3Primary">Screen 1 - Line 3: Field (R1)</string>
+  <string id="Screen1Line4MainGroup">Screen 1 - Line 4</string>
+  <string id="Screen1Line4RotationGroup">Screen 1 - Line 4 (Field Rotations)</string>
+  <string id="Screen1Line4Enabled">Screen 1 - Line 4: Enabled</string>
+  <string id="Screen1Line4LabelColor">Screen 1 - Line 4: Label Color</string>
+  <string id="Screen1Line4ValueColor">Screen 1 - Line 4: Value Color</string>
+  <string id="Screen1Line4Primary">Screen 1 - Line 4: Field (R1)</string>
+  <string id="Screen1Line5MainGroup">Screen 1 - Line 5</string>
+  <string id="Screen1Line5RotationGroup">Screen 1 - Line 5 (Field Rotations)</string>
+  <string id="Screen1Line5Enabled">Screen 1 - Line 5: Enabled</string>
+  <string id="Screen1Line5LabelColor">Screen 1 - Line 5: Label Color</string>
+  <string id="Screen1Line5ValueColor">Screen 1 - Line 5: Value Color</string>
+  <string id="Screen1Line5Primary">Screen 1 - Line 5: Field (R1)</string>
+  <string id="Screen1Line3Secondary">Screen 1 - Line 3: Field (R2)</string>
+  <string id="Screen1Line4Secondary">Screen 1 - Line 4: Field (R2)</string>
+  <string id="Screen1Line5Secondary">Screen 1 - Line 5: Field (R2)</string>
+  <string id="Screen1Line3Tertiary">Screen 1 - Line 3: Field (R3)</string>
+  <string id="Screen1Line4Tertiary">Screen 1 - Line 4: Field (R3)</string>
+  <string id="Screen1Line5Tertiary">Screen 1 - Line 5: Field (R3)</string>
+  <string id="Screen1Line3Quaternary">Screen 1 - Line 3: Field (R4)</string>
+  <string id="Screen1Line4Quaternary">Screen 1 - Line 4: Field (R4)</string>
+  <string id="Screen1Line5Quaternary">Screen 1 - Line 5: Field (R4)</string>
+  <string id="Screen1Line3Quinary">Screen 1 - Line 3: Field (R5)</string>
+  <string id="Screen1Line4Quinary">Screen 1 - Line 4: Field (R5)</string>
+  <string id="Screen1Line5Quinary">Screen 1 - Line 5: Field (R5)</string>
+  <string id="Screen1Line3Senary">Screen 1 - Line 3: Field (R6)</string>
+  <string id="Screen1Line4Senary">Screen 1 - Line 4: Field (R6)</string>
+  <string id="Screen1Line5Senary">Screen 1 - Line 5: Field (R6)</string>
+  <string id="Screen2Line3MainGroup">Screen 2 - Line 3</string>
+  <string id="Screen2Line3RotationGroup">Screen 2 - Line 3 (Field Rotations)</string>
+  <string id="Screen2Line3Enabled">Screen 2 - Line 3: Enabled</string>
+  <string id="Screen2Line3LabelColor">Screen 2 - Line 3: Label Color</string>
+  <string id="Screen2Line3ValueColor">Screen 2 - Line 3: Value Color</string>
+  <string id="Screen2Line3Primary">Screen 2 - Line 3: Field (R1)</string>
+  <string id="Screen2Line4MainGroup">Screen 2 - Line 4</string>
+  <string id="Screen2Line4RotationGroup">Screen 2 - Line 4 (Field Rotations)</string>
+  <string id="Screen2Line4Enabled">Screen 2 - Line 4: Enabled</string>
+  <string id="Screen2Line4LabelColor">Screen 2 - Line 4: Label Color</string>
+  <string id="Screen2Line4ValueColor">Screen 2 - Line 4: Value Color</string>
+  <string id="Screen2Line4Primary">Screen 2 - Line 4: Field (R1)</string>
+  <string id="Screen2Line5MainGroup">Screen 2 - Line 5</string>
+  <string id="Screen2Line5RotationGroup">Screen 2 - Line 5 (Field Rotations)</string>
+  <string id="Screen2Line5Enabled">Screen 2 - Line 5: Enabled</string>
+  <string id="Screen2Line5LabelColor">Screen 2 - Line 5: Label Color</string>
+  <string id="Screen2Line5ValueColor">Screen 2 - Line 5: Value Color</string>
+  <string id="Screen2Line5Primary">Screen 2 - Line 5: Field (R1)</string>
+  <string id="Screen2Line3Secondary">Screen 2 - Line 3: Field (R2)</string>
+  <string id="Screen2Line4Secondary">Screen 2 - Line 4: Field (R2)</string>
+  <string id="Screen2Line5Secondary">Screen 2 - Line 5: Field (R2)</string>
+  <string id="Screen2Line3Tertiary">Screen 2 - Line 3: Field (R3)</string>
+  <string id="Screen2Line4Tertiary">Screen 2 - Line 4: Field (R3)</string>
+  <string id="Screen2Line5Tertiary">Screen 2 - Line 5: Field (R3)</string>
+  <string id="Screen2Line3Quaternary">Screen 2 - Line 3: Field (R4)</string>
+  <string id="Screen2Line4Quaternary">Screen 2 - Line 4: Field (R4)</string>
+  <string id="Screen2Line5Quaternary">Screen 2 - Line 5: Field (R4)</string>
+  <string id="Screen2Line3Quinary">Screen 2 - Line 3: Field (R5)</string>
+  <string id="Screen2Line4Quinary">Screen 2 - Line 4: Field (R5)</string>
+  <string id="Screen2Line5Quinary">Screen 2 - Line 5: Field (R5)</string>
+  <string id="Screen2Line3Senary">Screen 2 - Line 3: Field (R6)</string>
+  <string id="Screen2Line4Senary">Screen 2 - Line 4: Field (R6)</string>
+  <string id="Screen2Line5Senary">Screen 2 - Line 5: Field (R6)</string>
+  <string id="Screen3Line3MainGroup">Screen 3 - Line 3</string>
+  <string id="Screen3Line3RotationGroup">Screen 3 - Line 3 (Field Rotations)</string>
+  <string id="Screen3Line3Enabled">Screen 3 - Line 3: Enabled</string>
+  <string id="Screen3Line3LabelColor">Screen 3 - Line 3: Label Color</string>
+  <string id="Screen3Line3ValueColor">Screen 3 - Line 3: Value Color</string>
+  <string id="Screen3Line3Primary">Screen 3 - Line 3: Field (R1)</string>
+  <string id="Screen3Line4MainGroup">Screen 3 - Line 4</string>
+  <string id="Screen3Line4RotationGroup">Screen 3 - Line 4 (Field Rotations)</string>
+  <string id="Screen3Line4Enabled">Screen 3 - Line 4: Enabled</string>
+  <string id="Screen3Line4LabelColor">Screen 3 - Line 4: Label Color</string>
+  <string id="Screen3Line4ValueColor">Screen 3 - Line 4: Value Color</string>
+  <string id="Screen3Line4Primary">Screen 3 - Line 4: Field (R1)</string>
+  <string id="Screen3Line5MainGroup">Screen 3 - Line 5</string>
+  <string id="Screen3Line5RotationGroup">Screen 3 - Line 5 (Field Rotations)</string>
+  <string id="Screen3Line5Enabled">Screen 3 - Line 5: Enabled</string>
+  <string id="Screen3Line5LabelColor">Screen 3 - Line 5: Label Color</string>
+  <string id="Screen3Line5ValueColor">Screen 3 - Line 5: Value Color</string>
+  <string id="Screen3Line5Primary">Screen 3 - Line 5: Field (R1)</string>
+  <string id="Screen3Line3Secondary">Screen 3 - Line 3: Field (R2)</string>
+  <string id="Screen3Line4Secondary">Screen 3 - Line 4: Field (R2)</string>
+  <string id="Screen3Line5Secondary">Screen 3 - Line 5: Field (R2)</string>
+  <string id="Screen3Line3Tertiary">Screen 3 - Line 3: Field (R3)</string>
+  <string id="Screen3Line4Tertiary">Screen 3 - Line 4: Field (R3)</string>
+  <string id="Screen3Line5Tertiary">Screen 3 - Line 5: Field (R3)</string>
+  <string id="Screen3Line3Quaternary">Screen 3 - Line 3: Field (R4)</string>
+  <string id="Screen3Line4Quaternary">Screen 3 - Line 4: Field (R4)</string>
+  <string id="Screen3Line5Quaternary">Screen 3 - Line 5: Field (R4)</string>
+  <string id="Screen3Line3Quinary">Screen 3 - Line 3: Field (R5)</string>
+  <string id="Screen3Line4Quinary">Screen 3 - Line 4: Field (R5)</string>
+  <string id="Screen3Line5Quinary">Screen 3 - Line 5: Field (R5)</string>
+  <string id="Screen3Line3Senary">Screen 3 - Line 3: Field (R6)</string>
+  <string id="Screen3Line4Senary">Screen 3 - Line 4: Field (R6)</string>
+  <string id="Screen3Line5Senary">Screen 3 - Line 5: Field (R6)</string>
 
   <!-- Shared: color options -->
   <string id="ColorWhite">White</string>
@@ -236,18 +322,21 @@
   <string id="GraphWidth16">16 chars</string>
 
   <!-- Steps -->
+  <string id="StepsGroup">Steps</string>
   <string id="StepsShowBar">Steps: Show Progress Bar</string>
   <string id="StepsShowBarValue">Steps: Show Value in Bar</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
   <string id="StepsBarWidth">Steps: Bar Width</string>
 
   <!-- Floors -->
+  <string id="FloorsGroup">Floors</string>
   <string id="FloorsShowBar">Floors: Show Progress Bar</string>
   <string id="FloorsShowBarValue">Floors: Show Value in Bar</string>
   <string id="FloorsBarColor">Floors: Bar Color</string>
   <string id="FloorsBarWidth">Floors: Bar Width</string>
 
   <!-- Intensity Minutes (Weekly) -->
+  <string id="IntensityMinGroup">Intensity Minutes (Weekly)</string>
   <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
   <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
   <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
@@ -269,6 +358,7 @@
   <string id="TimeFrame24h">24 hours</string>
 
   <!-- Graph settings: Heart Rate -->
+  <string id="HRGraphGroup">Heart Rate</string>
   <string id="HRGraphMode">Heart Rate: Graph Mode</string>
   <string id="HRGraphValueMode">Heart Rate: Graph Value Mode</string>
   <string id="HRSecondaryType">Heart Rate: 2nd Graph Type</string>
@@ -279,6 +369,7 @@
   <string id="HRGraphWidth">Heart Rate: Graph Width</string>
 
   <!-- Graph settings: Body Battery -->
+  <string id="BodyBatGraphGroup">Body Battery</string>
   <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
   <string id="BodyBatGraphValueMode">Body Battery: Graph Value Mode</string>
   <string id="BodyBatSecondaryType">Body Battery: 2nd Graph Type</string>
@@ -289,6 +380,7 @@
   <string id="BodyBatGraphWidth">Body Battery: Graph Width</string>
 
   <!-- Graph settings: Stress -->
+  <string id="StressGraphGroup">Stress</string>
   <string id="StressGraphMode">Stress: Graph Mode</string>
   <string id="StressGraphValueMode">Stress: Graph Value Mode</string>
   <string id="StressSecondaryType">Stress: 2nd Graph Type</string>
@@ -299,6 +391,7 @@
   <string id="StressGraphWidth">Stress: Graph Width</string>
 
   <!-- Graph settings: Blood O2 -->
+  <string id="SpO2GraphGroup">Blood O2</string>
   <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
   <string id="SpO2GraphValueMode">Blood O2: Graph Value Mode</string>
   <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
@@ -309,6 +402,7 @@
   <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
 
   <!-- Graph settings: Wrist Temp -->
+  <string id="TempWristGraphGroup">Wrist Temp</string>
   <string id="TempWristGraphMode">Wrist Temp: Graph Mode</string>
   <string id="TempWristGraphValueMode">Wrist Temp: Graph Value Mode</string>
   <string id="TempWristSecondaryType">Wrist Temp: 2nd Graph Type</string>
@@ -319,6 +413,7 @@
   <string id="TempWristGraphWidth">Wrist Temp: Graph Width</string>
 
   <!-- Graph settings: Elevation -->
+  <string id="ElevationGraphGroup">Elevation</string>
   <string id="ElevationGraphMode">Elevation: Graph Mode</string>
   <string id="ElevationGraphValueMode">Elevation: Graph Value Mode</string>
   <string id="ElevationSecondaryType">Elevation: 2nd Graph Type</string>
@@ -329,6 +424,7 @@
   <string id="ElevationGraphWidth">Elevation: Graph Width</string>
 
   <!-- Graph settings: Pressure -->
+  <string id="PressureGraphGroup">Pressure</string>
   <string id="PressureGraphMode">Pressure: Graph Mode</string>
   <string id="PressureGraphValueMode">Pressure: Graph Value Mode</string>
   <string id="PressureSecondaryType">Pressure: 2nd Graph Type</string>
@@ -339,6 +435,7 @@
   <string id="PressureGraphWidth">Pressure: Graph Width</string>
 
   <!-- Graph settings: Temp Hourly Forecast -->
+  <string id="WxForecastGroup">Temp Hourly Forecast</string>
   <string id="WxForecastGraphMode">Temp Hourly: Graph Mode</string>
   <string id="WxForecastValueMode">Temp Hourly: Value Mode</string>
   <string id="WxForecastTimeFrame">Temp Hourly: Time Frame</string>
@@ -350,6 +447,7 @@
   <string id="TimeFrameForecast24h">24 hours ahead</string>
 
   <!-- Graph settings: Temp Daily Forecast -->
+  <string id="WxForecastDailyGroup">Temp Daily Forecast</string>
   <string id="WxForecastDailyViewMode">Temp Daily: View Mode</string>
   <string id="WxForecastDailyValueMode">Temp Daily: Value Mode</string>
   <string id="WxForecastDailyDays">Temp Daily: Days</string>
@@ -360,6 +458,7 @@
   <string id="TimeFrameForecastDays7">7 days</string>
 
   <!-- Graph settings: Rain Hourly Forecast -->
+  <string id="WxForecastPrecipGroup">Rain Forecast</string>
   <string id="WxForecastPrecipGraphMode">Rain Hourly: Graph Mode</string>
   <string id="WxForecastPrecipValueMode">Rain Hourly: Value Mode</string>
   <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
@@ -367,6 +466,7 @@
   <string id="WxForecastPrecipGraphWidth">Rain Hourly: Graph Width</string>
 
   <!-- Graph settings: Wind Hourly Forecast -->
+  <string id="WxForecastWindGroup">Wind Forecast</string>
   <string id="WxForecastWindGraphMode">Wind Hourly: Graph Mode</string>
   <string id="WxForecastWindValueMode">Wind Hourly: Value Mode</string>
   <string id="WxForecastWindTimeFrame">Wind Hourly: Hours Ahead</string>
@@ -374,6 +474,7 @@
   <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
 
   <!-- Graph settings: UV Hourly Forecast -->
+  <string id="WxForecastUvGroup">UV Forecast</string>
   <string id="WxForecastUvGraphMode">UV Hourly: Graph Mode</string>
   <string id="WxForecastUvValueMode">UV Hourly: Value Mode</string>
   <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
@@ -381,6 +482,7 @@
   <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
 
   <!-- Graph settings: Humidity Hourly Forecast -->
+  <string id="WxForecastHumidityGroup">Humidity Forecast</string>
   <string id="WxForecastHumidityGraphMode">Humidity Hourly: Graph Mode</string>
   <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
   <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
@@ -388,6 +490,7 @@
   <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
 
   <!-- Graph settings: Cloud Hourly Forecast -->
+  <string id="WxForecastCloudGroup">Cloud Forecast</string>
   <string id="WxForecastCloudGraphMode">Cloud Hourly: Graph Mode</string>
   <string id="WxForecastCloudValueMode">Cloud Hourly: Value Mode</string>
   <string id="WxForecastCloudTimeFrame">Cloud Hourly: Hours Ahead</string>
@@ -395,6 +498,7 @@
   <string id="WxForecastCloudGraphWidth">Cloud Hourly: Graph Width</string>
 
   <!-- Debug -->
+  <string id="DebugGroup">Debug</string>
   <string id="ShowVersion">Show App Version (testing)</string>
 
 </strings>

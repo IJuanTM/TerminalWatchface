@@ -274,6 +274,18 @@ LINE_SLOTS = [
     (5, "Senary", 7, 5, 0),  # None, red
 ]
 
+SCREEN_COUNT = 3
+
+
+def screen_line_slots(screen_idx):
+    """(line_num, slot, field_default, label_color_default, value_color_default)
+    rows for one screen. Screen 1 keeps today's curated defaults; screens 2/3
+    start blank (all fields None, default gray label / white value)."""
+    if screen_idx == 1:
+        return LINE_SLOTS
+    return [(ln, slot, 7, 8, 0) for ln, slot, _fd, _lc, _vc in LINE_SLOTS]
+
+
 # Graph mode options shared by all sensor graph fields
 GRAPH_MODE_OPTIONS = [
     (0, "@Strings.GraphModeValue"),
@@ -332,11 +344,12 @@ def string(sid, text):
     return f'  <string id="{sid}">{text}</string>'
 
 
-def setting_bool(prop_key, title_key):
+def setting_bool(prop_key, title_key, indent=1):
+    i = ind(indent)
     return (
-        f'  <setting propertyKey="@Properties.{prop_key}" title="@Strings.{title_key}">\n'
-        f'    <settingConfig type="boolean" />\n'
-        f"  </setting>"
+        f'{i}<setting propertyKey="@Properties.{prop_key}" title="@Strings.{title_key}">\n'
+        f'{i}  <settingConfig type="boolean" />\n'
+        f"{i}</setting>"
     )
 
 
@@ -365,12 +378,12 @@ def width_entries():
     return [(v, f"@Strings.{s}") for v, s in GRAPH_WIDTH_OPTIONS]
 
 
-def color_setting(prop_key, title_key, colors=COLORS_FULL):
-    return setting_list(prop_key, title_key, color_entries(colors))
+def color_setting(prop_key, title_key, colors=COLORS_FULL, indent=1):
+    return setting_list(prop_key, title_key, color_entries(colors), indent)
 
 
-def field_setting(prop_key, title_key, fields=FIELDS_ALL):
-    return setting_list(prop_key, title_key, field_entries(fields))
+def field_setting(prop_key, title_key, fields=FIELDS_ALL, indent=1):
+    return setting_list(prop_key, title_key, field_entries(fields), indent)
 
 
 def section(title, *blocks):
@@ -378,6 +391,15 @@ def section(title, *blocks):
     for b in blocks:
         parts.append(b)
     return "\n".join(parts)
+
+
+def group(gid, title_key, *blocks):
+    i = ind(1)
+    lines = [f'{i}<group id="{gid}" title="@Strings.{title_key}">']
+    for b in blocks:
+        lines.append(b)
+    lines.append(f"{i}</group>")
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
@@ -400,8 +422,11 @@ def gen_properties():
     lines.append(prop("showYear", "boolean", "false"))
     lines.append(prop("dateFormat", "number", 0))
     lines.append(prop("watchCommandStyle", "number", 2))
+    lines.append(prop("screen2Enabled", "boolean", "true"))
+    lines.append(prop("screen3Enabled", "boolean", "true"))
     lines.append(prop("rotateInterval", "number", 10))
     lines.append(prop("rotateIntervalAlt", "number", 5))
+    lines.append(prop("activeScreen", "number", 0))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop("line1LabelColor", "number", 8))
@@ -411,14 +436,17 @@ def gen_properties():
     lines.append(prop("line2LabelColor", "number", 8))
     lines.append(prop("line2ValueColor", "number", 0))
 
-    # One label/value color per line (shared across its rotation slots), then
-    # the field picker for each slot.
-    for ln, slot, fd, lc, vc in LINE_SLOTS:
-        if slot == "Primary":
-            lines.append(f"\n  <!-- Line {ln} -->")
-            lines.append(prop(f"line{ln}LabelColor", "number", lc))
-            lines.append(prop(f"line{ln}ValueColor", "number", vc))
-        lines.append(prop(f"line{ln}{slot}", "number", fd))
+    # 3 screens, each with its own label/value color per line (shared across
+    # that line's rotation slots) and a field picker per slot.
+    for screen_idx in range(1, SCREEN_COUNT + 1):
+        for ln, slot, fd, lc, vc in screen_line_slots(screen_idx):
+            pk = f"screen{screen_idx}_line{ln}"
+            if slot == "Primary":
+                lines.append(f"\n  <!-- Screen {screen_idx} - Line {ln} -->")
+                lines.append(prop(f"{pk}Enabled", "boolean", "true"))
+                lines.append(prop(f"{pk}LabelColor", "number", lc))
+                lines.append(prop(f"{pk}ValueColor", "number", vc))
+            lines.append(prop(f"{pk}{slot}", "number", fd))
 
     lines.append("\n  <!-- Steps -->")
     lines.append(prop("stepsShowBar", "boolean", "true"))
@@ -488,6 +516,7 @@ def gen_strings():
     lines.append(s("AppName", "TerminalWatchface"))
 
     lines.append("\n  <!-- Appearance -->")
+    lines.append(s("AppearanceGroup", "Appearance"))
     lines.append(s("FontChoice", "Font"))
     lines.append(s("FontJetBrainsMono", "JetBrains Mono"))
     lines.append(s("FontSpaceMono", "Space Mono"))
@@ -516,8 +545,16 @@ def gen_strings():
     lines.append(s("DateFormatMDY", "MM-DD-YYYY"))
     lines.append(s("DateFormatDayNum", "Day Name + Number (Mon 14)"))
     lines.append(s("DateFormatDMon", "Date + Month (14 Jun)"))
+    lines.append(s("ScreenGroup", "Screens"))
+    lines.append(s("Screen2Enabled", "Screen 2: Enabled"))
+    lines.append(s("Screen3Enabled", "Screen 3: Enabled"))
+    lines.append(s("RotationGroup", "Rotation"))
     lines.append(s("RotateInterval", "Rotation: Main Duration"))
     lines.append(s("RotateIntervalAlt", "Rotation: Alt Duration"))
+    lines.append(s("ActiveScreen", "Active Screen"))
+    lines.append(s("Screen1", "Screen 1"))
+    lines.append(s("Screen2", "Screen 2"))
+    lines.append(s("Screen3", "Screen 3"))
 
     lines.append(s("WatchCommandStyle", "Command Style"))
     lines.append(s("WatchCommandWindows", "Windows (watch.bat)"))
@@ -525,25 +562,35 @@ def gen_strings():
     lines.append(s("WatchCommandBare", "Bare (watch)"))
 
     lines.append("\n  <!-- Fixed rows -->")
+    lines.append(s("TimeRowGroup", "Time Row"))
     lines.append(s("Line1LabelColor", "Time: Label Color"))
     lines.append(s("Line1ValueColor", "Time: Value Color"))
+    lines.append(s("DateRowGroup", "Date Row"))
     lines.append(s("Line2LabelColor", "Date: Label Color"))
     lines.append(s("Line2ValueColor", "Date: Value Color"))
 
     _slot_r = {
-        "Primary": "",
+        "Primary": " (R1)",
         "Secondary": " (R2)",
         "Tertiary": " (R3)",
         "Quaternary": " (R4)",
         "Quinary": " (R5)",
         "Senary": " (R6)",
     }
-    lines.append("\n  <!-- Configurable lines (R2-R6 = rotation slots 2 to 6) -->")
-    for ln, slot, *_ in LINE_SLOTS:
-        if slot == "Primary":
-            lines.append(s(f"Line{ln}LabelColor", f"Line {ln}: Label Color"))
-            lines.append(s(f"Line{ln}ValueColor", f"Line {ln}: Value Color"))
-        lines.append(s(f"Line{ln}{slot}", f"Line {ln}: Field{_slot_r[slot]}"))
+    lines.append(
+        "\n  <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->"
+    )
+    for screen_idx in range(1, SCREEN_COUNT + 1):
+        for ln, slot, *_ in screen_line_slots(screen_idx):
+            pk = f"Screen{screen_idx}Line{ln}"
+            ptitle = f"Screen {screen_idx} - Line {ln}"
+            if slot == "Primary":
+                lines.append(s(f"{pk}MainGroup", ptitle))
+                lines.append(s(f"{pk}RotationGroup", f"{ptitle} (Field Rotations)"))
+                lines.append(s(f"{pk}Enabled", f"{ptitle}: Enabled"))
+                lines.append(s(f"{pk}LabelColor", f"{ptitle}: Label Color"))
+                lines.append(s(f"{pk}ValueColor", f"{ptitle}: Value Color"))
+            lines.append(s(f"{pk}{slot}", f"{ptitle}: Field{_slot_r[slot]}"))
 
     lines.append("\n  <!-- Shared: color options -->")
     for _v, sid, text in COLORS_FULL:
@@ -581,18 +628,21 @@ def gen_strings():
     lines.append(s("GraphWidth16", "16 chars"))
 
     lines.append("\n  <!-- Steps -->")
+    lines.append(s("StepsGroup", "Steps"))
     lines.append(s("StepsShowBar", "Steps: Show Progress Bar"))
     lines.append(s("StepsShowBarValue", "Steps: Show Value in Bar"))
     lines.append(s("StepsBarColor", "Steps: Bar Color"))
     lines.append(s("StepsBarWidth", "Steps: Bar Width"))
 
     lines.append("\n  <!-- Floors -->")
+    lines.append(s("FloorsGroup", "Floors"))
     lines.append(s("FloorsShowBar", "Floors: Show Progress Bar"))
     lines.append(s("FloorsShowBarValue", "Floors: Show Value in Bar"))
     lines.append(s("FloorsBarColor", "Floors: Bar Color"))
     lines.append(s("FloorsBarWidth", "Floors: Bar Width"))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
+    lines.append(s("IntensityMinGroup", "Intensity Minutes (Weekly)"))
     lines.append(s("IntensityMinShowBar", "Intensity Min: Show Progress Bar"))
     lines.append(s("IntensityMinShowBarValue", "Intensity Min: Show Value in Bar"))
     lines.append(s("IntensityMinBarColor", "Intensity Min: Bar Color"))
@@ -617,6 +667,7 @@ def gen_strings():
     for key, skey, *_ in GRAPH_FIELDS:
         display = GRAPH_DISPLAY_NAMES[key]
         lines.append(f"\n  <!-- Graph settings: {display} -->")
+        lines.append(s(f"{skey}GraphGroup", display))
         lines.append(s(f"{skey}GraphMode", f"{display}: Graph Mode"))
         lines.append(s(f"{skey}GraphValueMode", f"{display}: Graph Value Mode"))
         lines.append(s(f"{skey}SecondaryType", f"{display}: 2nd Graph Type"))
@@ -627,6 +678,7 @@ def gen_strings():
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
+    lines.append(s("WxForecastGroup", "Temp Hourly Forecast"))
     lines.append(s("WxForecastGraphMode", "Temp Hourly: Graph Mode"))
     lines.append(s("WxForecastValueMode", "Temp Hourly: Value Mode"))
     lines.append(s("WxForecastTimeFrame", "Temp Hourly: Time Frame"))
@@ -638,6 +690,7 @@ def gen_strings():
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
 
     lines.append("\n  <!-- Graph settings: Temp Daily Forecast -->")
+    lines.append(s("WxForecastDailyGroup", "Temp Daily Forecast"))
     lines.append(s("WxForecastDailyViewMode", "Temp Daily: View Mode"))
     lines.append(s("WxForecastDailyValueMode", "Temp Daily: Value Mode"))
     lines.append(s("WxForecastDailyDays", "Temp Daily: Days"))
@@ -651,6 +704,7 @@ def gen_strings():
         lines.append(hourly_forecast_strings(*row))
 
     lines.append("\n  <!-- Debug -->")
+    lines.append(s("DebugGroup", "Debug"))
     lines.append(s("ShowVersion", "Show App Version (testing)"))
 
     lines.append("\n</strings>")
@@ -662,20 +716,22 @@ def gen_strings():
 # ---------------------------------------------------------------------------
 
 
-def width_setting(prop_key, title_key):
-    return setting_list(prop_key, title_key, width_entries())
+def width_setting(prop_key, title_key, indent=1):
+    return setting_list(prop_key, title_key, width_entries(), indent)
 
 
-def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
-    display = GRAPH_DISPLAY_NAMES[key]
-    blocks = [f"\n  <!-- {display} -->"]
+def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
+    blocks = []
 
     blocks.append(
-        setting_list(f"{key}GraphMode", f"{skey}GraphMode", GRAPH_MODE_OPTIONS)
+        setting_list(f"{key}GraphMode", f"{skey}GraphMode", GRAPH_MODE_OPTIONS, indent)
     )
     blocks.append(
         setting_list(
-            f"{key}GraphValueMode", f"{skey}GraphValueMode", GRAPH_VALUE_MODE_OPTIONS
+            f"{key}GraphValueMode",
+            f"{skey}GraphValueMode",
+            GRAPH_VALUE_MODE_OPTIONS,
+            indent,
         )
     )
     blocks.append(
@@ -687,6 +743,7 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
                 (1, "@Strings.SecTypeLine"),
                 (2, "@Strings.SecTypeBar"),
             ],
+            indent,
         )
     )
     blocks.append(
@@ -694,6 +751,7 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
             f"{key}SecondaryField",
             f"{skey}SecondaryField",
             [(v, f"@Strings.{s}") for v, s in GRAPH_SEC_FIELDS],
+            indent,
         )
     )
     blocks.append(
@@ -701,11 +759,14 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd):
             f"{key}TimeFrame",
             f"{skey}TimeFrame",
             [(v, f"@Strings.{s}") for v, s in GRAPH_TIME_FRAMES],
+            indent,
         )
     )
-    blocks.append(color_setting(f"{key}GraphColor", f"{skey}GraphColor"))
-    blocks.append(color_setting(f"{key}SecondaryColor", f"{skey}SecondaryColor"))
-    blocks.append(width_setting(f"{key}GraphWidth", f"{skey}GraphWidth"))
+    blocks.append(color_setting(f"{key}GraphColor", f"{skey}GraphColor", indent=indent))
+    blocks.append(
+        color_setting(f"{key}SecondaryColor", f"{skey}SecondaryColor", indent=indent)
+    )
+    blocks.append(width_setting(f"{key}GraphWidth", f"{skey}GraphWidth", indent))
 
     return "\n".join(blocks)
 
@@ -734,6 +795,7 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
     return "\n".join(
         [
             f"\n  <!-- Graph settings: {display} Forecast -->",
+            string(f"{skey}Group", f"{display.split()[0]} Forecast"),
             string(f"{skey}GraphMode", f"{display}: Graph Mode"),
             string(f"{skey}ValueMode", f"{display}: Value Mode"),
             string(f"{skey}TimeFrame", f"{display}: Hours Ahead"),
@@ -743,19 +805,26 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
     )
 
 
-def hourly_forecast_settings(key, skey, display, vmode, color):
+def hourly_forecast_settings(key, skey, display, vmode, color, indent=1):
     return "\n".join(
         [
-            f"\n  <!-- {display.split()[0]} Forecast -->",
             setting_list(
-                f"{key}GraphMode", f"{skey}GraphMode", FORECAST_GRAPH_MODE_OPTIONS
+                f"{key}GraphMode",
+                f"{skey}GraphMode",
+                FORECAST_GRAPH_MODE_OPTIONS,
+                indent,
             ),
             setting_list(
-                f"{key}ValueMode", f"{skey}ValueMode", GRAPH_VALUE_MODE_OPTIONS
+                f"{key}ValueMode",
+                f"{skey}ValueMode",
+                GRAPH_VALUE_MODE_OPTIONS,
+                indent,
             ),
-            setting_list(f"{key}TimeFrame", f"{skey}TimeFrame", forecast_tf_entries()),
-            color_setting(f"{key}GraphColor", f"{skey}GraphColor"),
-            width_setting(f"{key}GraphWidth", f"{skey}GraphWidth"),
+            setting_list(
+                f"{key}TimeFrame", f"{skey}TimeFrame", forecast_tf_entries(), indent
+            ),
+            color_setting(f"{key}GraphColor", f"{skey}GraphColor", indent=indent),
+            width_setting(f"{key}GraphWidth", f"{skey}GraphWidth", indent),
         ]
     )
 
@@ -764,100 +833,112 @@ def gen_settings():
     parts = ["<settings>"]
 
     # Appearance
-    parts.append("\n  <!-- Appearance -->")
     parts.append(
-        setting_list(
-            "fontChoice",
-            "FontChoice",
-            [
-                (0, "@Strings.FontJetBrainsMono"),
-                (1, "@Strings.FontSpaceMono"),
-                (2, "@Strings.FontFiraCodeMono"),
-                (3, "@Strings.NBArchitekt"),
-            ],
+        group(
+            "appearance",
+            "AppearanceGroup",
+            setting_list(
+                "fontChoice",
+                "FontChoice",
+                [
+                    (0, "@Strings.FontJetBrainsMono"),
+                    (1, "@Strings.FontSpaceMono"),
+                    (2, "@Strings.FontFiraCodeMono"),
+                    (3, "@Strings.NBArchitekt"),
+                ],
+                indent=2,
+            ),
+            setting_list(
+                "scanlines",
+                "Scanlines",
+                [
+                    (0, "@Strings.ScanlinesOff"),
+                    (1, "@Strings.ScanlinesSubtle"),
+                    (2, "@Strings.ScanlinesMedium"),
+                    (3, "@Strings.ScanlinesStrong"),
+                ],
+                indent=2,
+            ),
+            setting_list(
+                "watchCommandStyle",
+                "WatchCommandStyle",
+                [
+                    (0, "@Strings.WatchCommandWindows"),
+                    (1, "@Strings.WatchCommandLinux"),
+                    (2, "@Strings.WatchCommandBare"),
+                ],
+                indent=2,
+            ),
+            setting_list(
+                "leftPadding",
+                "LeftPadding",
+                [(i, str(i)) for i in range(9)],
+                indent=2,
+            ),
+            setting_list(
+                "areaOpacity",
+                "AreaOpacity",
+                [
+                    (0x40, "@Strings.AreaOpacity25"),
+                    (0x80, "@Strings.AreaOpacity50"),
+                    (0xC0, "@Strings.AreaOpacity75"),
+                    (0xFF, "@Strings.AreaOpacity100"),
+                ],
+                indent=2,
+            ),
+            setting_bool("areaShowLine", "AreaShowLine", indent=2),
         )
     )
-    parts.append(
-        setting_list(
-            "scanlines",
-            "Scanlines",
-            [
-                (0, "@Strings.ScanlinesOff"),
-                (1, "@Strings.ScanlinesSubtle"),
-                (2, "@Strings.ScanlinesMedium"),
-                (3, "@Strings.ScanlinesStrong"),
-            ],
-        )
-    )
-    parts.append(
-        setting_list(
-            "watchCommandStyle",
-            "WatchCommandStyle",
-            [
-                (0, "@Strings.WatchCommandWindows"),
-                (1, "@Strings.WatchCommandLinux"),
-                (2, "@Strings.WatchCommandBare"),
-            ],
-        )
-    )
-
-    parts.append(
-        setting_list("leftPadding", "LeftPadding", [(i, str(i)) for i in range(9)])
-    )
-    parts.append(
-        setting_list(
-            "areaOpacity",
-            "AreaOpacity",
-            [
-                (0x40, "@Strings.AreaOpacity25"),
-                (0x80, "@Strings.AreaOpacity50"),
-                (0xC0, "@Strings.AreaOpacity75"),
-                (0xFF, "@Strings.AreaOpacity100"),
-            ],
-        )
-    )
-    parts.append(setting_bool("areaShowLine", "AreaShowLine"))
 
     # Time row
-    parts.append("\n  <!-- Time row -->")
-    parts.append(setting_bool("showSeconds", "ShowSeconds"))
-    parts.append(color_setting("line1LabelColor", "Line1LabelColor", COLORS_TEXT))
-    parts.append(color_setting("line1ValueColor", "Line1ValueColor", COLORS_TEXT))
-
-    # Date row
-    parts.append("\n  <!-- Date row -->")
-    parts.append(setting_bool("showYear", "ShowYear"))
     parts.append(
-        setting_list(
-            "dateFormat",
-            "DateFormat",
-            [
-                (0, "@Strings.DateFormatDayMon"),
-                (1, "@Strings.DateFormatYMD"),
-                (2, "@Strings.DateFormatDMY"),
-                (3, "@Strings.DateFormatMDY"),
-                (4, "@Strings.DateFormatDayNum"),
-                (5, "@Strings.DateFormatDMon"),
-            ],
+        group(
+            "timeRow",
+            "TimeRowGroup",
+            setting_bool("showSeconds", "ShowSeconds", indent=2),
+            color_setting("line1LabelColor", "Line1LabelColor", COLORS_TEXT, indent=2),
+            color_setting("line1ValueColor", "Line1ValueColor", COLORS_TEXT, indent=2),
         )
     )
-    parts.append(color_setting("line2LabelColor", "Line2LabelColor", COLORS_TEXT))
-    parts.append(color_setting("line2ValueColor", "Line2ValueColor", COLORS_TEXT))
 
-    # Configurable lines 3/4/5: one label/value color per line, then a field
-    # picker per rotation slot.
-    for ln, slot, fd, lc, vc in LINE_SLOTS:
-        if slot == "Primary":
-            parts.append(f"\n  <!-- Line {ln} -->")
-            parts.append(
-                color_setting(f"line{ln}LabelColor", f"Line{ln}LabelColor", COLORS_TEXT)
-            )
-            parts.append(
-                color_setting(f"line{ln}ValueColor", f"Line{ln}ValueColor", COLORS_TEXT)
-            )
-        parts.append(field_setting(f"line{ln}{slot}", f"Line{ln}{slot}"))
+    # Date row
+    parts.append(
+        group(
+            "dateRow",
+            "DateRowGroup",
+            setting_bool("showYear", "ShowYear", indent=2),
+            setting_list(
+                "dateFormat",
+                "DateFormat",
+                [
+                    (0, "@Strings.DateFormatDayMon"),
+                    (1, "@Strings.DateFormatYMD"),
+                    (2, "@Strings.DateFormatDMY"),
+                    (3, "@Strings.DateFormatMDY"),
+                    (4, "@Strings.DateFormatDayNum"),
+                    (5, "@Strings.DateFormatDMon"),
+                ],
+                indent=2,
+            ),
+            color_setting("line2LabelColor", "Line2LabelColor", COLORS_TEXT, indent=2),
+            color_setting("line2ValueColor", "Line2ValueColor", COLORS_TEXT, indent=2),
+        )
+    )
 
-    # Rotation (after the lines it applies to)
+    # Screens: one master toggle per alternate screen (2/3), independent of
+    # the per-line toggles below - a quick way to turn a whole screen off.
+    parts.append(
+        group(
+            "screens",
+            "ScreenGroup",
+            setting_bool("screen2Enabled", "Screen2Enabled", indent=2),
+            setting_bool("screen3Enabled", "Screen3Enabled", indent=2),
+        )
+    )
+
+    # Rotation + active screen - moved above the screen/field settings they
+    # control, so the phone app shows "what/when to rotate" before "what's in
+    # each screen".
     rotate_options = [
         (0, "Same as main"),
         (3, "3 seconds"),
@@ -867,99 +948,186 @@ def gen_settings():
         (30, "30 seconds"),
         (60, "1 minute"),
     ]
-    parts.append("\n  <!-- Rotation -->")
-    parts.append(setting_list("rotateInterval", "RotateInterval", rotate_options[1:]))
-    parts.append(setting_list("rotateIntervalAlt", "RotateIntervalAlt", rotate_options))
+    parts.append(
+        group(
+            "rotation",
+            "RotationGroup",
+            setting_list(
+                "rotateInterval", "RotateInterval", rotate_options[1:], indent=2
+            ),
+            setting_list(
+                "rotateIntervalAlt", "RotateIntervalAlt", rotate_options, indent=2
+            ),
+            setting_list(
+                "activeScreen",
+                "ActiveScreen",
+                [
+                    (0, "@Strings.Screen1"),
+                    (1, "@Strings.Screen2"),
+                    (2, "@Strings.Screen3"),
+                ],
+                indent=2,
+            ),
+        )
+    )
+
+    # Screens: each line gets its own group (enabled toggle, colors) and a
+    # separate "Field Rotations" group with all 6 slots (R1-R6), so related
+    # settings aren't buried in one long flat list.
+    for screen_idx in range(1, SCREEN_COUNT + 1):
+        for ln in (3, 4, 5):
+            rows = [r for r in screen_line_slots(screen_idx) if r[0] == ln]
+            pk = f"screen{screen_idx}_line{ln}"
+            sk = f"Screen{screen_idx}Line{ln}"
+            parts.append(
+                group(
+                    f"{pk}_main",
+                    f"{sk}MainGroup",
+                    setting_bool(f"{pk}Enabled", f"{sk}Enabled", indent=2),
+                    color_setting(
+                        f"{pk}LabelColor", f"{sk}LabelColor", COLORS_TEXT, indent=2
+                    ),
+                    color_setting(
+                        f"{pk}ValueColor", f"{sk}ValueColor", COLORS_TEXT, indent=2
+                    ),
+                )
+            )
+            parts.append(
+                group(
+                    f"{pk}_rotation",
+                    f"{sk}RotationGroup",
+                    *[
+                        field_setting(f"{pk}{slot}", f"{sk}{slot}", indent=2)
+                        for _ln, slot, _fd, _lc, _vc in rows
+                    ],
+                )
+            )
 
     # Steps
-    parts.append("\n  <!-- Steps -->")
-    parts.append(setting_bool("stepsShowBar", "StepsShowBar"))
-    parts.append(setting_bool("stepsShowBarValue", "StepsShowBarValue"))
-    parts.append(color_setting("stepsBarColor", "StepsBarColor", COLORS_TEXT))
-    parts.append(width_setting("stepsBarWidth", "StepsBarWidth"))
+    parts.append(
+        group(
+            "steps",
+            "StepsGroup",
+            setting_bool("stepsShowBar", "StepsShowBar", indent=2),
+            setting_bool("stepsShowBarValue", "StepsShowBarValue", indent=2),
+            color_setting("stepsBarColor", "StepsBarColor", COLORS_TEXT, indent=2),
+            width_setting("stepsBarWidth", "StepsBarWidth", indent=2),
+        )
+    )
 
     # Floors
-    parts.append("\n  <!-- Floors -->")
-    parts.append(setting_bool("floorsShowBar", "FloorsShowBar"))
-    parts.append(setting_bool("floorsShowBarValue", "FloorsShowBarValue"))
-    parts.append(color_setting("floorsBarColor", "FloorsBarColor", COLORS_TEXT))
-    parts.append(width_setting("floorsBarWidth", "FloorsBarWidth"))
+    parts.append(
+        group(
+            "floors",
+            "FloorsGroup",
+            setting_bool("floorsShowBar", "FloorsShowBar", indent=2),
+            setting_bool("floorsShowBarValue", "FloorsShowBarValue", indent=2),
+            color_setting("floorsBarColor", "FloorsBarColor", COLORS_TEXT, indent=2),
+            width_setting("floorsBarWidth", "FloorsBarWidth", indent=2),
+        )
+    )
 
     # Intensity Minutes
-    parts.append("\n  <!-- Intensity Minutes (Weekly) -->")
-    parts.append(setting_bool("intensityMinShowBar", "IntensityMinShowBar"))
-    parts.append(setting_bool("intensityMinShowBarValue", "IntensityMinShowBarValue"))
     parts.append(
-        color_setting("intensityMinBarColor", "IntensityMinBarColor", COLORS_TEXT)
+        group(
+            "intensityMin",
+            "IntensityMinGroup",
+            setting_bool("intensityMinShowBar", "IntensityMinShowBar", indent=2),
+            setting_bool(
+                "intensityMinShowBarValue", "IntensityMinShowBarValue", indent=2
+            ),
+            color_setting(
+                "intensityMinBarColor", "IntensityMinBarColor", COLORS_TEXT, indent=2
+            ),
+            width_setting("intensityMinBarWidth", "IntensityMinBarWidth", indent=2),
+        )
     )
-    parts.append(width_setting("intensityMinBarWidth", "IntensityMinBarWidth"))
 
-    # Graph fields
-    parts.append("\n  <!-- Graph settings per supported field type -->")
+    # Graph fields - one group per sensor graph
     for row in GRAPH_FIELDS:
-        parts.append(graph_section(*row))
+        key, skey = row[0], row[1]
+        parts.append(
+            group(f"graph_{key}", f"{skey}GraphGroup", graph_section(*row, indent=2))
+        )
 
-    # Forecast
-    parts.append("\n  <!-- Weather Forecast -->")
+    # Weather Forecast (temp hourly)
     parts.append(
-        setting_list(
-            "wxForecastGraphMode", "WxForecastGraphMode", FORECAST_GRAPH_MODE_OPTIONS
+        group(
+            "wxForecast",
+            "WxForecastGroup",
+            setting_list(
+                "wxForecastGraphMode",
+                "WxForecastGraphMode",
+                FORECAST_GRAPH_MODE_OPTIONS,
+                indent=2,
+            ),
+            setting_list(
+                "wxForecastValueMode",
+                "WxForecastValueMode",
+                GRAPH_VALUE_MODE_OPTIONS,
+                indent=2,
+            ),
+            setting_list(
+                "wxForecastTimeFrame",
+                "WxForecastTimeFrame",
+                forecast_tf_entries(),
+                indent=2,
+            ),
+            color_setting("wxForecastGraphColor", "WxForecastGraphColor", indent=2),
+            width_setting("wxForecastGraphWidth", "WxForecastGraphWidth", indent=2),
         )
     )
-    parts.append(
-        setting_list(
-            "wxForecastValueMode", "WxForecastValueMode", GRAPH_VALUE_MODE_OPTIONS
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastTimeFrame", "WxForecastTimeFrame", forecast_tf_entries()
-        )
-    )
-    parts.append(color_setting("wxForecastGraphColor", "WxForecastGraphColor"))
-    parts.append(width_setting("wxForecastGraphWidth", "WxForecastGraphWidth"))
 
     # Day Forecast
-    parts.append("\n  <!-- Day Forecast -->")
     parts.append(
-        setting_list(
-            "wxForecastDailyViewMode",
-            "WxForecastDailyViewMode",
-            FORECAST_VIEW_MODE_OPTIONS,
+        group(
+            "wxForecastDaily",
+            "WxForecastDailyGroup",
+            setting_list(
+                "wxForecastDailyViewMode",
+                "WxForecastDailyViewMode",
+                FORECAST_VIEW_MODE_OPTIONS,
+                indent=2,
+            ),
+            setting_list(
+                "wxForecastDailyValueMode",
+                "WxForecastDailyValueMode",
+                GRAPH_VALUE_MODE_OPTIONS,
+                indent=2,
+            ),
+            setting_list(
+                "wxForecastDailyDays",
+                "WxForecastDailyDays",
+                [
+                    (3, "@Strings.TimeFrameForecastDays3"),
+                    (5, "@Strings.TimeFrameForecastDays5"),
+                    (7, "@Strings.TimeFrameForecastDays7"),
+                ],
+                indent=2,
+            ),
+            color_setting(
+                "wxForecastDailyGraphColor", "WxForecastDailyGraphColor", indent=2
+            ),
+            width_setting(
+                "wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth", indent=2
+            ),
         )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastDailyValueMode",
-            "WxForecastDailyValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
-        )
-    )
-    parts.append(
-        setting_list(
-            "wxForecastDailyDays",
-            "WxForecastDailyDays",
-            [
-                (3, "@Strings.TimeFrameForecastDays3"),
-                (5, "@Strings.TimeFrameForecastDays5"),
-                (7, "@Strings.TimeFrameForecastDays7"),
-            ],
-        )
-    )
-    parts.append(
-        color_setting("wxForecastDailyGraphColor", "WxForecastDailyGraphColor")
-    )
-    parts.append(
-        width_setting("wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth")
     )
 
-    # Hourly forecasts (precip/wind/UV/humidity/cloud) share an identical layout
+    # Hourly forecasts (precip/wind/UV/humidity/cloud) share an identical
+    # layout - one group each
     for row in HOURLY_FORECASTS:
-        parts.append(hourly_forecast_settings(*row))
+        key, skey = row[0], row[1]
+        parts.append(
+            group(key, f"{skey}Group", hourly_forecast_settings(*row, indent=2))
+        )
 
     # Debug
-    parts.append("\n  <!-- Debug -->")
-    parts.append(setting_bool("showVersion", "ShowVersion"))
+    parts.append(
+        group(
+            "debug", "DebugGroup", setting_bool("showVersion", "ShowVersion", indent=2)
+        )
+    )
 
     parts.append("\n</settings>")
     return "\n".join(parts) + "\n"

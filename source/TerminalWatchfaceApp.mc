@@ -15,7 +15,7 @@ class TerminalWatchfaceApp extends Application.AppBase {
 
     public function getInitialView() as [Views] or [Views, InputDelegates] {
         _view = new $.TerminalWatchfaceView();
-        return [_view];
+        return [_view, new TerminalWatchfaceDelegate(_view)];
     }
 
     public function onSettingsChanged() as Void {

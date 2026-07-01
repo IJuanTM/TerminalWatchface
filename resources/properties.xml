@@ -12,8 +12,11 @@
   <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>
   <property id="watchCommandStyle" type="number">2</property>
+  <property id="screen2Enabled" type="boolean">true</property>
+  <property id="screen3Enabled" type="boolean">true</property>
   <property id="rotateInterval" type="number">10</property>
   <property id="rotateIntervalAlt" type="number">5</property>
+  <property id="activeScreen" type="number">0</property>
 
   <!-- Time row (always visible) -->
   <property id="line1LabelColor" type="number">8</property>
@@ -23,35 +26,104 @@
   <property id="line2LabelColor" type="number">8</property>
   <property id="line2ValueColor" type="number">0</property>
 
-  <!-- Line 3 -->
-  <property id="line3LabelColor" type="number">6</property>
-  <property id="line3ValueColor" type="number">0</property>
-  <property id="line3Primary" type="number">33</property>
+  <!-- Screen 1 - Line 3 -->
+  <property id="screen1_line3Enabled" type="boolean">true</property>
+  <property id="screen1_line3LabelColor" type="number">6</property>
+  <property id="screen1_line3ValueColor" type="number">0</property>
+  <property id="screen1_line3Primary" type="number">33</property>
 
-  <!-- Line 4 -->
-  <property id="line4LabelColor" type="number">1</property>
-  <property id="line4ValueColor" type="number">0</property>
-  <property id="line4Primary" type="number">0</property>
+  <!-- Screen 1 - Line 4 -->
+  <property id="screen1_line4Enabled" type="boolean">true</property>
+  <property id="screen1_line4LabelColor" type="number">1</property>
+  <property id="screen1_line4ValueColor" type="number">0</property>
+  <property id="screen1_line4Primary" type="number">0</property>
 
-  <!-- Line 5 -->
-  <property id="line5LabelColor" type="number">5</property>
-  <property id="line5ValueColor" type="number">0</property>
-  <property id="line5Primary" type="number">1</property>
-  <property id="line3Secondary" type="number">97</property>
-  <property id="line4Secondary" type="number">32</property>
-  <property id="line5Secondary" type="number">21</property>
-  <property id="line3Tertiary" type="number">60</property>
-  <property id="line4Tertiary" type="number">4</property>
-  <property id="line5Tertiary" type="number">25</property>
-  <property id="line3Quaternary" type="number">62</property>
-  <property id="line4Quaternary" type="number">6</property>
-  <property id="line5Quaternary" type="number">10</property>
-  <property id="line3Quinary" type="number">7</property>
-  <property id="line4Quinary" type="number">7</property>
-  <property id="line5Quinary" type="number">7</property>
-  <property id="line3Senary" type="number">7</property>
-  <property id="line4Senary" type="number">7</property>
-  <property id="line5Senary" type="number">7</property>
+  <!-- Screen 1 - Line 5 -->
+  <property id="screen1_line5Enabled" type="boolean">true</property>
+  <property id="screen1_line5LabelColor" type="number">5</property>
+  <property id="screen1_line5ValueColor" type="number">0</property>
+  <property id="screen1_line5Primary" type="number">1</property>
+  <property id="screen1_line3Secondary" type="number">97</property>
+  <property id="screen1_line4Secondary" type="number">32</property>
+  <property id="screen1_line5Secondary" type="number">21</property>
+  <property id="screen1_line3Tertiary" type="number">60</property>
+  <property id="screen1_line4Tertiary" type="number">4</property>
+  <property id="screen1_line5Tertiary" type="number">25</property>
+  <property id="screen1_line3Quaternary" type="number">62</property>
+  <property id="screen1_line4Quaternary" type="number">6</property>
+  <property id="screen1_line5Quaternary" type="number">10</property>
+  <property id="screen1_line3Quinary" type="number">7</property>
+  <property id="screen1_line4Quinary" type="number">7</property>
+  <property id="screen1_line5Quinary" type="number">7</property>
+  <property id="screen1_line3Senary" type="number">7</property>
+  <property id="screen1_line4Senary" type="number">7</property>
+  <property id="screen1_line5Senary" type="number">7</property>
+
+  <!-- Screen 2 - Line 3 -->
+  <property id="screen2_line3Enabled" type="boolean">true</property>
+  <property id="screen2_line3LabelColor" type="number">8</property>
+  <property id="screen2_line3ValueColor" type="number">0</property>
+  <property id="screen2_line3Primary" type="number">7</property>
+
+  <!-- Screen 2 - Line 4 -->
+  <property id="screen2_line4Enabled" type="boolean">true</property>
+  <property id="screen2_line4LabelColor" type="number">8</property>
+  <property id="screen2_line4ValueColor" type="number">0</property>
+  <property id="screen2_line4Primary" type="number">7</property>
+
+  <!-- Screen 2 - Line 5 -->
+  <property id="screen2_line5Enabled" type="boolean">true</property>
+  <property id="screen2_line5LabelColor" type="number">8</property>
+  <property id="screen2_line5ValueColor" type="number">0</property>
+  <property id="screen2_line5Primary" type="number">7</property>
+  <property id="screen2_line3Secondary" type="number">7</property>
+  <property id="screen2_line4Secondary" type="number">7</property>
+  <property id="screen2_line5Secondary" type="number">7</property>
+  <property id="screen2_line3Tertiary" type="number">7</property>
+  <property id="screen2_line4Tertiary" type="number">7</property>
+  <property id="screen2_line5Tertiary" type="number">7</property>
+  <property id="screen2_line3Quaternary" type="number">7</property>
+  <property id="screen2_line4Quaternary" type="number">7</property>
+  <property id="screen2_line5Quaternary" type="number">7</property>
+  <property id="screen2_line3Quinary" type="number">7</property>
+  <property id="screen2_line4Quinary" type="number">7</property>
+  <property id="screen2_line5Quinary" type="number">7</property>
+  <property id="screen2_line3Senary" type="number">7</property>
+  <property id="screen2_line4Senary" type="number">7</property>
+  <property id="screen2_line5Senary" type="number">7</property>
+
+  <!-- Screen 3 - Line 3 -->
+  <property id="screen3_line3Enabled" type="boolean">true</property>
+  <property id="screen3_line3LabelColor" type="number">8</property>
+  <property id="screen3_line3ValueColor" type="number">0</property>
+  <property id="screen3_line3Primary" type="number">7</property>
+
+  <!-- Screen 3 - Line 4 -->
+  <property id="screen3_line4Enabled" type="boolean">true</property>
+  <property id="screen3_line4LabelColor" type="number">8</property>
+  <property id="screen3_line4ValueColor" type="number">0</property>
+  <property id="screen3_line4Primary" type="number">7</property>
+
+  <!-- Screen 3 - Line 5 -->
+  <property id="screen3_line5Enabled" type="boolean">true</property>
+  <property id="screen3_line5LabelColor" type="number">8</property>
+  <property id="screen3_line5ValueColor" type="number">0</property>
+  <property id="screen3_line5Primary" type="number">7</property>
+  <property id="screen3_line3Secondary" type="number">7</property>
+  <property id="screen3_line4Secondary" type="number">7</property>
+  <property id="screen3_line5Secondary" type="number">7</property>
+  <property id="screen3_line3Tertiary" type="number">7</property>
+  <property id="screen3_line4Tertiary" type="number">7</property>
+  <property id="screen3_line5Tertiary" type="number">7</property>
+  <property id="screen3_line3Quaternary" type="number">7</property>
+  <property id="screen3_line4Quaternary" type="number">7</property>
+  <property id="screen3_line5Quaternary" type="number">7</property>
+  <property id="screen3_line3Quinary" type="number">7</property>
+  <property id="screen3_line4Quinary" type="number">7</property>
+  <property id="screen3_line5Quinary" type="number">7</property>
+  <property id="screen3_line3Senary" type="number">7</property>
+  <property id="screen3_line4Senary" type="number">7</property>
+  <property id="screen3_line5Senary" type="number">7</property>
 
   <!-- Steps -->
   <property id="stepsShowBar" type="boolean">true</property>

@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.42.1";
+const APP_VERSION = "0.43.1";
 
 // --- None ---
 const FIELD_NONE = 7;
@@ -192,6 +192,10 @@ const ROTATE_SLOT_NAMES =
     ["Secondary", "Tertiary", "Quaternary", "Quinary", "Senary"] as
     Array<String>;
 
+// Property key prefix per screen index (0-2), selected by the activeScreen
+// property and cycled on-device via a long-press (TerminalWatchfaceDelegate).
+const SCREEN_PREFIXES = ["screen1_", "screen2_", "screen3_"] as Array<String>;
+
 // Indices into this array are used as the SecondaryField property value
 const GRAPH_SEC_FIELDS =
     [
@@ -217,21 +221,6 @@ const COLORS =
         0xff55ff, // 7  magenta
         0xbbbbbb, // 8  light grey
         0xaa77ff, // 9  purple
-    ] as Array<Number>;
-
-// 50% brightness versions of COLORS - for subordinate labels, not configurable
-const COLOR_DIM =
-    [
-        0x7f7f7f, // 0  white
-        0x2a7f3b, // 1  green
-        0x2a7f7f, // 2  cyan
-        0x7f772a, // 3  yellow
-        0x7f4c22, // 4  orange
-        0x7f2a2a, // 5  red
-        0x334c7f, // 6  blue
-        0x7f2a7f, // 7  magenta
-        0x5d5d5d, // 8  light grey
-        0x553b7f, // 9  purple
     ] as Array<Number>;
 
 const TEMP_GRADS =
@@ -360,6 +349,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _metric as Boolean = false;
     private var _notifCount as Number = 0;
     private var _notifLabel as String = "";
+    private var _phoneConnected as Boolean = true;
     private var _notifLastMs as Number = -5000;
     private var _compSleepScore as Number? = null;
     private var _compSunrise as Number? = null;
@@ -385,6 +375,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
     private var _rotateMaxPhase as Number = 5;
+    private var _activeScreen as Number = 0;
+    private var _showScreenBadge as Boolean = true;
+    private var _screenMasterEnabled as Boolean = true;
     private var _metricsValid as Boolean = false;
     private var _graphW as Number = 0;
     private var _graphX as Number = 0;
@@ -476,6 +469,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _acInfo = Activity.getActivityInfo();
         _posInfo = Position.getInfo();
         reloadFont();
+        _readActiveScreen();
         _computeRotateMaxPhase();
     }
 
@@ -608,7 +602,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lastDateDay = -1;
         _cachedTimeMin = -1;
         _forecastFetched = false;
+        _readActiveScreen();
         _computeRotateMaxPhase();
+    }
+
+    private function _readActiveScreen() as Void {
+        var p = _getProp("activeScreen", 0);
+        _activeScreen = p < 0 || p > 2 ? 0 : p;
+        _screenMasterEnabled =
+            _activeScreen == 0
+                ? true
+                : _getBoolProp(
+                      "screen" + (_activeScreen + 1).toString() + "Enabled"
+                  );
+
+        // If screens 2 and 3 are both master-disabled, showing "[SCREEN 1]" on
+        // the default screen is just clutter since there's nothing to switch to.
+        var screen2Off = !_getBoolProp("screen2Enabled");
+        var screen3Off = !_getBoolProp("screen3Enabled");
+        _showScreenBadge = !(_activeScreen == 0 && screen2Off && screen3Off);
     }
 
     private function _computeRotateMaxPhase() as Void {
@@ -620,12 +632,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var ra = _getProp("rotateIntervalAlt", 3);
         _rotateAltMs = ra > 0 ? ra * 1000 : _rotateMainMs;
         _rotateMaxPhase = 0;
+        if (!_screenMasterEnabled) {
+            return;
+        }
+        var pk = SCREEN_PREFIXES[_activeScreen];
+        var e3 = _getBoolProp(pk + "line3Enabled");
+        var e4 = _getBoolProp(pk + "line4Enabled");
+        var e5 = _getBoolProp(pk + "line5Enabled");
         for (var p = 4; p >= 0; p--) {
             var sn = ROTATE_SLOT_NAMES[p];
             if (
-                _getProp("line3" + sn, FIELD_NONE) != FIELD_NONE ||
-                _getProp("line4" + sn, FIELD_NONE) != FIELD_NONE ||
-                _getProp("line5" + sn, FIELD_NONE) != FIELD_NONE
+                (e3 && _getProp(pk + "line3" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e4 && _getProp(pk + "line4" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e5 && _getProp(pk + "line5" + sn, FIELD_NONE) != FIELD_NONE)
             ) {
                 _rotateMaxPhase = p + 1;
                 break;
@@ -707,12 +726,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var now = System.getTimer();
         if (now - _notifLastMs >= 5000) {
             _notifLastMs = now;
-            var nc = System.getDeviceSettings().notificationCount;
+            var ds = System.getDeviceSettings();
+            var nc = ds.notificationCount;
             var newCount = nc != null ? nc as Number : 0;
             if (newCount != _notifCount) {
                 _notifCount = newCount;
                 _notifLabel = "[" + newCount.toString() + "]";
             }
+            _phoneConnected = ds.phoneConnected;
         }
         var nowMoment = Time.now();
         var phase = _getPhase(nowMoment.value());
@@ -929,12 +950,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _graphX = cx + _splitPad + _charW * 2;
         _graphH = _fh - 2;
 
-        var v0 = _resolvedFields[0] != FIELD_NONE;
-        var v1 = _resolvedFields[1] != FIELD_NONE;
-        var v2 = _resolvedFields[2] != FIELD_NONE;
-        var visible = 6 + (v0 ? 1 : 0) + (v1 ? 1 : 0) + (v2 ? 1 : 0);
-
-        var y = (_screenH - step * (visible - 3) - _fh) / 2;
+        // Lines 3/4/5 always occupy their row slot (blank when the resolved
+        // field is FIELD_NONE) so the layout never shifts based on content.
+        var y = (_screenH - step * 6 - _fh) / 2;
         var row = 0;
 
         _drawHeader(dc, y);
@@ -953,8 +971,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _getDateParts()[1],
                 _line2ValueC
             );
-            var rowsLP = 3 + (v0 ? 1 : 0) + (v1 ? 1 : 0) + (v2 ? 1 : 0);
-            _drawFooter(dc, y + step * rowsLP + _fh + 32);
+            _drawFooter(dc, y + step * 6 + _fh + 32);
+            _drawScreenBadge(dc, y + step * 6 + _fh + 32 + _smallFh + 2);
             return;
         }
 
@@ -979,42 +997,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _line2ValueC
         );
         row++;
-        if (v0) {
-            _drawLineRow(
-                dc,
-                cx,
-                y + step * row,
-                _resolvedFields[0],
-                _resolvedLabelC[0],
-                _resolvedValueC[0],
-                0
-            );
-            row++;
-        }
-        if (v1) {
-            _drawLineRow(
-                dc,
-                cx,
-                y + step * row,
-                _resolvedFields[1],
-                _resolvedLabelC[1],
-                _resolvedValueC[1],
-                1
-            );
-            row++;
-        }
-        if (v2) {
-            _drawLineRow(
-                dc,
-                cx,
-                y + step * row,
-                _resolvedFields[2],
-                _resolvedLabelC[2],
-                _resolvedValueC[2],
-                2
-            );
-            row++;
-        }
+        _drawLineRow(
+            dc,
+            cx,
+            y + step * row,
+            _resolvedFields[0],
+            _resolvedLabelC[0],
+            _resolvedValueC[0],
+            0
+        );
+        row++;
+        _drawLineRow(
+            dc,
+            cx,
+            y + step * row,
+            _resolvedFields[1],
+            _resolvedLabelC[1],
+            _resolvedValueC[1],
+            1
+        );
+        row++;
+        _drawLineRow(
+            dc,
+            cx,
+            y + step * row,
+            _resolvedFields[2],
+            _resolvedLabelC[2],
+            _resolvedValueC[2],
+            2
+        );
+        row++;
 
         var splitX = cx + _splitPad;
         var footerY = y + step * row;
@@ -1037,6 +1049,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             dc.fillRectangle(splitX, footerY, _charW, _fh);
         }
         _drawFooter(dc, footerY + _fh + 32);
+        _drawScreenBadge(dc, footerY + _fh + 32 + _smallFh + 2);
     }
 
     private function _drawArrow(
@@ -1121,7 +1134,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         var color =
-            mode == 0 ? COLOR_DIM[1] : mode == 1 ? COLOR_DIM[5] : COLOR_DIM[6];
+            mode == 0
+                ? _colorFromIdx(1)
+                : mode == 1
+                  ? _colorFromIdx(5)
+                  : _colorFromIdx(6);
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             rightX + _charW / 2,
@@ -1163,18 +1180,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _drawHeader(dc as Dc, y as Number) as Void {
-        if (_notifCount == 0) {
-            return;
-        }
         var textY = y - 32 - _smallFh;
-        dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            _screenW / 2,
-            textY,
-            _fontSmall,
-            _notifLabel,
-            Graphics.TEXT_JUSTIFY_CENTER
-        );
+        if (!_phoneConnected) {
+            dc.setColor(_colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                _screenW / 2,
+                textY - _tinyFh - 2,
+                _fontTiny,
+                "[OFFLINE]",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+        }
+        if (_notifCount != 0) {
+            dc.setColor(_colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                _screenW / 2,
+                textY,
+                _fontSmall,
+                _notifLabel,
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+        }
     }
 
     private function _drawFooter(dc as Dc, y as Number) as Void {
@@ -1227,6 +1253,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    private function _drawScreenBadge(dc as Dc, y as Number) as Void {
+        if (!_showScreenBadge) {
+            return;
+        }
+        var prefix = "[SCREEN ";
+        var numStr = (_activeScreen + 1).toString();
+        var suffix = "]";
+        var prefixW = dc.getTextWidthInPixels(prefix, _fontTiny);
+        var numW = dc.getTextWidthInPixels(numStr, _fontTiny);
+        var suffixW = dc.getTextWidthInPixels(suffix, _fontTiny);
+        var x = _screenW / 2 - (prefixW + numW + suffixW) / 2;
+
+        dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, _fontTiny, prefix, Graphics.TEXT_JUSTIFY_LEFT);
+        x += prefixW;
+
+        // R/G/B per screen so the active screen is distinguishable at a glance.
+        var numColor = _colorFromIdx(
+            _activeScreen == 0 ? 5 : _activeScreen == 1 ? 1 : 6
+        );
+        dc.setColor(numColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, _fontTiny, numStr, Graphics.TEXT_JUSTIFY_LEFT);
+        x += numW;
+
+        dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, _fontTiny, suffix, Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
     private function _drawScanlines(dc as Dc, color as Number) as Void {
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         var y = 0;
@@ -1271,18 +1325,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         key as String,
         phase as Number
     ) as Void {
+        // Fields and colors are all read from the active screen's properties.
         // Label and value colors are per line (shared across rotation slots);
         // only the field changes as the line rotates.
+        var pk = SCREEN_PREFIXES[_activeScreen] + key;
         var f = FIELD_NONE;
-        if (phase >= 1 && phase <= 5) {
-            f = _getProp(key + ROTATE_SLOT_NAMES[phase - 1], FIELD_NONE);
-        }
-        if (f == FIELD_NONE) {
-            f = _getProp(key + "Primary", FIELD_NONE);
+        if (_screenMasterEnabled && _getBoolProp(pk + "Enabled")) {
+            if (phase >= 1 && phase <= 5) {
+                f = _getProp(pk + ROTATE_SLOT_NAMES[phase - 1], FIELD_NONE);
+            }
+            if (f == FIELD_NONE) {
+                f = _getProp(pk + "Primary", FIELD_NONE);
+            }
         }
         _resolvedFields[li] = f;
-        _resolvedLabelC[li] = _getProp(key + "LabelColor", 8);
-        _resolvedValueC[li] = _getProp(key + "ValueColor", 0);
+        _resolvedLabelC[li] = _getProp(pk + "LabelColor", 8);
+        _resolvedValueC[li] = _getProp(pk + "ValueColor", 0);
     }
 
     // Decodes an hourly forecast's merged graph mode (1=line, 2=bar,
@@ -1428,6 +1486,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valueColor as Number,
         li as Number
     ) as Void {
+        if (field == FIELD_NONE) {
+            return;
+        }
         _graphW = _charW * _lineGraphWidth[li];
         if (field == FIELD_FLOORS) {
             var vm = _lineViewMode[li];
@@ -2536,19 +2597,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _GPSQualityColor(acc as Number) as Number {
         if (acc == Position.QUALITY_GOOD) {
-            return COLORS[1];
+            return _colorFromIdx(1);
         }
         if (acc == Position.QUALITY_USABLE) {
-            return COLORS[3];
+            return _colorFromIdx(3);
         }
         if (acc == Position.QUALITY_POOR) {
-            return COLORS[4];
+            return _colorFromIdx(4);
         }
         if (acc == Position.QUALITY_LAST_KNOWN) {
-            return COLORS[8];
+            return _colorFromIdx(8);
         }
         if (acc == Position.QUALITY_NOT_AVAILABLE) {
-            return COLORS[5];
+            return _colorFromIdx(5);
         }
         return 0xffffff;
     }
