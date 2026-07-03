@@ -55,20 +55,15 @@
   <string id="Line2ValueColor">Date: Value Color</string>
 
   <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->
-  <string id="Screen1Line3MainGroup">Screen 1 - Line 3</string>
-  <string id="Screen1Line3RotationGroup">Screen 1 - Line 3 (Field Rotations)</string>
+  <string id="Screen1ConfigGroup">Screen 1 Configuration</string>
   <string id="Screen1Line3Enabled">Screen 1 - Line 3: Enabled</string>
   <string id="Screen1Line3LabelColor">Screen 1 - Line 3: Label Color</string>
   <string id="Screen1Line3ValueColor">Screen 1 - Line 3: Value Color</string>
   <string id="Screen1Line3Primary">Screen 1 - Line 3: Field (R1)</string>
-  <string id="Screen1Line4MainGroup">Screen 1 - Line 4</string>
-  <string id="Screen1Line4RotationGroup">Screen 1 - Line 4 (Field Rotations)</string>
   <string id="Screen1Line4Enabled">Screen 1 - Line 4: Enabled</string>
   <string id="Screen1Line4LabelColor">Screen 1 - Line 4: Label Color</string>
   <string id="Screen1Line4ValueColor">Screen 1 - Line 4: Value Color</string>
   <string id="Screen1Line4Primary">Screen 1 - Line 4: Field (R1)</string>
-  <string id="Screen1Line5MainGroup">Screen 1 - Line 5</string>
-  <string id="Screen1Line5RotationGroup">Screen 1 - Line 5 (Field Rotations)</string>
   <string id="Screen1Line5Enabled">Screen 1 - Line 5: Enabled</string>
   <string id="Screen1Line5LabelColor">Screen 1 - Line 5: Label Color</string>
   <string id="Screen1Line5ValueColor">Screen 1 - Line 5: Value Color</string>
@@ -88,20 +83,15 @@
   <string id="Screen1Line3Senary">Screen 1 - Line 3: Field (R6)</string>
   <string id="Screen1Line4Senary">Screen 1 - Line 4: Field (R6)</string>
   <string id="Screen1Line5Senary">Screen 1 - Line 5: Field (R6)</string>
-  <string id="Screen2Line3MainGroup">Screen 2 - Line 3</string>
-  <string id="Screen2Line3RotationGroup">Screen 2 - Line 3 (Field Rotations)</string>
+  <string id="Screen2ConfigGroup">Screen 2 Configuration</string>
   <string id="Screen2Line3Enabled">Screen 2 - Line 3: Enabled</string>
   <string id="Screen2Line3LabelColor">Screen 2 - Line 3: Label Color</string>
   <string id="Screen2Line3ValueColor">Screen 2 - Line 3: Value Color</string>
   <string id="Screen2Line3Primary">Screen 2 - Line 3: Field (R1)</string>
-  <string id="Screen2Line4MainGroup">Screen 2 - Line 4</string>
-  <string id="Screen2Line4RotationGroup">Screen 2 - Line 4 (Field Rotations)</string>
   <string id="Screen2Line4Enabled">Screen 2 - Line 4: Enabled</string>
   <string id="Screen2Line4LabelColor">Screen 2 - Line 4: Label Color</string>
   <string id="Screen2Line4ValueColor">Screen 2 - Line 4: Value Color</string>
   <string id="Screen2Line4Primary">Screen 2 - Line 4: Field (R1)</string>
-  <string id="Screen2Line5MainGroup">Screen 2 - Line 5</string>
-  <string id="Screen2Line5RotationGroup">Screen 2 - Line 5 (Field Rotations)</string>
   <string id="Screen2Line5Enabled">Screen 2 - Line 5: Enabled</string>
   <string id="Screen2Line5LabelColor">Screen 2 - Line 5: Label Color</string>
   <string id="Screen2Line5ValueColor">Screen 2 - Line 5: Value Color</string>
@@ -121,20 +111,15 @@
   <string id="Screen2Line3Senary">Screen 2 - Line 3: Field (R6)</string>
   <string id="Screen2Line4Senary">Screen 2 - Line 4: Field (R6)</string>
   <string id="Screen2Line5Senary">Screen 2 - Line 5: Field (R6)</string>
-  <string id="Screen3Line3MainGroup">Screen 3 - Line 3</string>
-  <string id="Screen3Line3RotationGroup">Screen 3 - Line 3 (Field Rotations)</string>
+  <string id="Screen3ConfigGroup">Screen 3 Configuration</string>
   <string id="Screen3Line3Enabled">Screen 3 - Line 3: Enabled</string>
   <string id="Screen3Line3LabelColor">Screen 3 - Line 3: Label Color</string>
   <string id="Screen3Line3ValueColor">Screen 3 - Line 3: Value Color</string>
   <string id="Screen3Line3Primary">Screen 3 - Line 3: Field (R1)</string>
-  <string id="Screen3Line4MainGroup">Screen 3 - Line 4</string>
-  <string id="Screen3Line4RotationGroup">Screen 3 - Line 4 (Field Rotations)</string>
   <string id="Screen3Line4Enabled">Screen 3 - Line 4: Enabled</string>
   <string id="Screen3Line4LabelColor">Screen 3 - Line 4: Label Color</string>
   <string id="Screen3Line4ValueColor">Screen 3 - Line 4: Value Color</string>
   <string id="Screen3Line4Primary">Screen 3 - Line 4: Field (R1)</string>
-  <string id="Screen3Line5MainGroup">Screen 3 - Line 5</string>
-  <string id="Screen3Line5RotationGroup">Screen 3 - Line 5 (Field Rotations)</string>
   <string id="Screen3Line5Enabled">Screen 3 - Line 5: Enabled</string>
   <string id="Screen3Line5LabelColor">Screen 3 - Line 5: Label Color</string>
   <string id="Screen3Line5ValueColor">Screen 3 - Line 5: Value Color</string>
@@ -183,8 +168,6 @@
   <string id="FieldFloors">Floors (Up / Down)</string>
   <string id="FieldMoveBar">Move Bar</string>
   <string id="FieldHR">Heart Rate</string>
-  <string id="FieldHRMean">Heart Rate (Average)</string>
-  <string id="FieldHRMax">Heart Rate (Max)</string>
   <string id="FieldSpO2">Blood Oxygen (SpO2)</string>
   <string id="FieldResp">Respiration Rate</string>
   <string id="FieldBodyBat">Body Battery</string>
@@ -194,7 +177,6 @@
   <string id="FieldVo2Max">VO2 Max</string>
   <string id="FieldLactateHR">Lactate Threshold HR</string>
   <string id="FieldTrainingStatus">Training Status</string>
-  <string id="FieldTrainingEffect">Training Effect</string>
   <string id="FieldWristTemp">Wrist Temperature</string>
   <string id="FieldHrResting">Resting HR</string>
   <string id="FieldHrRestingAvg">Resting HR (7-day Avg)</string>
@@ -207,20 +189,13 @@
   <string id="FieldVo2Training">VO2 Max + Training</string>
   <string id="FieldBodyBatRestHR">Body Battery + Resting HR</string>
   <string id="FieldSleepRecovery">Sleep Score + Recovery</string>
-  <string id="FieldHrMeanMax">HR: Avg + Max (Activity)</string>
-  <string id="FieldCalTotalAct">Calories: Daily + Activity</string>
   <string id="FieldCalories">Calories (Daily)</string>
-  <string id="FieldCalAct">Calories (Activity)</string>
   <string id="FieldDistance">Distance (Daily)</string>
-  <string id="FieldSpeed">Speed</string>
   <string id="FieldActiveMinDay">Active Minutes (Daily)</string>
   <string id="FieldIntensityMin">Intensity Minutes (Weekly)</string>
   <string id="FieldAltitude">Altitude</string>
   <string id="FieldElevation">Elevation (Baro)</string>
   <string id="FieldPressure">Pressure</string>
-  <string id="FieldPace">Pace</string>
-  <string id="FieldPaceAvg">Pace (Average)</string>
-  <string id="FieldPaceAndAvg">Pace + Average</string>
   <string id="FieldRace5k">Race Predictor: 5K</string>
   <string id="FieldRace10k">Race Predictor: 10K</string>
   <string id="FieldRaceHalf">Race Predictor: Half Marathon</string>
@@ -229,9 +204,6 @@
   <string id="FieldRacePace10k">Race Pace: 10K</string>
   <string id="FieldRacePaceHalf">Race Pace: Half Marathon</string>
   <string id="FieldRacePaceMarathon">Race Pace: Marathon</string>
-  <string id="FieldTotalAscent">Ascent (Activity)</string>
-  <string id="FieldTotalDescent">Descent (Activity)</string>
-  <string id="FieldAscentDescent">Ascent + Descent (Activity)</string>
   <string id="FieldClimbDay">Climb (Daily)</string>
   <string id="FieldDescentDay">Descent (Daily)</string>
   <string id="FieldClimbDescendDay">Climb + Descent (Daily)</string>
@@ -322,21 +294,21 @@
   <string id="GraphWidth16">16 chars</string>
 
   <!-- Steps -->
-  <string id="StepsGroup">Steps</string>
+  <string id="StepsGroup">Bar Config - Steps</string>
   <string id="StepsShowBar">Steps: Show Progress Bar</string>
   <string id="StepsShowBarValue">Steps: Show Value in Bar</string>
   <string id="StepsBarColor">Steps: Bar Color</string>
   <string id="StepsBarWidth">Steps: Bar Width</string>
 
   <!-- Floors -->
-  <string id="FloorsGroup">Floors</string>
+  <string id="FloorsGroup">Bar Config - Floors</string>
   <string id="FloorsShowBar">Floors: Show Progress Bar</string>
   <string id="FloorsShowBarValue">Floors: Show Value in Bar</string>
   <string id="FloorsBarColor">Floors: Bar Color</string>
   <string id="FloorsBarWidth">Floors: Bar Width</string>
 
   <!-- Intensity Minutes (Weekly) -->
-  <string id="IntensityMinGroup">Intensity Minutes (Weekly)</string>
+  <string id="IntensityMinGroup">Bar Config - Intensity Minutes (Weekly)</string>
   <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
   <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
   <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
@@ -358,7 +330,7 @@
   <string id="TimeFrame24h">24 hours</string>
 
   <!-- Graph settings: Heart Rate -->
-  <string id="HRGraphGroup">Heart Rate</string>
+  <string id="HRGraphGroup">Graph Config - Heart Rate</string>
   <string id="HRGraphMode">Heart Rate: Graph Mode</string>
   <string id="HRGraphValueMode">Heart Rate: Graph Value Mode</string>
   <string id="HRSecondaryType">Heart Rate: 2nd Graph Type</string>
@@ -369,7 +341,7 @@
   <string id="HRGraphWidth">Heart Rate: Graph Width</string>
 
   <!-- Graph settings: Body Battery -->
-  <string id="BodyBatGraphGroup">Body Battery</string>
+  <string id="BodyBatGraphGroup">Graph Config - Body Battery</string>
   <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
   <string id="BodyBatGraphValueMode">Body Battery: Graph Value Mode</string>
   <string id="BodyBatSecondaryType">Body Battery: 2nd Graph Type</string>
@@ -380,7 +352,7 @@
   <string id="BodyBatGraphWidth">Body Battery: Graph Width</string>
 
   <!-- Graph settings: Stress -->
-  <string id="StressGraphGroup">Stress</string>
+  <string id="StressGraphGroup">Graph Config - Stress</string>
   <string id="StressGraphMode">Stress: Graph Mode</string>
   <string id="StressGraphValueMode">Stress: Graph Value Mode</string>
   <string id="StressSecondaryType">Stress: 2nd Graph Type</string>
@@ -391,7 +363,7 @@
   <string id="StressGraphWidth">Stress: Graph Width</string>
 
   <!-- Graph settings: Blood O2 -->
-  <string id="SpO2GraphGroup">Blood O2</string>
+  <string id="SpO2GraphGroup">Graph Config - Blood O2</string>
   <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
   <string id="SpO2GraphValueMode">Blood O2: Graph Value Mode</string>
   <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
@@ -402,7 +374,7 @@
   <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
 
   <!-- Graph settings: Wrist Temp -->
-  <string id="TempWristGraphGroup">Wrist Temp</string>
+  <string id="TempWristGraphGroup">Graph Config - Wrist Temp</string>
   <string id="TempWristGraphMode">Wrist Temp: Graph Mode</string>
   <string id="TempWristGraphValueMode">Wrist Temp: Graph Value Mode</string>
   <string id="TempWristSecondaryType">Wrist Temp: 2nd Graph Type</string>
@@ -413,7 +385,7 @@
   <string id="TempWristGraphWidth">Wrist Temp: Graph Width</string>
 
   <!-- Graph settings: Elevation -->
-  <string id="ElevationGraphGroup">Elevation</string>
+  <string id="ElevationGraphGroup">Graph Config - Elevation</string>
   <string id="ElevationGraphMode">Elevation: Graph Mode</string>
   <string id="ElevationGraphValueMode">Elevation: Graph Value Mode</string>
   <string id="ElevationSecondaryType">Elevation: 2nd Graph Type</string>
@@ -424,7 +396,7 @@
   <string id="ElevationGraphWidth">Elevation: Graph Width</string>
 
   <!-- Graph settings: Pressure -->
-  <string id="PressureGraphGroup">Pressure</string>
+  <string id="PressureGraphGroup">Graph Config - Pressure</string>
   <string id="PressureGraphMode">Pressure: Graph Mode</string>
   <string id="PressureGraphValueMode">Pressure: Graph Value Mode</string>
   <string id="PressureSecondaryType">Pressure: 2nd Graph Type</string>
@@ -435,7 +407,7 @@
   <string id="PressureGraphWidth">Pressure: Graph Width</string>
 
   <!-- Graph settings: Temp Hourly Forecast -->
-  <string id="WxForecastGroup">Temp Hourly Forecast</string>
+  <string id="WxForecastGroup">Graph Config - Temp Hourly Forecast</string>
   <string id="WxForecastGraphMode">Temp Hourly: Graph Mode</string>
   <string id="WxForecastValueMode">Temp Hourly: Value Mode</string>
   <string id="WxForecastTimeFrame">Temp Hourly: Time Frame</string>
@@ -447,7 +419,7 @@
   <string id="TimeFrameForecast24h">24 hours ahead</string>
 
   <!-- Graph settings: Temp Daily Forecast -->
-  <string id="WxForecastDailyGroup">Temp Daily Forecast</string>
+  <string id="WxForecastDailyGroup">Graph Config - Temp Daily Forecast</string>
   <string id="WxForecastDailyViewMode">Temp Daily: View Mode</string>
   <string id="WxForecastDailyValueMode">Temp Daily: Value Mode</string>
   <string id="WxForecastDailyDays">Temp Daily: Days</string>
@@ -458,7 +430,7 @@
   <string id="TimeFrameForecastDays7">7 days</string>
 
   <!-- Graph settings: Rain Hourly Forecast -->
-  <string id="WxForecastPrecipGroup">Rain Forecast</string>
+  <string id="WxForecastPrecipGroup">Graph Config - Rain Forecast</string>
   <string id="WxForecastPrecipGraphMode">Rain Hourly: Graph Mode</string>
   <string id="WxForecastPrecipValueMode">Rain Hourly: Value Mode</string>
   <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
@@ -466,7 +438,7 @@
   <string id="WxForecastPrecipGraphWidth">Rain Hourly: Graph Width</string>
 
   <!-- Graph settings: Wind Hourly Forecast -->
-  <string id="WxForecastWindGroup">Wind Forecast</string>
+  <string id="WxForecastWindGroup">Graph Config - Wind Forecast</string>
   <string id="WxForecastWindGraphMode">Wind Hourly: Graph Mode</string>
   <string id="WxForecastWindValueMode">Wind Hourly: Value Mode</string>
   <string id="WxForecastWindTimeFrame">Wind Hourly: Hours Ahead</string>
@@ -474,7 +446,7 @@
   <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
 
   <!-- Graph settings: UV Hourly Forecast -->
-  <string id="WxForecastUvGroup">UV Forecast</string>
+  <string id="WxForecastUvGroup">Graph Config - UV Forecast</string>
   <string id="WxForecastUvGraphMode">UV Hourly: Graph Mode</string>
   <string id="WxForecastUvValueMode">UV Hourly: Value Mode</string>
   <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
@@ -482,7 +454,7 @@
   <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
 
   <!-- Graph settings: Humidity Hourly Forecast -->
-  <string id="WxForecastHumidityGroup">Humidity Forecast</string>
+  <string id="WxForecastHumidityGroup">Graph Config - Humidity Forecast</string>
   <string id="WxForecastHumidityGraphMode">Humidity Hourly: Graph Mode</string>
   <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
   <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
@@ -490,7 +462,7 @@
   <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
 
   <!-- Graph settings: Cloud Hourly Forecast -->
-  <string id="WxForecastCloudGroup">Cloud Forecast</string>
+  <string id="WxForecastCloudGroup">Graph Config - Cloud Forecast</string>
   <string id="WxForecastCloudGraphMode">Cloud Hourly: Graph Mode</string>
   <string id="WxForecastCloudValueMode">Cloud Hourly: Value Mode</string>
   <string id="WxForecastCloudTimeFrame">Cloud Hourly: Hours Ahead</string>

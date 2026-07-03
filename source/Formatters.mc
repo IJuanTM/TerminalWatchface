@@ -4,11 +4,7 @@ import Toybox.Weather;
 // Pure string formatting helpers shared by row and graph drawing code.
 module Formatters {
     function fieldShortName(field as Number) as String {
-        if (
-            field == FIELD_HR ||
-            field == FIELD_HR_MEAN ||
-            field == FIELD_HR_MAX
-        ) {
+        if (field == FIELD_HR) {
             return "HR";
         }
         if (field == FIELD_BODY_BAT) {

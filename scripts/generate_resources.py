@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generates resources/properties.xml, resources/strings/strings.xml,
-and resources/settings.xml from a single source of truth.
+resources/settings.xml, and source/FieldIds.mc from a single source of truth.
 
 Run from the project root:
     python scripts/generate_resources.py
@@ -13,6 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_PROPERTIES = os.path.join(ROOT, "resources", "properties.xml")
 OUT_STRINGS = os.path.join(ROOT, "resources", "strings", "strings.xml")
 OUT_SETTINGS = os.path.join(ROOT, "resources", "settings.xml")
+OUT_FIELD_IDS = os.path.join(ROOT, "source", "FieldIds.mc")
 
 # ---------------------------------------------------------------------------
 # Shared data definitions
@@ -44,147 +45,207 @@ COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
 
 COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
 
-# All fields available on the configurable lines (3/4/5).
-# (value, StringId, display text) — single source for both listEntries and strings.
-FIELDS_ALL = [
-    (7, "FieldNone", "None (hidden)"),
-    # Fitness / Health
-    (0, "FieldSteps", "Steps"),
-    (6, "FieldFloors", "Floors (Up / Down)"),
-    (27, "FieldMoveBar", "Move Bar"),
-    (1, "FieldHR", "Heart Rate"),
-    (24, "FieldHRMean", "Heart Rate (Average)"),
-    (30, "FieldHRMax", "Heart Rate (Max)"),
-    (9, "FieldSpO2", "Blood Oxygen (SpO2)"),
-    (23, "FieldResp", "Respiration Rate"),
-    (22, "FieldBodyBat", "Body Battery"),
-    (21, "FieldStress", "Stress Score"),
-    (26, "FieldRecovery", "Recovery Time"),
-    (36, "FieldSleep", "Sleep Score"),
-    (34, "FieldVo2Max", "VO2 Max"),
-    (63, "FieldLactateHR", "Lactate Threshold HR"),
-    (48, "FieldTrainingStatus", "Training Status"),
-    (74, "FieldTrainingEffect", "Training Effect"),
-    (28, "FieldWristTemp", "Wrist Temperature"),
-    (103, "FieldHrResting", "Resting HR"),
-    (104, "FieldHrRestingAvg", "Resting HR (7-day Avg)"),
-    (110, "FieldHrRestingBoth", "Resting HR + 7-day Avg"),
-    # Fitness combos
-    (88, "FieldHrSpo2", "HR + SpO2"),
-    (94, "FieldRespSpo2", "Respiration + SpO2"),
-    (89, "FieldBodyBatStress", "Body Battery + Stress"),
-    (90, "FieldBodyBatRecovery", "Body Battery + Recovery"),
-    (101, "FieldStressRecovery", "Stress + Recovery"),
-    (100, "FieldVo2Training", "VO2 Max + Training"),
-    (113, "FieldBodyBatRestHR", "Body Battery + Resting HR"),
-    (114, "FieldSleepRecovery", "Sleep Score + Recovery"),
-    (115, "FieldHrMeanMax", "HR: Avg + Max (Activity)"),
-    (116, "FieldCalTotalAct", "Calories: Daily + Activity"),
-    # Calories / Distance / Speed
-    (2, "FieldCalories", "Calories (Daily)"),
-    (25, "FieldCalAct", "Calories (Activity)"),
-    (4, "FieldDistance", "Distance (Daily)"),
-    (35, "FieldSpeed", "Speed"),
-    (29, "FieldActiveMinDay", "Active Minutes (Daily)"),
-    (10, "FieldIntensityMin", "Intensity Minutes (Weekly)"),
-    # Altitude / Pressure
-    (5, "FieldAltitude", "Altitude"),
-    (32, "FieldElevation", "Elevation (Baro)"),
-    (31, "FieldPressure", "Pressure"),
-    # Pace / Race
-    (65, "FieldPace", "Pace"),
-    (66, "FieldPaceAvg", "Pace (Average)"),
-    (87, "FieldPaceAndAvg", "Pace + Average"),
-    (49, "FieldRace5k", "Race Predictor: 5K"),
-    (50, "FieldRace10k", "Race Predictor: 10K"),
-    (51, "FieldRaceHalf", "Race Predictor: Half Marathon"),
-    (52, "FieldRaceMarathon", "Race Predictor: Marathon"),
-    (78, "FieldRacePace5k", "Race Pace: 5K"),
-    (79, "FieldRacePace10k", "Race Pace: 10K"),
-    (80, "FieldRacePaceHalf", "Race Pace: Half Marathon"),
-    (81, "FieldRacePaceMarathon", "Race Pace: Marathon"),
-    # Ascent / Descent
-    (75, "FieldTotalAscent", "Ascent (Activity)"),
-    (76, "FieldTotalDescent", "Descent (Activity)"),
-    (91, "FieldAscentDescent", "Ascent + Descent (Activity)"),
-    (82, "FieldClimbDay", "Climb (Daily)"),
-    (83, "FieldDescentDay", "Descent (Daily)"),
-    (92, "FieldClimbDescendDay", "Climb + Descent (Daily)"),
-    # Weekly
-    (41, "FieldWeeklyRun", "Distance (Weekly Run)"),
-    (42, "FieldWeeklyBike", "Distance (Weekly Bike)"),
-    (93, "FieldWeeklyDistances", "Distance (Weekly Run + Bike)"),
-    # GPS / Navigation
-    (43, "FieldGpsLat", "GPS: Latitude"),
-    (44, "FieldGpsLon", "GPS: Longitude"),
-    (45, "FieldGpsAccuracy", "GPS: Accuracy"),
-    (55, "FieldGpsLatLon", "GPS: Lat + Lon"),
-    (56, "FieldGpsLatLonAcc", "GPS: Lat + Lon + Accuracy"),
-    (46, "FieldHeading", "Heading"),
-    # Time / Calendar
-    (37, "FieldSunrise", "Sunrise"),
-    (38, "FieldSunset", "Sunset"),
-    (39, "FieldSunriseSunset", "Sunrise + Sunset"),
-    (40, "FieldCalendar", "Calendar Event"),
-    (53, "FieldSleepTime", "Bedtime"),
-    (54, "FieldWakeTime", "Wake Time"),
-    (99, "FieldSleepSchedule", "Sleep Schedule (Bed + Wake)"),
-    # Weather - current
-    (11, "FieldWxTemp", "Weather: Temperature"),
-    (12, "FieldWxFeels", "Weather: Feels Like"),
-    (16, "FieldWxCond", "Weather: Condition"),
-    (13, "FieldWxPrecip", "Weather: Rain Chance"),
-    (14, "FieldWxWind", "Weather: Wind Speed"),
-    (15, "FieldWxUV", "Weather: UV Index"),
-    (70, "FieldWxCloud", "Weather: Cloud Cover"),
-    (67, "FieldWxHumidity", "Weather: Humidity"),
-    (68, "FieldWxDewPoint", "Weather: Dew Point"),
-    (69, "FieldWxVisibility", "Weather: Visibility"),
-    (72, "FieldWxHeatIndex", "Weather: Heat Index"),
-    (102, "FieldWxHighLow", "Weather: High / Low Temp"),
-    # Weather combos
-    (17, "FieldWxTempCond", "Weather: Temp + Condition"),
-    (20, "FieldWxTempWind", "Weather: Temp + Wind"),
-    (58, "FieldWxTempUV", "Weather: Temp + UV"),
-    (95, "FieldWxTempHumidity", "Weather: Temp + Humidity"),
-    (96, "FieldWxTempPrecip", "Weather: Temp + Rain"),
-    (18, "FieldWxTempHighLow", "Weather: Temp + High/Low"),
-    (19, "FieldWxCondPrecip", "Weather: Condition + Rain"),
-    (57, "FieldWxWindPrecip", "Weather: Wind + Rain"),
-    (60, "FieldWxUVWind", "Weather: UV + Wind"),
-    (59, "FieldWxUVPrecip", "Weather: UV + Rain"),
-    (97, "FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
-    (71, "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
-    (98, "FieldWxCloudPrecip", "Weather: Cloud + Rain"),
-    # Weather forecast
-    (33, "FieldWxFcstTemp", "Forecast: Temp (Hourly)"),
-    (62, "FieldWxFcstDaily", "Forecast: Temp (Daily)"),
-    (61, "FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
-    (64, "FieldWxFcstWind", "Forecast: Wind (Hourly)"),
-    (85, "FieldWxFcstUv", "Forecast: UV (Hourly)"),
-    (73, "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
-    (86, "FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
-    # Weather: forecast conditions (from complications)
-    (106, "FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
-    (107, "FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
-    (108, "FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
-    (111, "FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
-    (112, "FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
-    # Weather: station
-    (105, "FieldWxSeaPress", "Weather: Sea Level Pressure"),
-    (109, "FieldWxObsTime", "Weather: Data Age"),
-    # Watch / System
-    (77, "FieldNotifications", "Notifications"),
-    (84, "FieldSolar", "Solar Input"),
-    (117, "FieldSolarBattery", "Solar Input + Watch Battery"),
+# All fields available on the configurable lines (3/4/5), grouped into
+# categories. Each category owns a reserved 50-wide numeric block
+# (category 0 -> values 1-50, category 1 -> 51-100, ...), so a field's
+# value alone hints at its category, and adding a new field to a category
+# never requires renumbering any other field. FieldNone is the one
+# reserved value outside the blocks (0).
+#
+# Each entry is (const_suffix, StringId, display text). The Monkey C
+# constant name is "FIELD_" + const_suffix. This table is the single
+# source of truth for field values, field settings/strings, AND the
+# generated source/FieldIds.mc - never hand-edit that file or hardcode a
+# field's numeric value anywhere else (see FIELD_VALUE below for lookups).
+FIELD_CATEGORY_WIDTH = 50
+
+# Graph cache key bit layout (see _packGraphKey/_graphKeyHi/_graphKeyLo in
+# TerminalWatchfaceView.mc): generated into source/FieldIds.mc below so the
+# Monkey C side never hand-maintains a separate copy of these numbers.
+CACHE_KEY_LO_SHIFT = 11
+CACHE_KEY_HI_SHIFT = 21
+CACHE_KEY_MASK = (1 << (CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT)) - 1
+CACHE_KEY_FIELD_BUDGET = CACHE_KEY_MASK + 1
+CACHE_KEY_PERIOD_BUDGET = 1 << CACHE_KEY_LO_SHIFT
+
+# Settings group title prefixes, so the Connect IQ app's submenu list makes
+# clear at a glance which groups are bar-progress settings vs graph settings.
+BAR_CONFIG_PREFIX = "Bar Config - "
+GRAPH_CONFIG_PREFIX = "Graph Config - "
+
+FIELD_CATEGORIES = [
+    ("Fitness / Health", [
+        ("STEPS", "FieldSteps", "Steps"),
+        ("FLOORS", "FieldFloors", "Floors (Up / Down)"),
+        ("MOVE_BAR", "FieldMoveBar", "Move Bar"),
+        ("HR", "FieldHR", "Heart Rate"),
+        ("SPO2", "FieldSpO2", "Blood Oxygen (SpO2)"),
+        ("RESP", "FieldResp", "Respiration Rate"),
+        ("BODY_BAT", "FieldBodyBat", "Body Battery"),
+        ("STRESS", "FieldStress", "Stress Score"),
+        ("RECOVERY", "FieldRecovery", "Recovery Time"),
+        ("SLEEP", "FieldSleep", "Sleep Score"),
+        ("VO2_MAX", "FieldVo2Max", "VO2 Max"),
+        ("LACTATE_HR", "FieldLactateHR", "Lactate Threshold HR"),
+        ("TRAINING_STATUS", "FieldTrainingStatus", "Training Status"),
+        ("WRIST_TEMP", "FieldWristTemp", "Wrist Temperature"),
+        ("HR_RESTING", "FieldHrResting", "Resting HR"),
+        ("HR_RESTING_AVG", "FieldHrRestingAvg", "Resting HR (7-day Avg)"),
+        ("HR_RESTING_BOTH", "FieldHrRestingBoth", "Resting HR + 7-day Avg"),
+        ("HR_SPO2", "FieldHrSpo2", "HR + SpO2"),
+        ("RESP_SPO2", "FieldRespSpo2", "Respiration + SpO2"),
+        ("BODY_BAT_STRESS", "FieldBodyBatStress", "Body Battery + Stress"),
+        ("BODY_BAT_RECOVERY", "FieldBodyBatRecovery", "Body Battery + Recovery"),
+        ("STRESS_RECOVERY", "FieldStressRecovery", "Stress + Recovery"),
+        ("VO2_TRAINING", "FieldVo2Training", "VO2 Max + Training"),
+        ("BODY_BAT_REST_HR", "FieldBodyBatRestHR", "Body Battery + Resting HR"),
+        ("SLEEP_RECOVERY", "FieldSleepRecovery", "Sleep Score + Recovery"),
+    ]),
+    ("Calories / Distance / Speed", [
+        ("CALORIES", "FieldCalories", "Calories (Daily)"),
+        ("DISTANCE", "FieldDistance", "Distance (Daily)"),
+        ("ACTIVE_MIN_DAY", "FieldActiveMinDay", "Active Minutes (Daily)"),
+        ("INTENSITY_MIN", "FieldIntensityMin", "Intensity Minutes (Weekly)"),
+    ]),
+    ("Altitude / Pressure", [
+        ("ALTITUDE", "FieldAltitude", "Altitude"),
+        ("ELEVATION", "FieldElevation", "Elevation (Baro)"),
+        ("PRESSURE", "FieldPressure", "Pressure"),
+    ]),
+    ("Race Predictors", [
+        ("RACE_5K", "FieldRace5k", "Race Predictor: 5K"),
+        ("RACE_10K", "FieldRace10k", "Race Predictor: 10K"),
+        ("RACE_HALF", "FieldRaceHalf", "Race Predictor: Half Marathon"),
+        ("RACE_MARATHON", "FieldRaceMarathon", "Race Predictor: Marathon"),
+        ("RACE_PACE_5K", "FieldRacePace5k", "Race Pace: 5K"),
+        ("RACE_PACE_10K", "FieldRacePace10k", "Race Pace: 10K"),
+        ("RACE_PACE_HALF", "FieldRacePaceHalf", "Race Pace: Half Marathon"),
+        ("RACE_PACE_MARATHON", "FieldRacePaceMarathon", "Race Pace: Marathon"),
+    ]),
+    ("Ascent / Descent", [
+        ("CLIMB_DAY", "FieldClimbDay", "Climb (Daily)"),
+        ("DESCENT_DAY", "FieldDescentDay", "Descent (Daily)"),
+        ("CLIMB_DESCEND_DAY", "FieldClimbDescendDay", "Climb + Descent (Daily)"),
+    ]),
+    ("Weekly", [
+        ("WEEKLY_RUN", "FieldWeeklyRun", "Distance (Weekly Run)"),
+        ("WEEKLY_BIKE", "FieldWeeklyBike", "Distance (Weekly Bike)"),
+        ("WEEKLY_DISTANCES", "FieldWeeklyDistances", "Distance (Weekly Run + Bike)"),
+    ]),
+    ("GPS / Navigation", [
+        ("GPS_LAT", "FieldGpsLat", "GPS: Latitude"),
+        ("GPS_LON", "FieldGpsLon", "GPS: Longitude"),
+        ("GPS_ACCURACY", "FieldGpsAccuracy", "GPS: Accuracy"),
+        ("GPS_LAT_LON", "FieldGpsLatLon", "GPS: Lat + Lon"),
+        ("GPS_LAT_LON_ACC", "FieldGpsLatLonAcc", "GPS: Lat + Lon + Accuracy"),
+        ("HEADING", "FieldHeading", "Heading"),
+    ]),
+    ("Time / Calendar", [
+        ("SUNRISE", "FieldSunrise", "Sunrise"),
+        ("SUNSET", "FieldSunset", "Sunset"),
+        ("SUNRISE_SUNSET", "FieldSunriseSunset", "Sunrise + Sunset"),
+        ("CALENDAR", "FieldCalendar", "Calendar Event"),
+        ("SLEEP_TIME", "FieldSleepTime", "Bedtime"),
+        ("WAKE_TIME", "FieldWakeTime", "Wake Time"),
+        ("SLEEP_SCHEDULE", "FieldSleepSchedule", "Sleep Schedule (Bed + Wake)"),
+    ]),
+    ("Weather: current", [
+        ("WX_TEMP", "FieldWxTemp", "Weather: Temperature"),
+        ("WX_FEELS", "FieldWxFeels", "Weather: Feels Like"),
+        ("WX_COND", "FieldWxCond", "Weather: Condition"),
+        ("WX_PRECIP", "FieldWxPrecip", "Weather: Rain Chance"),
+        ("WX_WIND", "FieldWxWind", "Weather: Wind Speed"),
+        ("WX_UV", "FieldWxUV", "Weather: UV Index"),
+        ("WX_CLOUD", "FieldWxCloud", "Weather: Cloud Cover"),
+        ("WX_HUMIDITY", "FieldWxHumidity", "Weather: Humidity"),
+        ("WX_DEW_POINT", "FieldWxDewPoint", "Weather: Dew Point"),
+        ("WX_VISIBILITY", "FieldWxVisibility", "Weather: Visibility"),
+        ("WX_HEAT_INDEX", "FieldWxHeatIndex", "Weather: Heat Index"),
+        ("WX_HIGH_LOW", "FieldWxHighLow", "Weather: High / Low Temp"),
+    ]),
+    ("Weather: combos", [
+        ("WX_TEMP_COND", "FieldWxTempCond", "Weather: Temp + Condition"),
+        ("WX_TEMP_WIND", "FieldWxTempWind", "Weather: Temp + Wind"),
+        ("WX_TEMP_UV", "FieldWxTempUV", "Weather: Temp + UV"),
+        ("WX_TEMP_HUMIDITY", "FieldWxTempHumidity", "Weather: Temp + Humidity"),
+        ("WX_TEMP_PRECIP", "FieldWxTempPrecip", "Weather: Temp + Rain"),
+        ("WX_TEMP_HIGH_LOW", "FieldWxTempHighLow", "Weather: Temp + High/Low"),
+        ("WX_COND_PRECIP", "FieldWxCondPrecip", "Weather: Condition + Rain"),
+        ("WX_WIND_PRECIP", "FieldWxWindPrecip", "Weather: Wind + Rain"),
+        ("WX_UV_WIND", "FieldWxUVWind", "Weather: UV + Wind"),
+        ("WX_UV_PRECIP", "FieldWxUVPrecip", "Weather: UV + Rain"),
+        ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
+        ("WX_HUMIDITY_DEW", "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
+        ("WX_CLOUD_PRECIP", "FieldWxCloudPrecip", "Weather: Cloud + Rain"),
+    ]),
+    ("Weather: forecast", [
+        ("WX_FCST_TEMP", "FieldWxFcstTemp", "Forecast: Temp (Hourly)"),
+        ("WX_FCST_DAILY", "FieldWxFcstDaily", "Forecast: Temp (Daily)"),
+        ("WX_FCST_PRECIP", "FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
+        ("WX_FCST_WIND", "FieldWxFcstWind", "Forecast: Wind (Hourly)"),
+        ("WX_FCST_UV", "FieldWxFcstUv", "Forecast: UV (Hourly)"),
+        ("WX_FCST_HUMIDITY", "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
+        ("WX_FCST_CLOUD", "FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
+    ]),
+    ("Weather: forecast conditions", [
+        ("WX_FCST_COND_1D", "FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
+        ("WX_FCST_COND_2D", "FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
+        ("WX_FCST_COND_3D", "FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
+        ("WX_COND_FCST_1D", "FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
+        ("WX_FCST_COND_12D", "FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
+    ]),
+    ("Weather: station", [
+        ("WX_SEA_PRESS", "FieldWxSeaPress", "Weather: Sea Level Pressure"),
+        ("WX_OBS_TIME", "FieldWxObsTime", "Weather: Data Age"),
+    ]),
+    ("Watch / System", [
+        ("NOTIFICATIONS", "FieldNotifications", "Notifications"),
+        ("SOLAR", "FieldSolar", "Solar Input"),
+        ("SOLAR_BATTERY", "FieldSolarBattery", "Solar Input + Watch Battery"),
+    ]),
 ]
+
+# Computed from FIELD_CATEGORIES: (value, StringId, display text) for every
+# field including FieldNone - same shape the rest of this script already
+# expects from FIELDS_ALL. FIELD_VALUE is a StringId -> value lookup, used
+# by LINE_SLOTS (and anything else) that needs to refer to a specific field
+# by name instead of hardcoding its numeric value.
+def _build_fields():
+    total_span = FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)
+    if total_span >= CACHE_KEY_FIELD_BUDGET:
+        raise ValueError(
+            f"FIELD_CATEGORIES spans {total_span} field IDs, exceeds the "
+            f"{CACHE_KEY_FIELD_BUDGET}-value cache key budget "
+            "(CACHE_KEY_FIELD_BUDGET). The hi/lo/periodMin slots already use "
+            "all 31 usable bits of a signed 32-bit Number, so there are no "
+            "spare bits to widen into - shrink another category first, or "
+            "redesign _packGraphKey's key scheme before adding more categories"
+        )
+    fields_all = [(0, "FieldNone", "None (hidden)")]
+    field_value = {"FieldNone": 0}
+    for cat_idx, (cat_name, cat_fields) in enumerate(FIELD_CATEGORIES):
+        if len(cat_fields) > FIELD_CATEGORY_WIDTH:
+            raise ValueError(
+                f"category '{cat_name}' has {len(cat_fields)} fields, "
+                f"exceeds the {FIELD_CATEGORY_WIDTH}-wide block"
+            )
+        base = cat_idx * FIELD_CATEGORY_WIDTH
+        for pos, (_suffix, string_id, display) in enumerate(cat_fields, start=1):
+            value = base + pos
+            fields_all.append((value, string_id, display))
+            field_value[string_id] = value
+    return fields_all, field_value
+
+
+FIELDS_ALL, FIELD_VALUE = _build_fields()
 
 # Graph-capable sensor fields.
 # Each entry: (camelKey, StringPrefix, graph_mode_default,
 #              sec_type_default, sec_field_default, time_frame_default,
-#              graph_color_default, sec_color_default)
+#              graph_color_default, sec_color_default, value_mode_default)
 # graph_mode_default: 0=value only, 1=line graph, 2=bar graph,
-#                     3=line+current value, 4=bar+current value
+#                     3=line+current value, 4=bar+current value,
+#                     5=area graph, 6=area+current value
 # sec_field_default is an index into GRAPH_SEC_FIELDS below.
 GRAPH_FIELDS = [
     # key skey mode std sfd tfd gcd scd vmd
@@ -226,6 +287,20 @@ FORECAST_TIME_FRAMES = [
     (24, "TimeFrameForecast24h"),
 ]
 
+# _packGraphKey ORs periodMin straight into the low CACHE_KEY_LO_SHIFT bits of
+# the cache key with no mask, so any minute value here that reached the
+# CACHE_KEY_PERIOD_BUDGET ceiling would bleed into the adjacent field bits.
+_max_period_min = max(
+    [m for m, _ in GRAPH_TIME_FRAMES] + [h for h, _ in FORECAST_TIME_FRAMES]
+)
+if _max_period_min >= CACHE_KEY_PERIOD_BUDGET:
+    raise ValueError(
+        f"GRAPH_TIME_FRAMES/FORECAST_TIME_FRAMES has a value of "
+        f"{_max_period_min} minutes, exceeds the {CACHE_KEY_PERIOD_BUDGET}-value "
+        "cache key period budget (CACHE_KEY_PERIOD_BUDGET) - _packGraphKey's "
+        "periodMin bits need widening before adding a longer time frame"
+    )
+
 GRAPH_WIDTH_OPTIONS = [
     (6, "GraphWidth6"),
     (8, "GraphWidth8"),
@@ -247,31 +322,34 @@ GRAPH_DISPLAY_NAMES = {
 }
 
 # Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
+# field_default is looked up by name via FIELD_VALUE so these stay correct
+# no matter how FIELD_CATEGORIES gets renumbered.
+_fv = FIELD_VALUE
 LINE_SLOTS = [
     # R1 (Primary) - shown longest; at-a-glance essentials
-    (3, "Primary", 33, 6, 0),  # Temp Hourly forecast graph, blue
-    (4, "Primary", 0, 1, 0),  # Steps, green
-    (5, "Primary", 1, 5, 0),  # HR, red
+    (3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),  # Temp Hourly forecast graph, blue
+    (4, "Primary", _fv["FieldSteps"], 1, 0),  # Steps, green
+    (5, "Primary", _fv["FieldHR"], 5, 0),  # HR, red
     # R2 (Secondary)
-    (3, "Secondary", 97, 6, 0),  # Humidity + Rain, blue
-    (4, "Secondary", 32, 1, 0),  # Elevation, green
-    (5, "Secondary", 21, 5, 0),  # Stress, red
+    (3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),  # Humidity + Rain, blue
+    (4, "Secondary", _fv["FieldElevation"], 1, 0),  # Elevation, green
+    (5, "Secondary", _fv["FieldStress"], 5, 0),  # Stress, red
     # R3 (Tertiary)
-    (3, "Tertiary", 60, 6, 0),  # UV + Wind, blue
-    (4, "Tertiary", 4, 1, 0),  # Distance (daily), green
-    (5, "Tertiary", 25, 5, 0),  # Active Calories, red
+    (3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),  # UV + Wind, blue
+    (4, "Tertiary", _fv["FieldDistance"], 1, 0),  # Distance (daily), green
+    (5, "Tertiary", _fv["FieldBodyBat"], 5, 0),  # Body Battery, red
     # R4 (Quaternary)
-    (3, "Quaternary", 62, 6, 0),  # Temp Daily forecast, blue
-    (4, "Quaternary", 6, 1, 0),  # Floors, green
-    (5, "Quaternary", 10, 5, 0),  # Intensity Minutes (weekly), red
+    (3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),  # Temp Daily forecast, blue
+    (4, "Quaternary", _fv["FieldFloors"], 1, 0),  # Floors, green
+    (5, "Quaternary", _fv["FieldIntensityMin"], 5, 0),  # Intensity Minutes (weekly), red
     # R5 (Quinary)
-    (3, "Quinary", 7, 6, 0),  # None, blue
-    (4, "Quinary", 7, 1, 0),  # None, green
-    (5, "Quinary", 7, 5, 0),  # None, red
+    (3, "Quinary", _fv["FieldNone"], 6, 0),  # None, blue
+    (4, "Quinary", _fv["FieldNone"], 1, 0),  # None, green
+    (5, "Quinary", _fv["FieldNone"], 5, 0),  # None, red
     # R6 (Senary)
-    (3, "Senary", 7, 6, 0),  # None, blue
-    (4, "Senary", 7, 1, 0),  # None, green
-    (5, "Senary", 7, 5, 0),  # None, red
+    (3, "Senary", _fv["FieldNone"], 6, 0),  # None, blue
+    (4, "Senary", _fv["FieldNone"], 1, 0),  # None, green
+    (5, "Senary", _fv["FieldNone"], 5, 0),  # None, red
 ]
 
 SCREEN_COUNT = 3
@@ -283,7 +361,10 @@ def screen_line_slots(screen_idx):
     start blank (all fields None, default gray label / white value)."""
     if screen_idx == 1:
         return LINE_SLOTS
-    return [(ln, slot, 7, 8, 0) for ln, slot, _fd, _lc, _vc in LINE_SLOTS]
+    return [
+        (ln, slot, _fv["FieldNone"], 8, 0)
+        for ln, slot, _fd, _lc, _vc in LINE_SLOTS
+    ]
 
 
 # Graph mode options shared by all sensor graph fields
@@ -400,6 +481,41 @@ def group(gid, title_key, *blocks):
         lines.append(b)
     lines.append(f"{i}</group>")
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# source/FieldIds.mc
+# ---------------------------------------------------------------------------
+
+
+def gen_field_ids():
+    lines = [
+        "// GENERATED FILE - DO NOT EDIT.",
+        "// Run `python scripts/generate_resources.py` to regenerate from",
+        "// FIELD_CATEGORIES in scripts/generate_resources.py.",
+        "",
+        "// Graph cache key bit layout, used by _packGraphKey/_graphKeyHi/",
+        f"// _graphKeyLo. The high slot and low slot each get "
+        f"{CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT} bits (0-{CACHE_KEY_MASK}),",
+        f"// periodMin gets the low {CACHE_KEY_LO_SHIFT} bits (0-"
+        f"{CACHE_KEY_PERIOD_BUDGET - 1}). Field IDs currently span 1-"
+        f"{FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)}.",
+        f"const CACHE_KEY_HI_SHIFT = {CACHE_KEY_HI_SHIFT};",
+        f"const CACHE_KEY_LO_SHIFT = {CACHE_KEY_LO_SHIFT};",
+        f"const CACHE_KEY_MASK = 0x{CACHE_KEY_MASK:x};",
+        f"const CACHE_KEY_PERIOD_MASK = 0x{CACHE_KEY_PERIOD_BUDGET - 1:x};",
+        "",
+        "const FIELD_NONE = 0;",
+    ]
+    for cat_idx, (cat_name, cat_fields) in enumerate(FIELD_CATEGORIES):
+        base = cat_idx * FIELD_CATEGORY_WIDTH
+        lines.append("")
+        lines.append(
+            f"// --- {cat_name} ({base + 1}-{base + FIELD_CATEGORY_WIDTH}) ---"
+        )
+        for suffix, string_id, _display in cat_fields:
+            lines.append(f"const FIELD_{suffix} = {FIELD_VALUE[string_id]};")
+    return "\n".join(lines) + "\n"
 
 
 # ---------------------------------------------------------------------------
@@ -581,12 +697,13 @@ def gen_strings():
         "\n  <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->"
     )
     for screen_idx in range(1, SCREEN_COUNT + 1):
+        lines.append(
+            s(f"Screen{screen_idx}ConfigGroup", f"Screen {screen_idx} Configuration")
+        )
         for ln, slot, *_ in screen_line_slots(screen_idx):
             pk = f"Screen{screen_idx}Line{ln}"
             ptitle = f"Screen {screen_idx} - Line {ln}"
             if slot == "Primary":
-                lines.append(s(f"{pk}MainGroup", ptitle))
-                lines.append(s(f"{pk}RotationGroup", f"{ptitle} (Field Rotations)"))
                 lines.append(s(f"{pk}Enabled", f"{ptitle}: Enabled"))
                 lines.append(s(f"{pk}LabelColor", f"{ptitle}: Label Color"))
                 lines.append(s(f"{pk}ValueColor", f"{ptitle}: Value Color"))
@@ -628,21 +745,21 @@ def gen_strings():
     lines.append(s("GraphWidth16", "16 chars"))
 
     lines.append("\n  <!-- Steps -->")
-    lines.append(s("StepsGroup", "Steps"))
+    lines.append(s("StepsGroup", BAR_CONFIG_PREFIX + "Steps"))
     lines.append(s("StepsShowBar", "Steps: Show Progress Bar"))
     lines.append(s("StepsShowBarValue", "Steps: Show Value in Bar"))
     lines.append(s("StepsBarColor", "Steps: Bar Color"))
     lines.append(s("StepsBarWidth", "Steps: Bar Width"))
 
     lines.append("\n  <!-- Floors -->")
-    lines.append(s("FloorsGroup", "Floors"))
+    lines.append(s("FloorsGroup", BAR_CONFIG_PREFIX + "Floors"))
     lines.append(s("FloorsShowBar", "Floors: Show Progress Bar"))
     lines.append(s("FloorsShowBarValue", "Floors: Show Value in Bar"))
     lines.append(s("FloorsBarColor", "Floors: Bar Color"))
     lines.append(s("FloorsBarWidth", "Floors: Bar Width"))
 
     lines.append("\n  <!-- Intensity Minutes (Weekly) -->")
-    lines.append(s("IntensityMinGroup", "Intensity Minutes (Weekly)"))
+    lines.append(s("IntensityMinGroup", BAR_CONFIG_PREFIX + "Intensity Minutes (Weekly)"))
     lines.append(s("IntensityMinShowBar", "Intensity Min: Show Progress Bar"))
     lines.append(s("IntensityMinShowBarValue", "Intensity Min: Show Value in Bar"))
     lines.append(s("IntensityMinBarColor", "Intensity Min: Bar Color"))
@@ -667,7 +784,7 @@ def gen_strings():
     for key, skey, *_ in GRAPH_FIELDS:
         display = GRAPH_DISPLAY_NAMES[key]
         lines.append(f"\n  <!-- Graph settings: {display} -->")
-        lines.append(s(f"{skey}GraphGroup", display))
+        lines.append(s(f"{skey}GraphGroup", f"{GRAPH_CONFIG_PREFIX}{display}"))
         lines.append(s(f"{skey}GraphMode", f"{display}: Graph Mode"))
         lines.append(s(f"{skey}GraphValueMode", f"{display}: Graph Value Mode"))
         lines.append(s(f"{skey}SecondaryType", f"{display}: 2nd Graph Type"))
@@ -678,7 +795,7 @@ def gen_strings():
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
-    lines.append(s("WxForecastGroup", "Temp Hourly Forecast"))
+    lines.append(s("WxForecastGroup", GRAPH_CONFIG_PREFIX + "Temp Hourly Forecast"))
     lines.append(s("WxForecastGraphMode", "Temp Hourly: Graph Mode"))
     lines.append(s("WxForecastValueMode", "Temp Hourly: Value Mode"))
     lines.append(s("WxForecastTimeFrame", "Temp Hourly: Time Frame"))
@@ -690,7 +807,7 @@ def gen_strings():
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
 
     lines.append("\n  <!-- Graph settings: Temp Daily Forecast -->")
-    lines.append(s("WxForecastDailyGroup", "Temp Daily Forecast"))
+    lines.append(s("WxForecastDailyGroup", GRAPH_CONFIG_PREFIX + "Temp Daily Forecast"))
     lines.append(s("WxForecastDailyViewMode", "Temp Daily: View Mode"))
     lines.append(s("WxForecastDailyValueMode", "Temp Daily: Value Mode"))
     lines.append(s("WxForecastDailyDays", "Temp Daily: Days"))
@@ -795,7 +912,7 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
     return "\n".join(
         [
             f"\n  <!-- Graph settings: {display} Forecast -->",
-            string(f"{skey}Group", f"{display.split()[0]} Forecast"),
+            string(f"{skey}Group", f"{GRAPH_CONFIG_PREFIX}{display.split()[0]} Forecast"),
             string(f"{skey}GraphMode", f"{display}: Graph Mode"),
             string(f"{skey}ValueMode", f"{display}: Value Mode"),
             string(f"{skey}TimeFrame", f"{display}: Hours Ahead"),
@@ -971,37 +1088,29 @@ def gen_settings():
         )
     )
 
-    # Screens: each line gets its own group (enabled toggle, colors) and a
-    # separate "Field Rotations" group with all 6 slots (R1-R6), so related
-    # settings aren't buried in one long flat list.
+    # Screens: one group per screen with all 3 lines' toggle/colors and field
+    # rotations together, instead of a separate group per line - fewer
+    # submenus in the Garmin Connect IQ app.
     for screen_idx in range(1, SCREEN_COUNT + 1):
+        line_blocks = []
         for ln in (3, 4, 5):
             rows = [r for r in screen_line_slots(screen_idx) if r[0] == ln]
             pk = f"screen{screen_idx}_line{ln}"
             sk = f"Screen{screen_idx}Line{ln}"
-            parts.append(
-                group(
-                    f"{pk}_main",
-                    f"{sk}MainGroup",
-                    setting_bool(f"{pk}Enabled", f"{sk}Enabled", indent=2),
-                    color_setting(
-                        f"{pk}LabelColor", f"{sk}LabelColor", COLORS_TEXT, indent=2
-                    ),
-                    color_setting(
-                        f"{pk}ValueColor", f"{sk}ValueColor", COLORS_TEXT, indent=2
-                    ),
-                )
+            line_blocks.append(setting_bool(f"{pk}Enabled", f"{sk}Enabled", indent=2))
+            line_blocks.append(
+                color_setting(f"{pk}LabelColor", f"{sk}LabelColor", COLORS_TEXT, indent=2)
             )
-            parts.append(
-                group(
-                    f"{pk}_rotation",
-                    f"{sk}RotationGroup",
-                    *[
-                        field_setting(f"{pk}{slot}", f"{sk}{slot}", indent=2)
-                        for _ln, slot, _fd, _lc, _vc in rows
-                    ],
-                )
+            line_blocks.append(
+                color_setting(f"{pk}ValueColor", f"{sk}ValueColor", COLORS_TEXT, indent=2)
             )
+            line_blocks.extend(
+                field_setting(f"{pk}{slot}", f"{sk}{slot}", indent=2)
+                for _ln, slot, _fd, _lc, _vc in rows
+            )
+        parts.append(
+            group(f"screen{screen_idx}", f"Screen{screen_idx}ConfigGroup", *line_blocks)
+        )
 
     # Steps
     parts.append(
@@ -1147,6 +1256,7 @@ def write(path, content):
 
 if __name__ == "__main__":
     print("Generating resources...")
+    write(OUT_FIELD_IDS, gen_field_ids())
     write(OUT_PROPERTIES, gen_properties())
     write(OUT_STRINGS, gen_strings())
     write(OUT_SETTINGS, gen_settings())
