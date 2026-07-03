@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.44.1";
+const APP_VERSION = "0.44.2";
 
 // FIELD_* constants (FIELD_NONE, FIELD_STEPS, FIELD_HR, etc.) live in
 // source/FieldIds.mc, generated from FIELD_CATEGORIES in
@@ -244,6 +244,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _metricsValid as Boolean = false;
     private var _graphW as Number = 0;
     private var _graphX as Number = 0;
+    private var _graphBaseX as Number = 0;
     private var _graphH as Number = 0;
     private var _clockInfo as Gregorian.Info? = null;
     private var _watchCmd as String = "watch";
@@ -840,7 +841,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var step = _fh + 16;
         var cx = _screenW / 2 - _charW * _leftPad;
-        _graphX = cx + _splitPad + _charW * 2;
+        _graphBaseX = cx + _splitPad;
+        _graphX = _graphBaseX;
         _graphH = _fh - 2;
 
         // Lines 3/4/5 always occupy their row slot (blank when the resolved
@@ -2224,6 +2226,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             dc.fillRectangle(gx, y, fillW, barH);
         }
+        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(gx - 1, y, gx - 1, y + barH - 1);
+        dc.drawLine(gx + gw, y, gx + gw, y + barH - 1);
+        _drawDashedV(dc, gx + gw / 4, y, y + barH);
+        _drawDashedV(dc, gx + gw / 2, y, y + barH);
+        _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH);
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
         var goalStr = goal.toString();
         dc.setColor(ColorUtils.colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
@@ -2699,6 +2707,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         viewMode as Number,
         valueMode as Number
     ) as Void {
+        _graphX = _graphBaseX;
         var data = _getFieldHistory(field, periodMin);
         _getFieldParts(field);
         var valueStr = _rowBuf[1];
@@ -2731,6 +2740,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
 
+        _setGraphX(field, minV, maxV);
+        var rightPad =
+            data2 != null
+                ? _graphLabelPad(
+                      _formatGraphLabel(fieldSecondary, minV2),
+                      _formatGraphLabel(fieldSecondary, maxV2)
+                  ) + 1
+                : 2;
         _calcGradRange(field, lineColor, minV, range);
         var gradMinV1 = _gradMin;
         var gradRange1 = _gradRange;
@@ -2873,7 +2890,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         // Current values when graph+value mode - 3 normal spaces from graph edge, centered
         if (viewMode == VIEW_GRAPH_VALUE) {
-            var vx = _graphX + _graphW + _charW * 3;
+            var vx = _graphX + _graphW + _charW * rightPad;
             var totalH = _smallFh * 2 + 2;
             var startY = y + (_fh - totalH) / 2 - 1;
             var cur1 = _graphValueStr(
@@ -3611,6 +3628,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             : ColorUtils.colorFromIdx(0);
     }
 
+    private function _graphLabelPad(a as String, b as String) as Number {
+        var len = a.length() > b.length() ? a.length() : b.length();
+        var pad = (len + 1) / 2;
+        return pad < 1 ? 1 : pad;
+    }
+
+    private function _setGraphX(
+        field as Number,
+        minV as Float,
+        maxV as Float
+    ) as Void {
+        _graphX =
+            _graphBaseX +
+            _charW *
+                _graphLabelPad(
+                    _formatGraphLabel(field, minV),
+                    _formatGraphLabel(field, maxV)
+                );
+    }
+
     private function _drawSingleGraphLabels(
         dc as Dc,
         field as Number,
@@ -4070,6 +4107,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         lineColor as Number,
         graphType as Number
     ) as Void {
+        _graphX = _graphBaseX;
         var all = _wxForecastData;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
         if (n < 2) {
@@ -4092,6 +4130,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < 1.0) {
             range = 1.0;
         }
+        _setGraphX(FIELD_WX_FCST_TEMP, minV, maxV);
         _calcGradRange(FIELD_WX_FCST_TEMP, lineColor, minV, range);
         var gradMinV = _gradMin;
         var gradRange = _gradRange;
@@ -4464,6 +4503,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fieldConst as Number,
         minRange as Float
     ) as Void {
+        _graphX = _graphBaseX;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
         if (n < 2) {
             _rowBuf[0] = label;
@@ -4483,6 +4523,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < minRange) {
             range = minRange;
         }
+        _setGraphX(fieldConst, minV, maxV);
         _calcGradRange(fieldConst, lineColor, minV, range);
         var gradMinV = _gradMin;
         var gradRange = _gradRange;
@@ -4569,6 +4610,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valueColor as Number,
         colorIdx as Number
     ) as Void {
+        _graphX = _graphBaseX;
         var highs = _wxDailyForecastHigh;
         var lows = _wxDailyForecastLow;
         if (highs == null || lows == null) {
@@ -4610,6 +4652,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < 1.0) {
             range = 1.0;
         }
+        _setGraphX(FIELD_WX_FCST_TEMP, allMin, allMax);
         _calcGradRange(FIELD_WX_FCST_TEMP, colorIdx, allMin, range);
         _rowBuf[0] = "Day Fcst";
         _rowBuf[1] = "";
@@ -4971,6 +5014,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         graphType as Number,
         valueMode as Number
     ) as Void {
+        _graphX = _graphBaseX;
         var data = _getFieldHistory(field, periodMin);
         _getFieldParts(field);
         var valueStr = _rowBuf[1];
@@ -4988,6 +5032,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (range < 1.0) {
             range = 1.0;
         }
+        _setGraphX(field, minV, maxV);
         _calcGradRange(field, lineColor, minV, range);
         var gradMinV = _gradMin;
         var gradRange = _gradRange;
@@ -6460,7 +6505,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     public function onEnterSleep() as Void {
         _lastPhase = -1;
         _lowPower = true;
-        WatchUi.requestUpdate();
+        var s = System.getDeviceSettings();
+        if (s has :alwaysOnEnabled && s.alwaysOnEnabled) {
+            WatchUi.requestUpdate();
+        }
     }
     public function onExitSleep() as Void {
         _lowPower = false;
