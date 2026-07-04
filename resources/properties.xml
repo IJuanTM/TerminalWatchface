@@ -8,6 +8,7 @@
   <property id="leftPadding" type="number">4</property>
   <property id="areaOpacity" type="number">64</property>
   <property id="areaShowLine" type="boolean">true</property>
+  <property id="showBatteryDays" type="boolean">true</property>
   <property id="showSeconds" type="boolean">false</property>
   <property id="showYear" type="boolean">false</property>
   <property id="dateFormat" type="number">0</property>

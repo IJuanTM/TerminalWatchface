@@ -22,6 +22,7 @@
   <string id="AreaOpacity75">75%</string>
   <string id="AreaOpacity100">100%</string>
   <string id="AreaShowLine">Area Graph: Show Line</string>
+  <string id="ShowBatteryDays">Show Battery Days Remaining</string>
   <string id="ShowSeconds">Show Seconds</string>
   <string id="ShowYear">Show Year in Date</string>
   <string id="DateFormat">Date Format</string>

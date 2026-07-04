@@ -534,6 +534,7 @@ def gen_properties():
     lines.append(prop("leftPadding", "number", 4))
     lines.append(prop("areaOpacity", "number", 64))
     lines.append(prop("areaShowLine", "boolean", "true"))
+    lines.append(prop("showBatteryDays", "boolean", "true"))
     lines.append(prop("showSeconds", "boolean", "false"))
     lines.append(prop("showYear", "boolean", "false"))
     lines.append(prop("dateFormat", "number", 0))
@@ -652,6 +653,7 @@ def gen_strings():
     lines.append(s("AreaOpacity75", "75%"))
     lines.append(s("AreaOpacity100", "100%"))
     lines.append(s("AreaShowLine", "Area Graph: Show Line"))
+    lines.append(s("ShowBatteryDays", "Show Battery Days Remaining"))
     lines.append(s("ShowSeconds", "Show Seconds"))
     lines.append(s("ShowYear", "Show Year in Date"))
     lines.append(s("DateFormat", "Date Format"))
@@ -1004,6 +1006,7 @@ def gen_settings():
                 indent=2,
             ),
             setting_bool("areaShowLine", "AreaShowLine", indent=2),
+            setting_bool("showBatteryDays", "ShowBatteryDays", indent=2),
         )
     )
 

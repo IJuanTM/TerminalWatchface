@@ -13,7 +13,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.44.2";
+const APP_VERSION = "0.44.4";
 
 // FIELD_* constants (FIELD_NONE, FIELD_STEPS, FIELD_HR, etc.) live in
 // source/FieldIds.mc, generated from FIELD_CATEGORIES in
@@ -213,6 +213,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _notifCount as Number = 0;
     private var _notifLabel as String = "";
     private var _phoneConnected as Boolean = true;
+    private var _dndOn as Boolean = false;
     private var _notifLastMs as Number = -5000;
     private var _compSleepScore as Number? = null;
     private var _compSunrise as Number? = null;
@@ -267,6 +268,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _batW as Number = 0;
     private var _batDaysW as Number = 0;
     private var _charging as Boolean = false;
+    private var _batLow as Boolean = false;
+    private var _showBatteryDays as Boolean = true;
     private var _resolvedPhase as Number = -1;
     private var _resolvedFields as Array<Number> = [7, 7, 7] as Array<Number>;
     private var _needsLiveActivity as Boolean = true;
@@ -597,9 +600,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var newCount = nc != null ? nc as Number : 0;
             if (newCount != _notifCount) {
                 _notifCount = newCount;
-                _notifLabel = "[" + newCount.toString() + "]";
+                _notifLabel = "[" + newCount.toString() + " UNREAD]";
             }
             _phoneConnected = ds.phoneConnected;
+            _dndOn = ds.doNotDisturb;
         }
         var nowMoment = Time.now();
         var phase = _getPhase(nowMoment.value());
@@ -723,6 +727,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _leftPad = _getProp("leftPadding", 4);
             _areaOpacity = _getProp("areaOpacity", 64);
             _areaShowLine = _getBoolProp("areaShowLine");
+            _showBatteryDays = _getBoolProp("showBatteryDays");
             _scanlineIntensity = _getProp("scanlines", 2);
             _wxUnit = _metric ? "C" : "F";
             _amInfo = ActivityMonitor.getInfo();
@@ -815,10 +820,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var stats = System.getSystemStats();
             _charging = stats.charging;
+            _batLow = stats.battery <= 10.0 && !_charging;
             _batText = stats.battery.format("%.0f") + "%";
             var days = stats.batteryInDays;
             _batDaysText =
-                days != null ? " [" + days.format("%.0f") + "d]" : "";
+                _showBatteryDays && days != null
+                    ? " [" + days.format("%.0f") + "d]"
+                    : "";
             _batW = 0;
         }
         _refreshWeather(nowMin);
@@ -1081,13 +1089,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     private function _drawHeader(dc as Dc, y as Number) as Void {
         var textY = y - 32 - _smallFh;
-        if (!_phoneConnected) {
-            dc.setColor(ColorUtils.colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
+        if (_dndOn) {
+            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 _screenW / 2,
                 textY - _tinyFh - 2,
                 _fontTiny,
-                "[OFFLINE]",
+                "[DND]",
                 Graphics.TEXT_JUSTIFY_CENTER
             );
         }
@@ -1101,9 +1109,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 Graphics.TEXT_JUSTIFY_CENTER
             );
         }
+        if (!_phoneConnected) {
+            dc.setColor(ColorUtils.colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                _screenW / 2,
+                textY + _smallFh + 2,
+                _fontTiny,
+                "[OFFLINE]",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+        }
     }
 
     private function _drawFooter(dc as Dc, y as Number) as Void {
+        if (_batLow) {
+            dc.setColor(ColorUtils.colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(
+                _screenW / 2,
+                y - _tinyFh - 2,
+                _fontTiny,
+                "[LOW]",
+                Graphics.TEXT_JUSTIFY_CENTER
+            );
+        }
         var batText = _batText;
         var daysText = _batDaysText;
         var hasDays = daysText.length() > 0;
@@ -1157,28 +1185,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (!_showScreenBadge) {
             return;
         }
-        var prefix = "[";
-        var numStr = (_activeScreen + 1).toString();
-        var suffix = "]";
-        var prefixW = dc.getTextWidthInPixels(prefix, _fontTiny);
-        var numW = dc.getTextWidthInPixels(numStr, _fontTiny);
-        var suffixW = dc.getTextWidthInPixels(suffix, _fontTiny);
-        var x = _screenW / 2 - (prefixW + numW + suffixW) / 2;
-
-        dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _fontTiny, prefix, Graphics.TEXT_JUSTIFY_LEFT);
-        x += prefixW;
+        var label = "[" + (_activeScreen + 1).toString() + "]";
+        var labelW = dc.getTextWidthInPixels(label, _fontTiny);
+        var x = _screenW / 2 - labelW / 2;
 
         // C/M/Y per screen so the active screen is distinguishable at a glance.
-        var numColor = ColorUtils.colorFromIdx(
+        var labelColor = ColorUtils.colorFromIdx(
             _activeScreen == 0 ? 2 : _activeScreen == 1 ? 7 : 3
         );
-        dc.setColor(numColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _fontTiny, numStr, Graphics.TEXT_JUSTIFY_LEFT);
-        x += numW;
-
-        dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _fontTiny, suffix, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.setColor(labelColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, _fontTiny, label, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     private function _drawScanlines(dc as Dc, color as Number) as Void {

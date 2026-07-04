@@ -47,6 +47,9 @@
     <setting propertyKey="@Properties.areaShowLine" title="@Strings.AreaShowLine">
       <settingConfig type="boolean" />
     </setting>
+    <setting propertyKey="@Properties.showBatteryDays" title="@Strings.ShowBatteryDays">
+      <settingConfig type="boolean" />
+    </setting>
   </group>
   <group id="timeRow" title="@Strings.TimeRowGroup">
     <setting propertyKey="@Properties.showSeconds" title="@Strings.ShowSeconds">
