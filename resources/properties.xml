@@ -2,10 +2,12 @@
 
   <!-- Appearance -->
   <property id="fontChoice" type="number">0</property>
+  <property id="colorTheme" type="number">0</property>
   <property id="scanlines" type="number">2</property>
-  <property id="bgGradient" type="number">2</property>
-  <property id="bgWash" type="number">2</property>
+  <property id="glowIntensity" type="number">2</property>
+  <property id="bgBacklight" type="number">2</property>
   <property id="flickerEnabled" type="boolean">true</property>
+  <property id="vignetteEnabled" type="boolean">false</property>
 
   <!-- Display options -->
   <property id="leftPadding" type="number">4</property>
@@ -147,6 +149,27 @@
   <property id="intensityMinBarColor" type="number">5</property>
   <property id="intensityMinBarWidth" type="number">8</property>
 
+  <!-- Calories (Daily) -->
+  <property id="caloriesShowBar" type="boolean">false</property>
+  <property id="caloriesShowBarValue" type="boolean">true</property>
+  <property id="caloriesBarColor" type="number">4</property>
+  <property id="caloriesBarWidth" type="number">10</property>
+  <property id="caloriesBarGoal" type="number">2000</property>
+
+  <!-- Distance (Daily) -->
+  <property id="distanceShowBar" type="boolean">false</property>
+  <property id="distanceShowBarValue" type="boolean">true</property>
+  <property id="distanceBarColor" type="number">6</property>
+  <property id="distanceBarWidth" type="number">10</property>
+  <property id="distanceBarGoal" type="number">5</property>
+
+  <!-- Active Minutes (Daily) -->
+  <property id="activeMinDayShowBar" type="boolean">false</property>
+  <property id="activeMinDayShowBarValue" type="boolean">true</property>
+  <property id="activeMinDayBarColor" type="number">9</property>
+  <property id="activeMinDayBarWidth" type="number">10</property>
+  <property id="activeMinDayBarGoal" type="number">30</property>
+
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->
@@ -185,7 +208,7 @@
   <property id="spo2SecondaryType" type="number">0</property>
   <property id="spo2SecondaryField" type="number">0</property>
   <property id="spo2TimeFrame" type="number">60</property>
-  <property id="spo2GraphColor" type="number">11</property>
+  <property id="spo2GraphColor" type="number">6</property>
   <property id="spo2SecondaryColor" type="number">0</property>
   <property id="spo2GraphWidth" type="number">10</property>
 

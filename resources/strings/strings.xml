@@ -8,22 +8,28 @@
   <string id="FontSpaceMono">Space Mono</string>
   <string id="FontFiraCodeMono">Fira Code Mono</string>
   <string id="NBArchitekt">NB Architekt</string>
+  <string id="ColorTheme">Color Theme</string>
+  <string id="ColorThemeCustom">Custom (per-field colors)</string>
+  <string id="ColorThemeAmber">Amber CRT</string>
+  <string id="ColorThemeGreen">Green Phosphor</string>
+  <string id="ColorThemeBlue">Blue Terminal</string>
   <string id="Scanlines">Scanlines</string>
   <string id="ScanlinesOff">Off</string>
   <string id="ScanlinesSubtle">Subtle</string>
   <string id="ScanlinesMedium">Medium</string>
   <string id="ScanlinesStrong">Strong</string>
-  <string id="BgGradient">Glow Intensity</string>
-  <string id="BgGradientOff">Off</string>
-  <string id="BgGradientSubtle">Subtle</string>
-  <string id="BgGradientMedium">Medium</string>
-  <string id="BgGradientStrong">Strong</string>
-  <string id="BgWash">Background Wash</string>
-  <string id="BgWashOff">Off</string>
-  <string id="BgWashSubtle">Subtle</string>
-  <string id="BgWashMedium">Medium</string>
-  <string id="BgWashStrong">Strong</string>
+  <string id="GlowIntensity">Glow Intensity</string>
+  <string id="GlowIntensityOff">Off</string>
+  <string id="GlowIntensitySubtle">Subtle</string>
+  <string id="GlowIntensityMedium">Medium</string>
+  <string id="GlowIntensityStrong">Strong</string>
+  <string id="BgBacklight">Backlight</string>
+  <string id="BgBacklightOff">Off</string>
+  <string id="BgBacklightSubtle">Subtle</string>
+  <string id="BgBacklightMedium">Medium</string>
+  <string id="BgBacklightStrong">Strong</string>
   <string id="FlickerEnabled">CRT Flicker</string>
+  <string id="VignetteEnabled">Side Vignette</string>
 
   <!-- Display options -->
   <string id="LeftPadding">Left Padding</string>
@@ -325,6 +331,30 @@
   <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
   <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
   <string id="IntensityMinBarWidth">Intensity Min: Bar Width</string>
+
+  <!-- Calories (Daily) -->
+  <string id="CaloriesGroup">Bar Config - Calories (Daily)</string>
+  <string id="CaloriesShowBar">Calories: Show Progress Bar</string>
+  <string id="CaloriesShowBarValue">Calories: Show Value in Bar</string>
+  <string id="CaloriesBarColor">Calories: Bar Color</string>
+  <string id="CaloriesBarWidth">Calories: Bar Width</string>
+  <string id="CaloriesBarGoal">Calories: Daily Goal</string>
+
+  <!-- Distance (Daily) -->
+  <string id="DistanceGroup">Bar Config - Distance (Daily)</string>
+  <string id="DistanceShowBar">Distance: Show Progress Bar</string>
+  <string id="DistanceShowBarValue">Distance: Show Value in Bar</string>
+  <string id="DistanceBarColor">Distance: Bar Color</string>
+  <string id="DistanceBarWidth">Distance: Bar Width</string>
+  <string id="DistanceBarGoal">Distance: Daily Goal (km or mi - matches your device's distance unit)</string>
+
+  <!-- Active Minutes (Daily) -->
+  <string id="ActiveMinDayGroup">Bar Config - Active Minutes (Daily)</string>
+  <string id="ActiveMinDayShowBar">Active Min: Show Progress Bar</string>
+  <string id="ActiveMinDayShowBarValue">Active Min: Show Value in Bar</string>
+  <string id="ActiveMinDayBarColor">Active Min: Bar Color</string>
+  <string id="ActiveMinDayBarWidth">Active Min: Bar Width</string>
+  <string id="ActiveMinDayBarGoal">Active Min: Daily Goal</string>
 
   <!-- Shared: secondary graph type options -->
   <string id="SecTypeNone">None (hidden)</string>

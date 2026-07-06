@@ -8,6 +8,14 @@
         <listEntry value="3">@Strings.NBArchitekt</listEntry>
       </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.colorTheme" title="@Strings.ColorTheme">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.ColorThemeCustom</listEntry>
+        <listEntry value="1">@Strings.ColorThemeAmber</listEntry>
+        <listEntry value="2">@Strings.ColorThemeGreen</listEntry>
+        <listEntry value="3">@Strings.ColorThemeBlue</listEntry>
+      </settingConfig>
+    </setting>
     <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ScanlinesOff</listEntry>
@@ -16,23 +24,26 @@
         <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bgGradient" title="@Strings.BgGradient">
+    <setting propertyKey="@Properties.glowIntensity" title="@Strings.GlowIntensity">
       <settingConfig type="list">
-        <listEntry value="0">@Strings.BgGradientOff</listEntry>
-        <listEntry value="1">@Strings.BgGradientSubtle</listEntry>
-        <listEntry value="2">@Strings.BgGradientMedium</listEntry>
-        <listEntry value="3">@Strings.BgGradientStrong</listEntry>
+        <listEntry value="0">@Strings.GlowIntensityOff</listEntry>
+        <listEntry value="1">@Strings.GlowIntensitySubtle</listEntry>
+        <listEntry value="2">@Strings.GlowIntensityMedium</listEntry>
+        <listEntry value="3">@Strings.GlowIntensityStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bgWash" title="@Strings.BgWash">
+    <setting propertyKey="@Properties.bgBacklight" title="@Strings.BgBacklight">
       <settingConfig type="list">
-        <listEntry value="0">@Strings.BgWashOff</listEntry>
-        <listEntry value="1">@Strings.BgWashSubtle</listEntry>
-        <listEntry value="2">@Strings.BgWashMedium</listEntry>
-        <listEntry value="3">@Strings.BgWashStrong</listEntry>
+        <listEntry value="0">@Strings.BgBacklightOff</listEntry>
+        <listEntry value="1">@Strings.BgBacklightSubtle</listEntry>
+        <listEntry value="2">@Strings.BgBacklightMedium</listEntry>
+        <listEntry value="3">@Strings.BgBacklightStrong</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.flickerEnabled" title="@Strings.FlickerEnabled">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.vignetteEnabled" title="@Strings.VignetteEnabled">
       <settingConfig type="boolean" />
     </setting>
     <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
@@ -43,17 +54,7 @@
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.leftPadding" title="@Strings.LeftPadding">
-      <settingConfig type="list">
-        <listEntry value="0">0</listEntry>
-        <listEntry value="1">1</listEntry>
-        <listEntry value="2">2</listEntry>
-        <listEntry value="3">3</listEntry>
-        <listEntry value="4">4</listEntry>
-        <listEntry value="5">5</listEntry>
-        <listEntry value="6">6</listEntry>
-        <listEntry value="7">7</listEntry>
-        <listEntry value="8">8</listEntry>
-      </settingConfig>
+      <settingConfig type="numeric" min="0" max="8" />
     </setting>
     <setting propertyKey="@Properties.areaOpacity" title="@Strings.AreaOpacity">
       <settingConfig type="list">
@@ -6287,6 +6288,111 @@
         <listEntry value="14">@Strings.GraphWidth14</listEntry>
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
+    </setting>
+  </group>
+  <group id="calories" title="@Strings.CaloriesGroup">
+    <setting propertyKey="@Properties.caloriesShowBar" title="@Strings.CaloriesShowBar">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.caloriesShowBarValue" title="@Strings.CaloriesShowBarValue">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.caloriesBarColor" title="@Strings.CaloriesBarColor">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.ColorWhite</listEntry>
+        <listEntry value="1">@Strings.ColorGreen</listEntry>
+        <listEntry value="2">@Strings.ColorCyan</listEntry>
+        <listEntry value="3">@Strings.ColorYellow</listEntry>
+        <listEntry value="4">@Strings.ColorOrange</listEntry>
+        <listEntry value="5">@Strings.ColorRed</listEntry>
+        <listEntry value="6">@Strings.ColorBlue</listEntry>
+        <listEntry value="7">@Strings.ColorMagenta</listEntry>
+        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+        <listEntry value="9">@Strings.ColorPurple</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.caloriesBarWidth" title="@Strings.CaloriesBarWidth">
+      <settingConfig type="list">
+        <listEntry value="6">@Strings.GraphWidth6</listEntry>
+        <listEntry value="8">@Strings.GraphWidth8</listEntry>
+        <listEntry value="10">@Strings.GraphWidth10</listEntry>
+        <listEntry value="12">@Strings.GraphWidth12</listEntry>
+        <listEntry value="14">@Strings.GraphWidth14</listEntry>
+        <listEntry value="16">@Strings.GraphWidth16</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.caloriesBarGoal" title="@Strings.CaloriesBarGoal">
+      <settingConfig type="numeric" min="500" max="9000" />
+    </setting>
+  </group>
+  <group id="distance" title="@Strings.DistanceGroup">
+    <setting propertyKey="@Properties.distanceShowBar" title="@Strings.DistanceShowBar">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.distanceShowBarValue" title="@Strings.DistanceShowBarValue">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.distanceBarColor" title="@Strings.DistanceBarColor">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.ColorWhite</listEntry>
+        <listEntry value="1">@Strings.ColorGreen</listEntry>
+        <listEntry value="2">@Strings.ColorCyan</listEntry>
+        <listEntry value="3">@Strings.ColorYellow</listEntry>
+        <listEntry value="4">@Strings.ColorOrange</listEntry>
+        <listEntry value="5">@Strings.ColorRed</listEntry>
+        <listEntry value="6">@Strings.ColorBlue</listEntry>
+        <listEntry value="7">@Strings.ColorMagenta</listEntry>
+        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+        <listEntry value="9">@Strings.ColorPurple</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.distanceBarWidth" title="@Strings.DistanceBarWidth">
+      <settingConfig type="list">
+        <listEntry value="6">@Strings.GraphWidth6</listEntry>
+        <listEntry value="8">@Strings.GraphWidth8</listEntry>
+        <listEntry value="10">@Strings.GraphWidth10</listEntry>
+        <listEntry value="12">@Strings.GraphWidth12</listEntry>
+        <listEntry value="14">@Strings.GraphWidth14</listEntry>
+        <listEntry value="16">@Strings.GraphWidth16</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.distanceBarGoal" title="@Strings.DistanceBarGoal">
+      <settingConfig type="numeric" min="1" max="200" />
+    </setting>
+  </group>
+  <group id="activeMinDay" title="@Strings.ActiveMinDayGroup">
+    <setting propertyKey="@Properties.activeMinDayShowBar" title="@Strings.ActiveMinDayShowBar">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.activeMinDayShowBarValue" title="@Strings.ActiveMinDayShowBarValue">
+      <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.activeMinDayBarColor" title="@Strings.ActiveMinDayBarColor">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.ColorWhite</listEntry>
+        <listEntry value="1">@Strings.ColorGreen</listEntry>
+        <listEntry value="2">@Strings.ColorCyan</listEntry>
+        <listEntry value="3">@Strings.ColorYellow</listEntry>
+        <listEntry value="4">@Strings.ColorOrange</listEntry>
+        <listEntry value="5">@Strings.ColorRed</listEntry>
+        <listEntry value="6">@Strings.ColorBlue</listEntry>
+        <listEntry value="7">@Strings.ColorMagenta</listEntry>
+        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+        <listEntry value="9">@Strings.ColorPurple</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.activeMinDayBarWidth" title="@Strings.ActiveMinDayBarWidth">
+      <settingConfig type="list">
+        <listEntry value="6">@Strings.GraphWidth6</listEntry>
+        <listEntry value="8">@Strings.GraphWidth8</listEntry>
+        <listEntry value="10">@Strings.GraphWidth10</listEntry>
+        <listEntry value="12">@Strings.GraphWidth12</listEntry>
+        <listEntry value="14">@Strings.GraphWidth14</listEntry>
+        <listEntry value="16">@Strings.GraphWidth16</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.activeMinDayBarGoal" title="@Strings.ActiveMinDayBarGoal">
+      <settingConfig type="numeric" min="5" max="480" />
     </setting>
   </group>
   <group id="graph_hr" title="@Strings.HRGraphGroup">

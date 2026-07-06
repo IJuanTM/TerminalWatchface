@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.45.5";
+const APP_VERSION = "0.46.2";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -78,6 +78,30 @@ const COLORS =
         0xaa77ff, // 9  purple
     ] as Array<Number>;
 
+const COLORS_AMBER =
+    [
+        0xffe0b3, 0xffa833, 0xffb84d, 0xffc966, 0xff9900, 0xcc6600, 0xdb7f00,
+        0xe68a00, 0x995200, 0xd97d00,
+    ] as Array<Number>;
+
+const COLORS_GREEN =
+    [
+        0xccffcc, 0x66ff66, 0x88ff88, 0xaaff99, 0x55dd55, 0x22aa33, 0x33bb44,
+        0x44cc55, 0x117722, 0x33bd46,
+    ] as Array<Number>;
+
+const COLORS_BLUE =
+    [
+        0xccddff, 0x77aaff, 0x99bbff, 0xaaccff, 0x6699ee, 0x3366bb, 0x4477cc,
+        0x5588dd, 0x224488, 0x4478cd,
+    ] as Array<Number>;
+
+const COLOR_THEMES =
+    [COLORS, COLORS_AMBER, COLORS_GREEN, COLORS_BLUE] as Array<Array<Number> >;
+
+// Active palette, repointed by _applyColorTheme().
+var _activeColors as Array<Number> = COLORS;
+
 const TEMP_GRADS =
     [
         [
@@ -109,9 +133,9 @@ const SCANLINE_ALPHA = [0, 15, 30, 45] as Array<Number>;
 // CRT flicker: max brightness swing, and odds any given second flickers at all.
 const FLICKER_MAGNITUDE = 10;
 const FLICKER_CHANCE_PCT = 20;
-// Max vertical shift (px) on a wash flicker tick, and padding above/below to cover it.
-const BG_WASH_SHIFT_MAX = 20;
-const BG_WASH_PAD = 22;
+// Max vertical shift (px) on a backlight flicker tick, and padding above/below to cover it.
+const BG_BACKLIGHT_SHIFT_MAX = 20;
+const BG_BACKLIGHT_PAD = 22;
 // Side vignette gray mask: darkest at true edge/mid-height, fades to none.
 const VIGNETTE_REACH = 0.32;
 const VIGNETTE_Y_LIMIT = 1.0;
@@ -120,11 +144,11 @@ const VIGNETTE_ROW_BAND = 10;
 const VIGNETTE_COL_STEPS = 24;
 
 // Exponential falloff width for the backlight glow - smaller = tighter peak.
-const BG_WASH_SIGMA = 0.26;
+const BG_BACKLIGHT_SIGMA = 0.26;
 // Gray level multiplied over the bright gradient (BLEND_MODE_MULTIPLY) to dim it.
-const BG_WASH_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
+const BG_BACKLIGHT_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
 
-// Halo blend fraction toward a shape's own color, per bgGradient level (0=off).
+// Halo blend fraction toward a shape's own color, per glowIntensity level (0=off).
 const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 
 // 0=shadow, 1=bar bg, 2=dashed lines/separators, 3=mean line/no-data/axes
@@ -248,10 +272,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _haloBmp as Graphics.BufferedBitmap? = null;
     // Null until first drawBitmap attempt; caches whether it worked.
     private var _haloDrawOk as Boolean? = null;
-    private var _bgWashBmp as Graphics.BufferedBitmap? = null;
-    private var _bgWashDrawOk as Boolean? = null;
-    private var _bgWashDimBmp as Graphics.BufferedBitmap? = null;
-    private var _bgWashDimDrawOk as Boolean? = null;
+    private var _bgBacklightBmp as Graphics.BufferedBitmap? = null;
+    private var _bgBacklightDrawOk as Boolean? = null;
+    private var _bgBacklightDimBmp as Graphics.BufferedBitmap? = null;
+    private var _bgBacklightDimDrawOk as Boolean? = null;
     private var _vignetteBmp as Graphics.BufferedBitmap? = null;
     private var _vignetteDrawOk as Boolean? = null;
     private var _is24Hour as Boolean = true;
@@ -262,9 +286,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _areaOpacity as Number = 64;
     private var _areaShowLine as Boolean = true;
     private var _scanlineIntensity as Number = 2;
-    private var _bgGradient as Number = 2;
-    private var _bgWash as Number = 2;
+    private var _glowIntensity as Number = 2;
+    private var _bgBacklight as Number = 2;
+    private var _lastColorTheme as Number = -1;
     private var _flickerEnabled as Boolean = true;
+    private var _vignetteEnabled as Boolean = false;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
     private var _rotateMaxPhase as Number = 5;
@@ -326,6 +352,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _lineGraphType as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineGraphWidth as Array<Number> =
         [10, 10, 10] as Array<Number>;
+    private var _lineGoal as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecType as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecField as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecColor as Array<Number> = [0, 0, 0] as Array<Number>;
@@ -366,13 +393,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _acInfo = Activity.getActivityInfo();
         _posInfo = Position.getInfo();
         reloadFont();
+        _applyColorTheme(_getProp("colorTheme", 0));
         _readActiveScreen();
         _computeRotateMaxPhase();
     }
 
     // Pre-renders here so first-frame cost doesn't share onUpdate's budget.
     public function onLayout(dc as Dc) as Void {
-        _renderBgWashBitmap();
+        _renderBacklightBitmap();
         _renderVignetteBitmap();
     }
 
@@ -505,8 +533,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cachedTimeMin = -1;
         _forecastFetched = false;
         _wxCurrentFetched = false;
+        _applyColorTheme(_getProp("colorTheme", 0));
         _readActiveScreen();
         _computeRotateMaxPhase();
+    }
+
+    private function _applyColorTheme(themeIdx as Number) as Void {
+        if (themeIdx == _lastColorTheme) {
+            return;
+        }
+        _lastColorTheme = themeIdx;
+        _activeColors =
+            (
+                themeIdx >= 0 && themeIdx < COLOR_THEMES.size()
+                    ? COLOR_THEMES[themeIdx]
+                    : COLORS
+            ) as Array<Number>;
+        // Only _bgBacklightBmp bakes in a palette color permanently; the other
+        // appearance bitmaps are fully repainted every frame regardless.
+        _bgBacklightBmp = null;
     }
 
     private function _readActiveScreen() as Void {
@@ -755,15 +800,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _areaShowLine = _getBoolProp("areaShowLine");
             _showBatteryDays = _getBoolProp("showBatteryDays");
             _scanlineIntensity = _getProp("scanlines", 2);
-            _bgGradient = _getProp("bgGradient", 2);
-            if (_bgGradient < 0 || _bgGradient > 3) {
-                _bgGradient = 2;
+            _glowIntensity = _getProp("glowIntensity", 2);
+            if (_glowIntensity < 0 || _glowIntensity > 3) {
+                _glowIntensity = 2;
             }
-            _bgWash = _getProp("bgWash", 2);
-            if (_bgWash < 0 || _bgWash > 3) {
-                _bgWash = 2;
+            _bgBacklight = _getProp("bgBacklight", 2);
+            if (_bgBacklight < 0 || _bgBacklight > 3) {
+                _bgBacklight = 2;
             }
             _flickerEnabled = _getBoolProp("flickerEnabled");
+            _vignetteEnabled = _getBoolProp("vignetteEnabled");
             _wxUnit = _metric ? "C" : "F";
             _amInfo = ActivityMonitor.getInfo();
             _refreshComplications();
@@ -874,15 +920,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         dc.clear();
 
-        if (!_lowPower && _bgWash > 0 && _bgWash < 4) {
-            _drawBgWash(dc);
+        if (!_lowPower && _bgBacklight > 0 && _bgBacklight < 4) {
+            _drawBacklight(dc);
         }
 
         if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
             _drawScanlines(dc, SCANLINE_ALPHA[_scanlineIntensity]);
         }
 
-        if (!_lowPower) {
+        if (!_lowPower && _vignetteEnabled) {
             _drawVignette(dc);
         }
 
@@ -1321,30 +1367,30 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
-    private function _drawBgWash(dc as Dc) as Void {
-        if (_bgWashBmp == null) {
-            _renderBgWashBitmap();
+    private function _drawBacklight(dc as Dc) as Void {
+        if (_bgBacklightBmp == null) {
+            _renderBacklightBitmap();
         }
-        if (_bgWashBmp != null) {
-            var bmp = _bgWashBmp as Graphics.BufferedBitmap;
+        if (_bgBacklightBmp != null) {
+            var bmp = _bgBacklightBmp as Graphics.BufferedBitmap;
             var shift = _flickerShift(
                 System.getClockTime().sec + 500,
-                BG_WASH_SHIFT_MAX
+                BG_BACKLIGHT_SHIFT_MAX
             );
-            var y = shift - BG_WASH_PAD;
-            if (_bgWashDrawOk == null) {
-                _bgWashDrawOk = _tryDrawBitmap(dc, 0, y, bmp);
-            } else if (_bgWashDrawOk as Boolean) {
+            var y = shift - BG_BACKLIGHT_PAD;
+            if (_bgBacklightDrawOk == null) {
+                _bgBacklightDrawOk = _tryDrawBitmap(dc, 0, y, bmp);
+            } else if (_bgBacklightDrawOk as Boolean) {
                 dc.drawBitmap(0, y, bmp);
             }
         }
-        if (_bgWashDimBmp == null) {
-            _bgWashDimBmp = _createBitmap(_screenW, _screenH);
+        if (_bgBacklightDimBmp == null) {
+            _bgBacklightDimBmp = _createBitmap(_screenW, _screenH);
         }
-        if (_bgWashDimBmp != null) {
-            var dimBmp = _bgWashDimBmp as Graphics.BufferedBitmap;
+        if (_bgBacklightDimBmp != null) {
+            var dimBmp = _bgBacklightDimBmp as Graphics.BufferedBitmap;
             var gray = _flickerAlpha(
-                BG_WASH_DIM_LEVEL[_bgWash],
+                BG_BACKLIGHT_DIM_LEVEL[_bgBacklight],
                 System.getClockTime().sec + 500,
                 FLICKER_MAGNITUDE
             );
@@ -1355,9 +1401,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             dimBdc.fillRectangle(0, 0, _screenW, _screenH);
             dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
-            if (_bgWashDimDrawOk == null) {
-                _bgWashDimDrawOk = _tryDrawBitmap(dc, 0, 0, dimBmp);
-            } else if (_bgWashDimDrawOk as Boolean) {
+            if (_bgBacklightDimDrawOk == null) {
+                _bgBacklightDimDrawOk = _tryDrawBitmap(dc, 0, 0, dimBmp);
+            } else if (_bgBacklightDimDrawOk as Boolean) {
                 dc.drawBitmap(0, 0, dimBmp);
             }
             dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
@@ -1413,8 +1459,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var seg = 0;
                 while (seg < VIGNETTE_COL_STEPS) {
                     var hFrac = (seg + 0.5) / VIGNETTE_COL_STEPS;
-                    // Ease-out falloff (cubed) so the fade tapers to nothing
-                    // near the inner edge instead of cutting off abruptly.
                     var falloff = 1.0 - hFrac;
                     falloff = falloff * falloff * falloff;
                     var gray = (
@@ -1449,22 +1493,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     // Full bright range, taller than the screen so a flicker shift has room.
-    private function _renderBgWashBitmap() as Void {
-        var bmpH = _screenH + BG_WASH_PAD * 2;
+    private function _renderBacklightBitmap() as Void {
+        var bmpH = _screenH + BG_BACKLIGHT_PAD * 2;
         var bmp = _createBitmap(_screenW, bmpH);
         if (bmp == null) {
             return;
         }
-        _bgWashBmp = bmp;
+        _bgBacklightBmp = bmp;
         var bdc = bmp.getDc();
-        var hue = COLORS[1];
+        var hue = _activeColors[1];
         var cr = ((hue >> 16) & 0xff).toFloat() / 255.0;
         var cg = ((hue >> 8) & 0xff).toFloat() / 255.0;
         var cb = (hue & 0xff).toFloat() / 255.0;
         var by = 0;
         while (by < bmpH) {
-            var pos = (by - BG_WASH_PAD + 0.5) / _screenH.toFloat();
-            var brightness = _washFraction(pos) * 255.0;
+            var pos = (by - BG_BACKLIGHT_PAD + 0.5) / _screenH.toFloat();
+            var brightness = _backlightFraction(pos) * 255.0;
             var r = _quantizeBits(cr * brightness, 5);
             var g = _quantizeBits(cg * brightness, 6);
             var b = _quantizeBits(cb * brightness, 5);
@@ -1487,9 +1531,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return q * step;
     }
 
-    private function _washFraction(pos as Float) as Float {
+    private function _backlightFraction(pos as Float) as Float {
         var d = (pos - 0.5).abs();
-        var exponent = -d / BG_WASH_SIGMA;
+        var exponent = -d / BG_BACKLIGHT_SIGMA;
         return Math.pow(2.718281828459045, exponent).toFloat();
     }
 
@@ -1529,7 +1573,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     // Whether the halo is worth drawing into this frame; lazily creates _haloBmp.
     private function _haloActive() as Boolean {
-        if (_bgGradient == 0 || _lowPower) {
+        if (_glowIntensity == 0 || _lowPower) {
             return false;
         }
         if (_haloBmp == null) {
@@ -1604,7 +1648,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     // Blends a color toward black by the current halo fraction.
     private function _glowColor(color as Number) as Number {
-        var f = GLOW_FRACTION[_bgGradient];
+        var f = GLOW_FRACTION[_glowIntensity];
         var r = (((color >> 16) & 0xff) * f).toNumber();
         var g = (((color >> 8) & 0xff) * f).toNumber();
         var b = ((color & 0xff) * f).toNumber();
@@ -1808,6 +1852,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lineGraphWidth[li] = _getProp(key + "GraphWidth", 10);
     }
 
+    // Resolves the show/color/width settings shared by every goal-bar field.
+    private function _resolveBarField(
+        li as Number,
+        propPrefix as String,
+        defaultColor as Number,
+        defaultWidth as Number
+    ) as Void {
+        _lineViewMode[li] = _getBoolProp(propPrefix + "ShowBar")
+            ? _getBoolProp(propPrefix + "ShowBarValue")
+                ? 2
+                : 1
+            : 0;
+        _lineGraphColor[li] = _getProp(propPrefix + "BarColor", defaultColor);
+        _lineGraphWidth[li] = _getProp(propPrefix + "BarWidth", defaultWidth);
+    }
+
     private function _resolveLineGraph(li as Number) as Void {
         _lineSecType[li] = SEC_NONE;
         _lineValueMode[li] = 0;
@@ -1818,27 +1878,33 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lineGraphWidth[li] = 10;
         var field = _resolvedFields[li];
         if (field == FIELD_STEPS) {
-            var showBar = _getBoolProp("stepsShowBar");
-            var showVal = _getBoolProp("stepsShowBarValue");
-            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
-            _lineGraphColor[li] = _getProp("stepsBarColor", 1);
-            _lineGraphWidth[li] = _getProp("stepsBarWidth", 10);
+            _resolveBarField(li, "steps", 1, 10);
             return;
         }
         if (field == FIELD_FLOORS) {
-            var showBar = _getBoolProp("floorsShowBar");
-            var showVal = _getBoolProp("floorsShowBarValue");
-            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
-            _lineGraphColor[li] = _getProp("floorsBarColor", 5);
-            _lineGraphWidth[li] = _getProp("floorsBarWidth", 8);
+            _resolveBarField(li, "floors", 5, 8);
             return;
         }
         if (field == FIELD_INTENSITY_MIN) {
-            var showBar = _getBoolProp("intensityMinShowBar");
-            var showVal = _getBoolProp("intensityMinShowBarValue");
-            _lineViewMode[li] = showBar ? (showVal ? 2 : 1) : 0;
-            _lineGraphColor[li] = _getProp("intensityMinBarColor", 5);
-            _lineGraphWidth[li] = _getProp("intensityMinBarWidth", 8);
+            _resolveBarField(li, "intensityMin", 5, 8);
+            return;
+        }
+        if (field == FIELD_CALORIES) {
+            _resolveBarField(li, "calories", 4, 10);
+            var caloriesGoal = _getProp("caloriesBarGoal", 2000);
+            _lineGoal[li] = caloriesGoal <= 0 ? 2000 : caloriesGoal;
+            return;
+        }
+        if (field == FIELD_DISTANCE) {
+            _resolveBarField(li, "distance", 6, 10);
+            var distanceGoal = _getProp("distanceBarGoal", 5);
+            _lineGoal[li] = distanceGoal <= 0 ? 5 : distanceGoal;
+            return;
+        }
+        if (field == FIELD_ACTIVE_MIN_DAY) {
+            _resolveBarField(li, "activeMinDay", 9, 10);
+            var activeMinGoal = _getProp("activeMinDayBarGoal", 30);
+            _lineGoal[li] = activeMinGoal <= 0 ? 30 : activeMinGoal;
             return;
         }
         if (field == FIELD_WX_FCST_TEMP) {
@@ -2107,6 +2173,82 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
             }
             return true;
+        }
+        if (field == FIELD_CALORIES) {
+            var vm = _lineViewMode[li];
+            if (vm == 1 || vm == 2) {
+                if (_amInfo != null) {
+                    var info = _amInfo as ActivityMonitor.Info;
+                    _drawGoalBarRow(
+                        dc,
+                        cx,
+                        y,
+                        "Day Cals",
+                        info.calories != null ? info.calories as Number : 0,
+                        _lineGoal[li],
+                        labelColor,
+                        valueColor,
+                        vm == 2,
+                        _lineGraphColor[li]
+                    );
+                }
+                return true;
+            }
+            return false;
+        }
+        if (field == FIELD_DISTANCE) {
+            var vm = _lineViewMode[li];
+            if (vm == 1 || vm == 2) {
+                if (_amInfo != null) {
+                    var info = _amInfo as ActivityMonitor.Info;
+                    var current = 0;
+                    if (info.distance != null) {
+                        var cm = info.distance as Number;
+                        current = _metric
+                            ? (cm / 100000.0 + 0.5).toNumber()
+                            : (cm / 160934.0 + 0.5).toNumber();
+                    }
+                    _drawGoalBarRow(
+                        dc,
+                        cx,
+                        y,
+                        "Day Dist",
+                        current,
+                        _lineGoal[li],
+                        labelColor,
+                        valueColor,
+                        vm == 2,
+                        _lineGraphColor[li]
+                    );
+                }
+                return true;
+            }
+            return false;
+        }
+        if (field == FIELD_ACTIVE_MIN_DAY) {
+            var vm = _lineViewMode[li];
+            if (vm == 1 || vm == 2) {
+                if (_amInfo != null) {
+                    var info = _amInfo as ActivityMonitor.Info;
+                    var mins = info.activeMinutesDay;
+                    _drawGoalBarRow(
+                        dc,
+                        cx,
+                        y,
+                        "Act Min",
+                        mins != null && mins.total != null
+                            ? mins.total as Number
+                            : 0,
+                        _lineGoal[li],
+                        labelColor,
+                        valueColor,
+                        vm == 2,
+                        _lineGraphColor[li]
+                    );
+                }
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -2755,7 +2897,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
-    // Shared renderer for the steps/floors/intensity goal bars.
+    // Shared renderer for the steps/floors/intensity/calories/distance/active-min goal bars.
     private function _drawGoalBarRow(
         dc as Dc,
         cx as Number,

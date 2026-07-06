@@ -4,7 +4,7 @@ import Toybox.Position;
 // Pure color lookup and gradient math shared by row and graph drawing code.
 module ColorUtils {
     function colorFromIdx(idx as Number) as Number {
-        return idx >= 0 && idx < 10 ? COLORS[idx] : 0xffffff;
+        return idx >= 0 && idx < 10 ? _activeColors[idx] : 0xffffff;
     }
 
     function gpsQualityColor(acc as Number) as Number {
