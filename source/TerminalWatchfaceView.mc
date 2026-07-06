@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.45.3";
+const APP_VERSION = "0.45.4";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -113,11 +113,11 @@ const FLICKER_CHANCE_PCT = 20;
 const BG_WASH_SHIFT_MAX = 20;
 const BG_WASH_PAD = 22;
 // Side vignette gray mask: darkest at true edge/mid-height, fades to none.
-const VIGNETTE_REACH = 0.2;
+const VIGNETTE_REACH = 0.34;
 const VIGNETTE_Y_LIMIT = 1.0;
-const VIGNETTE_MIN_GRAY = 150;
+const VIGNETTE_MIN_GRAY = 180;
 const VIGNETTE_ROW_BAND = 10;
-const VIGNETTE_COL_STEPS = 10;
+const VIGNETTE_COL_STEPS = 24;
 
 // Exponential falloff width for the backlight glow - smaller = tighter peak.
 const BG_WASH_SIGMA = 0.26;
@@ -1413,9 +1413,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var seg = 0;
                 while (seg < VIGNETTE_COL_STEPS) {
                     var hFrac = (seg + 0.5) / VIGNETTE_COL_STEPS;
+                    // Ease-out falloff (squared) so the fade tapers to nothing
+                    // near the inner edge instead of cutting off abruptly.
+                    var falloff = 1.0 - hFrac;
+                    falloff *= falloff;
                     var gray = (
                         255 -
-                        (255 - VIGNETTE_MIN_GRAY) * vFactor * (1.0 - hFrac)
+                        (255 - VIGNETTE_MIN_GRAY) * vFactor * falloff
                     ).toNumber();
                     bdc.setColor(
                         (gray << 16) | (gray << 8) | gray,

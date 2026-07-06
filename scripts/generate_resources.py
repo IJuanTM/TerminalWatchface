@@ -252,7 +252,7 @@ GRAPH_FIELDS = [
     ("hr", "HR", 3, 0, 1, 60, 5, 0, 0),  # line+current, 1h; red
     ("bodyBat", "BodyBat", 6, 0, 2, 240, 11, 0, 0),  # area+current, 4h; tri-color rev
     ("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),  # line+current, 2h; tri-color
-    ("spo2", "SpO2", 0, 0, 0, 60, 2, 0, 2),  # value only; cyan
+    ("spo2", "SpO2", 6, 0, 0, 60, 11, 0, 2),  # area+current, 1h; tri-color rev
     ("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),  # line+current, 1h; turbo
     ("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),  # area+current, 8h; green
     ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),  # line+current, 2h; cyan
@@ -337,7 +337,7 @@ LINE_SLOTS = [
     # R3 (Tertiary)
     (3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),  # UV + Wind, blue
     (4, "Tertiary", _fv["FieldDistance"], 1, 0),  # Distance (daily), green
-    (5, "Tertiary", _fv["FieldBodyBat"], 5, 0),  # Body Battery, red
+    (5, "Tertiary", _fv["FieldSpO2"], 5, 0),  # Blood Oxygen (SpO2), red
     # R4 (Quaternary)
     (3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),  # Temp Daily forecast, blue
     (4, "Quaternary", _fv["FieldFloors"], 1, 0),  # Floors, green
