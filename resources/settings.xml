@@ -16,6 +16,25 @@
         <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
       </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.bgGradient" title="@Strings.BgGradient">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BgGradientOff</listEntry>
+        <listEntry value="1">@Strings.BgGradientSubtle</listEntry>
+        <listEntry value="2">@Strings.BgGradientMedium</listEntry>
+        <listEntry value="3">@Strings.BgGradientStrong</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.bgWash" title="@Strings.BgWash">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BgWashOff</listEntry>
+        <listEntry value="1">@Strings.BgWashSubtle</listEntry>
+        <listEntry value="2">@Strings.BgWashMedium</listEntry>
+        <listEntry value="3">@Strings.BgWashStrong</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.flickerEnabled" title="@Strings.FlickerEnabled">
+      <settingConfig type="boolean" />
+    </setting>
     <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
       <settingConfig type="list">
         <listEntry value="0">@Strings.WatchCommandWindows</listEntry>

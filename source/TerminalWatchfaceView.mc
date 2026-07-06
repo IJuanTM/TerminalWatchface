@@ -3,6 +3,7 @@ import Toybox.ActivityMonitor;
 import Toybox.Application.Properties;
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.Math;
 import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
@@ -13,11 +14,9 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.44.4";
+const APP_VERSION = "0.45.3";
 
-// FIELD_* constants (FIELD_NONE, FIELD_STEPS, FIELD_HR, etc.) live in
-// source/FieldIds.mc, generated from FIELD_CATEGORIES in
-// scripts/generate_resources.py - never hand-edit that file.
+// FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
 const VIEW_VALUE = 0;
 const VIEW_GRAPH = 1;
@@ -42,10 +41,7 @@ const COLOR_GRAD_TEMP_TURBO_REV = 17;
 const COLOR_GRAD_TEMP_INFERNO = 18;
 const COLOR_GRAD_TEMP_INFERNO_REV = 19;
 
-// CACHE_KEY_HI_SHIFT/CACHE_KEY_LO_SHIFT/CACHE_KEY_MASK (the graph cache key
-// bit layout used by _packGraphKey/_graphKeyHi/_graphKeyLo below) live in
-// source/FieldIds.mc, generated from scripts/generate_resources.py - never
-// hand-edit that file.
+// CACHE_KEY_* (graph cache key bit layout) also lives in generated FieldIds.mc.
 
 const ROTATE_SLOT_NAMES =
     ["Secondary", "Tertiary", "Quaternary", "Quinary", "Senary"] as
@@ -78,7 +74,7 @@ const COLORS =
         0xff5555, // 5  red
         0x6699ff, // 6  blue
         0xff55ff, // 7  magenta
-        0xbbbbbb, // 8  light grey
+        0x777777, // 8  light grey
         0xaa77ff, // 9  purple
     ] as Array<Number>;
 
@@ -108,17 +104,36 @@ const TEMP_GRADS =
 const TRI_GRAD = [0x55ff77, 0xff9944, 0xff5555] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
-// Overlay color per intensity (0=off handled separately, 1=subtle, 2=medium, 3=strong)
-const SCANLINE_COLORS =
-    [0x000000, 0x0d0d0d, 0x1a1a1a, 0x2a2a2a] as Array<Number>;
+// Black overlay alpha per intensity (0=off, 1=subtle, 2=medium, 3=strong).
+const SCANLINE_ALPHA = [0, 15, 30, 45] as Array<Number>;
+// CRT flicker: max brightness swing, and odds any given second flickers at all.
+const FLICKER_MAGNITUDE = 10;
+const FLICKER_CHANCE_PCT = 20;
+// Max vertical shift (px) on a wash flicker tick, and padding above/below to cover it.
+const BG_WASH_SHIFT_MAX = 20;
+const BG_WASH_PAD = 22;
+// Side vignette gray mask: darkest at true edge/mid-height, fades to none.
+const VIGNETTE_REACH = 0.2;
+const VIGNETTE_Y_LIMIT = 1.0;
+const VIGNETTE_MIN_GRAY = 150;
+const VIGNETTE_ROW_BAND = 10;
+const VIGNETTE_COL_STEPS = 10;
 
-// 0=shadow, 1=bar bg, 2=axes, 3=mean line/no-data
+// Exponential falloff width for the backlight glow - smaller = tighter peak.
+const BG_WASH_SIGMA = 0.26;
+// Gray level multiplied over the bright gradient (BLEND_MODE_MULTIPLY) to dim it.
+const BG_WASH_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
+
+// Halo blend fraction toward a shape's own color, per bgGradient level (0=off).
+const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
+
+// 0=shadow, 1=bar bg, 2=dashed lines/separators, 3=mean line/no-data/axes
 const GRAYS =
     [
-        0x222222, // 0  shadow
-        0x444444, // 1  bar background
-        0x666666, // 2  graph axes
-        0x888888, // 3  mean line, no-data text
+        0x111111, // 0  shadow
+        0x333333, // 1  bar background
+        0x555555, // 2  dashed lines, text separators
+        0x777777, // 3  mean line, no-data text, graph axes
     ] as Array<Number>;
 
 const DAY_NAMES =
@@ -229,13 +244,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compRaceMarathon as Number? = null;
     private var _graphBmpCache as Dictionary = {};
     private var _graphBmpDualCache as Dictionary = {};
+    // Offscreen surface every halo is drawn onto, then additively composited.
+    private var _haloBmp as Graphics.BufferedBitmap? = null;
+    // Null until first drawBitmap attempt; caches whether it worked.
+    private var _haloDrawOk as Boolean? = null;
+    private var _bgWashBmp as Graphics.BufferedBitmap? = null;
+    private var _bgWashDrawOk as Boolean? = null;
+    private var _bgWashDimBmp as Graphics.BufferedBitmap? = null;
+    private var _bgWashDimDrawOk as Boolean? = null;
+    private var _vignetteBmp as Graphics.BufferedBitmap? = null;
+    private var _vignetteDrawOk as Boolean? = null;
     private var _is24Hour as Boolean = true;
     private var _showSeconds as Boolean = false;
     private var _lowPower as Boolean = false;
+    private var _wakeFlicker as Boolean = true;
     private var _leftPad as Number = 4;
     private var _areaOpacity as Number = 64;
     private var _areaShowLine as Boolean = true;
     private var _scanlineIntensity as Number = 2;
+    private var _bgGradient as Number = 2;
+    private var _bgWash as Number = 2;
+    private var _flickerEnabled as Boolean = true;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
     private var _rotateMaxPhase as Number = 5;
@@ -341,7 +370,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _computeRotateMaxPhase();
     }
 
-    public function onLayout(dc as Dc) as Void {}
+    // Pre-renders here so first-frame cost doesn't share onUpdate's budget.
+    public function onLayout(dc as Dc) as Void {
+        _renderBgWashBitmap();
+        _renderVignetteBitmap();
+    }
 
     public function onShow() as Void {}
 
@@ -370,7 +403,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _compSeaLevelPressure = null;
         var iter = Complications.getComplications();
         var comp = iter.next() as Complications.Complication?;
-        while (comp != null) {
+        var deadline = System.getTimer() + 100;
+        while (comp != null && System.getTimer() < deadline) {
             var v = comp.value;
             if (v != null) {
                 var t = comp.getType();
@@ -693,13 +727,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _needsLiveActivity = needsAct;
             _needsGps = needsGps;
             _needsForecast = needsForecast;
-            // Forecast fields fall back to the current-conditions strings too
-            // (e.g. FIELD_WX_FCST_TEMP shows _wxTemp in plain-value mode), so
-            // they also require the current-conditions refresh.
+            // Forecast fields fall back to current-conditions strings too, so they need this refresh too.
             _needsWeatherCurrent = needsWxCurrent || needsForecast;
-            // A forecast/weather field can rotate into view mid-minute; force a
-            // refresh now instead of waiting for the next minute boundary so it
-            // doesn't show stale/placeholder data until then.
+            // Force a refresh now if a forecast field just rotated into view mid-minute.
             if (_needsForecast && !_forecastFetched) {
                 _wxLastMin = -1;
             }
@@ -715,11 +745,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (nowMin != _graphCacheMin) {
             _graphCacheMin = nowMin;
-            // Graph bitmaps are NOT cleared here: _cacheResult() already
-            // invalidates only the specific cache key whose sensor data just
-            // refreshed, so slower-updating fields (e.g. Body Battery/SpO2 at
-            // 5 min, Stress/Wrist Temp at 3 min) keep their rendered bitmap
-            // across minutes instead of re-rendering every single minute.
+            // Not cleared here: _cacheResult() invalidates only the specific key that refreshed.
             var settings = System.getDeviceSettings();
             _metric = settings.distanceUnits == System.UNIT_METRIC;
             _is24Hour = settings.is24Hour;
@@ -729,6 +755,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _areaShowLine = _getBoolProp("areaShowLine");
             _showBatteryDays = _getBoolProp("showBatteryDays");
             _scanlineIntensity = _getProp("scanlines", 2);
+            _bgGradient = _getProp("bgGradient", 2);
+            if (_bgGradient < 0 || _bgGradient > 3) {
+                _bgGradient = 2;
+            }
+            _bgWash = _getProp("bgWash", 2);
+            if (_bgWash < 0 || _bgWash > 3) {
+                _bgWash = 2;
+            }
+            _flickerEnabled = _getBoolProp("flickerEnabled");
             _wxUnit = _metric ? "C" : "F";
             _amInfo = ActivityMonitor.getInfo();
             _refreshComplications();
@@ -831,11 +866,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         _refreshWeather(nowMin);
 
-        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        if (_wakeFlicker) {
+            _wakeFlicker = false;
+            dc.setColor(0x224422, Graphics.COLOR_TRANSPARENT);
+        } else {
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        }
         dc.clear();
 
+        if (!_lowPower && _bgWash > 0 && _bgWash < 4) {
+            _drawBgWash(dc);
+        }
+
         if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
-            _drawScanlines(dc, SCANLINE_COLORS[_scanlineIntensity]);
+            _drawScanlines(dc, SCANLINE_ALPHA[_scanlineIntensity]);
+        }
+
+        if (!_lowPower) {
+            _drawVignette(dc);
+        }
+
+        if (_haloActive()) {
+            _clearHalo();
         }
 
         if (!_metricsValid) {
@@ -860,10 +912,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         _drawHeader(dc, y);
 
-        // Always-on mode: keep the exact same layout math, but draw only the
-        // time and date values (no labels, prompt, data lines or cursor) plus
-        // the kept header and footer. Scanlines are skipped to stay within the
-        // AMOLED always-on pixel budget.
+        // Always-on: same layout math, but only time/date values plus header/footer, no scanlines (AMOLED pixel budget).
         if (_lowPower) {
             _getTimeParts(dc);
             _drawAodValue(dc, cx, y + step, _cachedTimeStr, _line1ValueC);
@@ -940,21 +989,40 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cursorCharW = _charW;
         _cursorFh = _fh;
 
-        dc.setColor(ColorUtils.colorFromIdx(2), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        _glowText(
+            dc,
             splitX - _arrowW,
             footerY,
             _font,
             "~",
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.colorFromIdx(2)
         );
-        dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(splitX, footerY, _font, " > ", Graphics.TEXT_JUSTIFY_RIGHT);
+        _glowText(
+            dc,
+            splitX,
+            footerY,
+            _font,
+            " > ",
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.colorFromIdx(0)
+        );
         if (_cursorOn) {
-            dc.fillRectangle(splitX, footerY, _charW, _fh);
+            _glowRect(
+                dc,
+                splitX,
+                footerY,
+                _charW,
+                _fh,
+                ColorUtils.colorFromIdx(0)
+            );
         }
         _drawFooter(dc, footerY + _fh + 32);
         _drawScreenBadge(dc, footerY + _fh + 32 + _smallFh + 2);
+
+        if (_haloActive()) {
+            _compositeHalo(dc);
+        }
     }
 
     private function _drawArrow(
@@ -988,19 +1056,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     // Draws numStr + small degree circle at (x, y); returns x after the circle.
-    // Caller must set color and may draw the unit suffix at the returned x.
     private function _drawSmallTempNum(
         dc as Dc,
         x as Number,
         y as Number,
-        numStr as String
+        numStr as String,
+        color as Number
     ) as Number {
-        dc.drawText(x, y, _fontSmall, numStr, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _fontSmall,
+            numStr,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            color
+        );
         x += dc.getTextWidthInPixels(numStr, _fontSmall);
-        dc.drawCircle(
+        _glowCircle(
+            dc,
             x + _degWSmall / 2,
             y + _degWSmall / 2 + 4,
-            (_degWSmall - 1) / 2
+            (_degWSmall - 1) / 2,
+            color
         );
         return x + _degWSmall;
     }
@@ -1010,20 +1088,31 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         x as Number,
         y as Number,
         field as Number,
-        str as String
+        str as String,
+        color as Number
     ) as Number {
         if (field == FIELD_WRIST_TEMP) {
-            var afterNum = _drawSmallTempNum(dc, x, y, str);
-            dc.drawText(
+            var afterNum = _drawSmallTempNum(dc, x, y, str, color);
+            _glowText(
+                dc,
                 afterNum,
                 y,
                 _fontSmall,
                 _wxUnit,
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                color
             );
             return afterNum + dc.getTextWidthInPixels(_wxUnit, _fontSmall);
         } else {
-            dc.drawText(x, y, _fontSmall, str, Graphics.TEXT_JUSTIFY_LEFT);
+            _glowText(
+                dc,
+                x,
+                y,
+                _fontSmall,
+                str,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                color
+            );
             return x + dc.getTextWidthInPixels(str, _fontSmall);
         }
     }
@@ -1044,13 +1133,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 : mode == 1
                   ? ColorUtils.colorFromIdx(5)
                   : ColorUtils.colorFromIdx(6);
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        _glowText(
+            dc,
             rightX + _charW / 2,
             y - 4,
             _fontTiny,
             label,
-            Graphics.TEXT_JUSTIFY_LEFT
+            Graphics.TEXT_JUSTIFY_LEFT,
+            color
         );
     }
 
@@ -1061,10 +1151,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         iconType as Number,
         colorIdx as Number
     ) as Void {
-        dc.setColor(
-            ColorUtils.colorFromIdx(colorIdx),
-            Graphics.COLOR_TRANSPARENT
-        );
+        var color = ColorUtils.colorFromIdx(colorIdx);
+        var hdc = _activeHaloDc();
+        if (hdc != null) {
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            _drawIconShape(hdc, x, y + 1, iconType);
+            _drawIconShape(hdc, x + 1, y, iconType);
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        _drawIconShape(dc, x, y, iconType);
+    }
+
+    private function _drawIconShape(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        iconType as Number
+    ) as Void {
         if (iconType == ICON_ARROW_UP) {
             _drawArrow(dc, x, y, true);
         } else if (iconType == ICON_ARROW_DN) {
@@ -1090,46 +1193,50 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _drawHeader(dc as Dc, y as Number) as Void {
         var textY = y - 32 - _smallFh;
         if (_dndOn) {
-            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 _screenW / 2,
                 textY - _tinyFh - 2,
                 _fontTiny,
                 "[DND]",
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER,
+                GRAYS[3]
             );
         }
         if (_notifCount != 0) {
-            dc.setColor(ColorUtils.colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 _screenW / 2,
                 textY,
                 _fontSmall,
                 _notifLabel,
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER,
+                ColorUtils.colorFromIdx(1)
             );
         }
         if (!_phoneConnected) {
-            dc.setColor(ColorUtils.colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 _screenW / 2,
                 textY + _smallFh + 2,
                 _fontTiny,
                 "[OFFLINE]",
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER,
+                ColorUtils.colorFromIdx(5)
             );
         }
     }
 
     private function _drawFooter(dc as Dc, y as Number) as Void {
         if (_batLow) {
-            dc.setColor(ColorUtils.colorFromIdx(5), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 _screenW / 2,
                 y - _tinyFh - 2,
                 _fontTiny,
                 "[LOW]",
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER,
+                ColorUtils.colorFromIdx(5)
             );
         }
         var batText = _batText;
@@ -1146,37 +1253,47 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var spacedW = dc.getTextWidthInPixels(spaced, _fontSmall);
             var startX = (_screenW - _bmpBoltW - spacedW - _batDaysW) / 2;
             _drawIcon(dc, startX, y + (_smallFh - _boltH) / 2, ICON_BOLT, 3);
-            dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 startX + _bmpBoltW,
                 y,
                 _fontSmall,
                 spaced,
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(0)
             );
             if (hasDays) {
-                dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-                dc.drawText(
+                _glowText(
+                    dc,
                     startX + _bmpBoltW + spacedW,
                     y,
                     _fontSmall,
                     daysText,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    GRAYS[3]
                 );
             }
             return;
         }
         var startX = (_screenW - _batW - _batDaysW) / 2;
-        dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(startX, y, _fontSmall, batText, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            startX,
+            y,
+            _fontSmall,
+            batText,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            ColorUtils.colorFromIdx(0)
+        );
         if (hasDays) {
-            dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 startX + _batW,
                 y,
                 _fontSmall,
                 daysText,
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                GRAYS[3]
             );
         }
     }
@@ -1193,17 +1310,409 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var labelColor = ColorUtils.colorFromIdx(
             _activeScreen == 0 ? 2 : _activeScreen == 1 ? 7 : 3
         );
-        dc.setColor(labelColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _fontTiny, label, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _fontTiny,
+            label,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            labelColor
+        );
     }
 
-    private function _drawScanlines(dc as Dc, color as Number) as Void {
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+    private function _drawBgWash(dc as Dc) as Void {
+        if (_bgWashBmp == null) {
+            _renderBgWashBitmap();
+        }
+        if (_bgWashBmp != null) {
+            var bmp = _bgWashBmp as Graphics.BufferedBitmap;
+            var shift = _flickerShift(
+                System.getClockTime().sec + 500,
+                BG_WASH_SHIFT_MAX
+            );
+            var y = shift - BG_WASH_PAD;
+            if (_bgWashDrawOk == null) {
+                _bgWashDrawOk = _tryDrawBitmap(dc, 0, y, bmp);
+            } else if (_bgWashDrawOk as Boolean) {
+                dc.drawBitmap(0, y, bmp);
+            }
+        }
+        if (_bgWashDimBmp == null) {
+            _bgWashDimBmp = _createBitmap(_screenW, _screenH);
+        }
+        if (_bgWashDimBmp != null) {
+            var dimBmp = _bgWashDimBmp as Graphics.BufferedBitmap;
+            var gray = _flickerAlpha(
+                BG_WASH_DIM_LEVEL[_bgWash],
+                System.getClockTime().sec + 500,
+                FLICKER_MAGNITUDE
+            );
+            var dimBdc = dimBmp.getDc();
+            dimBdc.setColor(
+                (gray << 16) | (gray << 8) | gray,
+                Graphics.COLOR_TRANSPARENT
+            );
+            dimBdc.fillRectangle(0, 0, _screenW, _screenH);
+            dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
+            if (_bgWashDimDrawOk == null) {
+                _bgWashDimDrawOk = _tryDrawBitmap(dc, 0, 0, dimBmp);
+            } else if (_bgWashDimDrawOk as Boolean) {
+                dc.drawBitmap(0, 0, dimBmp);
+            }
+            dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+        }
+    }
+
+    private function _drawVignette(dc as Dc) as Void {
+        if (_vignetteBmp == null) {
+            _renderVignetteBitmap();
+        }
+        if (_vignetteBmp == null) {
+            return;
+        }
+        var bmp = _vignetteBmp as Graphics.BufferedBitmap;
+        dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
+        if (_vignetteDrawOk == null) {
+            _vignetteDrawOk = _tryDrawBitmap(dc, 0, 0, bmp);
+        } else if (_vignetteDrawOk as Boolean) {
+            dc.drawBitmap(0, 0, bmp);
+        }
+        dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+    }
+
+    private function _renderVignetteBitmap() as Void {
+        var bmp = _createBitmap(_screenW, _screenH);
+        if (bmp == null) {
+            return;
+        }
+        _vignetteBmp = bmp;
+        var bdc = bmp.getDc();
+        bdc.setColor(0xffffff, Graphics.COLOR_TRANSPARENT);
+        bdc.fillRectangle(0, 0, _screenW, _screenH);
+
+        var cx = _screenW / 2;
+        var cy = _screenH / 2;
+        var maxR = (_screenW / 2).toFloat();
+        var reachPx = maxR * VIGNETTE_REACH;
+
+        var y = 0;
+        while (y < _screenH) {
+            var dy = (y + VIGNETTE_ROW_BAND / 2 - cy).toFloat();
+            var yFrac = dy.abs() / maxR;
+            if (yFrac < VIGNETTE_Y_LIMIT) {
+                var t = yFrac / VIGNETTE_Y_LIMIT;
+                var vFactor = Math.sqrt(1.0 - t * t);
+                var reach = reachPx * vFactor;
+                // Anchor to the round display's actual boundary, not the square bitmap's edge.
+                var halfW = Math.sqrt(maxR * maxR - dy * dy);
+                var bandH = VIGNETTE_ROW_BAND;
+                if (y + bandH > _screenH) {
+                    bandH = _screenH - y;
+                }
+                var seg = 0;
+                while (seg < VIGNETTE_COL_STEPS) {
+                    var hFrac = (seg + 0.5) / VIGNETTE_COL_STEPS;
+                    var gray = (
+                        255 -
+                        (255 - VIGNETTE_MIN_GRAY) * vFactor * (1.0 - hFrac)
+                    ).toNumber();
+                    bdc.setColor(
+                        (gray << 16) | (gray << 8) | gray,
+                        Graphics.COLOR_TRANSPARENT
+                    );
+                    var off0 = (reach * seg) / VIGNETTE_COL_STEPS;
+                    var off1 = (reach * (seg + 1)) / VIGNETTE_COL_STEPS;
+                    var segX0 = (cx - halfW + off0).toNumber();
+                    var segX1 = (cx - halfW + off1).toNumber();
+                    var segW = segX1 - segX0;
+                    if (segW < 1) {
+                        segW = 1;
+                    }
+                    bdc.fillRectangle(segX0, y, segW, bandH);
+                    var rSegX1 = (cx + halfW - off0).toNumber();
+                    var rSegX0 = (cx + halfW - off1).toNumber();
+                    var rSegW = rSegX1 - rSegX0;
+                    if (rSegW < 1) {
+                        rSegW = 1;
+                    }
+                    bdc.fillRectangle(rSegX0, y, rSegW, bandH);
+                    seg += 1;
+                }
+            }
+            y += VIGNETTE_ROW_BAND;
+        }
+    }
+
+    // Full bright range, taller than the screen so a flicker shift has room.
+    private function _renderBgWashBitmap() as Void {
+        var bmpH = _screenH + BG_WASH_PAD * 2;
+        var bmp = _createBitmap(_screenW, bmpH);
+        if (bmp == null) {
+            return;
+        }
+        _bgWashBmp = bmp;
+        var bdc = bmp.getDc();
+        var hue = COLORS[1];
+        var cr = ((hue >> 16) & 0xff).toFloat() / 255.0;
+        var cg = ((hue >> 8) & 0xff).toFloat() / 255.0;
+        var cb = (hue & 0xff).toFloat() / 255.0;
+        var by = 0;
+        while (by < bmpH) {
+            var pos = (by - BG_WASH_PAD + 0.5) / _screenH.toFloat();
+            var brightness = _washFraction(pos) * 255.0;
+            var r = _quantizeBits(cr * brightness, 5);
+            var g = _quantizeBits(cg * brightness, 6);
+            var b = _quantizeBits(cb * brightness, 5);
+            bdc.setColor((r << 16) | (g << 8) | b, Graphics.COLOR_TRANSPARENT);
+            bdc.fillRectangle(0, by, _screenW, 1);
+            by += 1;
+        }
+    }
+
+    // Rounds v (0-255) to the nearest representable value at bits per channel.
+    private function _quantizeBits(v as Float, bits as Number) as Number {
+        var step = 1 << (8 - bits);
+        var maxQ = (1 << bits) - 1;
+        var q = Math.round(v / step).toNumber();
+        if (q < 0) {
+            q = 0;
+        } else if (q > maxQ) {
+            q = maxQ;
+        }
+        return q * step;
+    }
+
+    private function _washFraction(pos as Float) as Float {
+        var d = (pos - 0.5).abs();
+        var exponent = -d / BG_WASH_SIGMA;
+        return Math.pow(2.718281828459045, exponent).toFloat();
+    }
+
+    private function _drawScanlines(dc as Dc, alpha as Number) as Void {
+        dc.setStroke((alpha << 24) | 0xffffff);
         var y = 0;
         while (y < _screenH) {
             dc.drawLine(0, y, _screenW - 1, y);
             y += SCANLINE_SPACING;
         }
+    }
+
+    // Draws bmp and reports whether it succeeded (see _haloDrawOk).
+    private function _tryDrawBitmap(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        bmp as Graphics.BufferedBitmap
+    ) as Boolean {
+        try {
+            dc.drawBitmap(x, y, bmp);
+            return true;
+        } catch (e instanceof Lang.Exception) {
+            return false;
+        }
+    }
+
+    private function _clampByte(v as Number) as Number {
+        if (v < 0) {
+            return 0;
+        }
+        if (v > 255) {
+            return 255;
+        }
+        return v;
+    }
+
+    // Whether the halo is worth drawing into this frame; lazily creates _haloBmp.
+    private function _haloActive() as Boolean {
+        if (_bgGradient == 0 || _lowPower) {
+            return false;
+        }
+        if (_haloBmp == null) {
+            _haloBmp = _createBitmap(_screenW, _screenH);
+        }
+        return _haloBmp != null;
+    }
+
+    private function _haloDc() as Dc {
+        return (_haloBmp as Graphics.BufferedBitmap).getDc();
+    }
+
+    private function _activeHaloDc() as Dc? {
+        return _haloActive() ? _haloDc() : null;
+    }
+
+    // Tries decreasing colorDepth until one is accepted (needs real depth, not a small palette).
+    private function _createBitmap(
+        w as Number,
+        h as Number
+    ) as Graphics.BufferedBitmap? {
+        var depths = [24, 16, 8] as Array<Number>;
+        var i = 0;
+        while (i < depths.size()) {
+            try {
+                var ref = Graphics.createBufferedBitmap({
+                    :width => w,
+                    :height => h,
+                    :colorDepth => depths[i],
+                });
+                var bmp =
+                    (ref as Graphics.BufferedBitmapReference).get() as
+                    Graphics.BufferedBitmap?;
+                if (bmp != null) {
+                    return bmp;
+                }
+            } catch (e instanceof Lang.Exception) {}
+            i += 1;
+        }
+        try {
+            var fallbackRef = Graphics.createBufferedBitmap({
+                :width => w,
+                :height => h,
+            });
+            return (
+                (fallbackRef as Graphics.BufferedBitmapReference).get() as
+                Graphics.BufferedBitmap?
+            );
+        } catch (e instanceof Lang.Exception) {
+            return null;
+        }
+    }
+
+    // Wipes the halo surface to black before this redraw's halos are drawn.
+    private function _clearHalo() as Void {
+        var hdc = _haloDc();
+        hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        hdc.clear();
+    }
+
+    // Composites the halo surface onto dc additively so it brightens rather than replaces.
+    private function _compositeHalo(dc as Dc) as Void {
+        var bmp = _haloBmp as Graphics.BufferedBitmap;
+        dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
+        if (_haloDrawOk == null) {
+            _haloDrawOk = _tryDrawBitmap(dc, 0, 0, bmp);
+        } else if (_haloDrawOk as Boolean) {
+            dc.drawBitmap(0, 0, bmp);
+        }
+        dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+    }
+
+    // Blends a color toward black by the current halo fraction.
+    private function _glowColor(color as Number) as Number {
+        var f = GLOW_FRACTION[_bgGradient];
+        var r = (((color >> 16) & 0xff) * f).toNumber();
+        var g = (((color >> 8) & 0xff) * f).toNumber();
+        var b = ((color & 0xff) * f).toNumber();
+        return (r << 16) | (g << 8) | b;
+    }
+
+    // Soft 1px halo behind text before the crisp glyphs on top.
+    private function _glowText(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        font as Graphics.FontType,
+        text as String,
+        justify as Graphics.TextJustification,
+        color as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc != null) {
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            hdc.drawText(x, y + 1, font, text, justify);
+            hdc.drawText(x + 1, y, font, text, justify);
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, font, text, justify);
+    }
+
+    private function _glowLine(
+        dc as Dc,
+        x1 as Number,
+        y1 as Number,
+        x2 as Number,
+        y2 as Number,
+        color as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc != null) {
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            hdc.drawLine(x1, y1 + 1, x2, y2 + 1);
+            hdc.drawLine(x1 + 1, y1, x2 + 1, y2);
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(x1, y1, x2, y2);
+    }
+
+    private function _glowRect(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        w as Number,
+        h as Number,
+        color as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc != null) {
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            hdc.fillRectangle(x, y + 1, w, h);
+            hdc.fillRectangle(x + 1, y, w, h);
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.fillRectangle(x, y, w, h);
+    }
+
+    // Same halo treatment as _glowText, for a stroked circle (degree marks).
+    private function _glowCircle(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        r as Number,
+        color as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc != null) {
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            hdc.drawCircle(x, y + 1, r);
+            hdc.drawCircle(x + 1, y, r);
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawCircle(x, y, r);
+    }
+
+    // Base most seconds; occasionally spikes for one tick then reverts.
+    private function _flickerAlpha(
+        base as Number,
+        sec as Number,
+        magnitude as Number
+    ) as Number {
+        if (!_flickerEnabled) {
+            return base;
+        }
+        var n = (sec * 374761393 + 907633515) & 0x7fffffff;
+        n = ((n ^ (n >> 13)) * 1274126177) & 0x7fffffff;
+        if (n % 100 >= FLICKER_CHANCE_PCT) {
+            return base;
+        }
+        var delta = (n % (magnitude * 2 + 1)) - magnitude;
+        return _clampByte(base + delta);
+    }
+
+    // Pass the same seed as _flickerAlpha to move together on the same tick.
+    private function _flickerShift(
+        sec as Number,
+        maxShift as Number
+    ) as Number {
+        if (!_flickerEnabled) {
+            return 0;
+        }
+        var n = (sec * 374761393 + 907633515) & 0x7fffffff;
+        n = ((n ^ (n >> 13)) * 1274126177) & 0x7fffffff;
+        if (n % 100 >= FLICKER_CHANCE_PCT) {
+            return 0;
+        }
+        return (n % (maxShift * 2 + 1)) - maxShift;
     }
 
     private function _drawPromptLine(
@@ -1213,18 +1722,33 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         content as String
     ) as Void {
         var splitX = cx + _splitPad;
-        dc.setColor(ColorUtils.colorFromIdx(2), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        _glowText(
+            dc,
             splitX - _arrowW,
             y,
             _font,
             "~",
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.colorFromIdx(2)
         );
-        dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(splitX, y, _font, " > ", Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.setColor(ColorUtils.colorFromIdx(3), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(splitX, y, _font, content, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            splitX,
+            y,
+            _font,
+            " > ",
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.colorFromIdx(0)
+        );
+        _glowText(
+            dc,
+            splitX,
+            y,
+            _font,
+            content,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            ColorUtils.colorFromIdx(3)
+        );
     }
 
     private function _resolveAllLines(phase as Number) as Void {
@@ -1241,9 +1765,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         key as String,
         phase as Number
     ) as Void {
-        // Fields and colors are all read from the active screen's properties.
-        // Label and value colors are per line (shared across rotation slots);
-        // only the field changes as the line rotates.
+        // Label/value colors are per line (shared across rotation slots); only the field rotates.
         var pk = SCREEN_PREFIXES[_activeScreen] + key;
         var f = FIELD_NONE;
         if (_screenMasterEnabled && _getBoolProp(pk + "Enabled")) {
@@ -1259,10 +1781,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _resolvedValueC[li] = _getProp(pk + "ValueColor", 0);
     }
 
-    // Decodes an hourly forecast's merged graph mode (1=line, 2=bar,
-    // 3=line+current, 4=bar+current, 5=area, 6=area+current) into view mode and
-    // graph type, then reads its value mode, color, time frame and width. key is
-    // the property prefix, e.g. "wxForecastWind".
+    // Decodes a merged graph mode (1=line,2=bar,3=line+current,4=bar+current,
+    // 5=area,6=area+current) into view mode and graph type.
     private function _resolveForecastGraph(
         li as Number,
         key as String,
@@ -1495,18 +2015,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
                 _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
                 if (steps >= goal) {
-                    dc.setColor(
-                        ColorUtils.colorFromIdx(1),
-                        Graphics.COLOR_TRANSPARENT
-                    );
-                    dc.drawText(
+                    _glowText(
+                        dc,
                         cx +
                             _splitPad +
                             dc.getTextWidthInPixels(_rowBuf[1], _font),
                         y,
                         _font,
                         " [GOAL]",
-                        Graphics.TEXT_JUSTIFY_LEFT
+                        Graphics.TEXT_JUSTIFY_LEFT,
+                        ColorUtils.colorFromIdx(1)
                     );
                 }
             }
@@ -1571,18 +2089,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         ? info.activeMinutesWeekGoal as Number
                         : 150;
                 if (total >= goal) {
-                    dc.setColor(
-                        ColorUtils.colorFromIdx(1),
-                        Graphics.COLOR_TRANSPARENT
-                    );
-                    dc.drawText(
+                    _glowText(
+                        dc,
                         cx +
                             _splitPad +
                             dc.getTextWidthInPixels(_rowBuf[1], _font),
                         y,
                         _font,
                         " [GOAL]",
-                        Graphics.TEXT_JUSTIFY_LEFT
+                        Graphics.TEXT_JUSTIFY_LEFT,
+                        ColorUtils.colorFromIdx(1)
                     );
                 }
             }
@@ -1631,11 +2147,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             var x = cx + _splitPad;
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                valStr,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(valueColor)
             );
-            dc.drawText(x, y, _font, valStr, Graphics.TEXT_JUSTIFY_LEFT);
             if (!valStr.equals("-")) {
                 x += dc.getTextWidthInPixels(valStr, _font);
                 _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valueColor);
@@ -1648,18 +2168,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             var pos = _posInfo;
-            dc.setColor(
-                pos != null
-                    ? ColorUtils.gpsQualityColor(pos.accuracy)
-                    : 0xffffff,
-                Graphics.COLOR_TRANSPARENT
-            );
-            dc.drawText(
+            _glowText(
+                dc,
                 cx + _splitPad,
                 y,
                 _font,
                 val,
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                pos != null
+                    ? ColorUtils.gpsQualityColor(pos.accuracy)
+                    : 0xffffff
             );
             return true;
         }
@@ -1674,18 +2192,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var pos = _posInfo;
                 var vx =
                     cx + _splitPad + dc.getTextWidthInPixels(coords, _font);
-                dc.setColor(
-                    pos != null
-                        ? ColorUtils.gpsQualityColor(pos.accuracy)
-                        : 0xffffff,
-                    Graphics.COLOR_TRANSPARENT
-                );
-                dc.drawText(
+                _glowText(
+                    dc,
                     vx,
                     y,
                     _font,
                     full.substring(sepIdx, full.length()) as String,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    pos != null
+                        ? ColorUtils.gpsQualityColor(pos.accuracy)
+                        : 0xffffff
                 );
             } else {
                 _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
@@ -1796,18 +2312,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             var x = cx + _splitPad;
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
+            var wxValColor = ColorUtils.colorFromIdx(valueColor);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                _wxTemp,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                wxValColor
             );
-            dc.drawText(x, y, _font, _wxTemp, Graphics.TEXT_JUSTIFY_LEFT);
             x += dc.getTextWidthInPixels(_wxTemp, _font);
             _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valueColor);
             x += _degW;
-            dc.drawText(x, y, _font, _wxUnit, Graphics.TEXT_JUSTIFY_LEFT);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                _wxUnit,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                wxValColor
+            );
             x += dc.getTextWidthInPixels(_wxUnit, _font);
-            dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-            dc.drawText(x, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                " | ",
+                Graphics.TEXT_JUSTIFY_LEFT,
+                GRAYS[3]
+            );
             x += dc.getTextWidthInPixels(" | ", _font);
             _drawUvTag(dc, x, y, valueColor);
             return true;
@@ -2105,18 +2641,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var ay = y + (_fh - _arrowH) / 2 + 1;
         var x = cx + _splitPad;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
-        );
+        var valColor = ColorUtils.colorFromIdx(valIdx);
         _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         var upSpace = up + " ";
-        dc.drawText(x, y, _font, upSpace, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            upSpace,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(upSpace, _font);
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(dc, x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT, valColor);
         var goal =
             info has :floorsClimbedGoal && info.floorsClimbedGoal != null
                 ? info.floorsClimbedGoal as Number
@@ -2126,8 +2667,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             goal
         ) {
             x += dc.getTextWidthInPixels(dn, _font);
-            dc.setColor(ColorUtils.colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(x, y, _font, " [GOAL]", Graphics.TEXT_JUSTIFY_LEFT);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                " [GOAL]",
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(1)
+            );
         }
     }
 
@@ -2203,9 +2751,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
-    // Shared renderer for the steps/floors/intensity goal bars: a filled
-    // progress bar with 0 and goal end labels, an optional centered value with
-    // a shadow outline, and a [GOAL] tag once the goal is reached.
+    // Shared renderer for the steps/floors/intensity goal bars.
     private function _drawGoalBarRow(
         dc as Dc,
         cx as Number,
@@ -2236,34 +2782,40 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fillW = (frac * gw.toFloat()).toNumber();
         if (fillW > 0) {
-            dc.setColor(
-                ColorUtils.colorFromIdx(barColor),
-                Graphics.COLOR_TRANSPARENT
+            _glowRect(
+                dc,
+                gx,
+                y,
+                fillW,
+                barH,
+                ColorUtils.colorFromIdx(barColor)
             );
-            dc.fillRectangle(gx, y, fillW, barH);
         }
-        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(gx - 1, y, gx - 1, y + barH - 1);
-        dc.drawLine(gx + gw, y, gx + gw, y + barH - 1);
-        _drawDashedV(dc, gx + gw / 4, y, y + barH);
-        _drawDashedV(dc, gx + gw / 2, y, y + barH);
-        _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH);
+        _glowLine(dc, gx - 1, y, gx - 1, y + barH - 1, GRAYS[3]);
+        _glowLine(dc, gx + gw, y, gx + gw, y + barH - 1, GRAYS[3]);
+        _drawDashedV(dc, gx + gw / 4, y, y + barH, GRAYS[2]);
+        _drawDashedV(dc, gx + gw / 2, y, y + barH, GRAYS[2]);
+        _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH, GRAYS[2]);
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
         var goalStr = goal.toString();
-        dc.setColor(ColorUtils.colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        var axisColor = GRAYS[3];
+        _glowText(
+            dc,
             gx - 4,
             labelY,
             _fontTiny,
             "0",
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            axisColor
         );
-        dc.drawText(
+        _glowText(
+            dc,
             gx + gw + 4,
             labelY,
             _fontTiny,
             goalStr,
-            Graphics.TEXT_JUSTIFY_LEFT
+            Graphics.TEXT_JUSTIFY_LEFT,
+            axisColor
         );
         if (!showValue) {
             return;
@@ -2300,25 +2852,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             valStr,
             Graphics.TEXT_JUSTIFY_CENTER
         );
-        dc.setColor(
-            ColorUtils.colorFromIdx(valueColor),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             valX,
             valY,
             _fontSmall,
             valStr,
-            Graphics.TEXT_JUSTIFY_CENTER
+            Graphics.TEXT_JUSTIFY_CENTER,
+            ColorUtils.colorFromIdx(valueColor)
         );
         if (current >= goal) {
-            dc.setColor(ColorUtils.colorFromIdx(1), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 gx + gw + 4 + dc.getTextWidthInPixels(goalStr, _fontTiny),
                 valY,
                 _fontSmall,
                 " [GOAL]",
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(1)
             );
         }
     }
@@ -2338,18 +2889,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var ay = y + (_fh - _arrowH) / 2 + 1;
         var x = cx + _splitPad;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
-        );
+        var valColor = ColorUtils.colorFromIdx(valIdx);
         _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         var upSpace = up + " ";
-        dc.drawText(x, y, _font, upSpace, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            upSpace,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(upSpace, _font);
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(dc, x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT, valColor);
     }
 
     private function _drawTempRow(
@@ -2366,25 +2922,49 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var x = cx + _splitPad;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        var valColor = ColorUtils.colorFromIdx(valIdx);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            numStr,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
         );
-        dc.drawText(x, y, _font, numStr, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(numStr, _font);
         _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valIdx);
         x += _degW;
-        dc.drawText(x, y, _font, _wxUnit, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxUnit,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         if (suffix.length() > 0) {
             x += dc.getTextWidthInPixels(_wxUnit, _font);
-            dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-            dc.drawText(x, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT);
-            x += dc.getTextWidthInPixels(" | ", _font);
-            dc.setColor(
-                ColorUtils.colorFromIdx(valIdx),
-                Graphics.COLOR_TRANSPARENT
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                " | ",
+                Graphics.TEXT_JUSTIFY_LEFT,
+                GRAYS[3]
             );
-            dc.drawText(x, y, _font, suffix, Graphics.TEXT_JUSTIFY_LEFT);
+            x += dc.getTextWidthInPixels(" | ", _font);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                suffix,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                valColor
+            );
         }
     }
 
@@ -2410,26 +2990,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valIdx as Number
     ) as Number {
         if (_wxUvNum < 0) {
-            dc.setColor(
-                ColorUtils.colorFromIdx(valIdx),
-                Graphics.COLOR_TRANSPARENT
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                "-",
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(valIdx)
             );
-            dc.drawText(x, y, _font, "-", Graphics.TEXT_JUSTIFY_LEFT);
             return x + dc.getTextWidthInPixels("-", _font);
         }
         var numStr = _wxUvNum.toString();
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            numStr,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            ColorUtils.colorFromIdx(valIdx)
         );
-        dc.drawText(x, y, _font, numStr, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(numStr, _font);
         var tag = _uvTag();
-        dc.setColor(
-            ColorUtils.colorFromIdx(_uvColorIdx()),
-            Graphics.COLOR_TRANSPARENT
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            tag,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            ColorUtils.colorFromIdx(_uvColorIdx())
         );
-        dc.drawText(x, y, _font, tag, Graphics.TEXT_JUSTIFY_LEFT);
         return x + dc.getTextWidthInPixels(tag, _font);
     }
 
@@ -2447,14 +3039,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var x = _drawUvTag(dc, cx + _splitPad, y, valIdx);
         if (!suffix.equals("")) {
-            dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-            dc.drawText(x, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT);
-            x += dc.getTextWidthInPixels(" | ", _font);
-            dc.setColor(
-                ColorUtils.colorFromIdx(valIdx),
-                Graphics.COLOR_TRANSPARENT
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                " | ",
+                Graphics.TEXT_JUSTIFY_LEFT,
+                GRAYS[3]
             );
-            dc.drawText(x, y, _font, suffix, Graphics.TEXT_JUSTIFY_LEFT);
+            x += dc.getTextWidthInPixels(" | ", _font);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                suffix,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(valIdx)
+            );
         }
     }
 
@@ -2470,25 +3073,54 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var ay = y + (_fh - _arrowH) / 2 + 1;
         var x = cx + _splitPad;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        var valColor = ColorUtils.colorFromIdx(valIdx);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxTemp,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
         );
-        dc.drawText(x, y, _font, _wxTemp, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxTemp, _font);
         _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valIdx);
         x += _degW;
         var unitBrk = _wxUnit + " [";
-        dc.drawText(x, y, _font, unitBrk, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            unitBrk,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(unitBrk, _font);
         _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         var highBrk = _wxHigh + "] [";
-        dc.drawText(x, y, _font, highBrk, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            highBrk,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(highBrk, _font);
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, _wxLow + "]", Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxLow + "]",
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
     }
 
     private function _drawHighLowRow(
@@ -2504,32 +3136,56 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var x = cx + _splitPad;
         var dy = y + (_fh - _degW) / 4;
         var ay = y + (_fh - _arrowH) / 2 + 1;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
-        );
+        var valColor = ColorUtils.colorFromIdx(valIdx);
         _drawIcon(dc, x, ay, ICON_ARROW_UP, valIdx);
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, _wxHigh, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxHigh,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(_wxHigh, _font);
         _drawIcon(dc, x, dy, ICON_DEG, valIdx);
         x += _degW;
-        dc.drawText(x, y, _font, _wxUnit, Graphics.TEXT_JUSTIFY_LEFT);
-        x += dc.getTextWidthInPixels(_wxUnit, _font);
-        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _font, " / ", Graphics.TEXT_JUSTIFY_LEFT);
-        x += dc.getTextWidthInPixels(" / ", _font);
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxUnit,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
         );
+        x += dc.getTextWidthInPixels(_wxUnit, _font);
+        _glowText(dc, x, y, _font, " / ", Graphics.TEXT_JUSTIFY_LEFT, GRAYS[2]);
+        x += dc.getTextWidthInPixels(" / ", _font);
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
-        dc.drawText(x, y, _font, _wxLow, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxLow,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
         x += dc.getTextWidthInPixels(_wxLow, _font);
         _drawIcon(dc, x, dy, ICON_DEG, valIdx);
         x += _degW;
-        dc.drawText(x, y, _font, _wxUnit, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxUnit,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
     }
 
     private function _drawHumidityDewRow(
@@ -2544,24 +3200,40 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelIdx, valIdx);
         var x = cx + _splitPad;
         var dy = y + (_fh - _degW) / 4;
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        var valColor = ColorUtils.colorFromIdx(valIdx);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxHumidity,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
         );
-        dc.drawText(x, y, _font, _wxHumidity, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxHumidity, _font);
-        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(dc, x, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT, GRAYS[3]);
         x += dc.getTextWidthInPixels(" | ", _font);
-        dc.setColor(
-            ColorUtils.colorFromIdx(valIdx),
-            Graphics.COLOR_TRANSPARENT
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxDewPoint,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
         );
-        dc.drawText(x, y, _font, _wxDewPoint, Graphics.TEXT_JUSTIFY_LEFT);
         x += dc.getTextWidthInPixels(_wxDewPoint, _font);
         _drawIcon(dc, x, dy, ICON_DEG, valIdx);
         x += _degW;
-        dc.drawText(x, y, _font, _wxUnit, Graphics.TEXT_JUSTIFY_LEFT);
+        _glowText(
+            dc,
+            x,
+            y,
+            _font,
+            _wxUnit,
+            Graphics.TEXT_JUSTIFY_LEFT,
+            valColor
+        );
     }
 
     // label right-aligned | ": " centered | value left-aligned; colon uses label color
@@ -2579,48 +3251,73 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
 
-        dc.setColor(
-            ColorUtils.colorFromIdx(labelColorIdx),
-            Graphics.COLOR_TRANSPARENT
+        var labelColor = ColorUtils.colorFromIdx(labelColorIdx);
+        _glowText(
+            dc,
+            cx,
+            y,
+            _font,
+            ": ",
+            Graphics.TEXT_JUSTIFY_CENTER,
+            labelColor
         );
-        dc.drawText(cx, y, _font, ": ", Graphics.TEXT_JUSTIFY_CENTER);
         if (label.length() > 0) {
-            dc.drawText(
+            _glowText(
+                dc,
                 cx - _splitPad,
                 y,
                 _font,
                 label,
-                Graphics.TEXT_JUSTIFY_RIGHT
+                Graphics.TEXT_JUSTIFY_RIGHT,
+                labelColor
             );
         }
         if (value.length() > 0) {
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColorIdx),
-                Graphics.COLOR_TRANSPARENT
-            );
+            var valueColor = ColorUtils.colorFromIdx(valueColorIdx);
             var sepIdx = value.find(" | ");
             if (sepIdx != null) {
                 var vx = cx + _splitPad;
                 var part1 = value.substring(0, sepIdx) as String;
                 var part2 =
                     value.substring(sepIdx + 3, value.length()) as String;
-                dc.drawText(vx, y, _font, part1, Graphics.TEXT_JUSTIFY_LEFT);
-                vx += dc.getTextWidthInPixels(part1, _font);
-                dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-                dc.drawText(vx, y, _font, " | ", Graphics.TEXT_JUSTIFY_LEFT);
-                vx += dc.getTextWidthInPixels(" | ", _font);
-                dc.setColor(
-                    ColorUtils.colorFromIdx(valueColorIdx),
-                    Graphics.COLOR_TRANSPARENT
+                _glowText(
+                    dc,
+                    vx,
+                    y,
+                    _font,
+                    part1,
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valueColor
                 );
-                dc.drawText(vx, y, _font, part2, Graphics.TEXT_JUSTIFY_LEFT);
+                vx += dc.getTextWidthInPixels(part1, _font);
+                _glowText(
+                    dc,
+                    vx,
+                    y,
+                    _font,
+                    " | ",
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    GRAYS[3]
+                );
+                vx += dc.getTextWidthInPixels(" | ", _font);
+                _glowText(
+                    dc,
+                    vx,
+                    y,
+                    _font,
+                    part2,
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valueColor
+                );
             } else {
-                dc.drawText(
+                _glowText(
+                    dc,
                     cx + _splitPad,
                     y,
                     _font,
                     value,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valueColor
                 );
             }
         }
@@ -2880,27 +3577,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         // Secondary min/max outside right
         if (data2 != null) {
-            dc.setColor(
-                ColorUtils.gradColor(lineColor2, maxFrac2),
-                Graphics.COLOR_TRANSPARENT
-            );
-            dc.drawText(
+            _glowText(
+                dc,
                 _graphX + _graphW + 4,
                 y - 4,
                 _fontTiny,
                 _formatGraphLabel(fieldSecondary, maxV2),
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.gradColor(lineColor2, maxFrac2)
             );
-            dc.setColor(
-                ColorUtils.gradColor(lineColor2, minFrac2),
-                Graphics.COLOR_TRANSPARENT
-            );
-            dc.drawText(
+            _glowText(
+                dc,
                 _graphX + _graphW + 4,
                 y + _graphH - _tinyFh + 4,
                 _fontTiny,
                 _formatGraphLabel(fieldSecondary, minV2),
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.gradColor(lineColor2, minFrac2)
             );
         }
 
@@ -2917,79 +3610,82 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 valueMode,
                 valueStr
             );
-            dc.setColor(
-                ColorUtils.colorFromIdx(lineColor),
-                Graphics.COLOR_TRANSPARENT
+            _drawGraphValueLabel(
+                dc,
+                vx,
+                startY,
+                field,
+                cur1,
+                ColorUtils.colorFromIdx(lineColor)
             );
-            _drawGraphValueLabel(dc, vx, startY, field, cur1);
             _getFieldParts(fieldSecondary);
             var cur2 = _rowBuf[1];
             var y2 = startY + _smallFh + 2;
-            dc.setColor(
-                ColorUtils.colorFromIdx(lineColor2),
-                Graphics.COLOR_TRANSPARENT
+            _drawGraphValueLabel(
+                dc,
+                vx,
+                y2,
+                fieldSecondary,
+                cur2,
+                ColorUtils.colorFromIdx(lineColor2)
             );
-            _drawGraphValueLabel(dc, vx, y2, fieldSecondary, cur2);
         }
 
         // Primary min/max outside left
-        dc.setColor(
-            ColorUtils.gradColor(lineColor, maxFrac1),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             _graphX - 4,
             y - 4,
             _fontTiny,
             _formatGraphLabel(field, maxV),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.gradColor(lineColor, maxFrac1)
         );
-        dc.setColor(
-            ColorUtils.gradColor(lineColor, minFrac1),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             _graphX - 4,
             y + _graphH - _tinyFh + 4,
             _fontTiny,
             _formatGraphLabel(field, minV),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.gradColor(lineColor, minFrac1)
         );
 
         var yBelow = y + _graphH + 1;
         var secName = Formatters.fieldShortName(fieldSecondary);
-        dc.setColor(
-            ColorUtils.colorFromIdx(lineColor2),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             _graphX + _graphW,
             yBelow,
             _fontTiny,
             secName,
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ColorUtils.colorFromIdx(lineColor2)
         );
         var effDual = _resolveEffPeriod(
             _packGraphKey(_graphW, field, periodMin),
             periodMin
         );
-        dc.setColor(ColorUtils.colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        var ageColor = GRAYS[3];
+        _glowText(
+            dc,
             _graphX + _graphW - dc.getTextWidthInPixels(secName, _fontTiny),
             yBelow,
             _fontTiny,
             Formatters.periodLabel(effDual) + " ",
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ageColor
         );
         var ageSecDual = _dataAge(data, effDual);
         if (ageSecDual > _fieldUpdateMin(field) * SECS_PER_MIN + 30) {
-            dc.setColor(ColorUtils.colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(
+            _glowText(
+                dc,
                 _graphX,
                 yBelow,
                 _fontTiny,
                 Formatters.formatAge(ageSecDual),
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ageColor
             );
         }
     }
@@ -3019,12 +3715,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return null;
     }
 
-    // Buckets sensor history into gw time-aligned slots so that periods without
-    // data (e.g. watch off wrist) appear as gaps in the graph rather than being
-    // silently compressed against neighbouring readings.
-    // slot 0 = most-recent (right edge), slot gw-1 = oldest (left edge).
-    // skipZero: discard samples where data == 0 before slotting.
-    // Use for HR - the device stores 0 bpm when off-wrist instead of null.
+    // Buckets sensor history into gw time slots (0=most recent), gaps stay
+    // gaps. skipZero discards 0 samples - use for HR (0bpm means off-wrist).
     (:extendedCode)
     private function _readIter(
         iter as SensorHistory.SensorHistoryIterator,
@@ -3042,25 +3734,30 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var s = iter.next();
         var count = 0;
         var maxAge = 0;
+        var deadline = System.getTimer() + 150;
         while (s != null) {
-            if (s.data != null) {
+            if (System.getTimer() > deadline) {
+                break;
+            }
+            var age = now - (s.when as Time.Moment).value();
+            if (age >= periodSec) {
+                break;
+            }
+            if (age >= 0 && s.data != null) {
                 var v = s.data;
                 var fv =
                     v instanceof Float ? v as Float : (v as Number).toFloat();
                 if (!skipZero || fv != 0.0) {
-                    var age = now - (s.when as Time.Moment).value();
-                    if (age >= 0 && age < periodSec) {
-                        if (age > maxAge) {
-                            maxAge = age;
-                        }
-                        var slot = (age * gw) / periodSec;
-                        if (slot >= gw) {
-                            slot = gw - 1;
-                        }
-                        if (result[slot] == null) {
-                            result[slot] = fv;
-                            count++;
-                        }
+                    if (age > maxAge) {
+                        maxAge = age;
+                    }
+                    var slot = (age * gw) / periodSec;
+                    if (slot >= gw) {
+                        slot = gw - 1;
+                    }
+                    if (result[slot] == null) {
+                        result[slot] = fv;
+                        count++;
                     }
                 }
             }
@@ -3069,9 +3766,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (count < 2) {
             return null;
         }
-        // If the API returned less than 90 % of the requested period (e.g.
-        // elevation only covers ~6.5 h of an 8 h window), stretch the occupied
-        // slots to fill the full graph width so the left side isn't empty.
+        // If the API returned under 90% of the requested period, stretch data to fill the graph width.
         var oldestSlot = (maxAge * gw) / periodSec;
         if (oldestSlot > 0 && maxAge < (periodSec * 9) / 10) {
             var stretched = new Array<Float>[gw];
@@ -3088,9 +3783,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             result = stretched;
         }
-        // Gap threshold in slots: 10 min expressed in terms of the effective
-        // period so that off-wrist gaps (>10 min) stay null and sensor-cadence
-        // gaps are interpolated.
+        // Gap threshold: 10 min in effective-period slots, so off-wrist gaps stay null.
         var effectiveMin = maxAge > 0 ? maxAge / SECS_PER_MIN : periodMin;
         if (effectiveMin < 1) {
             effectiveMin = 1;
@@ -3363,9 +4056,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return -1;
     }
 
-    // Packs two bounded values (a graphW+field pair for single-graph cache
-    // keys, or a field+fieldSecondary pair for dual-graph cache keys) plus
-    // periodMin into one Number, per the CACHE_KEY_*_SHIFT layout above.
+    // Packs hi/lo (graphW+field, or field+fieldSecondary) and periodMin into one Number.
     private function _packGraphKey(
         hi as Number,
         lo as Number,
@@ -3407,11 +4098,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return r;
     }
 
-    // Renders graph content (mean line + bars/lines) to a cached BufferedBitmap.
-    // The bitmap is keyed by cacheKey and invalidated whenever _cacheResult is
-    // called for that key (i.e. when fresh sensor data arrives).
-    // gx/y offsets are NOT applied here - the bitmap is blitted at (gx, y) by
-    // the caller so all drawing uses (0, 0) as the top-left origin.
+    // Renders graph content to a cached BufferedBitmap, keyed by cacheKey.
+    // Drawing uses (0,0) as origin - caller blits the bitmap at (gx, y).
     private function _renderGraphToBitmap(
         cacheKey as Number,
         graphType as Number,
@@ -3433,10 +4121,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return cached;
             }
         }
-        // +1 width/+2 height beyond gw/gh: the rightmost data point (i=0) and
-        // area fill's bottom row land exactly at column gw / row gh+1, one
-        // past a plain gw x (gh+1) buffer's bounds, so those pixels used to
-        // get silently clipped instead of reaching the axis lines.
+        // +1 width/+2 height: the rightmost point and fill's bottom row land exactly at gw/gh+1, past a plain gw x (gh+1) buffer's bounds.
         var newRef = Graphics.createBufferedBitmap({
             :width => gw + 1,
             :height => gh + 2,
@@ -3511,10 +4196,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return cached;
             }
         }
-        // +1 width/+2 height beyond gw/gh: the rightmost data point (i=0) and
-        // area fill's bottom row land exactly at column gw / row gh+1, one
-        // past a plain gw x (gh+1) buffer's bounds, so those pixels used to
-        // get silently clipped instead of reaching the axis lines.
+        // +1 width/+2 height: the rightmost point and fill's bottom row land exactly at gw/gh+1, past a plain gw x (gh+1) buffer's bounds.
         var newRef = Graphics.createBufferedBitmap({
             :width => gw + 1,
             :height => gh + 2,
@@ -3599,10 +4281,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return bmp;
     }
 
-    // Resolves the actual displayed time range for a graph (may be shorter
-    // than periodMin when the API returned fewer samples than requested).
-    // key must be the same _graphEffPeriod cache key the caller already used
-    // to fetch this graph's data, so the lookup matches.
+    // Resolves the actual displayed time range (may be shorter than periodMin).
     private function _resolveEffPeriod(
         key as Number,
         periodMin as Number
@@ -3680,43 +4359,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         ageSec as Number
     ) as Void {
         var isGrad = colorIdx >= COLOR_GRAD_TRI;
-        dc.setColor(
-            _graphLabelColor(colorIdx, isGrad, maxFrac),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             gx - 4,
             y - 4,
             _fontTiny,
             _formatGraphLabel(field, maxV),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            _graphLabelColor(colorIdx, isGrad, maxFrac)
         );
-        dc.setColor(
-            _graphLabelColor(colorIdx, isGrad, minFrac),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             gx - 4,
             y + gh - _tinyFh + 4,
             _fontTiny,
             _formatGraphLabel(field, minV),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            _graphLabelColor(colorIdx, isGrad, minFrac)
         );
-        dc.setColor(ColorUtils.colorFromIdx(8), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        var ageColor = GRAYS[3];
+        _glowText(
+            dc,
             gx + gw,
             y + gh + 1,
             _fontTiny,
             bottomLabel,
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            ageColor
         );
         if (ageSec > _fieldUpdateMin(field) * SECS_PER_MIN + 30) {
-            dc.drawText(
+            _glowText(
+                dc,
                 gx,
                 y + gh + 1,
                 _fontTiny,
                 Formatters.formatAge(ageSec),
-                Graphics.TEXT_JUSTIFY_LEFT
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ageColor
             );
         }
     }
@@ -3727,10 +4406,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gw as Number,
         y as Number
     ) as Void {
-        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(gx - 1, y, gx - 1, y + _fh - 1);
-        dc.drawLine(gx - 1, y + _fh - 1, gx + gw, y + _fh - 1);
-        dc.drawLine(gx + gw, y, gx + gw, y + _fh - 1);
+        _glowLine(dc, gx - 1, y, gx - 1, y + _fh - 1, GRAYS[3]);
+        _glowLine(dc, gx - 1, y + _fh - 1, gx + gw, y + _fh - 1, GRAYS[3]);
+        _glowLine(dc, gx + gw, y, gx + gw, y + _fh - 1, GRAYS[3]);
     }
 
     private function _drawRowAxes(dc as Dc, y as Number) as Void {
@@ -3747,7 +4425,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gh as Number,
         minV as Float,
         range as Float,
-        maxGap as Number
+        maxGap as Number,
+        color as Number
     ) as Void {
         var n = data.size();
         var n1 = n - 1;
@@ -3766,9 +4445,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var x = gx + ((n1 - i) * gw) / n1;
             var py = y + gh - (((v - minV) * ghf) / range).toNumber();
             if (lastX >= 0 && i - lastI <= maxGap) {
-                dc.drawLine(x, py, lastX, lastY);
+                _glowLine(dc, x, py, lastX, lastY, color);
             }
-            dc.fillRectangle(x, py, 1, 1);
+            _glowRect(dc, x, py, 1, 1, color);
             lastX = x;
             lastY = py;
             lastI = i;
@@ -3779,21 +4458,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc as Dc,
         x1 as Number,
         x2 as Number,
-        y as Number
+        y as Number,
+        color as Number
     ) as Void {
         var w = x2 - x1;
         if (w <= 0) {
             return;
         }
         if (w <= 3) {
-            dc.drawLine(x1, y, x2 - 1, y);
+            _glowLine(dc, x1, y, x2 - 1, y, color);
             return;
         }
-        // All interior gaps = 2px. All interior dashes = 2px. The first dash
-        // is 1 or 2px, computed from the even width below w so the pattern
-        // divides evenly; for odd w the last dash absorbs the extra 1px so
-        // every gap - including the one before the last dash - stays exactly
-        // 2px (the last dash alone may then be 1px wider than the first).
+        // Dashes/gaps are 2px; for odd w the last dash absorbs the extra 1px so gaps stay exact.
         var wEven = w - (w % 2);
         var n = (wEven + 5) / 4;
         if (n < 2) {
@@ -3803,28 +4479,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (f < 1) {
             f = 1;
         }
-        dc.drawLine(x1, y, x1 + f - 1, y);
+        _glowLine(dc, x1, y, x1 + f - 1, y, color);
         var x = x1 + f + 2;
         for (var i = 1; i < n - 1; i++) {
-            dc.drawLine(x, y, x + 1, y);
+            _glowLine(dc, x, y, x + 1, y, color);
             x += 4;
         }
         var fLast = f + (w - wEven);
-        dc.drawLine(x2 - fLast, y, x2 - 1, y);
+        _glowLine(dc, x2 - fLast, y, x2 - 1, y, color);
     }
 
     private function _drawDashedV(
         dc as Dc,
         x as Number,
         y1 as Number,
-        y2 as Number
+        y2 as Number,
+        color as Number
     ) as Void {
         var h = y2 - y1;
         if (h <= 0) {
             return;
         }
         if (h <= 3) {
-            dc.drawLine(x, y1, x, y2 - 1);
+            _glowLine(dc, x, y1, x, y2 - 1, color);
             return;
         }
         var hEven = h - (h % 2);
@@ -3836,14 +4513,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (f < 1) {
             f = 1;
         }
-        dc.drawLine(x, y1, x, y1 + f - 1);
+        _glowLine(dc, x, y1, x, y1 + f - 1, color);
         var yp = y1 + f + 2;
         for (var i = 1; i < n - 1; i++) {
-            dc.drawLine(x, yp, x, yp + 1);
+            _glowLine(dc, x, yp, x, yp + 1, color);
             yp += 4;
         }
         var fLast = f + (h - hEven);
-        dc.drawLine(x, y2 - fLast, x, y2 - 1);
+        _glowLine(dc, x, y2 - fLast, x, y2 - 1, color);
     }
 
     private function _drawMeanLine(
@@ -3891,8 +4568,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             colorIdx >= COLOR_GRAD_TRI
                 ? ColorUtils.gradColor(colorIdx, meanFrac)
                 : GRAYS[3];
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        _drawDashedH(dc, gx, gx + gw, meanY);
+        _drawDashedH(dc, gx, gx + gw, meanY, color);
     }
 
     private function _drawGradLine(
@@ -3935,11 +4611,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (mfrac > 1.0) {
                     mfrac = 1.0;
                 }
-                dc.setColor(
-                    ColorUtils.gradColor(colorIdx, mfrac),
-                    Graphics.COLOR_TRANSPARENT
+                _glowLine(
+                    dc,
+                    x,
+                    py,
+                    lastX,
+                    lastY,
+                    ColorUtils.gradColor(colorIdx, mfrac)
                 );
-                dc.drawLine(x, py, lastX, lastY);
             }
             var frac = (v - gradMinV) / gradRange;
             if (frac < 0.0) {
@@ -3948,11 +4627,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (frac > 1.0) {
                 frac = 1.0;
             }
-            dc.setColor(
-                ColorUtils.gradColor(colorIdx, frac),
-                Graphics.COLOR_TRANSPARENT
-            );
-            dc.fillRectangle(x, py, 1, 1);
+            _glowRect(dc, x, py, 1, 1, ColorUtils.gradColor(colorIdx, frac));
             lastX = x;
             lastY = py;
             lastV = v;
@@ -3968,7 +4643,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         y as Number,
         gh as Number,
         minV as Float,
-        range as Float
+        range as Float,
+        color as Number
     ) as Void {
         var n = data.size();
         var ghf = gh.toFloat();
@@ -3988,7 +4664,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (barH < 1) {
                 barH = 1;
             }
-            dc.fillRectangle(bx, y + gh - barH, bw, barH);
+            _glowRect(dc, bx, y + gh - barH, bw, barH, color);
         }
     }
 
@@ -4030,11 +4706,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (frac > 1.0) {
                 frac = 1.0;
             }
-            dc.setColor(
-                ColorUtils.gradColor(colorIdx, frac),
-                Graphics.COLOR_TRANSPARENT
+            _glowRect(
+                dc,
+                bx,
+                y + gh - barH,
+                bw,
+                barH,
+                ColorUtils.gradColor(colorIdx, frac)
             );
-            dc.fillRectangle(bx, y + gh - barH, bw, barH);
         }
     }
 
@@ -4083,11 +4762,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (frac1 > 1.0) {
                     frac1 = 1.0;
                 }
-                dc.setColor(
-                    ColorUtils.gradColor(colorIdx1, frac1),
-                    Graphics.COLOR_TRANSPARENT
+                _glowRect(
+                    dc,
+                    slotX,
+                    y + gh - barH,
+                    hw,
+                    barH,
+                    ColorUtils.gradColor(colorIdx1, frac1)
                 );
-                dc.fillRectangle(slotX, y + gh - barH, hw, barH);
             }
             if (data2[i] != null) {
                 var v2 = data2[i] as Float;
@@ -4102,11 +4784,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (frac2 > 1.0) {
                     frac2 = 1.0;
                 }
-                dc.setColor(
-                    ColorUtils.gradColor(colorIdx2, frac2),
-                    Graphics.COLOR_TRANSPARENT
+                _glowRect(
+                    dc,
+                    slotX + hw,
+                    y + gh - barH2,
+                    slotW - hw,
+                    barH2,
+                    ColorUtils.gradColor(colorIdx2, frac2)
                 );
-                dc.fillRectangle(slotX + hw, y + gh - barH2, slotW - hw, barH2);
             }
         }
     }
@@ -4201,29 +4886,30 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (viewMode == VIEW_GRAPH_VALUE) {
             var vx = _graphX + _graphW + _charW;
             var vy = y + (_fh - _smallFh) / 2 - 1;
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
-            );
+            var valColor = ColorUtils.colorFromIdx(valueColor);
             if (valueMode == 2) {
                 var maxStr = _tempStr0(maxV);
                 var minStr = _tempStr0(minV);
-                vx = _drawSmallTempNum(dc, vx, vy, maxStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, maxStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     "/",
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
                 vx += dc.getTextWidthInPixels("/", _fontSmall);
-                vx = _drawSmallTempNum(dc, vx, vy, minStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, minStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     _wxUnit,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
             } else {
                 var tStr = _graphValueStr(
@@ -4234,13 +4920,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     valueMode,
                     _wxTemp
                 );
-                vx = _drawSmallTempNum(dc, vx, vy, tStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, tStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     _wxUnit,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
                 _drawValueModeLabel(
                     dc,
@@ -4265,7 +4953,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         var zones = _hrZones as Array<Number>;
-        dc.setColor(GRAYS[1], Graphics.COLOR_TRANSPARENT);
         var n = zones.size();
         for (var i = 0; i < n; i++) {
             var zv = (zones[i] as Number).toFloat();
@@ -4273,7 +4960,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 continue;
             }
             var zy = y + gh - (((zv - minV) * gh.toFloat()) / range).toNumber();
-            _drawDashedH(dc, gx, gx + gw, zy);
+            _drawDashedH(dc, gx, gx + gw, zy, GRAYS[1]);
         }
     }
 
@@ -4300,11 +4987,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var blockH = _fh - 4;
         var blockY = y + 2;
         for (var i = 0; i < 5; i++) {
-            dc.setColor(
-                i < level ? ColorUtils.colorFromIdx(valueColor) : GRAYS[1],
-                Graphics.COLOR_TRANSPARENT
+            _glowRect(
+                dc,
+                gx + i * (blockW + 2),
+                blockY,
+                blockW,
+                blockH,
+                i < level ? ColorUtils.colorFromIdx(valueColor) : GRAYS[1]
             );
-            dc.fillRectangle(gx + i * (blockW + 2), blockY, blockW, blockH);
         }
     }
 
@@ -4326,20 +5016,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var n1 = n - 1;
         var ghf = gh.toFloat();
         var bottom = y + gh;
-        // Fill extends 1px past the value-to-pixel baseline so it reaches the
-        // bottom axis line; kept separate from ghf/bottom above so the actual
-        // curve position still matches the outline line's (gh-based) mapping
-        // exactly - folding this into gh would scale the two differently and
-        // open a growing gap between them wherever the curve isn't flat.
+        // Fill extends 1px past the baseline to reach the axis line; kept separate from
+        // ghf/bottom so the curve still matches the outline's (gh-based) mapping exactly.
         var fillBottom = bottom + 1;
         var prevX = -1;
         var prevPY = 0;
         var prevI = -1;
-        // Tracks a run of consecutive points sharing the same column (more
-        // data points than pixels), so that column is only ever drawn once
-        // in full - each further point in the run only extends the already-
-        // drawn range upward if it's taller, instead of re-drawing the whole
-        // column and compositing its alpha again on top of itself.
+        // Tracks a run of points sharing a column so it's only drawn once (extended
+        // upward if taller), instead of re-compositing alpha on the same column repeatedly.
         var runX = -1;
         var runTop = 0;
         for (var i = 0; i < n; i++) {
@@ -4367,13 +5051,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         runTop = topY;
                     }
                 } else {
-                    // px < prevX (not <=): prevX's column was already drawn
-                    // once by the previous point's own iteration. Including
-                    // it again here double-composites its alpha, rendering
-                    // it visibly more saturated than every other column -
-                    // this is what actually made interior columns look
-                    // "right" and true edge columns look dim by comparison,
-                    // not the other way around.
+                    // px < prevX (not <=): prevX's column was already drawn by the
+                    // previous point's iteration; including it again double-composites its alpha.
                     for (var px = x; px < prevX; px++) {
                         var lerpY = py + ((px - x) * (prevPY - py)) / dx;
                         dc.drawLine(px, lerpY, px, fillBottom);
@@ -4601,11 +5280,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 valueMode,
                 fallbackValue
             );
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
+            _glowText(
+                dc,
+                vx,
+                vy,
+                _fontSmall,
+                valStr,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                ColorUtils.colorFromIdx(valueColor)
             );
-            dc.drawText(vx, vy, _fontSmall, valStr, Graphics.TEXT_JUSTIFY_LEFT);
             _drawValueModeLabel(
                 dc,
                 vx + dc.getTextWidthInPixels(valStr, _fontSmall),
@@ -4675,9 +5358,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var ghf = _graphH.toFloat();
         var bottom = y + _graphH;
-        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
         for (var si = 1; si < n; si++) {
-            _drawDashedV(dc, _graphX + (si * _graphW) / n - 1, y, y + _graphH);
+            _drawDashedV(
+                dc,
+                _graphX + (si * _graphW) / n - 1,
+                y,
+                y + _graphH,
+                GRAYS[2]
+            );
         }
         for (var i = 0; i < n; i++) {
             if (highsArr[i] == null || lowsArr[i] == null) {
@@ -4705,37 +5393,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var midV = (hiV + loV) / 2.0;
             var frac = _clampFrac(midV);
-            dc.setColor(
-                ColorUtils.gradColor(colorIdx, frac),
-                Graphics.COLOR_TRANSPARENT
+            _glowRect(
+                dc,
+                slotX,
+                hiY,
+                bw,
+                barH,
+                ColorUtils.gradColor(colorIdx, frac)
             );
-            dc.fillRectangle(slotX, hiY, bw, barH);
         }
         _drawRowAxes(dc, y);
         var isGrad = colorIdx >= COLOR_GRAD_TRI;
         var maxFrac = _clampFrac(allMax);
         var minFrac = _clampFrac(allMin);
-        dc.setColor(
-            _graphLabelColor(colorIdx, isGrad, maxFrac),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             _graphX - 4,
             y - 4,
             _fontTiny,
             _formatGraphLabel(FIELD_WX_FCST_TEMP, allMax),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            _graphLabelColor(colorIdx, isGrad, maxFrac)
         );
-        dc.setColor(
-            _graphLabelColor(colorIdx, isGrad, minFrac),
-            Graphics.COLOR_TRANSPARENT
-        );
-        dc.drawText(
+        _glowText(
+            dc,
             _graphX - 4,
             y + _graphH - _tinyFh + 4,
             _fontTiny,
             _formatGraphLabel(FIELD_WX_FCST_TEMP, allMin),
-            Graphics.TEXT_JUSTIFY_RIGHT
+            Graphics.TEXT_JUSTIFY_RIGHT,
+            _graphLabelColor(colorIdx, isGrad, minFrac)
         );
         var dayNames = ["S", "M", "T", "W", "T", "F", "S"] as Array<String>;
         // day_of_week is 1=Sun..7=Sat under FORMAT_SHORT; dayNames is 0=Sun-indexed.
@@ -4748,49 +5435,50 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var firstDow =
             fDowSetting != null ? ((fDowSetting as Number) - 1) % 7 : 1;
         for (var di = 0; di < n; di++) {
-            dc.setColor(
+            var dowColor =
                 (todayDow + di) % 7 == firstDow
                     ? ColorUtils.colorFromIdx(5)
-                    : ColorUtils.colorFromIdx(8),
-                Graphics.COLOR_TRANSPARENT
-            );
+                    : GRAYS[3];
             var slotX = _graphX + (di * _graphW) / n;
             var slotEnd = _graphX + ((di + 1) * _graphW) / n;
             var bw = slotEnd - slotX - (di < n - 1 ? 1 : 0);
-            dc.drawText(
+            _glowText(
+                dc,
                 slotX + bw / 2,
                 y + _graphH + 1,
                 _fontTiny,
                 dayNames[(todayDow + di) % 7],
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER,
+                dowColor
             );
         }
         if (viewMode == VIEW_GRAPH_VALUE) {
             var vx = _graphX + _graphW + _charW;
             var vy = y + (_fh - _smallFh) / 2 - 1;
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
-            );
+            var valColor = ColorUtils.colorFromIdx(valueColor);
             if (valueMode == 2) {
                 var maxStr = _tempStr0(allMax);
                 var minStr = _tempStr0(allMin);
-                vx = _drawSmallTempNum(dc, vx, vy, maxStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, maxStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     "/",
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
                 vx += dc.getTextWidthInPixels("/", _fontSmall);
-                vx = _drawSmallTempNum(dc, vx, vy, minStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, minStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     _wxUnit,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
             } else {
                 var tStr = _wxTemp;
@@ -4812,13 +5500,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     var mid = (allMin + allMax) / 2.0;
                     tStr = _tempStr0(mid);
                 }
-                vx = _drawSmallTempNum(dc, vx, vy, tStr);
-                dc.drawText(
+                vx = _drawSmallTempNum(dc, vx, vy, tStr, valColor);
+                _glowText(
+                    dc,
                     vx,
                     vy,
                     _fontSmall,
                     _wxUnit,
-                    Graphics.TEXT_JUSTIFY_LEFT
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    valColor
                 );
                 _drawValueModeLabel(
                     dc,
@@ -4909,11 +5599,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     gradRange
                 );
             } else {
-                dc.setColor(
-                    ColorUtils.colorFromIdx(colorIdx),
-                    Graphics.COLOR_TRANSPARENT
+                _drawBars(
+                    dc,
+                    data,
+                    gx,
+                    gw,
+                    y,
+                    gh + 1,
+                    minV,
+                    range,
+                    ColorUtils.colorFromIdx(colorIdx)
                 );
-                _drawBars(dc, data, gx, gw, y, gh + 1, minV, range);
             }
         } else if (graphType == GRAPH_AREA) {
             if (isGrad) {
@@ -4956,10 +5652,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
                 _drawAreaLine(dc, data, gx, gw, y, gh, minV, range, maxGap);
                 if (_areaShowLine) {
-                    dc.setColor(
-                        ColorUtils.colorFromIdx(colorIdx),
-                        Graphics.COLOR_TRANSPARENT
-                    );
                     _drawGraphLine(
                         dc,
                         data,
@@ -4969,7 +5661,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         gh,
                         minV,
                         range,
-                        maxGap
+                        maxGap,
+                        ColorUtils.colorFromIdx(colorIdx)
                     );
                 }
             }
@@ -4990,11 +5683,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     maxGap
                 );
             } else {
-                dc.setColor(
-                    ColorUtils.colorFromIdx(colorIdx),
-                    Graphics.COLOR_TRANSPARENT
+                _drawGraphLine(
+                    dc,
+                    data,
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    minV,
+                    range,
+                    maxGap,
+                    ColorUtils.colorFromIdx(colorIdx)
                 );
-                _drawGraphLine(dc, data, gx, gw, y, gh, minV, range, maxGap);
             }
         }
     }
@@ -5007,13 +5707,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gh as Number
     ) as Void {
         _drawGraphAxes(dc, gx, gw, y);
-        dc.setColor(GRAYS[3], Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
+        _glowText(
+            dc,
             gx + gw / 2,
             y + gh / 2 - _tinyFh / 2 - 1,
             _fontTiny,
             "no data",
-            Graphics.TEXT_JUSTIFY_CENTER
+            Graphics.TEXT_JUSTIFY_CENTER,
+            GRAYS[3]
         );
     }
 
@@ -5120,18 +5821,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 valueMode,
                 valueStr
             );
-            dc.setColor(
-                ColorUtils.colorFromIdx(valueColor),
-                Graphics.COLOR_TRANSPARENT
+            var valEndX = _drawGraphValueLabel(
+                dc,
+                valX,
+                valY,
+                field,
+                valStr2,
+                ColorUtils.colorFromIdx(valueColor)
             );
-            var valEndX = _drawGraphValueLabel(dc, valX, valY, field, valStr2);
             _drawValueModeLabel(dc, valEndX, y, valueMode);
         }
     }
 
-    // Fields handled by special draw functions have early returns in _drawLineRow
-    // and never reach here: FLOORS, WX_TEMP, WX_FEELS, WX_TEMP_COND, WX_TEMP_HIGH_LOW, WX_TEMP_WIND,
-    // WX_UV, WX_TEMP_UV, WX_UV_PRECIP, WX_UV_WIND
+    // FLOORS and the WX_TEMP*/WX_UV* fields early-return in _drawLineRow, never reach here.
     private function _getFieldParts(field as Number) as Void {
         if (_getFitnessFieldParts(field)) {
             return;
@@ -6168,7 +6870,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     : (pa / PA_PER_INHG).format("%.2f") + "inHg";
                 var oldest = s1;
                 var ps = pIter.next();
-                while (ps != null) {
+                var deadline = System.getTimer() + 100;
+                while (ps != null && System.getTimer() < deadline) {
                     oldest = ps;
                     ps = pIter.next();
                 }
@@ -6267,9 +6970,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? (spd * KMH_PER_MPS).format("%.0f") + "km/h"
                 : (spd * MPH_PER_MPS).format("%.0f") + "mph";
             if (c.windBearing != null) {
-                _wxWind +=
-                    " " +
-                    WIND_DIRS[(((c.windBearing as Number) + 22) / 45) % 8];
+                var dirIdx = (((c.windBearing as Number) + 22) / 45) % 8;
+                if (dirIdx < 0) {
+                    dirIdx += 8;
+                }
+                _wxWind += " " + WIND_DIRS[dirIdx];
             }
         }
         if (c.uvIndex != null) {
@@ -6447,9 +7152,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return false;
     }
 
-    // Called every second on AMOLED. Redraws only the seconds digits (when shown)
-    // and blinks the cursor, each via its own setClip, so most of the screen
-    // doesn't repaint every second. Only a phase change triggers a full onUpdate.
+    // Redraws only the seconds digits and cursor blink, via their own clips,
+    // instead of repainting the whole screen every second.
     public function onPartialUpdate(dc as Dc) as Void {
         var now = System.getTimer();
         var phase = _getPhase(Time.now().value());
@@ -6470,15 +7174,49 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cursorOn = cursorOn;
         dc.setClip(_cursorX, _cursorY, _cursorCharW, _cursorFh);
         if (_cursorOn) {
+            var hdc = _haloDrawOk == true ? _activeHaloDc() : null;
+            if (hdc != null) {
+                hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+                hdc.fillRectangle(
+                    _cursorX,
+                    _cursorY,
+                    _cursorCharW + 1,
+                    _cursorFh + 1
+                );
+                hdc.setColor(
+                    _glowColor(ColorUtils.colorFromIdx(0)),
+                    Graphics.COLOR_TRANSPARENT
+                );
+                hdc.fillRectangle(
+                    _cursorX,
+                    _cursorY + 1,
+                    _cursorCharW,
+                    _cursorFh
+                );
+                hdc.fillRectangle(
+                    _cursorX + 1,
+                    _cursorY,
+                    _cursorCharW,
+                    _cursorFh
+                );
+                dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
+                dc.drawBitmap(0, 0, _haloBmp as Graphics.BufferedBitmap);
+                dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+            }
             dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
         } else {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
             dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
             if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
-                dc.setColor(
-                    SCANLINE_COLORS[_scanlineIntensity],
-                    Graphics.COLOR_TRANSPARENT
+                dc.setStroke(
+                    (_flickerAlpha(
+                        SCANLINE_ALPHA[_scanlineIntensity],
+                        System.getClockTime().sec,
+                        FLICKER_MAGNITUDE
+                    ) <<
+                        24) |
+                        0xffffff
                 );
                 var sy = (_cursorY / SCANLINE_SPACING) * SCANLINE_SPACING;
                 while (sy < _cursorY + _cursorFh) {
@@ -6493,22 +7231,55 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Redraws just the ":SS" portion of the time row value in its own clip
     // region instead of forcing a full-screen redraw every second.
     private function _drawSecondsPartial(dc as Dc) as Void {
-        var secStr = ":" + System.getClockTime().sec.format("%02d");
+        var sec = System.getClockTime().sec;
+        var secStr = ":" + sec.format("%02d");
         var x = _timeValueX + _cachedTimeStrW;
         var w = _charW * 3;
         dc.setClip(x, _timeValueY, w, _fh);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.fillRectangle(x, _timeValueY, w, _fh);
         if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
-            dc.setColor(
-                SCANLINE_COLORS[_scanlineIntensity],
-                Graphics.COLOR_TRANSPARENT
+            dc.setStroke(
+                (_flickerAlpha(
+                    SCANLINE_ALPHA[_scanlineIntensity],
+                    sec,
+                    FLICKER_MAGNITUDE
+                ) <<
+                    24) |
+                    0xffffff
             );
             var sy = (_timeValueY / SCANLINE_SPACING) * SCANLINE_SPACING;
             while (sy < _timeValueY + _fh) {
                 dc.drawLine(x, sy, x + w - 1, sy);
                 sy += SCANLINE_SPACING;
             }
+        }
+        // Full-frame halo composite only happens in onUpdate, so redraw just this clip here too.
+        var hdc = _haloDrawOk == true ? _activeHaloDc() : null;
+        if (hdc != null) {
+            hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+            hdc.fillRectangle(x, _timeValueY, w + 1, _fh + 1);
+            hdc.setColor(
+                _glowColor(ColorUtils.colorFromIdx(_line1ValueC)),
+                Graphics.COLOR_TRANSPARENT
+            );
+            hdc.drawText(
+                x,
+                _timeValueY + 1,
+                _font,
+                secStr,
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            hdc.drawText(
+                x + 1,
+                _timeValueY,
+                _font,
+                secStr,
+                Graphics.TEXT_JUSTIFY_LEFT
+            );
+            dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
+            dc.drawBitmap(0, 0, _haloBmp as Graphics.BufferedBitmap);
+            dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
         }
         dc.setColor(
             ColorUtils.colorFromIdx(_line1ValueC),
@@ -6528,6 +7299,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
     public function onExitSleep() as Void {
         _lowPower = false;
+        _wakeFlicker = true;
         WatchUi.requestUpdate();
     }
 }

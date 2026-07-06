@@ -13,6 +13,17 @@
   <string id="ScanlinesSubtle">Subtle</string>
   <string id="ScanlinesMedium">Medium</string>
   <string id="ScanlinesStrong">Strong</string>
+  <string id="BgGradient">Glow Intensity</string>
+  <string id="BgGradientOff">Off</string>
+  <string id="BgGradientSubtle">Subtle</string>
+  <string id="BgGradientMedium">Medium</string>
+  <string id="BgGradientStrong">Strong</string>
+  <string id="BgWash">Background Wash</string>
+  <string id="BgWashOff">Off</string>
+  <string id="BgWashSubtle">Subtle</string>
+  <string id="BgWashMedium">Medium</string>
+  <string id="BgWashStrong">Strong</string>
+  <string id="FlickerEnabled">CRT Flicker</string>
 
   <!-- Display options -->
   <string id="LeftPadding">Left Padding</string>

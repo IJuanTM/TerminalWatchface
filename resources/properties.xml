@@ -3,6 +3,9 @@
   <!-- Appearance -->
   <property id="fontChoice" type="number">0</property>
   <property id="scanlines" type="number">2</property>
+  <property id="bgGradient" type="number">2</property>
+  <property id="bgWash" type="number">2</property>
+  <property id="flickerEnabled" type="boolean">true</property>
 
   <!-- Display options -->
   <property id="leftPadding" type="number">4</property>

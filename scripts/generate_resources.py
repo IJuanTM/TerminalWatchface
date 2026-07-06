@@ -529,6 +529,9 @@ def gen_properties():
     lines.append("\n  <!-- Appearance -->")
     lines.append(prop("fontChoice", "number", 0))
     lines.append(prop("scanlines", "number", 2))
+    lines.append(prop("bgGradient", "number", 2))
+    lines.append(prop("bgWash", "number", 2))
+    lines.append(prop("flickerEnabled", "boolean", "true"))
 
     lines.append("\n  <!-- Display options -->")
     lines.append(prop("leftPadding", "number", 4))
@@ -644,6 +647,17 @@ def gen_strings():
     lines.append(s("ScanlinesSubtle", "Subtle"))
     lines.append(s("ScanlinesMedium", "Medium"))
     lines.append(s("ScanlinesStrong", "Strong"))
+    lines.append(s("BgGradient", "Glow Intensity"))
+    lines.append(s("BgGradientOff", "Off"))
+    lines.append(s("BgGradientSubtle", "Subtle"))
+    lines.append(s("BgGradientMedium", "Medium"))
+    lines.append(s("BgGradientStrong", "Strong"))
+    lines.append(s("BgWash", "Background Wash"))
+    lines.append(s("BgWashOff", "Off"))
+    lines.append(s("BgWashSubtle", "Subtle"))
+    lines.append(s("BgWashMedium", "Medium"))
+    lines.append(s("BgWashStrong", "Strong"))
+    lines.append(s("FlickerEnabled", "CRT Flicker"))
 
     lines.append("\n  <!-- Display options -->")
     lines.append(s("LeftPadding", "Left Padding"))
@@ -978,6 +992,29 @@ def gen_settings():
                 ],
                 indent=2,
             ),
+            setting_list(
+                "bgGradient",
+                "BgGradient",
+                [
+                    (0, "@Strings.BgGradientOff"),
+                    (1, "@Strings.BgGradientSubtle"),
+                    (2, "@Strings.BgGradientMedium"),
+                    (3, "@Strings.BgGradientStrong"),
+                ],
+                indent=2,
+            ),
+            setting_list(
+                "bgWash",
+                "BgWash",
+                [
+                    (0, "@Strings.BgWashOff"),
+                    (1, "@Strings.BgWashSubtle"),
+                    (2, "@Strings.BgWashMedium"),
+                    (3, "@Strings.BgWashStrong"),
+                ],
+                indent=2,
+            ),
+            setting_bool("flickerEnabled", "FlickerEnabled", indent=2),
             setting_list(
                 "watchCommandStyle",
                 "WatchCommandStyle",
