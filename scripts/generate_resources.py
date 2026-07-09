@@ -20,17 +20,18 @@ OUT_FIELD_IDS = os.path.join(ROOT, "source", "FieldIds.mc")
 # ---------------------------------------------------------------------------
 
 # (value, StringId, display text) — single source for both listEntries and strings.
+# Solid colors (0-9) are in hue-wheel display order; values are unchanged.
 COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
     (0, "ColorWhite", "White"),
+    (5, "ColorRed", "Red"),
+    (4, "ColorOrange", "Orange"),
+    (3, "ColorYellow", "Yellow"),
     (1, "ColorGreen", "Green"),
     (2, "ColorCyan", "Cyan"),
-    (3, "ColorYellow", "Yellow"),
-    (4, "ColorOrange", "Orange"),
-    (5, "ColorRed", "Red"),
     (6, "ColorBlue", "Blue"),
+    (9, "ColorPurple", "Purple"),
     (7, "ColorMagenta", "Magenta"),
     (8, "ColorLightGrey", "Light Grey"),
-    (9, "ColorPurple", "Purple"),
     (10, "GradTriColor", "Tri-color (low->high)"),
     (11, "GradTriColorRev", "Tri-color (high->low)"),
     (12, "GradTempCustom", "Temp: Custom (cold->hot)"),
@@ -45,31 +46,20 @@ COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
 
 COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
 
-# All fields available on the configurable lines (3/4/5), grouped into
-# categories. Each category owns a reserved 50-wide numeric block
-# (category 0 -> values 1-50, category 1 -> 51-100, ...), so a field's
-# value alone hints at its category, and adding a new field to a category
-# never requires renumbering any other field. FieldNone is the one
-# reserved value outside the blocks (0).
-#
-# Each entry is (const_suffix, StringId, display text). The Monkey C
-# constant name is "FIELD_" + const_suffix. This table is the single
-# source of truth for field values, field settings/strings, AND the
-# generated source/FieldIds.mc - never hand-edit that file or hardcode a
-# field's numeric value anywhere else (see FIELD_VALUE below for lookups).
+# Fields are grouped into categories, each a reserved 50-wide numeric block
+# (category 0 -> values 1-50, category 1 -> 51-100, ...) computed in
+# _build_fields() below; entries are (const_suffix, StringId, display text)
+# and the single source of truth for FIELD_* values (see FIELD_VALUE).
 FIELD_CATEGORY_WIDTH = 50
 
-# Graph cache key bit layout (see _packGraphKey/_graphKeyHi/_graphKeyLo in
-# TerminalWatchfaceView.mc): generated into source/FieldIds.mc below so the
-# Monkey C side never hand-maintains a separate copy of these numbers.
+# Graph cache key bit layout, generated into source/FieldIds.mc for
+# _packGraphKey/_graphKeyHi/_graphKeyLo in TerminalWatchfaceView.mc.
 CACHE_KEY_LO_SHIFT = 11
 CACHE_KEY_HI_SHIFT = 21
 CACHE_KEY_MASK = (1 << (CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT)) - 1
 CACHE_KEY_FIELD_BUDGET = CACHE_KEY_MASK + 1
 CACHE_KEY_PERIOD_BUDGET = 1 << CACHE_KEY_LO_SHIFT
 
-# Settings group title prefixes, so the Connect IQ app's submenu list makes
-# clear at a glance which groups are bar-progress settings vs graph settings.
 BAR_CONFIG_PREFIX = "Bar Config - "
 GRAPH_CONFIG_PREFIX = "Graph Config - "
 
@@ -88,7 +78,6 @@ FIELD_CATEGORIES = [
             ("RECOVERY", "FieldRecovery", "Recovery Time"),
             ("SLEEP", "FieldSleep", "Sleep Score"),
             ("VO2_MAX", "FieldVo2Max", "VO2 Max"),
-            ("LACTATE_HR", "FieldLactateHR", "Lactate Threshold HR"),
             ("TRAINING_STATUS", "FieldTrainingStatus", "Training Status"),
             ("WRIST_TEMP", "FieldWristTemp", "Wrist Temperature"),
             ("HR_RESTING", "FieldHrResting", "Resting HR"),
@@ -195,21 +184,23 @@ FIELD_CATEGORIES = [
         ],
     ),
     (
+        # Ordered/named by each field's rank in "Weather: current" above.
         "Weather: combos",
         [
             ("WX_TEMP_COND", "FieldWxTempCond", "Weather: Temp + Condition"),
+            ("WX_TEMP_PRECIP", "FieldWxTempPrecip", "Weather: Temp + Rain"),
             ("WX_TEMP_WIND", "FieldWxTempWind", "Weather: Temp + Wind"),
             ("WX_TEMP_UV", "FieldWxTempUV", "Weather: Temp + UV"),
             ("WX_TEMP_HUMIDITY", "FieldWxTempHumidity", "Weather: Temp + Humidity"),
-            ("WX_TEMP_PRECIP", "FieldWxTempPrecip", "Weather: Temp + Rain"),
             ("WX_TEMP_HIGH_LOW", "FieldWxTempHighLow", "Weather: Temp + High/Low"),
             ("WX_COND_PRECIP", "FieldWxCondPrecip", "Weather: Condition + Rain"),
-            ("WX_WIND_PRECIP", "FieldWxWindPrecip", "Weather: Wind + Rain"),
-            ("WX_UV_WIND", "FieldWxUVWind", "Weather: UV + Wind"),
+            ("WX_WIND_PRECIP", "FieldWxWindPrecip", "Weather: Rain + Wind"),
+            # UV stays first - _drawUvRow always renders it first regardless of naming.
             ("WX_UV_PRECIP", "FieldWxUVPrecip", "Weather: UV + Rain"),
-            ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip", "Weather: Humidity + Rain"),
+            ("WX_CLOUD_PRECIP", "FieldWxCloudPrecip", "Weather: Rain + Cloud"),
+            ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip", "Weather: Rain + Humidity"),
+            ("WX_UV_WIND", "FieldWxUVWind", "Weather: UV + Wind"),
             ("WX_HUMIDITY_DEW", "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
-            ("WX_CLOUD_PRECIP", "FieldWxCloudPrecip", "Weather: Cloud + Rain"),
         ],
     ),
     (
@@ -220,8 +211,8 @@ FIELD_CATEGORIES = [
             ("WX_FCST_PRECIP", "FieldWxFcstPrecip", "Forecast: Rain (Hourly)"),
             ("WX_FCST_WIND", "FieldWxFcstWind", "Forecast: Wind (Hourly)"),
             ("WX_FCST_UV", "FieldWxFcstUv", "Forecast: UV (Hourly)"),
-            ("WX_FCST_HUMIDITY", "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
             ("WX_FCST_CLOUD", "FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
+            ("WX_FCST_HUMIDITY", "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
         ],
     ),
     (
@@ -252,11 +243,8 @@ FIELD_CATEGORIES = [
 ]
 
 
-# Computed from FIELD_CATEGORIES: (value, StringId, display text) for every
-# field including FieldNone - same shape the rest of this script already
-# expects from FIELDS_ALL. FIELD_VALUE is a StringId -> value lookup, used
-# by LINE_SLOTS (and anything else) that needs to refer to a specific field
-# by name instead of hardcoding its numeric value.
+# Computed from FIELD_CATEGORIES: FIELDS_ALL is every (value, StringId,
+# display) including FieldNone; FIELD_VALUE is a StringId -> value lookup.
 def _build_fields():
     total_span = FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)
     if total_span >= CACHE_KEY_FIELD_BUDGET:
@@ -286,45 +274,28 @@ def _build_fields():
 
 FIELDS_ALL, FIELD_VALUE = _build_fields()
 
-# Graph-capable sensor fields.
-# Each entry: (camelKey, StringPrefix, graph_mode_default,
-#              sec_type_default, sec_field_default, time_frame_default,
-#              graph_color_default, sec_color_default, value_mode_default)
-# graph_mode_default: 0=value only, 1=line graph, 2=bar graph,
-#                     3=line+current value, 4=bar+current value,
-#                     5=area graph, 6=area+current value
-# sec_field_default is an index into GRAPH_SEC_FIELDS below.
+# Graph-capable sensor fields: (camelKey, StringPrefix, graph_mode_default,
+# sec_type_default, sec_field_default, time_frame_default, graph_color_default,
+# sec_color_default, value_mode_default). graph_mode: 0=value, 1=line, 2=bar,
+# 3=line+current, 4=bar+current, 5=area, 6=area+current. sec_field_default
+# indexes GRAPH_SEC_FIELDS below.
 GRAPH_FIELDS = [
-    # key skey mode std sfd tfd gcd scd vmd
-    ("hr", "HR", 3, 0, 1, 60, 5, 0, 0),  # line+current, 1h; red
-    ("bodyBat", "BodyBat", 6, 0, 2, 240, 11, 0, 0),  # area+current, 4h; tri-color rev
-    ("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),  # line+current, 2h; tri-color
-    ("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),  # area+current, 1h; blue
-    ("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),  # line+current, 1h; turbo
-    ("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),  # area+current, 8h; green
-    ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),  # line+current, 2h; cyan
+    ("hr", "HR", 3, 0, 2, 60, 5, 0, 0),
+    ("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
+    ("bodyBat", "BodyBat", 6, 0, 3, 240, 11, 0, 0),
+    ("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
+    ("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),
+    ("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),
+    ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),
 ]
 
-# Goal-progress-bar fields.
-# Each entry: (camelKey, groupTitle, label, showBarDefault, colorDefault,
-#              widthDefault, goalDefault, goalMin, goalMax, goalLabelSuffix)
-# goalDefault is None for fields whose goal comes from ActivityMonitor.Info
-# (steps/floors/intensityMin) rather than a user-set property.
+# Goal-progress-bar fields: (camelKey, groupTitle, label, showBarDefault,
+# colorDefault, widthDefault, goalDefault, goalMin, goalMax, goalLabelSuffix).
+# goalDefault is None when the goal comes from ActivityMonitor.Info instead
+# of a user-set property (steps/floors/intensityMin).
 BAR_FIELDS = [
     ("steps", "Steps", "Steps", True, 1, 10, None, None, None, None),
     ("floors", "Floors", "Floors", False, 5, 8, None, None, None, None),
-    (
-        "intensityMin",
-        "Intensity Minutes (Weekly)",
-        "Intensity Min",
-        True,
-        5,
-        8,
-        None,
-        None,
-        None,
-        None,
-    ),
     ("calories", "Calories (Daily)", "Calories", False, 4, 10, 2000, 500, 9000, None),
     (
         "distance",
@@ -350,14 +321,25 @@ BAR_FIELDS = [
         480,
         None,
     ),
+    (
+        "intensityMin",
+        "Intensity Minutes (Weekly)",
+        "Intensity Min",
+        True,
+        5,
+        8,
+        None,
+        None,
+        None,
+        None,
+    ),
 ]
 
-# Secondary field options shared by all graph secondary-field pickers
 GRAPH_SEC_FIELDS = [
     (0, "FieldHR"),
-    (1, "FieldBodyBat"),
-    (2, "FieldStress"),
-    (3, "FieldSpO2"),
+    (1, "FieldSpO2"),
+    (2, "FieldBodyBat"),
+    (3, "FieldStress"),
     (4, "FieldWristTemp"),
     (5, "FieldElevation"),
     (6, "FieldPressure"),
@@ -404,7 +386,6 @@ GRAPH_WIDTH_OPTIONS = [
     (16, "GraphWidth16"),
 ]
 
-# Display names for GRAPH_FIELDS entries — used in both strings.xml and settings.xml
 GRAPH_DISPLAY_NAMES = {
     "hr": "Heart Rate",
     "bodyBat": "Body Battery",
@@ -415,41 +396,34 @@ GRAPH_DISPLAY_NAMES = {
     "pressure": "Pressure",
 }
 
-# Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default, value_color_default)
-# field_default is looked up by name via FIELD_VALUE so these stay correct
-# no matter how FIELD_CATEGORIES gets renumbered.
+# Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default,
+# value_color_default). field_default is looked up by name via FIELD_VALUE.
 _fv = FIELD_VALUE
 LINE_SLOTS = [
-    # R1 (Primary) - shown longest; at-a-glance essentials
-    (3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),  # Temp Hourly forecast graph, blue
-    (4, "Primary", _fv["FieldSteps"], 1, 0),  # Steps, green
-    (5, "Primary", _fv["FieldHR"], 5, 0),  # HR, red
-    # R2 (Secondary)
-    (3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),  # Humidity + Rain, blue
-    (4, "Secondary", _fv["FieldElevation"], 1, 0),  # Elevation, green
-    (5, "Secondary", _fv["FieldStress"], 5, 0),  # Stress, red
-    # R3 (Tertiary)
-    (3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),  # UV + Wind, blue
-    (4, "Tertiary", _fv["FieldDistance"], 1, 0),  # Distance (daily), green
-    (5, "Tertiary", _fv["FieldSpO2"], 5, 0),  # Blood Oxygen (SpO2), red
-    # R4 (Quaternary)
-    (3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),  # Temp Daily forecast, blue
-    (4, "Quaternary", _fv["FieldFloors"], 1, 0),  # Floors, green
-    (
-        5,
-        "Quaternary",
-        _fv["FieldIntensityMin"],
-        5,
-        0,
-    ),  # Intensity Minutes (weekly), red
-    # R5 (Quinary)
-    (3, "Quinary", _fv["FieldNone"], 6, 0),  # None, blue
-    (4, "Quinary", _fv["FieldNone"], 1, 0),  # None, green
-    (5, "Quinary", _fv["FieldNone"], 5, 0),  # None, red
-    # R6 (Senary)
-    (3, "Senary", _fv["FieldNone"], 6, 0),  # None, blue
-    (4, "Senary", _fv["FieldNone"], 1, 0),  # None, green
-    (5, "Senary", _fv["FieldNone"], 5, 0),  # None, red
+    # R1
+    (3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
+    (4, "Primary", _fv["FieldSteps"], 1, 0),
+    (5, "Primary", _fv["FieldHR"], 5, 0),
+    # R2
+    (3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),
+    (4, "Secondary", _fv["FieldElevation"], 1, 0),
+    (5, "Secondary", _fv["FieldStress"], 5, 0),
+    # R3
+    (3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
+    (4, "Tertiary", _fv["FieldDistance"], 1, 0),
+    (5, "Tertiary", _fv["FieldSpO2"], 5, 0),
+    # R4
+    (3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),
+    (4, "Quaternary", _fv["FieldFloors"], 1, 0),
+    (5, "Quaternary", _fv["FieldIntensityMin"], 5, 0),
+    # R5
+    (3, "Quinary", _fv["FieldNone"], 6, 0),
+    (4, "Quinary", _fv["FieldNone"], 1, 0),
+    (5, "Quinary", _fv["FieldNone"], 5, 0),
+    # R6
+    (3, "Senary", _fv["FieldNone"], 6, 0),
+    (4, "Senary", _fv["FieldNone"], 1, 0),
+    (5, "Senary", _fv["FieldNone"], 5, 0),
 ]
 
 SCREEN_COUNT = 3
@@ -466,12 +440,11 @@ def screen_line_slots(screen_idx):
     ]
 
 
-# Graph mode options shared by all sensor graph fields
 GRAPH_MODE_OPTIONS = [
     (0, "@Strings.GraphModeValue"),
     (1, "@Strings.GraphModeLineGraph"),
-    (2, "@Strings.GraphModeBarGraph"),
     (3, "@Strings.GraphModeLineCurrent"),
+    (2, "@Strings.GraphModeBarGraph"),
     (4, "@Strings.GraphModeBarCurrent"),
     (5, "@Strings.GraphModeAreaGraph"),
     (6, "@Strings.GraphModeAreaCurrent"),
@@ -484,27 +457,23 @@ GRAPH_VALUE_MODE_OPTIONS = [
     (3, "@Strings.GraphValueMean"),
 ]
 
-# Forecast graph mode reuses the sensor graph-mode encoding minus "value only"
-# (forecasts always draw a graph): 1=line, 2=bar, 3=line+current, 4=bar+current,
-# 5=area, 6=area+current.
+# Forecasts always draw a graph, so this drops GRAPH_MODE_OPTIONS' "value only".
 FORECAST_GRAPH_MODE_OPTIONS = GRAPH_MODE_OPTIONS[1:]
 
-# Two-option view mode for the daily forecast (graph vs graph + current).
 FORECAST_VIEW_MODE_OPTIONS = [
     (1, "@Strings.ViewModeGraph"),
     (2, "@Strings.ViewModeGraphCurrent"),
 ]
 
-# Hourly forecast graphs that share an identical control layout (view mode,
-# value mode, graph type, hours-ahead time frame, color, width). Temp-hourly
-# and the daily forecast differ in shape and stay as explicit blocks.
-# (camelKey, StringPrefix, display, value_mode_default, graph_color_default)
+# Hourly forecasts sharing one control layout: (camelKey, StringPrefix,
+# display, value_mode_default, graph_color_default). Temp hourly and the
+# daily forecast have a different shape and stay as explicit blocks.
 HOURLY_FORECASTS = [
     ("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
     ("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
     ("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
-    ("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
     ("wxForecastCloud", "WxForecastCloud", "Cloud Hourly", 1, 8),
+    ("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
 ]
 
 # ---------------------------------------------------------------------------
@@ -666,8 +635,7 @@ def gen_properties():
     lines.append(prop("line2LabelColor", "number", 8))
     lines.append(prop("line2ValueColor", "number", 0))
 
-    # 3 screens, each with its own label/value color per line (shared across
-    # that line's rotation slots) and a field picker per slot.
+    # Label/value colors are per line, shared across that line's rotation slots.
     for screen_idx in range(1, SCREEN_COUNT + 1):
         for ln, slot, fd, lc, vc in screen_line_slots(screen_idx):
             pk = f"screen{screen_idx}_line{ln}"
@@ -713,23 +681,21 @@ def gen_properties():
         lines.append(prop(f"{key}GraphWidth", "number", 10))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastGraphMode", "number", 4))  # bar + current
-    lines.append(prop("wxForecastValueMode", "number", 0))  # current
-    lines.append(prop("wxForecastTimeFrame", "number", 12))  # 12h
-    lines.append(
-        prop("wxForecastGraphColor", "number", 16)
-    )  # GradTempTurbo (cold->hot)
+    lines.append(prop("wxForecastGraphMode", "number", 4))
+    lines.append(prop("wxForecastValueMode", "number", 0))
+    lines.append(prop("wxForecastTimeFrame", "number", 12))
+    lines.append(prop("wxForecastGraphColor", "number", 16))
     lines.append(prop("wxForecastGraphWidth", "number", 10))
-
-    lines.append("\n  <!-- Day Forecast -->")
-    lines.append(prop("wxForecastDailyViewMode", "number", 2))  # graph+value
-    lines.append(prop("wxForecastDailyValueMode", "number", 2))  # max/min
-    lines.append(prop("wxForecastDailyDays", "number", 5))  # 5 days
-    lines.append(prop("wxForecastDailyGraphColor", "number", 16))  # GradTempTurbo
-    lines.append(prop("wxForecastDailyGraphWidth", "number", 8))
 
     for row in HOURLY_FORECASTS:
         lines.append(hourly_forecast_props(*row))
+
+    lines.append("\n  <!-- Day Forecast -->")
+    lines.append(prop("wxForecastDailyViewMode", "number", 2))
+    lines.append(prop("wxForecastDailyValueMode", "number", 2))
+    lines.append(prop("wxForecastDailyDays", "number", 5))
+    lines.append(prop("wxForecastDailyGraphColor", "number", 16))
+    lines.append(prop("wxForecastDailyGraphWidth", "number", 8))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop("showVersion", "boolean", "false"))
@@ -918,7 +884,6 @@ def gen_strings():
     lines.append(s("TimeFrame12h", "12 hours"))
     lines.append(s("TimeFrame24h", "24 hours"))
 
-    # Graph settings strings — one block per graph field
     for key, skey, *_ in GRAPH_FIELDS:
         display = GRAPH_DISPLAY_NAMES[key]
         lines.append(f"\n  <!-- Graph settings: {display} -->")
@@ -944,6 +909,9 @@ def gen_strings():
     lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
 
+    for row in HOURLY_FORECASTS:
+        lines.append(hourly_forecast_strings(*row))
+
     lines.append("\n  <!-- Graph settings: Temp Daily Forecast -->")
     lines.append(s("WxForecastDailyGroup", GRAPH_CONFIG_PREFIX + "Temp Daily Forecast"))
     lines.append(s("WxForecastDailyViewMode", "Temp Daily: View Mode"))
@@ -954,9 +922,6 @@ def gen_strings():
     lines.append(s("TimeFrameForecastDays3", "3 days"))
     lines.append(s("TimeFrameForecastDays5", "5 days"))
     lines.append(s("TimeFrameForecastDays7", "7 days"))
-
-    for row in HOURLY_FORECASTS:
-        lines.append(hourly_forecast_strings(*row))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
@@ -1030,14 +995,12 @@ def forecast_tf_entries():
     return [(v, f"@Strings.{sid}") for v, sid in FORECAST_TIME_FRAMES]
 
 
-# Per-generator block builders for the shape-identical hourly forecasts. value
-# mode and color vary per field; the section comment uses the first display
-# word (e.g. "Rain Forecast") for properties/settings.
+# Shared block builders for the shape-identical HOURLY_FORECASTS entries.
 def hourly_forecast_props(key, skey, display, vmode, color):
     return "\n".join(
         [
-            f"\n  <!-- {display.split()[0]} Forecast -->",
-            prop(f"{key}GraphMode", "number", 4),  # bar + current
+            f"\n  <!-- {display} Forecast -->",
+            prop(f"{key}GraphMode", "number", 4),
             prop(f"{key}ValueMode", "number", vmode),
             prop(f"{key}TimeFrame", "number", 12),
             prop(f"{key}GraphColor", "number", color),
@@ -1050,9 +1013,7 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
     return "\n".join(
         [
             f"\n  <!-- Graph settings: {display} Forecast -->",
-            string(
-                f"{skey}Group", f"{GRAPH_CONFIG_PREFIX}{display.split()[0]} Forecast"
-            ),
+            string(f"{skey}Group", f"{GRAPH_CONFIG_PREFIX}{display} Forecast"),
             string(f"{skey}GraphMode", f"{display}: Graph Mode"),
             string(f"{skey}ValueMode", f"{display}: Value Mode"),
             string(f"{skey}TimeFrame", f"{display}: Hours Ahead"),
@@ -1089,7 +1050,6 @@ def hourly_forecast_settings(key, skey, display, vmode, color, indent=1):
 def gen_settings():
     parts = ["<settings>"]
 
-    # Appearance
     parts.append(
         group(
             "appearance",
@@ -1178,7 +1138,6 @@ def gen_settings():
         )
     )
 
-    # Time row
     parts.append(
         group(
             "timeRow",
@@ -1189,7 +1148,6 @@ def gen_settings():
         )
     )
 
-    # Date row
     parts.append(
         group(
             "dateRow",
@@ -1213,8 +1171,7 @@ def gen_settings():
         )
     )
 
-    # Screens: one master toggle per alternate screen (2/3), independent of
-    # the per-line toggles below - a quick way to turn a whole screen off.
+    # Master on/off per alternate screen (2/3), separate from the per-line toggles below.
     parts.append(
         group(
             "screens",
@@ -1224,9 +1181,6 @@ def gen_settings():
         )
     )
 
-    # Rotation + active screen - moved above the screen/field settings they
-    # control, so the phone app shows "what/when to rotate" before "what's in
-    # each screen".
     rotate_options = [
         (0, "Same as main"),
         (3, "3 seconds"),
@@ -1259,9 +1213,7 @@ def gen_settings():
         )
     )
 
-    # Screens: one group per screen with all 3 lines' toggle/colors and field
-    # rotations together, instead of a separate group per line - fewer
-    # submenus in the Garmin Connect IQ app.
+    # One group per screen (all 3 lines together) instead of one group per line.
     for screen_idx in range(1, SCREEN_COUNT + 1):
         line_blocks = []
         for ln in (3, 4, 5):
@@ -1287,7 +1239,6 @@ def gen_settings():
             group(f"screen{screen_idx}", f"Screen{screen_idx}ConfigGroup", *line_blocks)
         )
 
-    # Goal-progress-bar fields (Steps/Floors/IntensityMin/Calories/Distance/ActiveMinDay)
     for (
         key,
         _group_title,
@@ -1317,14 +1268,12 @@ def gen_settings():
             )
         parts.append(group(key, f"{id_prefix}Group", *blocks))
 
-    # Graph fields - one group per sensor graph
     for row in GRAPH_FIELDS:
         key, skey = row[0], row[1]
         parts.append(
             group(f"graph_{key}", f"{skey}GraphGroup", graph_section(*row, indent=2))
         )
 
-    # Weather Forecast (temp hourly)
     parts.append(
         group(
             "wxForecast",
@@ -1352,7 +1301,12 @@ def gen_settings():
         )
     )
 
-    # Day Forecast
+    for row in HOURLY_FORECASTS:
+        key, skey = row[0], row[1]
+        parts.append(
+            group(key, f"{skey}Group", hourly_forecast_settings(*row, indent=2))
+        )
+
     parts.append(
         group(
             "wxForecastDaily",
@@ -1388,15 +1342,6 @@ def gen_settings():
         )
     )
 
-    # Hourly forecasts (precip/wind/UV/humidity/cloud) share an identical
-    # layout - one group each
-    for row in HOURLY_FORECASTS:
-        key, skey = row[0], row[1]
-        parts.append(
-            group(key, f"{skey}Group", hourly_forecast_settings(*row, indent=2))
-        )
-
-    # Debug
     parts.append(
         group(
             "debug", "DebugGroup", setting_bool("showVersion", "ShowVersion", indent=2)

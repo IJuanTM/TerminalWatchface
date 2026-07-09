@@ -160,15 +160,15 @@
 
   <!-- Shared: color options -->
   <string id="ColorWhite">White</string>
+  <string id="ColorRed">Red</string>
+  <string id="ColorOrange">Orange</string>
+  <string id="ColorYellow">Yellow</string>
   <string id="ColorGreen">Green</string>
   <string id="ColorCyan">Cyan</string>
-  <string id="ColorYellow">Yellow</string>
-  <string id="ColorOrange">Orange</string>
-  <string id="ColorRed">Red</string>
   <string id="ColorBlue">Blue</string>
+  <string id="ColorPurple">Purple</string>
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
-  <string id="ColorPurple">Purple</string>
   <string id="GradTriColor">Tri-color (low->high)</string>
   <string id="GradTriColorRev">Tri-color (high->low)</string>
   <string id="GradTempCustom">Temp: Custom (cold->hot)</string>
@@ -193,7 +193,6 @@
   <string id="FieldRecovery">Recovery Time</string>
   <string id="FieldSleep">Sleep Score</string>
   <string id="FieldVo2Max">VO2 Max</string>
-  <string id="FieldLactateHR">Lactate Threshold HR</string>
   <string id="FieldTrainingStatus">Training Status</string>
   <string id="FieldWristTemp">Wrist Temperature</string>
   <string id="FieldHrResting">Resting HR</string>
@@ -254,25 +253,25 @@
   <string id="FieldWxHeatIndex">Weather: Heat Index</string>
   <string id="FieldWxHighLow">Weather: High / Low Temp</string>
   <string id="FieldWxTempCond">Weather: Temp + Condition</string>
+  <string id="FieldWxTempPrecip">Weather: Temp + Rain</string>
   <string id="FieldWxTempWind">Weather: Temp + Wind</string>
   <string id="FieldWxTempUV">Weather: Temp + UV</string>
   <string id="FieldWxTempHumidity">Weather: Temp + Humidity</string>
-  <string id="FieldWxTempPrecip">Weather: Temp + Rain</string>
   <string id="FieldWxTempHighLow">Weather: Temp + High/Low</string>
   <string id="FieldWxCondPrecip">Weather: Condition + Rain</string>
-  <string id="FieldWxWindPrecip">Weather: Wind + Rain</string>
-  <string id="FieldWxUVWind">Weather: UV + Wind</string>
+  <string id="FieldWxWindPrecip">Weather: Rain + Wind</string>
   <string id="FieldWxUVPrecip">Weather: UV + Rain</string>
-  <string id="FieldWxHumidityPrecip">Weather: Humidity + Rain</string>
+  <string id="FieldWxCloudPrecip">Weather: Rain + Cloud</string>
+  <string id="FieldWxHumidityPrecip">Weather: Rain + Humidity</string>
+  <string id="FieldWxUVWind">Weather: UV + Wind</string>
   <string id="FieldWxHumidityDew">Weather: Humidity + Dew Point</string>
-  <string id="FieldWxCloudPrecip">Weather: Cloud + Rain</string>
   <string id="FieldWxFcstTemp">Forecast: Temp (Hourly)</string>
   <string id="FieldWxFcstDaily">Forecast: Temp (Daily)</string>
   <string id="FieldWxFcstPrecip">Forecast: Rain (Hourly)</string>
   <string id="FieldWxFcstWind">Forecast: Wind (Hourly)</string>
   <string id="FieldWxFcstUv">Forecast: UV (Hourly)</string>
-  <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
   <string id="FieldWxFcstCloud">Forecast: Cloud (Hourly)</string>
+  <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
   <string id="FieldWxFcstCond1d">Forecast: Condition (+1 day)</string>
   <string id="FieldWxFcstCond2d">Forecast: Condition (+2 days)</string>
   <string id="FieldWxFcstCond3d">Forecast: Condition (+3 days)</string>
@@ -325,13 +324,6 @@
   <string id="FloorsBarColor">Floors: Bar Color</string>
   <string id="FloorsBarWidth">Floors: Bar Width</string>
 
-  <!-- Intensity Minutes (Weekly) -->
-  <string id="IntensityMinGroup">Bar Config - Intensity Minutes (Weekly)</string>
-  <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
-  <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
-  <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
-  <string id="IntensityMinBarWidth">Intensity Min: Bar Width</string>
-
   <!-- Calories (Daily) -->
   <string id="CaloriesGroup">Bar Config - Calories (Daily)</string>
   <string id="CaloriesShowBar">Calories: Show Progress Bar</string>
@@ -355,6 +347,13 @@
   <string id="ActiveMinDayBarColor">Active Min: Bar Color</string>
   <string id="ActiveMinDayBarWidth">Active Min: Bar Width</string>
   <string id="ActiveMinDayBarGoal">Active Min: Daily Goal</string>
+
+  <!-- Intensity Minutes (Weekly) -->
+  <string id="IntensityMinGroup">Bar Config - Intensity Minutes (Weekly)</string>
+  <string id="IntensityMinShowBar">Intensity Min: Show Progress Bar</string>
+  <string id="IntensityMinShowBarValue">Intensity Min: Show Value in Bar</string>
+  <string id="IntensityMinBarColor">Intensity Min: Bar Color</string>
+  <string id="IntensityMinBarWidth">Intensity Min: Bar Width</string>
 
   <!-- Shared: secondary graph type options -->
   <string id="SecTypeNone">None (hidden)</string>
@@ -382,6 +381,17 @@
   <string id="HRSecondaryColor">Heart Rate: 2nd Graph Color</string>
   <string id="HRGraphWidth">Heart Rate: Graph Width</string>
 
+  <!-- Graph settings: Blood O2 -->
+  <string id="SpO2GraphGroup">Graph Config - Blood O2</string>
+  <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
+  <string id="SpO2GraphValueMode">Blood O2: Graph Value Mode</string>
+  <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
+  <string id="SpO2SecondaryField">Blood O2: 2nd Graph Field</string>
+  <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
+  <string id="SpO2GraphColor">Blood O2: Graph Color</string>
+  <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
+  <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
+
   <!-- Graph settings: Body Battery -->
   <string id="BodyBatGraphGroup">Graph Config - Body Battery</string>
   <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
@@ -403,17 +413,6 @@
   <string id="StressGraphColor">Stress: Graph Color</string>
   <string id="StressSecondaryColor">Stress: 2nd Graph Color</string>
   <string id="StressGraphWidth">Stress: Graph Width</string>
-
-  <!-- Graph settings: Blood O2 -->
-  <string id="SpO2GraphGroup">Graph Config - Blood O2</string>
-  <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
-  <string id="SpO2GraphValueMode">Blood O2: Graph Value Mode</string>
-  <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
-  <string id="SpO2SecondaryField">Blood O2: 2nd Graph Field</string>
-  <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
-  <string id="SpO2GraphColor">Blood O2: Graph Color</string>
-  <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
-  <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
 
   <!-- Graph settings: Wrist Temp -->
   <string id="TempWristGraphGroup">Graph Config - Wrist Temp</string>
@@ -460,6 +459,46 @@
   <string id="TimeFrameForecast12h">12 hours ahead</string>
   <string id="TimeFrameForecast24h">24 hours ahead</string>
 
+  <!-- Graph settings: Rain Hourly Forecast -->
+  <string id="WxForecastPrecipGroup">Graph Config - Rain Hourly Forecast</string>
+  <string id="WxForecastPrecipGraphMode">Rain Hourly: Graph Mode</string>
+  <string id="WxForecastPrecipValueMode">Rain Hourly: Value Mode</string>
+  <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
+  <string id="WxForecastPrecipGraphColor">Rain Hourly: Graph Color</string>
+  <string id="WxForecastPrecipGraphWidth">Rain Hourly: Graph Width</string>
+
+  <!-- Graph settings: Wind Hourly Forecast -->
+  <string id="WxForecastWindGroup">Graph Config - Wind Hourly Forecast</string>
+  <string id="WxForecastWindGraphMode">Wind Hourly: Graph Mode</string>
+  <string id="WxForecastWindValueMode">Wind Hourly: Value Mode</string>
+  <string id="WxForecastWindTimeFrame">Wind Hourly: Hours Ahead</string>
+  <string id="WxForecastWindGraphColor">Wind Hourly: Graph Color</string>
+  <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
+
+  <!-- Graph settings: UV Hourly Forecast -->
+  <string id="WxForecastUvGroup">Graph Config - UV Hourly Forecast</string>
+  <string id="WxForecastUvGraphMode">UV Hourly: Graph Mode</string>
+  <string id="WxForecastUvValueMode">UV Hourly: Value Mode</string>
+  <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
+  <string id="WxForecastUvGraphColor">UV Hourly: Graph Color</string>
+  <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
+
+  <!-- Graph settings: Cloud Hourly Forecast -->
+  <string id="WxForecastCloudGroup">Graph Config - Cloud Hourly Forecast</string>
+  <string id="WxForecastCloudGraphMode">Cloud Hourly: Graph Mode</string>
+  <string id="WxForecastCloudValueMode">Cloud Hourly: Value Mode</string>
+  <string id="WxForecastCloudTimeFrame">Cloud Hourly: Hours Ahead</string>
+  <string id="WxForecastCloudGraphColor">Cloud Hourly: Graph Color</string>
+  <string id="WxForecastCloudGraphWidth">Cloud Hourly: Graph Width</string>
+
+  <!-- Graph settings: Humidity Hourly Forecast -->
+  <string id="WxForecastHumidityGroup">Graph Config - Humidity Hourly Forecast</string>
+  <string id="WxForecastHumidityGraphMode">Humidity Hourly: Graph Mode</string>
+  <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
+  <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
+  <string id="WxForecastHumidityGraphColor">Humidity Hourly: Graph Color</string>
+  <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
+
   <!-- Graph settings: Temp Daily Forecast -->
   <string id="WxForecastDailyGroup">Graph Config - Temp Daily Forecast</string>
   <string id="WxForecastDailyViewMode">Temp Daily: View Mode</string>
@@ -470,46 +509,6 @@
   <string id="TimeFrameForecastDays3">3 days</string>
   <string id="TimeFrameForecastDays5">5 days</string>
   <string id="TimeFrameForecastDays7">7 days</string>
-
-  <!-- Graph settings: Rain Hourly Forecast -->
-  <string id="WxForecastPrecipGroup">Graph Config - Rain Forecast</string>
-  <string id="WxForecastPrecipGraphMode">Rain Hourly: Graph Mode</string>
-  <string id="WxForecastPrecipValueMode">Rain Hourly: Value Mode</string>
-  <string id="WxForecastPrecipTimeFrame">Rain Hourly: Hours Ahead</string>
-  <string id="WxForecastPrecipGraphColor">Rain Hourly: Graph Color</string>
-  <string id="WxForecastPrecipGraphWidth">Rain Hourly: Graph Width</string>
-
-  <!-- Graph settings: Wind Hourly Forecast -->
-  <string id="WxForecastWindGroup">Graph Config - Wind Forecast</string>
-  <string id="WxForecastWindGraphMode">Wind Hourly: Graph Mode</string>
-  <string id="WxForecastWindValueMode">Wind Hourly: Value Mode</string>
-  <string id="WxForecastWindTimeFrame">Wind Hourly: Hours Ahead</string>
-  <string id="WxForecastWindGraphColor">Wind Hourly: Graph Color</string>
-  <string id="WxForecastWindGraphWidth">Wind Hourly: Graph Width</string>
-
-  <!-- Graph settings: UV Hourly Forecast -->
-  <string id="WxForecastUvGroup">Graph Config - UV Forecast</string>
-  <string id="WxForecastUvGraphMode">UV Hourly: Graph Mode</string>
-  <string id="WxForecastUvValueMode">UV Hourly: Value Mode</string>
-  <string id="WxForecastUvTimeFrame">UV Hourly: Hours Ahead</string>
-  <string id="WxForecastUvGraphColor">UV Hourly: Graph Color</string>
-  <string id="WxForecastUvGraphWidth">UV Hourly: Graph Width</string>
-
-  <!-- Graph settings: Humidity Hourly Forecast -->
-  <string id="WxForecastHumidityGroup">Graph Config - Humidity Forecast</string>
-  <string id="WxForecastHumidityGraphMode">Humidity Hourly: Graph Mode</string>
-  <string id="WxForecastHumidityValueMode">Humidity Hourly: Value Mode</string>
-  <string id="WxForecastHumidityTimeFrame">Humidity Hourly: Hours Ahead</string>
-  <string id="WxForecastHumidityGraphColor">Humidity Hourly: Graph Color</string>
-  <string id="WxForecastHumidityGraphWidth">Humidity Hourly: Graph Width</string>
-
-  <!-- Graph settings: Cloud Hourly Forecast -->
-  <string id="WxForecastCloudGroup">Graph Config - Cloud Forecast</string>
-  <string id="WxForecastCloudGraphMode">Cloud Hourly: Graph Mode</string>
-  <string id="WxForecastCloudValueMode">Cloud Hourly: Value Mode</string>
-  <string id="WxForecastCloudTimeFrame">Cloud Hourly: Hours Ahead</string>
-  <string id="WxForecastCloudGraphColor">Cloud Hourly: Graph Color</string>
-  <string id="WxForecastCloudGraphWidth">Cloud Hourly: Graph Width</string>
 
   <!-- Debug -->
   <string id="DebugGroup">Debug</string>

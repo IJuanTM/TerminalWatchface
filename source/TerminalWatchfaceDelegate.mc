@@ -2,11 +2,8 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Application.Properties;
 
-// Long-press (touch and hold) cycles the active rotation screen. WatchFace
-// apps cannot push views/menus (WatchUi.pushView throws
-// OperationNotAllowedException for any watch face), and WatchFaceDelegate is
-// the only delegate type the runtime accepts here - onPress is its only
-// generically usable live input hook.
+// Long-press cycles the active screen - watch faces can't push views/menus,
+// and onPress is the only live input hook WatchFaceDelegate offers.
 class TerminalWatchfaceDelegate extends WatchUi.WatchFaceDelegate {
     private var _view as TerminalWatchfaceView;
 
@@ -18,6 +15,18 @@ class TerminalWatchfaceDelegate extends WatchUi.WatchFaceDelegate {
     public function onPress(clickEvent as WatchUi.ClickEvent) as Boolean {
         var cur = Properties.getValue("activeScreen");
         var next = ((cur instanceof Number ? cur as Number : 0) + 1) % 3;
+        // Screen 1 is always enabled; skip screens 2/3 if the user disabled them.
+        var tries = 0;
+        while (next != 0 && tries < 2) {
+            var enabled = Properties.getValue(
+                "screen" + (next + 1).toString() + "Enabled"
+            );
+            if (enabled instanceof Boolean && (enabled as Boolean)) {
+                break;
+            }
+            next = (next + 1) % 3;
+            tries++;
+        }
         Properties.setValue("activeScreen", next);
         _view.invalidateSettings();
         WatchUi.requestUpdate();

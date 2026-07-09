@@ -13,16 +13,17 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Each configurable line has **6 rotation slots** (Primary + 5 alternates) that cycle automatically
 - Two independent rotation intervals — one for the primary slot, one for alternates
 - **3 independent screens**, each switchable on-device via long-press, each with its own full set of line/field/color configuration
-- **101 data fields** across activity, health, weather, navigation, and lifestyle categories
+- **100 data fields** across activity, health, weather, navigation, and lifestyle categories
 - **Inline sensor graphs** — line, bar, or area charts with configurable timeframe, color, and width
 - **Dual-overlay graphs** — two sensor histories on the same chart, each with its own color and min/max labels
-- **7 forecast graph types** — hourly temp, rain, wind, UV, humidity, cloud cover, and multi-day daily temp
-- Progress bars for Steps, Floors, and Intensity Minutes with optional value overlay
+- **7 forecast graph types** — hourly temp, rain, wind, UV, cloud cover, humidity, and multi-day daily temp
+- Progress bars for Steps, Floors, Calories, Distance, Active Minutes, and Intensity Minutes, each with optional value overlay
+- Always-On Display support — a dimmed time/date view during low-power mode if your device's Always-On setting is enabled
 - Battery footer with bolt icon while charging, percentage, and estimated days remaining
 - Notification count badge in the header (also available as a data row)
-- CRT scanline overlay (4 intensity levels)
+- CRT visual effects: scanlines, glow/halo, backlight wash, flicker, and side vignette (each independently configurable)
 - **4 font families** with independent line heights
-- **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
+- **3 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
 - Show seconds, optional year in date, 6 date formats, and 12/24-hour display
 - 3 command styles (Windows, Linux, Bare) with optional version number in the header
 - Metric and imperial unit support
@@ -52,14 +53,24 @@ Temp  : 18.5° [↓12] [↑24]                <- line 5
 
 ## Settings
 
-Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed **"Graph Config -"** hold the per-field chart settings (mode, timeframe, color, width); groups prefixed **"Bar Config -"** hold the Steps/Floors/Intensity Minutes progress bar settings. Each screen's line/field/color settings live together in one **"Screen N Configuration"** group rather than being split across several submenus.
+Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed **"Graph Config -"** hold the per-field chart settings (mode, timeframe, color, width); groups prefixed **"Bar Config -"** hold the progress bar settings. Each screen's line/field/color settings live together in one **"Screen N Configuration"** group rather than being split across several submenus.
 
 ### Appearance
 
-| Setting   | Options                                                  |
-| --------- | -------------------------------------------------------- |
-| Font      | JetBrains Mono, Space Mono, Fira Code Mono, NB Architekt |
-| Scanlines | Off, Subtle, Medium, Strong                              |
+| Setting        | Options                                                          |
+| -------------- | ----------------------------------------------------------------- |
+| Font           | JetBrains Mono, Space Mono, Fira Code Mono, NB Architekt          |
+| Color Theme    | Custom (per-field colors), Amber CRT, Green Phosphor, Blue Terminal |
+| Scanlines      | Off, Subtle, Medium, Strong                                        |
+| Glow Intensity | Off, Subtle, Medium, Strong                                        |
+| Backlight      | Off, Subtle, Medium, Strong                                        |
+| CRT Flicker    | On / Off                                                           |
+| Side Vignette  | On / Off                                                           |
+| Command Style  | Windows _(watch.bat)_, Linux _(watch.sh)_, Bare _(watch)_          |
+| Left Padding   | Number of character-widths (0–8) the layout is offset from center |
+| Area Graph: Opacity   | 25%, 50%, 75%, 100% — fill transparency for area graphs     |
+| Area Graph: Show Line | On / Off — draw the line curve on top of the area fill      |
+| Show Battery Days Remaining | On / Off                                                    |
 
 ### Display
 
@@ -68,15 +79,19 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 | Show Seconds     | On / Off                                                                                                        |
 | Show Year        | On / Off — appends year to compatible date formats                                                              |
 | Date Format      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
-| Command Style    | Windows _(watch.bat)_, Linux _(watch.sh)_, Bare _(watch)_                                                       |
-| Show Version     | On / Off — appends app version to the command _(watch@0.44.1)_                                                  |
-| Left Padding     | Number of character-widths (0–8) the layout is offset from center                                               |
-| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                             |
-| Rotate Alt Every | Alternate slot interval (Secondary–Senary); defaults to primary if unset                                        |
+| Show Version     | On / Off — appends app version to the command _(watch@0.46.2)_                                                  |
+
+### Rotation
+
+| Setting          | Options                                                                  |
+| ---------------- | ------------------------------------------------------------------------- |
+| Rotate Every      | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                       |
+| Rotate Alt Every  | Alternate slot interval (Secondary–Senary); defaults to primary if unset |
+| Active Screen     | Screen 1 / 2 / 3 — the currently displayed screen; also cycled on-device via long-press |
 
 ### Screens
 
-Three independent screens are available; switch between them on-device via long-press. Screen 2 and 3 can each be fully disabled with a master toggle, and each screen has its own enabled toggle per line plus its own field rotations and colors — one screen can look completely different from another.
+Three independent screens are available; switch between them on-device via long-press. Screen 2 and 3 can each be fully disabled with a master toggle, and each screen has its own enabled toggle per line plus its own field rotations and colors — one screen can look completely different from another. A small `[2]`/`[3]` badge appears near the footer when a non-default screen is active (hidden if screens 2 and 3 are both disabled).
 
 ### Colors (Time and Date rows)
 
@@ -85,6 +100,10 @@ Label and value color can be set independently for the Time and Date rows.
 ### Lines 3–5 (Configurable, per screen)
 
 Each line has **6 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, and **Senary**. The active slot cycles on the rotate interval; slots set to _None_ are skipped. Each slot has its own field, label color, and value color.
+
+### Always-On Display
+
+If your device's Always-On Display setting is enabled, TerminalWatchface shows a dimmed time and date (plus footer) while the watch is in low-power/sleep mode instead of a blank screen. Without Always-On enabled, the screen behaves normally and simply turns off.
 
 ---
 
@@ -98,7 +117,6 @@ Fields that only populate during an actively recorded workout (elapsed time, in-
 | ---------------------- | ------------------- |
 | Steps                  | `7823/10000 [GOAL]` |
 | Heart Rate             | `72 bpm`            |
-| Lactate Threshold HR   | `162 bpm`           |
 | Calories (Daily)       | `1840 kcal`         |
 | Daily Distance         | `4.32 km`           |
 | Altitude               | `124 m`             |
@@ -200,17 +218,17 @@ Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy
 | Heat Index       | `22.0°C`                |
 | Temp Hi/Lo       | `↑24°C / ↓12°C`         |
 | Temp + Condition | `18.5°C \| [PCLOUD]`    |
+| Temp + Rain      | `18.5°C 60%`            |
 | Temp + Wind      | `18.5°C \| 14 km/h NW`  |
 | Temp + UV        | `18.5°C \| 5 [AVG]`     |
 | Temp + Humidity  | `18.5°C 72%`            |
-| Temp + Rain      | `18.5°C 60%`            |
 | Temp + High/Low  | `18.5° [↑24] [↓12]`     |
 | Cond + Rain      | `[PCLOUD] 60%`          |
-| Wind + Rain      | `14 km/h NW \| 60%`     |
+| Rain + Wind      | `60% \| 14 km/h NW`     |
 | UV + Rain        | `5 [AVG] \| 60%`        |
+| Rain + Cloud     | `60% \| 45%`            |
+| Rain + Humidity  | `60% \| 72%`            |
 | UV + Wind        | `5 [AVG] \| 14 km/h NW` |
-| Hum + Rain       | `72% \| 60%`            |
-| Cloud + Rain     | `45% \| 60%`            |
 | Hum + Dew Point  | `72% \| 11.2°C`         |
 | Cond / +1d       | `[PCLOUD] \| [RAIN]`    |
 | +1d / +2d        | `[RAIN] \| [CLEAR]`     |
@@ -218,7 +236,7 @@ Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy
 | Forecast +2d     | `[CLEAR]`               |
 | Forecast +3d     | `[CLEAR]`               |
 
-UV Index is shown with a color-coded level tag: `[LOW]` (green), `[AVG]` (yellow), `[HIGH]` (orange), `[MAX]` (red).
+UV Index is shown with a color-coded level tag: `[LOW]` (green), `[AVG]` (yellow), `[HIGH]` (orange), `[MAX]` (red). UV stays the primary (colored) value in the "UV + Rain"/"UV + Wind" combos regardless of naming order.
 
 ### Weather — Forecast Graphs
 
@@ -227,9 +245,9 @@ UV Index is shown with a color-coded level tag: `[LOW]` (green), `[AVG]` (yellow
 | Temp Forecast     | Hourly temperature    |
 | Rain % Forecast   | Hourly precipitation  |
 | Wind Forecast     | Hourly wind speed     |
-| Humidity Forecast | Hourly humidity       |
 | UV Forecast       | Hourly UV index       |
 | Cloud Forecast    | Hourly cloud cover    |
+| Humidity Forecast | Hourly humidity       |
 | Daily Forecast    | Multi-day temperature |
 
 ---
@@ -243,9 +261,9 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 | Field             | History source |
 | ----------------- | -------------- |
 | Heart Rate        | SensorHistory  |
+| Blood Oxygen      | SensorHistory  |
 | Body Battery      | SensorHistory  |
 | Stress            | SensorHistory  |
-| Blood Oxygen      | SensorHistory  |
 | Wrist Temp        | SensorHistory  |
 | Elevation (Baro)  | SensorHistory  |
 | Barometric Press. | SensorHistory  |
@@ -254,16 +272,14 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 
 | Setting         | Options                                                             |
 | --------------- | ------------------------------------------------------------------- |
-| Graph Mode      | Value, Line, Bar, Line+Value, Bar+Value, Area, Area+Value           |
+| Graph Mode      | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value          |
 | Time Frame      | 15m, 30m, 1h, 2h, 4h, 8h, 12h, 24h                                  |
 | Graph Color     | Any of the 20 available colors                                      |
 | Graph Width     | Width in character units (6, 8, 10, 12, 14, or 16)                  |
 | Value Display   | Current, Average, Max/Min, Midpoint                                 |
 | Secondary Type  | None, Line, Bar                                                     |
-| Secondary Field | HR, Body Battery, Stress, Blood O2, Wrist Temp, Elevation, Pressure |
+| Secondary Field | HR, Blood O2, Body Battery, Stress, Wrist Temp, Elevation, Pressure |
 | Secondary Color | Any of the 20 available colors                                      |
-| Area Opacity    | Fill transparency for area graphs (0–255)                           |
-| Area Show Line  | On / Off — draw the line curve on top of the area fill              |
 
 **Dual Graph** overlays a secondary sensor history on the same chart. Primary min/max labels appear on the left; secondary on the right. A short field name is shown below the right edge.
 
@@ -273,16 +289,15 @@ The graph caches rendered bitmaps and only re-renders when fresh sensor data arr
 
 | Setting       | Options                                            |
 | ------------- | -------------------------------------------------- |
-| Graph Mode    | Value, Graph, Graph + Value                        |
-| Graph Type    | Line, Bar                                          |
+| Graph Mode    | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value (Temp Hourly); Line, Line+Value, Bar, Bar+Value, Area, Area+Value (others) |
 | Time Frame    | 3h, 6h, 12h, 24h (hourly); 3, 5, or 7 days (daily) |
 | Graph Color   | Any of the 20 available colors                     |
 | Graph Width   | Width in character units                           |
-| Value Display | Current, Average, Max/Min                          |
+| Value Display | Current, Average, Max/Min, Midpoint                |
 
-### Progress bars (Steps, Floors, Intensity Minutes, in their own "Bar Config -" groups)
+### Progress bars (in their own "Bar Config -" groups)
 
-Steps, Floors, and Intensity Minutes each have their own bar display independent of the graph system:
+Steps, Floors, Calories, Distance, Active Minutes, and Intensity Minutes each have their own bar display independent of the graph system:
 
 | Mode         | Display                                     |
 | ------------ | ------------------------------------------- |
@@ -290,7 +305,7 @@ Steps, Floors, and Intensity Minutes each have their own bar display independent
 | Progress Bar | filled bar scaled to today's goal           |
 | Bar + Value  | bar with the count overlaid at center       |
 
-Bar color and width are independently configurable for each field.
+Bar color and width are independently configurable for each field. Calories, Distance, and Active Minutes additionally have a user-configurable daily goal; Steps, Floors, and Intensity Minutes use the device's own goal.
 
 ---
 
@@ -313,15 +328,15 @@ Days remaining is shown when the device can estimate it. The bolt icon is always
 | #   | Name                             |
 | --- | -------------------------------- |
 | 0   | White                            |
-| 1   | Green                            |
-| 2   | Cyan                             |
-| 3   | Yellow                           |
-| 4   | Orange                           |
-| 5   | Red                              |
-| 6   | Blue                             |
-| 7   | Magenta                          |
+| 5   | Red                               |
+| 4   | Orange                            |
+| 3   | Yellow                            |
+| 1   | Green                             |
+| 2   | Cyan                              |
+| 6   | Blue                              |
+| 9   | Purple                            |
+| 7   | Magenta                           |
 | 8   | Light Grey                       |
-| 9   | Purple                           |
 | 10  | Gradient: Green → Orange → Red   |
 | 11  | Gradient: Red → Orange → Green   |
 | 12  | Temperature: Custom (cold→hot)   |

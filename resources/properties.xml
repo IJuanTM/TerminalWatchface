@@ -52,7 +52,7 @@
   <property id="screen1_line3Secondary" type="number">461</property>
   <property id="screen1_line4Secondary" type="number">102</property>
   <property id="screen1_line5Secondary" type="number">8</property>
-  <property id="screen1_line3Tertiary" type="number">459</property>
+  <property id="screen1_line3Tertiary" type="number">462</property>
   <property id="screen1_line4Tertiary" type="number">52</property>
   <property id="screen1_line5Tertiary" type="number">5</property>
   <property id="screen1_line3Quaternary" type="number">502</property>
@@ -143,12 +143,6 @@
   <property id="floorsBarColor" type="number">5</property>
   <property id="floorsBarWidth" type="number">8</property>
 
-  <!-- Intensity Minutes (Weekly) -->
-  <property id="intensityMinShowBar" type="boolean">true</property>
-  <property id="intensityMinShowBarValue" type="boolean">true</property>
-  <property id="intensityMinBarColor" type="number">5</property>
-  <property id="intensityMinBarWidth" type="number">8</property>
-
   <!-- Calories (Daily) -->
   <property id="caloriesShowBar" type="boolean">false</property>
   <property id="caloriesShowBarValue" type="boolean">true</property>
@@ -170,23 +164,39 @@
   <property id="activeMinDayBarWidth" type="number">10</property>
   <property id="activeMinDayBarGoal" type="number">30</property>
 
+  <!-- Intensity Minutes (Weekly) -->
+  <property id="intensityMinShowBar" type="boolean">true</property>
+  <property id="intensityMinShowBarValue" type="boolean">true</property>
+  <property id="intensityMinBarColor" type="number">5</property>
+  <property id="intensityMinBarWidth" type="number">8</property>
+
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->
   <property id="hrGraphMode" type="number">3</property>
   <property id="hrGraphValueMode" type="number">0</property>
   <property id="hrSecondaryType" type="number">0</property>
-  <property id="hrSecondaryField" type="number">1</property>
+  <property id="hrSecondaryField" type="number">2</property>
   <property id="hrTimeFrame" type="number">60</property>
   <property id="hrGraphColor" type="number">5</property>
   <property id="hrSecondaryColor" type="number">0</property>
   <property id="hrGraphWidth" type="number">10</property>
 
+  <!-- SpO2 -->
+  <property id="spo2GraphMode" type="number">6</property>
+  <property id="spo2GraphValueMode" type="number">2</property>
+  <property id="spo2SecondaryType" type="number">0</property>
+  <property id="spo2SecondaryField" type="number">0</property>
+  <property id="spo2TimeFrame" type="number">60</property>
+  <property id="spo2GraphColor" type="number">6</property>
+  <property id="spo2SecondaryColor" type="number">0</property>
+  <property id="spo2GraphWidth" type="number">10</property>
+
   <!-- BodyBat -->
   <property id="bodyBatGraphMode" type="number">6</property>
   <property id="bodyBatGraphValueMode" type="number">0</property>
   <property id="bodyBatSecondaryType" type="number">0</property>
-  <property id="bodyBatSecondaryField" type="number">2</property>
+  <property id="bodyBatSecondaryField" type="number">3</property>
   <property id="bodyBatTimeFrame" type="number">240</property>
   <property id="bodyBatGraphColor" type="number">11</property>
   <property id="bodyBatSecondaryColor" type="number">0</property>
@@ -201,16 +211,6 @@
   <property id="stressGraphColor" type="number">10</property>
   <property id="stressSecondaryColor" type="number">0</property>
   <property id="stressGraphWidth" type="number">10</property>
-
-  <!-- SpO2 -->
-  <property id="spo2GraphMode" type="number">6</property>
-  <property id="spo2GraphValueMode" type="number">2</property>
-  <property id="spo2SecondaryType" type="number">0</property>
-  <property id="spo2SecondaryField" type="number">0</property>
-  <property id="spo2TimeFrame" type="number">60</property>
-  <property id="spo2GraphColor" type="number">6</property>
-  <property id="spo2SecondaryColor" type="number">0</property>
-  <property id="spo2GraphWidth" type="number">10</property>
 
   <!-- TempWrist -->
   <property id="tempWristGraphMode" type="number">3</property>
@@ -249,47 +249,47 @@
   <property id="wxForecastGraphColor" type="number">16</property>
   <property id="wxForecastGraphWidth" type="number">10</property>
 
-  <!-- Day Forecast -->
-  <property id="wxForecastDailyViewMode" type="number">2</property>
-  <property id="wxForecastDailyValueMode" type="number">2</property>
-  <property id="wxForecastDailyDays" type="number">5</property>
-  <property id="wxForecastDailyGraphColor" type="number">16</property>
-  <property id="wxForecastDailyGraphWidth" type="number">8</property>
-
-  <!-- Rain Forecast -->
+  <!-- Rain Hourly Forecast -->
   <property id="wxForecastPrecipGraphMode" type="number">4</property>
   <property id="wxForecastPrecipValueMode" type="number">1</property>
   <property id="wxForecastPrecipTimeFrame" type="number">12</property>
   <property id="wxForecastPrecipGraphColor" type="number">6</property>
   <property id="wxForecastPrecipGraphWidth" type="number">10</property>
 
-  <!-- Wind Forecast -->
+  <!-- Wind Hourly Forecast -->
   <property id="wxForecastWindGraphMode" type="number">4</property>
   <property id="wxForecastWindValueMode" type="number">1</property>
   <property id="wxForecastWindTimeFrame" type="number">12</property>
   <property id="wxForecastWindGraphColor" type="number">6</property>
   <property id="wxForecastWindGraphWidth" type="number">10</property>
 
-  <!-- UV Forecast -->
+  <!-- UV Hourly Forecast -->
   <property id="wxForecastUvGraphMode" type="number">4</property>
   <property id="wxForecastUvValueMode" type="number">2</property>
   <property id="wxForecastUvTimeFrame" type="number">12</property>
   <property id="wxForecastUvGraphColor" type="number">3</property>
   <property id="wxForecastUvGraphWidth" type="number">10</property>
 
-  <!-- Humidity Forecast -->
+  <!-- Cloud Hourly Forecast -->
+  <property id="wxForecastCloudGraphMode" type="number">4</property>
+  <property id="wxForecastCloudValueMode" type="number">1</property>
+  <property id="wxForecastCloudTimeFrame" type="number">12</property>
+  <property id="wxForecastCloudGraphColor" type="number">8</property>
+  <property id="wxForecastCloudGraphWidth" type="number">10</property>
+
+  <!-- Humidity Hourly Forecast -->
   <property id="wxForecastHumidityGraphMode" type="number">4</property>
   <property id="wxForecastHumidityValueMode" type="number">1</property>
   <property id="wxForecastHumidityTimeFrame" type="number">12</property>
   <property id="wxForecastHumidityGraphColor" type="number">2</property>
   <property id="wxForecastHumidityGraphWidth" type="number">10</property>
 
-  <!-- Cloud Forecast -->
-  <property id="wxForecastCloudGraphMode" type="number">4</property>
-  <property id="wxForecastCloudValueMode" type="number">1</property>
-  <property id="wxForecastCloudTimeFrame" type="number">12</property>
-  <property id="wxForecastCloudGraphColor" type="number">8</property>
-  <property id="wxForecastCloudGraphWidth" type="number">10</property>
+  <!-- Day Forecast -->
+  <property id="wxForecastDailyViewMode" type="number">2</property>
+  <property id="wxForecastDailyValueMode" type="number">2</property>
+  <property id="wxForecastDailyDays" type="number">5</property>
+  <property id="wxForecastDailyGraphColor" type="number">16</property>
+  <property id="wxForecastDailyGraphWidth" type="number">8</property>
 
   <!-- Debug -->
   <property id="showVersion" type="boolean">false</property>
