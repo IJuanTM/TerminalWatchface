@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.48.0";
+const APP_VERSION = "0.49.5";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -145,6 +145,9 @@ const BG_BACKLIGHT_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
 // Halo blend fraction toward a shape's own color, per glowIntensity level (0=off).
 const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 
+// Vertical spread (px) shared by every glow shape/primitive.
+const GLOW_V_SPREAD = 1;
+
 // 0=shadow, 1=bar bg, 2=dashed lines/separators, 3=mean line/no-data/axes
 const GRAYS =
     [
@@ -187,6 +190,10 @@ const MIN_SPEED_MPS = 0.05;
 const SECS_PER_HOUR = 3600;
 const SECS_PER_MIN = 60;
 
+// Minutes between retrying a previously-failed bitmap draw, instead of
+// assuming a one-time failure (e.g. a transient low-memory moment) is permanent.
+const BITMAP_DRAW_RETRY_MIN = 10;
+
 const ICON_ARROW_UP = 0;
 const ICON_ARROW_DN = 1;
 const ICON_DEG = 2;
@@ -200,8 +207,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _font as Graphics.FontType = Graphics.FONT_SMALL;
     private var _fontSmall as Graphics.FontType = Graphics.FONT_TINY;
     private var _fontTiny as Graphics.FontType = Graphics.FONT_XTINY;
+    // Value keyed by _packGraphKey(...), each entry [value, lastCheckedMin].
     private var _graphCache as Dictionary = {};
-    private var _graphCacheTimes as Dictionary = {};
+    private var _groupedBarCache as Dictionary = {};
     private var _graphEffPeriod as Dictionary = {};
     private var _pendingEffPeriod as Number = 0;
     private var _graphCacheMin as Number = -1;
@@ -264,15 +272,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _graphBmpDualCache as Dictionary = {};
     // Offscreen surface every halo is drawn onto, then additively composited.
     private var _haloBmp as Graphics.BufferedBitmap? = null;
-    // Null until first drawBitmap attempt; caches whether it worked.
+    // Null until first drawBitmap attempt; caches whether it worked. Retried
+    // every BITMAP_DRAW_RETRY_MIN via _tryDrawBitmapRetry, not latched forever.
     private var _haloDrawOk as Boolean? = null;
+    private var _haloDrawOkMin as Number = -1;
     // True while rendering a graph bitmap offscreen (halo coords would be bitmap-local, not screen-space).
     private var _haloSuppressed as Boolean = false;
     private var _bgBacklightBmp as Graphics.BufferedBitmap? = null;
     private var _bgBacklightDrawOk as Boolean? = null;
+    private var _bgBacklightDrawOkMin as Number = -1;
     private var _bgBacklightDimBmp as Graphics.BufferedBitmap? = null;
     private var _bgBacklightDimDrawOk as Boolean? = null;
+    private var _bgBacklightDimDrawOkMin as Number = -1;
     private var _graphBmpDrawOk as Boolean? = null;
+    private var _graphBmpDrawOkMin as Number = -1;
     private var _is24Hour as Boolean = true;
     private var _firstDow as Number = 1;
     private var _showSeconds as Boolean = false;
@@ -348,6 +361,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _lineGraphType as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineGraphWidth as Array<Number> =
         [10, 10, 10] as Array<Number>;
+    private var _lineBarGroupDensity as Array<Number> =
+        [0, 0, 0] as Array<Number>;
+    private var _lineBarGroupAgg as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineGoal as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecType as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _lineSecField as Array<Number> = [0, 0, 0] as Array<Number>;
@@ -520,7 +536,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _resolvedPhase = -1;
         _graphCacheMin = -1;
         _graphCache = {};
-        _graphCacheTimes = {};
+        _groupedBarCache = {};
         _graphEffPeriod = {};
         _graphBmpCache = {};
         _graphBmpDualCache = {};
@@ -1186,8 +1202,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            _drawIconShape(hdc, x, y + 1, iconType);
-            _drawIconShape(hdc, x + 1, y, iconType);
+            _drawIconShape(hdc, x, y - GLOW_V_SPREAD, iconType);
+            _drawIconShape(hdc, x, y + GLOW_V_SPREAD, iconType);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawIconShape(dc, x, y, iconType);
@@ -1363,11 +1379,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 BG_BACKLIGHT_SHIFT_MAX
             );
             var y = shift - BG_BACKLIGHT_PAD;
-            if (_bgBacklightDrawOk == null) {
-                _bgBacklightDrawOk = _tryDrawBitmap(dc, 0, y, bmp);
-            } else if (_bgBacklightDrawOk as Boolean) {
-                dc.drawBitmap(0, y, bmp);
-            }
+            var r = _tryDrawBitmapRetry(
+                dc,
+                0,
+                y,
+                bmp,
+                _bgBacklightDrawOk,
+                _bgBacklightDrawOkMin
+            );
+            _bgBacklightDrawOk = r[0];
+            _bgBacklightDrawOkMin = r[1];
         }
         if (_bgBacklightDimBmp == null) {
             _bgBacklightDimBmp = _createBitmap(_screenW, _screenH);
@@ -1386,11 +1407,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             dimBdc.fillRectangle(0, 0, _screenW, _screenH);
             dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
-            if (_bgBacklightDimDrawOk == null) {
-                _bgBacklightDimDrawOk = _tryDrawBitmap(dc, 0, 0, dimBmp);
-            } else if (_bgBacklightDimDrawOk as Boolean) {
-                dc.drawBitmap(0, 0, dimBmp);
-            }
+            var dimR = _tryDrawBitmapRetry(
+                dc,
+                0,
+                0,
+                dimBmp,
+                _bgBacklightDimDrawOk,
+                _bgBacklightDimDrawOkMin
+            );
+            _bgBacklightDimDrawOk = dimR[0];
+            _bgBacklightDimDrawOkMin = dimR[1];
             dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
         }
     }
@@ -1464,22 +1490,42 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Same one-time-test-then-cache pattern as _bgBacklightDrawOk.
+    // Shared by every *DrawOk flag. Returns [ok, lastCheckedMin] for the
+    // caller to store back into its own instance vars.
+    private function _tryDrawBitmapRetry(
+        dc as Dc,
+        x as Number,
+        y as Number,
+        bmp as Graphics.BufferedBitmap,
+        lastOk as Boolean?,
+        lastMin as Number
+    ) as [Boolean, Number] {
+        if (lastOk == null || _nowUnixMin - lastMin >= BITMAP_DRAW_RETRY_MIN) {
+            return [_tryDrawBitmap(dc, x, y, bmp), _nowUnixMin];
+        }
+        if (lastOk as Boolean) {
+            dc.drawBitmap(x, y, bmp);
+        }
+        return [lastOk, lastMin];
+    }
+
     private function _drawCachedGraphBitmap(
         dc as Dc,
         x as Number,
         y as Number,
         bmp as Graphics.BufferedBitmap
     ) as Boolean {
-        if (_graphBmpDrawOk == null) {
-            _graphBmpDrawOk = _tryDrawBitmap(dc, x, y, bmp);
-            return _graphBmpDrawOk as Boolean;
-        }
-        if (_graphBmpDrawOk as Boolean) {
-            dc.drawBitmap(x, y, bmp);
-            return true;
-        }
-        return false;
+        var r = _tryDrawBitmapRetry(
+            dc,
+            x,
+            y,
+            bmp,
+            _graphBmpDrawOk,
+            _graphBmpDrawOkMin
+        );
+        _graphBmpDrawOk = r[0];
+        _graphBmpDrawOkMin = r[1];
+        return r[0];
     }
 
     // .get() can throw under memory pressure; treat that as a reclaimed bitmap.
@@ -1540,6 +1586,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return _haloActive() ? _haloDc() : null;
     }
 
+    private function _haloDcIfDrawable() as Dc? {
+        return _haloDrawOk == true ? _activeHaloDc() : null;
+    }
+
     // Tries decreasing colorDepth until one is accepted (needs real depth, not a small palette).
     private function _createBitmap(
         w as Number,
@@ -1588,11 +1638,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _compositeHalo(dc as Dc) as Void {
         var bmp = _haloBmp as Graphics.BufferedBitmap;
         dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
-        if (_haloDrawOk == null) {
-            _haloDrawOk = _tryDrawBitmap(dc, 0, 0, bmp);
-        } else if (_haloDrawOk as Boolean) {
-            dc.drawBitmap(0, 0, bmp);
-        }
+        var r = _tryDrawBitmapRetry(dc, 0, 0, bmp, _haloDrawOk, _haloDrawOkMin);
+        _haloDrawOk = r[0];
+        _haloDrawOkMin = r[1];
         dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
     }
 
@@ -1605,7 +1653,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return (r << 16) | (g << 8) | b;
     }
 
-    // Soft 1px halo behind text before the crisp glyphs on top.
+    // Soft halo behind text before the crisp glyphs on top.
     private function _glowText(
         dc as Dc,
         x as Number,
@@ -1618,8 +1666,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawText(x, y + 1, font, text, justify);
-            hdc.drawText(x + 1, y, font, text, justify);
+            hdc.drawText(x, y - GLOW_V_SPREAD, font, text, justify);
+            hdc.drawText(x, y + GLOW_V_SPREAD, font, text, justify);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, font, text, justify);
@@ -1636,11 +1684,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawLine(x1, y1 + 1, x2, y2 + 1);
-            hdc.drawLine(x1 + 1, y1, x2 + 1, y2);
+            hdc.drawLine(x1, y1 - GLOW_V_SPREAD, x2, y2 - GLOW_V_SPREAD);
+            hdc.drawLine(x1, y1 + GLOW_V_SPREAD, x2, y2 + GLOW_V_SPREAD);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(x1, y1, x2, y2);
+    }
+
+    // Shared vertical-glow footprint for every rect-based glow shape below.
+    private function _haloFillVSpread(
+        hdc as Dc,
+        x as Number,
+        y as Number,
+        w as Number,
+        h as Number
+    ) as Void {
+        hdc.fillRectangle(x, y - GLOW_V_SPREAD, w, h + 2 * GLOW_V_SPREAD);
     }
 
     private function _glowRect(
@@ -1654,11 +1713,318 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.fillRectangle(x, y + 1, w, h);
-            hdc.fillRectangle(x + 1, y, w, h);
+            _haloFillVSpread(hdc, x, y, w, h);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(x, y, w, h);
+    }
+
+    // One glow shape per gap-run instead of per-point, drawn live at the row's
+    // real screen position (the old per-point _glowLine/_glowRect calls are
+    // suppressed during the cached bitmap render, see _haloSuppressed).
+    // topOff/botOff offset the ribbon's two edges from the line's y - see
+    // _glowOneGraph for the symmetric vs area-fill-edge cases.
+    private function _glowLineShape(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        colorIdx as Number,
+        gradMinV as Float,
+        gradRange as Float,
+        maxGap as Number,
+        topOff as Number,
+        botOff as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc == null) {
+            return;
+        }
+        var n = data.size();
+        var n1 = n - 1;
+        if (n1 < 1) {
+            return;
+        }
+        var ghf = gh.toFloat();
+        var isGrad = colorIdx >= COLOR_GRAD_TRI;
+        var flatColor = isGrad ? 0 : ColorUtils.colorFromIdx(colorIdx);
+        var runX = new Array<Number>[0];
+        var runY = new Array<Number>[0];
+        var runSum = 0.0;
+        var runCnt = 0;
+        var lastI = -1;
+        for (var i = 0; i <= n; i++) {
+            var atEnd = i == n;
+            var isNull = !atEnd && data[i] == null;
+            var gapBreak =
+                !atEnd && !isNull && lastI >= 0 && i - lastI > maxGap;
+            if ((atEnd || gapBreak) && runX.size() > 0) {
+                var color = flatColor;
+                if (isGrad) {
+                    var frac =
+                        (runSum / runCnt.toFloat() - gradMinV) / gradRange;
+                    if (frac < 0.0) {
+                        frac = 0.0;
+                    }
+                    if (frac > 1.0) {
+                        frac = 1.0;
+                    }
+                    color = ColorUtils.gradColor(colorIdx, frac);
+                }
+                _fillGlowRibbon(
+                    hdc,
+                    runX,
+                    runY,
+                    _glowColor(color),
+                    topOff,
+                    botOff
+                );
+                runX = new Array<Number>[0];
+                runY = new Array<Number>[0];
+                runSum = 0.0;
+                runCnt = 0;
+            }
+            if (atEnd || isNull) {
+                continue;
+            }
+            var v = data[i] as Float;
+            runX.add(_linePointX(gx, gw, n1, i));
+            runY.add(_linePointY(y, gh, v, minV, range, ghf));
+            runSum += v;
+            runCnt++;
+            lastI = i;
+        }
+    }
+
+    // Fills a ribbon along (xs, ys) with edges at topOff/botOff from the line.
+    // Chunked into segments of <=16 points (32 vertices) - a single
+    // ~240-vertex polygon only rendered partially, hitting an undocumented
+    // fillPolygon vertex-count limit. Chunks share their boundary point so
+    // segments connect with no visible seam.
+    private function _fillGlowRibbon(
+        hdc as Dc,
+        xs as Array<Number>,
+        ys as Array<Number>,
+        dimColor as Number,
+        topOff as Number,
+        botOff as Number
+    ) as Void {
+        var n = xs.size();
+        hdc.setColor(dimColor, Graphics.COLOR_TRANSPARENT);
+        if (n < 2) {
+            hdc.fillRectangle(xs[0], ys[0] + topOff, 2, botOff - topOff + 1);
+            return;
+        }
+        var chunkMax = 15;
+        var start = 0;
+        while (start < n - 1) {
+            var end = start + chunkMax;
+            if (end > n - 1) {
+                end = n - 1;
+            }
+            var cn = end - start + 1;
+            var pts = new Array<[Numeric, Numeric]>[cn * 2];
+            for (var i = 0; i < cn; i++) {
+                pts[i] = [xs[start + i], ys[start + i] + topOff];
+                pts[cn + i] = [
+                    xs[start + cn - 1 - i],
+                    ys[start + cn - 1 - i] + botOff,
+                ];
+            }
+            hdc.fillPolygon(pts);
+            start = end;
+        }
+    }
+
+    // One glow rect per bar, drawn live at the real screen position
+    // (matches _drawBars/_drawGradBars via the shared _barRect helper).
+    private function _glowBarsShape(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        colorIdx as Number,
+        gradMinV as Float,
+        gradRange as Float
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc == null) {
+            return;
+        }
+        var n = data.size();
+        var ghf = gh.toFloat();
+        var isGrad = colorIdx >= COLOR_GRAD_TRI;
+        var flatColor = isGrad ? 0 : ColorUtils.colorFromIdx(colorIdx);
+        for (var i = 0; i < n; i++) {
+            if (data[i] == null) {
+                continue;
+            }
+            var v = data[i] as Float;
+            var r = _barRect(gx, gw, y, gh, i, n, v, minV, range, ghf);
+            var color = flatColor;
+            if (isGrad) {
+                var frac = (v - gradMinV) / gradRange;
+                if (frac < 0.0) {
+                    frac = 0.0;
+                }
+                if (frac > 1.0) {
+                    frac = 1.0;
+                }
+                color = ColorUtils.gradColor(colorIdx, frac);
+            }
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            _haloFillVSpread(hdc, r[0], r[1], r[2], r[3]);
+        }
+    }
+
+    // Dual-series counterpart to _glowBarsShape, via the shared _dualBarRect helper.
+    private function _glowDualBarsShape(
+        dc as Dc,
+        data as Array<Float>,
+        data2 as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        minV2 as Float,
+        range2 as Float,
+        colorIdx1 as Number,
+        colorIdx2 as Number,
+        gradMinV1 as Float,
+        gradRange1 as Float,
+        gradMinV2 as Float,
+        gradRange2 as Float
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc == null) {
+            return;
+        }
+        var n = data.size();
+        var n2 = data2.size();
+        var count = n < n2 ? n : n2;
+        var ghf = gh.toFloat();
+        for (var i = 0; i < count; i++) {
+            if (data[i] != null) {
+                var v1 = data[i] as Float;
+                var r1 = _dualBarRect(
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    i,
+                    count,
+                    v1,
+                    minV,
+                    range,
+                    ghf,
+                    true
+                );
+                var frac1 = (v1 - gradMinV1) / gradRange1;
+                if (frac1 < 0.0) {
+                    frac1 = 0.0;
+                }
+                if (frac1 > 1.0) {
+                    frac1 = 1.0;
+                }
+                hdc.setColor(
+                    _glowColor(ColorUtils.gradColor(colorIdx1, frac1)),
+                    Graphics.COLOR_TRANSPARENT
+                );
+                _haloFillVSpread(hdc, r1[0], r1[1], r1[2], r1[3]);
+            }
+            if (data2[i] != null) {
+                var v2 = data2[i] as Float;
+                var r2 = _dualBarRect(
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    i,
+                    count,
+                    v2,
+                    minV2,
+                    range2,
+                    ghf,
+                    false
+                );
+                var frac2 = (v2 - gradMinV2) / gradRange2;
+                if (frac2 < 0.0) {
+                    frac2 = 0.0;
+                }
+                if (frac2 > 1.0) {
+                    frac2 = 1.0;
+                }
+                hdc.setColor(
+                    _glowColor(ColorUtils.gradColor(colorIdx2, frac2)),
+                    Graphics.COLOR_TRANSPARENT
+                );
+                _haloFillVSpread(hdc, r2[0], r2[1], r2[2], r2[3]);
+            }
+        }
+    }
+
+    // Mirrors _drawOneGraph's dispatch so call sites only need one call after
+    // the crisp bitmap-or-fallback render, at the row's real screen position.
+    private function _glowOneGraph(
+        dc as Dc,
+        graphType as Number,
+        colorIdx as Number,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        gradMinV as Float,
+        gradRange as Float,
+        maxGap as Number
+    ) as Void {
+        if (graphType == GRAPH_BAR) {
+            _glowBarsShape(
+                dc,
+                data,
+                gx,
+                gw,
+                y,
+                gh + 1,
+                minV,
+                range,
+                colorIdx,
+                gradMinV,
+                gradRange
+            );
+        } else if (graphType == GRAPH_AREA) {
+            // Intentionally off - every offset tried read as wrong against
+            // the fill's hard top edge. Revisit with a new geometric idea.
+        } else {
+            _glowLineShape(
+                dc,
+                data,
+                gx,
+                gw,
+                y,
+                gh,
+                minV,
+                range,
+                colorIdx,
+                gradMinV,
+                gradRange,
+                maxGap,
+                -GLOW_V_SPREAD,
+                GLOW_V_SPREAD
+            );
+        }
     }
 
     // Same halo treatment as _glowText, for a stroked circle (degree marks).
@@ -1672,8 +2038,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawCircle(x, y + 1, r);
-            hdc.drawCircle(x + 1, y, r);
+            hdc.drawCircle(x, y - GLOW_V_SPREAD, r);
+            hdc.drawCircle(x, y + GLOW_V_SPREAD, r);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(x, y, r);
@@ -1922,6 +2288,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _lineSecColor[li] = _getProp(gk + "Se", 0);
         }
         _lineGraphWidth[li] = _getProp(gk + "Gw", 10);
+        _lineBarGroupDensity[li] = _getProp(gk + "Bn", 0);
+        _lineBarGroupAgg[li] = _getProp(gk + "Ba", 0);
     }
 
     private function _drawLineRow(
@@ -2662,7 +3030,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         _lineGraphType[li],
                         _lineSecType[li],
                         viewMode,
-                        _lineValueMode[li]
+                        _lineValueMode[li],
+                        _lineBarGroupDensity[li],
+                        _lineBarGroupAgg[li]
                     );
                 } else {
                     _drawGraphRow(
@@ -2676,7 +3046,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         valueColor,
                         _lineGraphColor[li],
                         _lineGraphType[li],
-                        _lineValueMode[li]
+                        _lineValueMode[li],
+                        _lineBarGroupDensity[li],
+                        _lineBarGroupAgg[li]
                     );
                 }
                 return true;
@@ -3522,7 +3894,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         graphType as Number,
         secType as Number,
         viewMode as Number,
-        valueMode as Number
+        valueMode as Number,
+        barGroupDensity as Number,
+        barAgg as Number
     ) as Void {
         _graphX = _graphBaseX;
         var data = _getFieldHistory(field, periodMin);
@@ -3534,6 +3908,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
             return;
         }
+        var data2 = _getFieldHistory(fieldSecondary, periodMin);
+        var barCount0 = 0;
+        if (graphType == GRAPH_BAR) {
+            barCount0 = _resolveBarCount(
+                field,
+                periodMin,
+                _graphW,
+                barGroupDensity
+            );
+            if (barCount0 > 0 && barCount0 < data.size()) {
+                data = _groupBarDataCached(
+                    _packGraphKey(_graphW, field, periodMin),
+                    data,
+                    barCount0,
+                    barAgg
+                );
+                if (secType == SEC_BAR && data2 != null) {
+                    data2 = _groupBarDataCached(
+                        _packGraphKey(_graphW, fieldSecondary, periodMin),
+                        data2,
+                        barCount0,
+                        barAgg
+                    );
+                }
+            } else {
+                barCount0 = 0;
+            }
+        }
 
         _calcMinMax(data);
         var minV = _dataMin;
@@ -3543,7 +3945,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range = 1.0;
         }
 
-        var data2 = _getFieldHistory(fieldSecondary, periodMin);
         var minV2 = 0.0 as Float;
         var maxV2 = 0.0 as Float;
         var range2 = 1.0 as Float;
@@ -3602,10 +4003,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange2,
             dualMaxGap
         );
-        if (
-            dualBmp == null ||
-            !_drawCachedGraphBitmap(dc, _graphX, y, dualBmp)
-        ) {
+        var cacheHit =
+            dualBmp != null && _drawCachedGraphBitmap(dc, _graphX, y, dualBmp);
+        if (!cacheHit) {
             _drawMeanLine(
                 dc,
                 data,
@@ -3657,6 +4057,76 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
                 if (data2 != null) {
                     _drawOneGraph(
+                        dc,
+                        secType == SEC_BAR ? GRAPH_BAR : GRAPH_LINE,
+                        lineColor2,
+                        data2 as Array<Float>,
+                        _graphX,
+                        _graphW,
+                        y,
+                        _graphH,
+                        minV2,
+                        range2,
+                        gradMinV2,
+                        gradRange2,
+                        dualMaxGap
+                    );
+                }
+            }
+        }
+
+        if (cacheHit) {
+            _glowMeanLine(
+                dc,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                lineColor,
+                gradMinV1,
+                gradRange1
+            );
+            if (graphType == GRAPH_BAR && secType == SEC_BAR && data2 != null) {
+                _glowDualBarsShape(
+                    dc,
+                    data,
+                    data2 as Array<Float>,
+                    _graphX,
+                    _graphW,
+                    y,
+                    _graphH + 1,
+                    minV,
+                    range,
+                    minV2,
+                    range2,
+                    lineColor,
+                    lineColor2,
+                    gradMinV1,
+                    gradRange1,
+                    gradMinV2,
+                    gradRange2
+                );
+            } else {
+                _glowOneGraph(
+                    dc,
+                    graphType,
+                    lineColor,
+                    data,
+                    _graphX,
+                    _graphW,
+                    y,
+                    _graphH,
+                    minV,
+                    range,
+                    gradMinV1,
+                    gradRange1,
+                    dualMaxGap
+                );
+                if (data2 != null) {
+                    _glowOneGraph(
                         dc,
                         secType == SEC_BAR ? GRAPH_BAR : GRAPH_LINE,
                         lineColor2,
@@ -3772,12 +4242,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             periodMin
         );
         var ageColor = GRAYS[3];
+        var periodTextDual = Formatters.periodLabel(effDual);
+        if (barCount0 > 0) {
+            periodTextDual +=
+                "/" + Formatters.barDurationLabel(effDual / barCount0);
+        }
         _glowText(
             dc,
             _graphX + _graphW - dc.getTextWidthInPixels(secName, _fontTiny),
             yBelow,
             _fontTiny,
-            Formatters.periodLabel(effDual) + " ",
+            periodTextDual + " ",
             Graphics.TEXT_JUSTIFY_RIGHT,
             ageColor
         );
@@ -3945,6 +4420,39 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return _fieldUpdateMin(field) * SECS_PER_MIN * 3;
     }
 
+    // Density (0=off, 1=Tight/100%, 2=Normal/50%, 3=Loose/25% of the cap) is
+    // qualitative rather than a raw bar count, so it stays meaningful across
+    // every Time Frame/GraphWidth; floored by the field's real sample
+    // cadence so it never fabricates more bars than genuinely exist.
+    private function _resolveBarCount(
+        field as Number,
+        periodMin as Number,
+        gw as Number,
+        density as Number
+    ) as Number {
+        if (density <= 0) {
+            return 0;
+        }
+        // Cap scales with GraphWidth (3 * chars - 6 stays visually distinct).
+        var cap = 3 * (gw / _charW) - 6;
+        if (cap > gw) {
+            cap = gw;
+        }
+        var pct = density == 1 ? 100 : density == 2 ? 50 : 25;
+        var count = (cap * pct) / 100;
+        var maxUseful = periodMin / _fieldUpdateMin(field);
+        if (count > maxUseful) {
+            count = maxUseful;
+        }
+        if (count < 2) {
+            count = 2;
+        }
+        if (count > cap) {
+            count = cap;
+        }
+        return count;
+    }
+
     private function _graphStaleSec(field as Number) as Number {
         return _pointStaleSec(field) / 2;
     }
@@ -3955,14 +4463,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Array<Float>? {
         var cacheKey = _packGraphKey(_graphW, field, periodMin);
         var nowUnixMin = _nowUnixMin;
-        if (_graphCacheTimes.hasKey(cacheKey)) {
-            var lastMin = _graphCacheTimes.get(cacheKey) as Number;
-            if (nowUnixMin - lastMin < _fieldUpdateMin(field)) {
-                var cached = _graphCache.get(cacheKey);
-                return cached != null ? cached as Array<Float> : null;
+        if (_graphCache.hasKey(cacheKey)) {
+            var entry = _graphCache.get(cacheKey) as [Array<Float>?, Number];
+            if (nowUnixMin - entry[1] < _fieldUpdateMin(field)) {
+                return entry[0];
             }
         }
-        _graphCacheTimes.put(cacheKey, nowUnixMin);
+        _graphCache.put(
+            cacheKey,
+            [null, nowUnixMin] as [Array<Float>?, Number]
+        );
 
         var opts = { :period => periodMin };
         if (field == FIELD_HR) {
@@ -4213,7 +4723,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         field as Number,
         r as Array<Float>?
     ) as Array<Float>? {
-        _graphCache.put(cacheKey, r);
+        _graphCache.put(cacheKey, [r, _nowUnixMin] as [Array<Float>?, Number]);
         _graphBmpCache.remove(cacheKey);
         var dualKeys = _graphBmpDualCache.keys();
         for (var i = 0; i < dualKeys.size(); i++) {
@@ -4535,6 +5045,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawGraphAxes(dc, _graphX, _graphW, y);
     }
 
+    // Shared by the line-draw functions and _glowLineShape so the glow
+    // traces exactly the same points as the crisp line.
+    private function _linePointX(
+        gx as Number,
+        gw as Number,
+        n1 as Number,
+        i as Number
+    ) as Number {
+        return gx + ((n1 - i) * gw) / n1;
+    }
+
+    private function _linePointY(
+        y as Number,
+        gh as Number,
+        v as Float,
+        minV as Float,
+        range as Float,
+        ghf as Float
+    ) as Number {
+        return y + gh - (((v - minV) * ghf) / range).toNumber();
+    }
+
     // data[0] = newest (rightmost), data[n-1] = oldest (leftmost)
     private function _drawGraphLine(
         dc as Dc,
@@ -4562,8 +5094,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 continue;
             }
             var v = data[i] as Float;
-            var x = gx + ((n1 - i) * gw) / n1;
-            var py = y + gh - (((v - minV) * ghf) / range).toNumber();
+            var x = _linePointX(gx, gw, n1, i);
+            var py = _linePointY(y, gh, v, minV, range, ghf);
             if (lastX >= 0 && i - lastI <= maxGap) {
                 _glowLine(dc, x, py, lastX, lastY, color);
             }
@@ -4643,11 +5175,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _glowLine(dc, x, y2 - fLast, x, y2 - 1, color);
     }
 
-    private function _drawMeanLine(
-        dc as Dc,
+    // Shared position/color calc for _drawMeanLine and _glowMeanLine.
+    private function _meanLineYColor(
         data as Array<Float>,
-        gx as Number,
-        gw as Number,
         y as Number,
         gh as Number,
         minV as Float,
@@ -4655,7 +5185,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         colorIdx as Number,
         gradMinV as Float,
         gradRange as Float
-    ) as Void {
+    ) as Array<Number>? {
         var n = data.size();
         var sum = 0.0;
         var cnt = 0;
@@ -4666,7 +5196,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (cnt == 0) {
-            return;
+            return null;
         }
         var mean = sum / cnt.toFloat();
         var meanH = (((mean - minV) * gh.toFloat()) / range).toNumber();
@@ -4688,7 +5218,72 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             colorIdx >= COLOR_GRAD_TRI
                 ? ColorUtils.gradColor(colorIdx, meanFrac)
                 : GRAYS[3];
-        _drawDashedH(dc, gx, gx + gw, meanY, color);
+        return [meanY, color] as Array<Number>;
+    }
+
+    private function _drawMeanLine(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        colorIdx as Number,
+        gradMinV as Float,
+        gradRange as Float
+    ) as Void {
+        var r = _meanLineYColor(
+            data,
+            y,
+            gh,
+            minV,
+            range,
+            colorIdx,
+            gradMinV,
+            gradRange
+        );
+        if (r == null) {
+            return;
+        }
+        _drawDashedH(dc, gx, gx + gw, r[0], r[1]);
+    }
+
+    // Restores the mean line's glow on the cache-hit path, as a continuous
+    // band rather than dashed - the crisp dashes on top already read as dashed.
+    private function _glowMeanLine(
+        dc as Dc,
+        data as Array<Float>,
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        minV as Float,
+        range as Float,
+        colorIdx as Number,
+        gradMinV as Float,
+        gradRange as Float
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc == null) {
+            return;
+        }
+        var r = _meanLineYColor(
+            data,
+            y,
+            gh,
+            minV,
+            range,
+            colorIdx,
+            gradMinV,
+            gradRange
+        );
+        if (r == null) {
+            return;
+        }
+        hdc.setColor(_glowColor(r[1]), Graphics.COLOR_TRANSPARENT);
+        _haloFillVSpread(hdc, gx, r[0], gw, 1);
     }
 
     private function _drawGradLine(
@@ -4720,8 +5315,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 continue;
             }
             var v = data[i] as Float;
-            var x = gx + ((n1 - i) * gw) / n1;
-            var py = y + gh - (((v - minV) * ghf) / range).toNumber();
+            var x = _linePointX(gx, gw, n1, i);
+            var py = _linePointY(y, gh, v, minV, range, ghf);
             if (lastX >= 0 && i - lastI <= maxGap) {
                 var mid = (v + lastV) / 2.0;
                 var mfrac = (mid - gradMinV) / gradRange;
@@ -4755,6 +5350,115 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    // agg: 0=mean, 1=max, 2=last (most recent non-null in the group; index 0
+    // is "now", per _readIter's age->slot mapping).
+    private function _groupBarData(
+        data as Array<Float>,
+        barCount as Number,
+        agg as Number
+    ) as Array<Float> {
+        var n = data.size();
+        var out = new Array<Float>[barCount];
+        for (var j = 0; j < barCount; j++) {
+            var lo = (j * n) / barCount;
+            var hi = ((j + 1) * n) / barCount;
+            if (hi <= lo) {
+                hi = lo + 1;
+            }
+            if (hi > n) {
+                hi = n;
+            }
+            if (agg == 1) {
+                var best = 0.0 as Float;
+                var found = false;
+                for (var i = lo; i < hi; i++) {
+                    if (data[i] != null) {
+                        var v = data[i] as Float;
+                        if (!found || v > best) {
+                            best = v;
+                            found = true;
+                        }
+                    }
+                }
+                if (found) {
+                    out[j] = best;
+                }
+            } else if (agg == 2) {
+                for (var i2 = lo; i2 < hi; i2++) {
+                    if (data[i2] != null) {
+                        out[j] = data[i2] as Float;
+                        break;
+                    }
+                }
+            } else {
+                var sum = 0.0;
+                var cnt = 0;
+                for (var i3 = lo; i3 < hi; i3++) {
+                    if (data[i3] != null) {
+                        sum += data[i3] as Float;
+                        cnt++;
+                    }
+                }
+                if (cnt > 0) {
+                    out[j] = sum / cnt.toFloat();
+                }
+            }
+        }
+        return out;
+    }
+
+    // Regroups only when _graphCache shows the history actually refreshed,
+    // not every frame - settings changes wipe this via invalidateSettings.
+    private function _groupBarDataCached(
+        cacheKey as Number,
+        data as Array<Float>,
+        barCount as Number,
+        agg as Number
+    ) as Array<Float> {
+        var lastMin = (_graphCache.get(cacheKey) as [Array<Float>?, Number])[1];
+        if (_groupedBarCache.hasKey(cacheKey)) {
+            var entry =
+                _groupedBarCache.get(cacheKey) as [Array<Float>, Number];
+            if (entry[1] == lastMin) {
+                return entry[0];
+            }
+        }
+        var grouped = _groupBarData(data, barCount, agg);
+        _groupedBarCache.put(
+            cacheKey,
+            [grouped, lastMin] as [Array<Float>, Number]
+        );
+        return grouped;
+    }
+
+    // Shared by the bar-draw functions and _glowBarsShape so the glow lands
+    // on exactly the same rects as the crisp bars. Returns [bx, by, bw, bh].
+    private function _barRect(
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        i as Number,
+        n as Number,
+        v as Float,
+        minV as Float,
+        range as Float,
+        ghf as Float
+    ) as Array<Number> {
+        var slot = n - 1 - i;
+        var bx = gx + (slot * gw) / n;
+        var slotEnd = gx + ((slot + 1) * gw) / n;
+        var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
+        if (bw < 1) {
+            bw = 1;
+        }
+        var barH = (((v - minV) * ghf) / range).toNumber();
+        if (barH < 1) {
+            barH = 1;
+        }
+        return [bx, y + gh - barH, bw, barH] as Array<Number>;
+    }
+
     private function _drawBars(
         dc as Dc,
         data as Array<Float>,
@@ -4773,18 +5477,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 continue;
             }
             var barV = data[i] as Float;
-            var slot = n - 1 - i;
-            var bx = gx + (slot * gw) / n;
-            var slotEnd = gx + ((slot + 1) * gw) / n;
-            var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
-            if (bw < 1) {
-                bw = 1;
-            }
-            var barH = (((barV - minV) * ghf) / range).toNumber();
-            if (barH < 1) {
-                barH = 1;
-            }
-            _glowRect(dc, bx, y + gh - barH, bw, barH, color);
+            var r = _barRect(gx, gw, y, gh, i, n, barV, minV, range, ghf);
+            _glowRect(dc, r[0], r[1], r[2], r[3], color);
         }
     }
 
@@ -4808,17 +5502,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 continue;
             }
             var v = data[i] as Float;
-            var slot = n - 1 - i;
-            var bx = gx + (slot * gw) / n;
-            var slotEnd = gx + ((slot + 1) * gw) / n;
-            var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
-            if (bw < 1) {
-                bw = 1;
-            }
-            var barH = (((v - minV) * ghf) / range).toNumber();
-            if (barH < 1) {
-                barH = 1;
-            }
+            var r = _barRect(gx, gw, y, gh, i, n, v, minV, range, ghf);
             var frac = (v - gradMinV) / gradRange;
             if (frac < 0.0) {
                 frac = 0.0;
@@ -4828,13 +5512,45 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             _glowRect(
                 dc,
-                bx,
-                y + gh - barH,
-                bw,
-                barH,
+                r[0],
+                r[1],
+                r[2],
+                r[3],
                 ColorUtils.gradColor(colorIdx, frac)
             );
         }
+    }
+
+    // Shared by _drawDualBars and _glowDualBarsShape - a slot is split in
+    // half, first series on the left half, second on the right.
+    private function _dualBarRect(
+        gx as Number,
+        gw as Number,
+        y as Number,
+        gh as Number,
+        i as Number,
+        count as Number,
+        v as Float,
+        minV as Float,
+        range as Float,
+        ghf as Float,
+        isFirst as Boolean
+    ) as Array<Number> {
+        var slot = count - 1 - i;
+        var slotX = gx + (slot * gw) / count;
+        var slotEnd = gx + ((slot + 1) * gw) / count;
+        var slotW = slotEnd - slotX - (slot < count - 1 ? 1 : 0);
+        if (slotW < 2) {
+            slotW = 2;
+        }
+        var hw = slotW / 2;
+        var barH = (((v - minV) * ghf) / range).toNumber();
+        if (barH < 1) {
+            barH = 1;
+        }
+        return isFirst
+            ? [slotX, y + gh - barH, hw, barH] as Array<Number>
+            : [slotX + hw, y + gh - barH, slotW - hw, barH] as Array<Number>;
     }
 
     private function _drawDualBars(
@@ -4861,20 +5577,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var count = n < n2 ? n : n2;
         var ghf = gh.toFloat();
         for (var i = 0; i < count; i++) {
-            var slot = count - 1 - i;
-            var slotX = gx + (slot * gw) / count;
-            var slotEnd = gx + ((slot + 1) * gw) / count;
-            var slotW = slotEnd - slotX - (slot < count - 1 ? 1 : 0);
-            if (slotW < 2) {
-                slotW = 2;
-            }
-            var hw = slotW / 2;
             if (data[i] != null) {
                 var v1 = data[i] as Float;
-                var barH = (((v1 - minV) * ghf) / range).toNumber();
-                if (barH < 1) {
-                    barH = 1;
-                }
+                var r1 = _dualBarRect(
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    i,
+                    count,
+                    v1,
+                    minV,
+                    range,
+                    ghf,
+                    true
+                );
                 var frac1 = (v1 - gradMinV1) / gradRange1;
                 if (frac1 < 0.0) {
                     frac1 = 0.0;
@@ -4884,19 +5601,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
                 _glowRect(
                     dc,
-                    slotX,
-                    y + gh - barH,
-                    hw,
-                    barH,
+                    r1[0],
+                    r1[1],
+                    r1[2],
+                    r1[3],
                     ColorUtils.gradColor(colorIdx1, frac1)
                 );
             }
             if (data2[i] != null) {
                 var v2 = data2[i] as Float;
-                var barH2 = (((v2 - minV2) * ghf) / range2).toNumber();
-                if (barH2 < 1) {
-                    barH2 = 1;
-                }
+                var r2 = _dualBarRect(
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    i,
+                    count,
+                    v2,
+                    minV2,
+                    range2,
+                    ghf,
+                    false
+                );
                 var frac2 = (v2 - gradMinV2) / gradRange2;
                 if (frac2 < 0.0) {
                     frac2 = 0.0;
@@ -4906,10 +5632,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
                 _glowRect(
                     dc,
-                    slotX + hw,
-                    y + gh - barH2,
-                    slotW - hw,
-                    barH2,
+                    r2[0],
+                    r2[1],
+                    r2[2],
+                    r2[3],
                     ColorUtils.gradColor(colorIdx2, frac2)
                 );
             }
@@ -4974,7 +5700,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             data.size()
         );
-        _drawGraphOrFallback(
+        var cacheHit = _drawGraphOrFallback(
             dc,
             fcstTempBmp,
             graphType,
@@ -4987,6 +5713,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             data.size()
         );
+        if (cacheHit) {
+            _glowMeanLine(
+                dc,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                lineColor,
+                gradMinV,
+                gradRange
+            );
+            _glowOneGraph(
+                dc,
+                graphType,
+                lineColor,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                gradMinV,
+                gradRange,
+                data.size()
+            );
+        }
         _drawRowAxes(dc, y);
         _drawSingleGraphLabels(
             dc,
@@ -5355,7 +6111,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             data.size()
         );
-        _drawGraphOrFallback(
+        var cacheHit = _drawGraphOrFallback(
             dc,
             fcstBmp,
             graphType,
@@ -5368,6 +6124,36 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             data.size()
         );
+        if (cacheHit) {
+            _glowMeanLine(
+                dc,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                lineColor,
+                gradMinV,
+                gradRange
+            );
+            _glowOneGraph(
+                dc,
+                graphType,
+                lineColor,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                gradMinV,
+                gradRange,
+                data.size()
+            );
+        }
         _drawRowAxes(dc, y);
         _drawSingleGraphLabels(
             dc,
@@ -5413,6 +6199,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    // Shared by _drawDailyBars and _glowDailyBarsShape. Returns
+    // [slotX, hiY, bw, barH] for the day's high/low range bar.
+    private function _dailyBarRect(
+        gx as Number,
+        y as Number,
+        gw as Number,
+        gh as Number,
+        i as Number,
+        n as Number,
+        hiV as Float,
+        loV as Float,
+        allMin as Float,
+        range as Float,
+        ghf as Float
+    ) as Array<Number> {
+        var bottom = y + gh;
+        var slotX = gx + (i * gw) / n;
+        var slotEnd = gx + ((i + 1) * gw) / n;
+        var bw = slotEnd - slotX - (i < n - 1 ? 1 : 0);
+        if (bw < 1) {
+            bw = 1;
+        }
+        var hiY = bottom - (((hiV - allMin) * ghf) / range).toNumber();
+        var loY = bottom - (((loV - allMin) * ghf) / range).toNumber();
+        if (hiY < y) {
+            hiY = y;
+        }
+        if (loY > bottom) {
+            loY = bottom;
+        }
+        var barH = loY - hiY + 1;
+        if (barH < 1) {
+            barH = 1;
+        }
+        return [slotX, hiY, bw, barH] as Array<Number>;
+    }
+
     private function _drawDailyBars(
         dc as Dc,
         gx as Number,
@@ -5427,7 +6250,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         colorIdx as Number
     ) as Void {
         var ghf = gh.toFloat();
-        var bottom = y + gh;
         for (var si = 1; si < n; si++) {
             _drawDashedV(dc, gx + (si * gw) / n - 1, y, y + gh, GRAYS[2]);
         }
@@ -5437,34 +6259,79 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var loV = lowsArr[i] as Float;
             var hiV = highsArr[i] as Float;
-            var slotX = gx + (i * gw) / n;
-            var slotEnd = gx + ((i + 1) * gw) / n;
-            var bw = slotEnd - slotX - (i < n - 1 ? 1 : 0);
-            if (bw < 1) {
-                bw = 1;
-            }
-            var hiY = bottom - (((hiV - allMin) * ghf) / range).toNumber();
-            var loY = bottom - (((loV - allMin) * ghf) / range).toNumber();
-            if (hiY < y) {
-                hiY = y;
-            }
-            if (loY > bottom) {
-                loY = bottom;
-            }
-            var barH = loY - hiY + 1;
-            if (barH < 1) {
-                barH = 1;
-            }
+            var r = _dailyBarRect(
+                gx,
+                y,
+                gw,
+                gh,
+                i,
+                n,
+                hiV,
+                loV,
+                allMin,
+                range,
+                ghf
+            );
             var midV = (hiV + loV) / 2.0;
             var frac = _clampFrac(midV);
             _glowRect(
                 dc,
-                slotX,
-                hiY,
-                bw,
-                barH,
+                r[0],
+                r[1],
+                r[2],
+                r[3],
                 ColorUtils.gradColor(colorIdx, frac)
             );
+        }
+    }
+
+    // One glow shape per day-bar, matching _drawDailyBars' rects via
+    // _dailyBarRect, drawn live at the row's real screen position (the
+    // crisp render below is suppressed the same way sensor/dual graphs are).
+    private function _glowDailyBarsShape(
+        dc as Dc,
+        gx as Number,
+        y as Number,
+        gw as Number,
+        gh as Number,
+        n as Number,
+        highsArr as Array<Float>,
+        lowsArr as Array<Float>,
+        allMin as Float,
+        range as Float,
+        colorIdx as Number
+    ) as Void {
+        var hdc = _activeHaloDc();
+        if (hdc == null) {
+            return;
+        }
+        var ghf = gh.toFloat();
+        for (var i = 0; i < n; i++) {
+            if (highsArr[i] == null || lowsArr[i] == null) {
+                continue;
+            }
+            var loV = lowsArr[i] as Float;
+            var hiV = highsArr[i] as Float;
+            var r = _dailyBarRect(
+                gx,
+                y,
+                gw,
+                gh,
+                i,
+                n,
+                hiV,
+                loV,
+                allMin,
+                range,
+                ghf
+            );
+            var midV = (hiV + loV) / 2.0;
+            var frac = _clampFrac(midV);
+            hdc.setColor(
+                _glowColor(ColorUtils.gradColor(colorIdx, frac)),
+                Graphics.COLOR_TRANSPARENT
+            );
+            _haloFillVSpread(hdc, r[0], r[1], r[2], r[3]);
         }
     }
 
@@ -5494,6 +6361,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var bmpDc = bmp.getDc();
         bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
         bmpDc.clear();
+        _haloSuppressed = true;
         _drawDailyBars(
             bmpDc,
             0,
@@ -5507,6 +6375,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             colorIdx
         );
+        _haloSuppressed = false;
         _graphBmpCache.put(cacheKey, newRef);
         return bmp;
     }
@@ -5580,11 +6449,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _graphH,
             colorIdx
         );
-        if (
-            dailyBmp == null ||
-            !_drawCachedGraphBitmap(dc, _graphX, y, dailyBmp)
-        ) {
+        var cacheHit =
+            dailyBmp != null &&
+            _drawCachedGraphBitmap(dc, _graphX, y, dailyBmp);
+        if (!cacheHit) {
             _drawDailyBars(
+                dc,
+                _graphX,
+                y,
+                _graphW,
+                _graphH,
+                n,
+                highsArr,
+                lowsArr,
+                allMin,
+                range,
+                colorIdx
+            );
+        } else {
+            _glowDailyBarsShape(
                 dc,
                 _graphX,
                 y,
@@ -5713,6 +6596,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    // Returns whether the bitmap was drawn - false means the fallback
+    // already drew crisp+glow directly, so skip a separate glow restore.
     private function _drawGraphOrFallback(
         dc as Dc,
         bmp as Graphics.BufferedBitmap?,
@@ -5725,7 +6610,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradMinV as Float,
         gradRange as Float,
         maxGap as Number
-    ) as Void {
+    ) as Boolean {
         if (bmp == null || !_drawCachedGraphBitmap(dc, _graphX, y, bmp)) {
             _drawMeanLine(
                 dc,
@@ -5755,7 +6640,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 gradRange,
                 maxGap
             );
+            return false;
         }
+        return true;
     }
 
     private function _drawOneGraph(
@@ -5920,7 +6807,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valueColor as Number,
         lineColor as Number,
         graphType as Number,
-        valueMode as Number
+        valueMode as Number,
+        barGroupDensity as Number,
+        barAgg as Number
     ) as Void {
         _graphX = _graphBaseX;
         var data = _getFieldHistory(field, periodMin);
@@ -5931,6 +6820,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
             return;
+        }
+        var cacheKey = _packGraphKey(_graphW, field, periodMin);
+        var barCount0 = 0;
+        if (graphType == GRAPH_BAR) {
+            barCount0 = _resolveBarCount(
+                field,
+                periodMin,
+                _graphW,
+                barGroupDensity
+            );
+            if (barCount0 > 0 && barCount0 < data.size()) {
+                data = _groupBarDataCached(cacheKey, data, barCount0, barAgg);
+            } else {
+                barCount0 = 0;
+            }
         }
 
         _calcMinMax(data);
@@ -5953,7 +6857,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (maxGap < 1) {
             maxGap = 1;
         }
-        var cacheKey = _packGraphKey(_graphW, field, periodMin);
         var graphBmp = _renderGraphToBitmap(
             cacheKey,
             graphType,
@@ -5967,7 +6870,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             maxGap
         );
-        _drawGraphOrFallback(
+        var cacheHit = _drawGraphOrFallback(
             dc,
             graphBmp,
             graphType,
@@ -5980,11 +6883,45 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             maxGap
         );
+        if (cacheHit) {
+            _glowMeanLine(
+                dc,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                lineColor,
+                gradMinV,
+                gradRange
+            );
+            _glowOneGraph(
+                dc,
+                graphType,
+                lineColor,
+                data,
+                _graphX,
+                _graphW,
+                y,
+                _graphH,
+                minV,
+                range,
+                gradMinV,
+                gradRange,
+                maxGap
+            );
+        }
         _drawRowAxes(dc, y);
         if (field == FIELD_HR) {
             _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
         }
         var eff = _resolveEffPeriod(cacheKey, periodMin);
+        var periodText = Formatters.periodLabel(eff);
+        if (barCount0 > 0) {
+            periodText += "/" + Formatters.barDurationLabel(eff / barCount0);
+        }
         _drawSingleGraphLabels(
             dc,
             field,
@@ -5994,7 +6931,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _graphH,
             minV,
             maxV,
-            Formatters.periodLabel(eff),
+            periodText,
             lineColor,
             maxFrac,
             minFrac,
@@ -7428,42 +8365,46 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         _cursorOn = cursorOn;
-        dc.setClip(_cursorX, _cursorY, _cursorCharW, _cursorFh);
+        // Widened by GLOW_V_SPREAD so the glow bleed isn't clipped away.
+        dc.setClip(
+            _cursorX,
+            _cursorY - GLOW_V_SPREAD,
+            _cursorCharW,
+            _cursorFh + 2 * GLOW_V_SPREAD
+        );
         if (_cursorOn) {
-            var hdc = _haloDrawOk == true ? _activeHaloDc() : null;
+            var hdc = _haloDcIfDrawable();
             if (hdc != null) {
                 hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
                 hdc.fillRectangle(
                     _cursorX,
-                    _cursorY,
-                    _cursorCharW + 1,
-                    _cursorFh + 1
+                    _cursorY - GLOW_V_SPREAD,
+                    _cursorCharW,
+                    _cursorFh + 2 * GLOW_V_SPREAD
                 );
                 hdc.setColor(
                     _glowColor(ColorUtils.colorFromIdx(0)),
                     Graphics.COLOR_TRANSPARENT
                 );
-                hdc.fillRectangle(
+                _haloFillVSpread(
+                    hdc,
                     _cursorX,
-                    _cursorY + 1,
-                    _cursorCharW,
-                    _cursorFh
-                );
-                hdc.fillRectangle(
-                    _cursorX + 1,
                     _cursorY,
                     _cursorCharW,
                     _cursorFh
                 );
-                dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
-                dc.drawBitmap(0, 0, _haloBmp as Graphics.BufferedBitmap);
-                dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+                _compositeHalo(dc);
             }
             dc.setColor(ColorUtils.colorFromIdx(0), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
         } else {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-            dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
+            dc.fillRectangle(
+                _cursorX,
+                _cursorY - GLOW_V_SPREAD,
+                _cursorCharW,
+                _cursorFh + 2 * GLOW_V_SPREAD
+            );
             if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
                 dc.setStroke(
                     (_flickerAlpha(
@@ -7491,9 +8432,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var secStr = ":" + sec.format("%02d");
         var x = _timeValueX + _cachedTimeStrW;
         var w = _charW * 3;
-        dc.setClip(x, _timeValueY, w, _fh);
+        // Same clip widening as the cursor blink above.
+        dc.setClip(x, _timeValueY - GLOW_V_SPREAD, w, _fh + 2 * GLOW_V_SPREAD);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-        dc.fillRectangle(x, _timeValueY, w, _fh);
+        dc.fillRectangle(
+            x,
+            _timeValueY - GLOW_V_SPREAD,
+            w,
+            _fh + 2 * GLOW_V_SPREAD
+        );
         if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
             dc.setStroke(
                 (_flickerAlpha(
@@ -7511,31 +8458,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         // Full-frame halo composite only happens in onUpdate, so redraw just this clip here too.
-        var hdc = _haloDrawOk == true ? _activeHaloDc() : null;
+        var hdc = _haloDcIfDrawable();
         if (hdc != null) {
             hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-            hdc.fillRectangle(x, _timeValueY, w + 1, _fh + 1);
+            hdc.fillRectangle(
+                x,
+                _timeValueY - GLOW_V_SPREAD,
+                w,
+                _fh + 2 * GLOW_V_SPREAD
+            );
             hdc.setColor(
                 _glowColor(ColorUtils.colorFromIdx(_line1ValueC)),
                 Graphics.COLOR_TRANSPARENT
             );
             hdc.drawText(
                 x,
-                _timeValueY + 1,
+                _timeValueY - GLOW_V_SPREAD,
                 _font,
                 secStr,
                 Graphics.TEXT_JUSTIFY_LEFT
             );
             hdc.drawText(
-                x + 1,
-                _timeValueY,
+                x,
+                _timeValueY + GLOW_V_SPREAD,
                 _font,
                 secStr,
                 Graphics.TEXT_JUSTIFY_LEFT
             );
-            dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
-            dc.drawBitmap(0, 0, _haloBmp as Graphics.BufferedBitmap);
-            dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
+            _compositeHalo(dc);
         }
         dc.setColor(
             ColorUtils.colorFromIdx(_line1ValueC),

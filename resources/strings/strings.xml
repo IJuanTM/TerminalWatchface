@@ -309,6 +309,15 @@
   <string id="GraphWidth14">14 chars</string>
   <string id="GraphWidth16">16 chars</string>
 
+  <!-- Shared: bar grouping options -->
+  <string id="BarGroupOff">Off (1 bar per pixel)</string>
+  <string id="BarGroupTight">Tight</string>
+  <string id="BarGroupNormal">Normal</string>
+  <string id="BarGroupLoose">Loose</string>
+  <string id="BarGroupAggMean">Mean</string>
+  <string id="BarGroupAggMax">Max</string>
+  <string id="BarGroupAggLast">Last value</string>
+
   <!-- Steps -->
   <string id="StepsGroup">Bar Config - Steps</string>
   <string id="StepsShowBar">Steps: Show Progress Bar</string>
@@ -379,6 +388,8 @@
   <string id="HRGraphColor">Heart Rate: Graph Color</string>
   <string id="HRSecondaryColor">Heart Rate: 2nd Graph Color</string>
   <string id="HRGraphWidth">Heart Rate: Graph Width</string>
+  <string id="HRBarGroup">Heart Rate: Bar Grouping</string>
+  <string id="HRBarGroupAgg">Heart Rate: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Blood O2 -->
   <string id="SpO2GraphGroup">Graph Config - Blood O2</string>
@@ -390,6 +401,8 @@
   <string id="SpO2GraphColor">Blood O2: Graph Color</string>
   <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
   <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
+  <string id="SpO2BarGroup">Blood O2: Bar Grouping</string>
+  <string id="SpO2BarGroupAgg">Blood O2: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Body Battery -->
   <string id="BodyBatGraphGroup">Graph Config - Body Battery</string>
@@ -401,6 +414,8 @@
   <string id="BodyBatGraphColor">Body Battery: Graph Color</string>
   <string id="BodyBatSecondaryColor">Body Battery: 2nd Graph Color</string>
   <string id="BodyBatGraphWidth">Body Battery: Graph Width</string>
+  <string id="BodyBatBarGroup">Body Battery: Bar Grouping</string>
+  <string id="BodyBatBarGroupAgg">Body Battery: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Stress -->
   <string id="StressGraphGroup">Graph Config - Stress</string>
@@ -412,6 +427,8 @@
   <string id="StressGraphColor">Stress: Graph Color</string>
   <string id="StressSecondaryColor">Stress: 2nd Graph Color</string>
   <string id="StressGraphWidth">Stress: Graph Width</string>
+  <string id="StressBarGroup">Stress: Bar Grouping</string>
+  <string id="StressBarGroupAgg">Stress: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Wrist Temp -->
   <string id="TempWristGraphGroup">Graph Config - Wrist Temp</string>
@@ -423,6 +440,8 @@
   <string id="TempWristGraphColor">Wrist Temp: Graph Color</string>
   <string id="TempWristSecondaryColor">Wrist Temp: 2nd Graph Color</string>
   <string id="TempWristGraphWidth">Wrist Temp: Graph Width</string>
+  <string id="TempWristBarGroup">Wrist Temp: Bar Grouping</string>
+  <string id="TempWristBarGroupAgg">Wrist Temp: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Elevation -->
   <string id="ElevationGraphGroup">Graph Config - Elevation</string>
@@ -434,6 +453,8 @@
   <string id="ElevationGraphColor">Elevation: Graph Color</string>
   <string id="ElevationSecondaryColor">Elevation: 2nd Graph Color</string>
   <string id="ElevationGraphWidth">Elevation: Graph Width</string>
+  <string id="ElevationBarGroup">Elevation: Bar Grouping</string>
+  <string id="ElevationBarGroupAgg">Elevation: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Pressure -->
   <string id="PressureGraphGroup">Graph Config - Pressure</string>
@@ -445,6 +466,8 @@
   <string id="PressureGraphColor">Pressure: Graph Color</string>
   <string id="PressureSecondaryColor">Pressure: 2nd Graph Color</string>
   <string id="PressureGraphWidth">Pressure: Graph Width</string>
+  <string id="PressureBarGroup">Pressure: Bar Grouping</string>
+  <string id="PressureBarGroupAgg">Pressure: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Temp Hourly Forecast -->
   <string id="WxForecastGroup">Graph Config - Temp Hourly Forecast</string>

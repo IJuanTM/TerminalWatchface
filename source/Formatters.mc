@@ -52,6 +52,15 @@ module Formatters {
             : "-" + (periodMin / 60).toString() + "h";
     }
 
+    function barDurationLabel(barMin as Number) as String {
+        if (barMin < 1) {
+            barMin = 1;
+        }
+        return barMin < 60
+            ? barMin.toString() + "m"
+            : (barMin / 60).toString() + "h";
+    }
+
     function formatAge(ageSec as Number) as String {
         if (ageSec < SECS_PER_MIN) {
             return ">" + ageSec.toString() + "s";

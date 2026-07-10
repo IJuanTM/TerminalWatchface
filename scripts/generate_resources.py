@@ -452,6 +452,20 @@ FORECAST_VIEW_MODE_OPTIONS = [
     (2, "@Strings.ViewModeGraphCurrent"),
 ]
 
+# Qualitative bar density (see _resolveBarCount) - 1=Tight, 2=Normal, 3=Loose.
+BAR_GROUP_OPTIONS = [
+    (0, "@Strings.BarGroupOff"),
+    (1, "@Strings.BarGroupTight"),
+    (2, "@Strings.BarGroupNormal"),
+    (3, "@Strings.BarGroupLoose"),
+]
+
+BAR_GROUP_AGG_OPTIONS = [
+    (0, "@Strings.BarGroupAggMean"),
+    (1, "@Strings.BarGroupAggMax"),
+    (2, "@Strings.BarGroupAggLast"),
+]
+
 # (camelKey, StringPrefix, display, value_mode_default, graph_color_default).
 HOURLY_FORECASTS = [
     ("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
@@ -490,6 +504,8 @@ SUF = {
     "ValueColor": "Vc",
     "ViewMode": "Vw",
     "Days": "Dy",
+    "BarGroup": "Bn",
+    "BarGroupAgg": "Ba",
 }
 ROT = {
     "Primary": "R1",
@@ -747,6 +763,8 @@ def gen_properties():
         lines.append(prop(f"{pk}{SUF['GraphColor']}", "number", gcd))
         lines.append(prop(f"{pk}{SUF['SecondaryColor']}", "number", scd))
         lines.append(prop(f"{pk}{SUF['GraphWidth']}", "number", 10))
+        lines.append(prop(f"{pk}{SUF['BarGroup']}", "number", 0))
+        lines.append(prop(f"{pk}{SUF['BarGroupAgg']}", "number", 0))
 
     lines.append("\n  <!-- Weather Forecast -->")
     lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphMode']}", "number", 4))
@@ -911,6 +929,15 @@ def gen_strings():
     lines.append(s("GraphWidth14", "14 chars"))
     lines.append(s("GraphWidth16", "16 chars"))
 
+    lines.append("\n  <!-- Shared: bar grouping options -->")
+    lines.append(s("BarGroupOff", "Off (1 bar per pixel)"))
+    lines.append(s("BarGroupTight", "Tight"))
+    lines.append(s("BarGroupNormal", "Normal"))
+    lines.append(s("BarGroupLoose", "Loose"))
+    lines.append(s("BarGroupAggMean", "Mean"))
+    lines.append(s("BarGroupAggMax", "Max"))
+    lines.append(s("BarGroupAggLast", "Last value"))
+
     for (
         key,
         group_title,
@@ -961,6 +988,8 @@ def gen_strings():
         lines.append(s(f"{skey}GraphColor", f"{display}: Graph Color"))
         lines.append(s(f"{skey}SecondaryColor", f"{display}: 2nd Graph Color"))
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
+        lines.append(s(f"{skey}BarGroup", f"{display}: Bar Grouping"))
+        lines.append(s(f"{skey}BarGroupAgg", f"{display}: Bar Grouping Aggregation"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
     lines.append(s("WxForecastGroup", GRAPH_CONFIG_PREFIX + "Temp Hourly Forecast"))
@@ -1058,6 +1087,22 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         width_setting(f"{pk}{SUF['GraphWidth']}", f"{skey}GraphWidth", indent)
+    )
+    blocks.append(
+        setting_list(
+            f"{pk}{SUF['BarGroup']}",
+            f"{skey}BarGroup",
+            BAR_GROUP_OPTIONS,
+            indent,
+        )
+    )
+    blocks.append(
+        setting_list(
+            f"{pk}{SUF['BarGroupAgg']}",
+            f"{skey}BarGroupAgg",
+            BAR_GROUP_AGG_OPTIONS,
+            indent,
+        )
     )
 
     return "\n".join(blocks)
