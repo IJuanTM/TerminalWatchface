@@ -1,297 +1,296 @@
 <properties>
 
   <!-- Appearance -->
-  <property id="fontChoice" type="number">0</property>
-  <property id="colorTheme" type="number">0</property>
-  <property id="scanlines" type="number">2</property>
-  <property id="glowIntensity" type="number">2</property>
-  <property id="bgBacklight" type="number">2</property>
-  <property id="flickerEnabled" type="boolean">true</property>
-  <property id="vignetteEnabled" type="boolean">false</property>
+  <property id="font" type="number">0</property>
+  <property id="theme" type="number">0</property>
+  <property id="scan" type="number">2</property>
+  <property id="glow" type="number">2</property>
+  <property id="bgLt" type="number">2</property>
+  <property id="flick" type="boolean">true</property>
 
   <!-- Display options -->
-  <property id="leftPadding" type="number">4</property>
-  <property id="areaOpacity" type="number">64</property>
-  <property id="areaShowLine" type="boolean">true</property>
-  <property id="showBatteryDays" type="boolean">true</property>
-  <property id="showSeconds" type="boolean">false</property>
-  <property id="showYear" type="boolean">false</property>
-  <property id="dateFormat" type="number">0</property>
-  <property id="watchCommandStyle" type="number">2</property>
-  <property id="screen2Enabled" type="boolean">true</property>
-  <property id="screen3Enabled" type="boolean">true</property>
-  <property id="rotateInterval" type="number">10</property>
-  <property id="rotateIntervalAlt" type="number">5</property>
-  <property id="activeScreen" type="number">0</property>
+  <property id="lPad" type="number">4</property>
+  <property id="aOpac" type="number">64</property>
+  <property id="aLine" type="boolean">true</property>
+  <property id="batD" type="boolean">true</property>
+  <property id="shSec" type="boolean">false</property>
+  <property id="shYr" type="boolean">false</property>
+  <property id="dFmt" type="number">0</property>
+  <property id="cmdSty" type="number">2</property>
+  <property id="s2En" type="boolean">true</property>
+  <property id="s3En" type="boolean">true</property>
+  <property id="rotI" type="number">10</property>
+  <property id="rotA" type="number">5</property>
+  <property id="aScr" type="number">0</property>
 
   <!-- Time row (always visible) -->
-  <property id="line1LabelColor" type="number">8</property>
-  <property id="line1ValueColor" type="number">0</property>
+  <property id="l1Lc" type="number">8</property>
+  <property id="l1Vc" type="number">0</property>
 
   <!-- Date row (always visible) -->
-  <property id="line2LabelColor" type="number">8</property>
-  <property id="line2ValueColor" type="number">0</property>
+  <property id="l2Lc" type="number">8</property>
+  <property id="l2Vc" type="number">0</property>
 
   <!-- Screen 1 - Line 3 -->
-  <property id="screen1_line3Enabled" type="boolean">true</property>
-  <property id="screen1_line3LabelColor" type="number">6</property>
-  <property id="screen1_line3ValueColor" type="number">0</property>
-  <property id="screen1_line3Primary" type="number">501</property>
+  <property id="s1l3En" type="boolean">true</property>
+  <property id="s1l3Lc" type="number">6</property>
+  <property id="s1l3Vc" type="number">0</property>
+  <property id="s1l3R1" type="number">501</property>
 
   <!-- Screen 1 - Line 4 -->
-  <property id="screen1_line4Enabled" type="boolean">true</property>
-  <property id="screen1_line4LabelColor" type="number">1</property>
-  <property id="screen1_line4ValueColor" type="number">0</property>
-  <property id="screen1_line4Primary" type="number">1</property>
+  <property id="s1l4En" type="boolean">true</property>
+  <property id="s1l4Lc" type="number">1</property>
+  <property id="s1l4Vc" type="number">0</property>
+  <property id="s1l4R1" type="number">1</property>
 
   <!-- Screen 1 - Line 5 -->
-  <property id="screen1_line5Enabled" type="boolean">true</property>
-  <property id="screen1_line5LabelColor" type="number">5</property>
-  <property id="screen1_line5ValueColor" type="number">0</property>
-  <property id="screen1_line5Primary" type="number">4</property>
-  <property id="screen1_line3Secondary" type="number">461</property>
-  <property id="screen1_line4Secondary" type="number">102</property>
-  <property id="screen1_line5Secondary" type="number">8</property>
-  <property id="screen1_line3Tertiary" type="number">462</property>
-  <property id="screen1_line4Tertiary" type="number">52</property>
-  <property id="screen1_line5Tertiary" type="number">5</property>
-  <property id="screen1_line3Quaternary" type="number">502</property>
-  <property id="screen1_line4Quaternary" type="number">2</property>
-  <property id="screen1_line5Quaternary" type="number">54</property>
-  <property id="screen1_line3Quinary" type="number">0</property>
-  <property id="screen1_line4Quinary" type="number">0</property>
-  <property id="screen1_line5Quinary" type="number">0</property>
-  <property id="screen1_line3Senary" type="number">0</property>
-  <property id="screen1_line4Senary" type="number">0</property>
-  <property id="screen1_line5Senary" type="number">0</property>
+  <property id="s1l5En" type="boolean">true</property>
+  <property id="s1l5Lc" type="number">5</property>
+  <property id="s1l5Vc" type="number">0</property>
+  <property id="s1l5R1" type="number">4</property>
+  <property id="s1l3R2" type="number">461</property>
+  <property id="s1l4R2" type="number">102</property>
+  <property id="s1l5R2" type="number">8</property>
+  <property id="s1l3R3" type="number">462</property>
+  <property id="s1l4R3" type="number">52</property>
+  <property id="s1l5R3" type="number">5</property>
+  <property id="s1l3R4" type="number">502</property>
+  <property id="s1l4R4" type="number">2</property>
+  <property id="s1l5R4" type="number">54</property>
+  <property id="s1l3R5" type="number">0</property>
+  <property id="s1l4R5" type="number">0</property>
+  <property id="s1l5R5" type="number">0</property>
+  <property id="s1l3R6" type="number">0</property>
+  <property id="s1l4R6" type="number">0</property>
+  <property id="s1l5R6" type="number">0</property>
 
   <!-- Screen 2 - Line 3 -->
-  <property id="screen2_line3Enabled" type="boolean">true</property>
-  <property id="screen2_line3LabelColor" type="number">8</property>
-  <property id="screen2_line3ValueColor" type="number">0</property>
-  <property id="screen2_line3Primary" type="number">0</property>
+  <property id="s2l3En" type="boolean">true</property>
+  <property id="s2l3Lc" type="number">8</property>
+  <property id="s2l3Vc" type="number">0</property>
+  <property id="s2l3R1" type="number">0</property>
 
   <!-- Screen 2 - Line 4 -->
-  <property id="screen2_line4Enabled" type="boolean">true</property>
-  <property id="screen2_line4LabelColor" type="number">8</property>
-  <property id="screen2_line4ValueColor" type="number">0</property>
-  <property id="screen2_line4Primary" type="number">0</property>
+  <property id="s2l4En" type="boolean">true</property>
+  <property id="s2l4Lc" type="number">8</property>
+  <property id="s2l4Vc" type="number">0</property>
+  <property id="s2l4R1" type="number">0</property>
 
   <!-- Screen 2 - Line 5 -->
-  <property id="screen2_line5Enabled" type="boolean">true</property>
-  <property id="screen2_line5LabelColor" type="number">8</property>
-  <property id="screen2_line5ValueColor" type="number">0</property>
-  <property id="screen2_line5Primary" type="number">0</property>
-  <property id="screen2_line3Secondary" type="number">0</property>
-  <property id="screen2_line4Secondary" type="number">0</property>
-  <property id="screen2_line5Secondary" type="number">0</property>
-  <property id="screen2_line3Tertiary" type="number">0</property>
-  <property id="screen2_line4Tertiary" type="number">0</property>
-  <property id="screen2_line5Tertiary" type="number">0</property>
-  <property id="screen2_line3Quaternary" type="number">0</property>
-  <property id="screen2_line4Quaternary" type="number">0</property>
-  <property id="screen2_line5Quaternary" type="number">0</property>
-  <property id="screen2_line3Quinary" type="number">0</property>
-  <property id="screen2_line4Quinary" type="number">0</property>
-  <property id="screen2_line5Quinary" type="number">0</property>
-  <property id="screen2_line3Senary" type="number">0</property>
-  <property id="screen2_line4Senary" type="number">0</property>
-  <property id="screen2_line5Senary" type="number">0</property>
+  <property id="s2l5En" type="boolean">true</property>
+  <property id="s2l5Lc" type="number">8</property>
+  <property id="s2l5Vc" type="number">0</property>
+  <property id="s2l5R1" type="number">0</property>
+  <property id="s2l3R2" type="number">0</property>
+  <property id="s2l4R2" type="number">0</property>
+  <property id="s2l5R2" type="number">0</property>
+  <property id="s2l3R3" type="number">0</property>
+  <property id="s2l4R3" type="number">0</property>
+  <property id="s2l5R3" type="number">0</property>
+  <property id="s2l3R4" type="number">0</property>
+  <property id="s2l4R4" type="number">0</property>
+  <property id="s2l5R4" type="number">0</property>
+  <property id="s2l3R5" type="number">0</property>
+  <property id="s2l4R5" type="number">0</property>
+  <property id="s2l5R5" type="number">0</property>
+  <property id="s2l3R6" type="number">0</property>
+  <property id="s2l4R6" type="number">0</property>
+  <property id="s2l5R6" type="number">0</property>
 
   <!-- Screen 3 - Line 3 -->
-  <property id="screen3_line3Enabled" type="boolean">true</property>
-  <property id="screen3_line3LabelColor" type="number">8</property>
-  <property id="screen3_line3ValueColor" type="number">0</property>
-  <property id="screen3_line3Primary" type="number">0</property>
+  <property id="s3l3En" type="boolean">true</property>
+  <property id="s3l3Lc" type="number">8</property>
+  <property id="s3l3Vc" type="number">0</property>
+  <property id="s3l3R1" type="number">0</property>
 
   <!-- Screen 3 - Line 4 -->
-  <property id="screen3_line4Enabled" type="boolean">true</property>
-  <property id="screen3_line4LabelColor" type="number">8</property>
-  <property id="screen3_line4ValueColor" type="number">0</property>
-  <property id="screen3_line4Primary" type="number">0</property>
+  <property id="s3l4En" type="boolean">true</property>
+  <property id="s3l4Lc" type="number">8</property>
+  <property id="s3l4Vc" type="number">0</property>
+  <property id="s3l4R1" type="number">0</property>
 
   <!-- Screen 3 - Line 5 -->
-  <property id="screen3_line5Enabled" type="boolean">true</property>
-  <property id="screen3_line5LabelColor" type="number">8</property>
-  <property id="screen3_line5ValueColor" type="number">0</property>
-  <property id="screen3_line5Primary" type="number">0</property>
-  <property id="screen3_line3Secondary" type="number">0</property>
-  <property id="screen3_line4Secondary" type="number">0</property>
-  <property id="screen3_line5Secondary" type="number">0</property>
-  <property id="screen3_line3Tertiary" type="number">0</property>
-  <property id="screen3_line4Tertiary" type="number">0</property>
-  <property id="screen3_line5Tertiary" type="number">0</property>
-  <property id="screen3_line3Quaternary" type="number">0</property>
-  <property id="screen3_line4Quaternary" type="number">0</property>
-  <property id="screen3_line5Quaternary" type="number">0</property>
-  <property id="screen3_line3Quinary" type="number">0</property>
-  <property id="screen3_line4Quinary" type="number">0</property>
-  <property id="screen3_line5Quinary" type="number">0</property>
-  <property id="screen3_line3Senary" type="number">0</property>
-  <property id="screen3_line4Senary" type="number">0</property>
-  <property id="screen3_line5Senary" type="number">0</property>
+  <property id="s3l5En" type="boolean">true</property>
+  <property id="s3l5Lc" type="number">8</property>
+  <property id="s3l5Vc" type="number">0</property>
+  <property id="s3l5R1" type="number">0</property>
+  <property id="s3l3R2" type="number">0</property>
+  <property id="s3l4R2" type="number">0</property>
+  <property id="s3l5R2" type="number">0</property>
+  <property id="s3l3R3" type="number">0</property>
+  <property id="s3l4R3" type="number">0</property>
+  <property id="s3l5R3" type="number">0</property>
+  <property id="s3l3R4" type="number">0</property>
+  <property id="s3l4R4" type="number">0</property>
+  <property id="s3l5R4" type="number">0</property>
+  <property id="s3l3R5" type="number">0</property>
+  <property id="s3l4R5" type="number">0</property>
+  <property id="s3l5R5" type="number">0</property>
+  <property id="s3l3R6" type="number">0</property>
+  <property id="s3l4R6" type="number">0</property>
+  <property id="s3l5R6" type="number">0</property>
 
   <!-- Steps -->
-  <property id="stepsShowBar" type="boolean">true</property>
-  <property id="stepsShowBarValue" type="boolean">true</property>
-  <property id="stepsBarColor" type="number">1</property>
-  <property id="stepsBarWidth" type="number">10</property>
+  <property id="stpSb" type="boolean">true</property>
+  <property id="stpSv" type="boolean">true</property>
+  <property id="stpBc" type="number">1</property>
+  <property id="stpBw" type="number">10</property>
 
   <!-- Floors -->
-  <property id="floorsShowBar" type="boolean">false</property>
-  <property id="floorsShowBarValue" type="boolean">true</property>
-  <property id="floorsBarColor" type="number">5</property>
-  <property id="floorsBarWidth" type="number">8</property>
+  <property id="flrSb" type="boolean">false</property>
+  <property id="flrSv" type="boolean">true</property>
+  <property id="flrBc" type="number">5</property>
+  <property id="flrBw" type="number">8</property>
 
   <!-- Calories (Daily) -->
-  <property id="caloriesShowBar" type="boolean">false</property>
-  <property id="caloriesShowBarValue" type="boolean">true</property>
-  <property id="caloriesBarColor" type="number">4</property>
-  <property id="caloriesBarWidth" type="number">10</property>
-  <property id="caloriesBarGoal" type="number">2000</property>
+  <property id="calSb" type="boolean">false</property>
+  <property id="calSv" type="boolean">true</property>
+  <property id="calBc" type="number">4</property>
+  <property id="calBw" type="number">10</property>
+  <property id="calBg" type="number">2000</property>
 
   <!-- Distance (Daily) -->
-  <property id="distanceShowBar" type="boolean">false</property>
-  <property id="distanceShowBarValue" type="boolean">true</property>
-  <property id="distanceBarColor" type="number">6</property>
-  <property id="distanceBarWidth" type="number">10</property>
-  <property id="distanceBarGoal" type="number">5</property>
+  <property id="distSb" type="boolean">false</property>
+  <property id="distSv" type="boolean">true</property>
+  <property id="distBc" type="number">6</property>
+  <property id="distBw" type="number">10</property>
+  <property id="distBg" type="number">5</property>
 
   <!-- Active Minutes (Daily) -->
-  <property id="activeMinDayShowBar" type="boolean">false</property>
-  <property id="activeMinDayShowBarValue" type="boolean">true</property>
-  <property id="activeMinDayBarColor" type="number">9</property>
-  <property id="activeMinDayBarWidth" type="number">10</property>
-  <property id="activeMinDayBarGoal" type="number">30</property>
+  <property id="aMinSb" type="boolean">false</property>
+  <property id="aMinSv" type="boolean">true</property>
+  <property id="aMinBc" type="number">9</property>
+  <property id="aMinBw" type="number">10</property>
+  <property id="aMinBg" type="number">30</property>
 
   <!-- Intensity Minutes (Weekly) -->
-  <property id="intensityMinShowBar" type="boolean">true</property>
-  <property id="intensityMinShowBarValue" type="boolean">true</property>
-  <property id="intensityMinBarColor" type="number">5</property>
-  <property id="intensityMinBarWidth" type="number">8</property>
+  <property id="iMinSb" type="boolean">true</property>
+  <property id="iMinSv" type="boolean">true</property>
+  <property id="iMinBc" type="number">5</property>
+  <property id="iMinBw" type="number">8</property>
 
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->
-  <property id="hrGraphMode" type="number">3</property>
-  <property id="hrGraphValueMode" type="number">0</property>
-  <property id="hrSecondaryType" type="number">0</property>
-  <property id="hrSecondaryField" type="number">2</property>
-  <property id="hrTimeFrame" type="number">60</property>
-  <property id="hrGraphColor" type="number">5</property>
-  <property id="hrSecondaryColor" type="number">0</property>
-  <property id="hrGraphWidth" type="number">10</property>
+  <property id="hrGm" type="number">3</property>
+  <property id="hrGvm" type="number">0</property>
+  <property id="hrSt" type="number">0</property>
+  <property id="hrSf" type="number">2</property>
+  <property id="hrTf" type="number">60</property>
+  <property id="hrGc" type="number">5</property>
+  <property id="hrSe" type="number">0</property>
+  <property id="hrGw" type="number">10</property>
 
   <!-- SpO2 -->
-  <property id="spo2GraphMode" type="number">6</property>
-  <property id="spo2GraphValueMode" type="number">2</property>
-  <property id="spo2SecondaryType" type="number">0</property>
-  <property id="spo2SecondaryField" type="number">0</property>
-  <property id="spo2TimeFrame" type="number">60</property>
-  <property id="spo2GraphColor" type="number">6</property>
-  <property id="spo2SecondaryColor" type="number">0</property>
-  <property id="spo2GraphWidth" type="number">10</property>
+  <property id="spo2Gm" type="number">6</property>
+  <property id="spo2Gvm" type="number">2</property>
+  <property id="spo2St" type="number">0</property>
+  <property id="spo2Sf" type="number">0</property>
+  <property id="spo2Tf" type="number">60</property>
+  <property id="spo2Gc" type="number">6</property>
+  <property id="spo2Se" type="number">0</property>
+  <property id="spo2Gw" type="number">10</property>
 
   <!-- BodyBat -->
-  <property id="bodyBatGraphMode" type="number">6</property>
-  <property id="bodyBatGraphValueMode" type="number">0</property>
-  <property id="bodyBatSecondaryType" type="number">0</property>
-  <property id="bodyBatSecondaryField" type="number">3</property>
-  <property id="bodyBatTimeFrame" type="number">240</property>
-  <property id="bodyBatGraphColor" type="number">11</property>
-  <property id="bodyBatSecondaryColor" type="number">0</property>
-  <property id="bodyBatGraphWidth" type="number">10</property>
+  <property id="bbGm" type="number">6</property>
+  <property id="bbGvm" type="number">0</property>
+  <property id="bbSt" type="number">0</property>
+  <property id="bbSf" type="number">3</property>
+  <property id="bbTf" type="number">240</property>
+  <property id="bbGc" type="number">11</property>
+  <property id="bbSe" type="number">0</property>
+  <property id="bbGw" type="number">10</property>
 
   <!-- Stress -->
-  <property id="stressGraphMode" type="number">3</property>
-  <property id="stressGraphValueMode" type="number">1</property>
-  <property id="stressSecondaryType" type="number">0</property>
-  <property id="stressSecondaryField" type="number">0</property>
-  <property id="stressTimeFrame" type="number">120</property>
-  <property id="stressGraphColor" type="number">10</property>
-  <property id="stressSecondaryColor" type="number">0</property>
-  <property id="stressGraphWidth" type="number">10</property>
+  <property id="strGm" type="number">3</property>
+  <property id="strGvm" type="number">1</property>
+  <property id="strSt" type="number">0</property>
+  <property id="strSf" type="number">0</property>
+  <property id="strTf" type="number">120</property>
+  <property id="strGc" type="number">10</property>
+  <property id="strSe" type="number">0</property>
+  <property id="strGw" type="number">10</property>
 
   <!-- TempWrist -->
-  <property id="tempWristGraphMode" type="number">3</property>
-  <property id="tempWristGraphValueMode" type="number">1</property>
-  <property id="tempWristSecondaryType" type="number">0</property>
-  <property id="tempWristSecondaryField" type="number">0</property>
-  <property id="tempWristTimeFrame" type="number">60</property>
-  <property id="tempWristGraphColor" type="number">16</property>
-  <property id="tempWristSecondaryColor" type="number">0</property>
-  <property id="tempWristGraphWidth" type="number">10</property>
+  <property id="twGm" type="number">3</property>
+  <property id="twGvm" type="number">1</property>
+  <property id="twSt" type="number">0</property>
+  <property id="twSf" type="number">0</property>
+  <property id="twTf" type="number">60</property>
+  <property id="twGc" type="number">16</property>
+  <property id="twSe" type="number">0</property>
+  <property id="twGw" type="number">10</property>
 
   <!-- Elevation -->
-  <property id="elevationGraphMode" type="number">6</property>
-  <property id="elevationGraphValueMode" type="number">0</property>
-  <property id="elevationSecondaryType" type="number">0</property>
-  <property id="elevationSecondaryField" type="number">6</property>
-  <property id="elevationTimeFrame" type="number">480</property>
-  <property id="elevationGraphColor" type="number">1</property>
-  <property id="elevationSecondaryColor" type="number">0</property>
-  <property id="elevationGraphWidth" type="number">10</property>
+  <property id="elevGm" type="number">6</property>
+  <property id="elevGvm" type="number">0</property>
+  <property id="elevSt" type="number">0</property>
+  <property id="elevSf" type="number">6</property>
+  <property id="elevTf" type="number">480</property>
+  <property id="elevGc" type="number">1</property>
+  <property id="elevSe" type="number">0</property>
+  <property id="elevGw" type="number">10</property>
 
   <!-- Pressure -->
-  <property id="pressureGraphMode" type="number">3</property>
-  <property id="pressureGraphValueMode" type="number">1</property>
-  <property id="pressureSecondaryType" type="number">0</property>
-  <property id="pressureSecondaryField" type="number">5</property>
-  <property id="pressureTimeFrame" type="number">120</property>
-  <property id="pressureGraphColor" type="number">2</property>
-  <property id="pressureSecondaryColor" type="number">0</property>
-  <property id="pressureGraphWidth" type="number">10</property>
+  <property id="presGm" type="number">3</property>
+  <property id="presGvm" type="number">1</property>
+  <property id="presSt" type="number">0</property>
+  <property id="presSf" type="number">5</property>
+  <property id="presTf" type="number">120</property>
+  <property id="presGc" type="number">2</property>
+  <property id="presSe" type="number">0</property>
+  <property id="presGw" type="number">10</property>
 
   <!-- Weather Forecast -->
-  <property id="wxForecastGraphMode" type="number">4</property>
-  <property id="wxForecastValueMode" type="number">0</property>
-  <property id="wxForecastTimeFrame" type="number">12</property>
-  <property id="wxForecastGraphColor" type="number">16</property>
-  <property id="wxForecastGraphWidth" type="number">10</property>
+  <property id="wxfGm" type="number">4</property>
+  <property id="wxfVm" type="number">0</property>
+  <property id="wxfTf" type="number">12</property>
+  <property id="wxfGc" type="number">16</property>
+  <property id="wxfGw" type="number">10</property>
 
   <!-- Rain Hourly Forecast -->
-  <property id="wxForecastPrecipGraphMode" type="number">4</property>
-  <property id="wxForecastPrecipValueMode" type="number">1</property>
-  <property id="wxForecastPrecipTimeFrame" type="number">12</property>
-  <property id="wxForecastPrecipGraphColor" type="number">6</property>
-  <property id="wxForecastPrecipGraphWidth" type="number">10</property>
+  <property id="wxfpGm" type="number">4</property>
+  <property id="wxfpVm" type="number">1</property>
+  <property id="wxfpTf" type="number">12</property>
+  <property id="wxfpGc" type="number">6</property>
+  <property id="wxfpGw" type="number">10</property>
 
   <!-- Wind Hourly Forecast -->
-  <property id="wxForecastWindGraphMode" type="number">4</property>
-  <property id="wxForecastWindValueMode" type="number">1</property>
-  <property id="wxForecastWindTimeFrame" type="number">12</property>
-  <property id="wxForecastWindGraphColor" type="number">6</property>
-  <property id="wxForecastWindGraphWidth" type="number">10</property>
+  <property id="wxfwGm" type="number">4</property>
+  <property id="wxfwVm" type="number">1</property>
+  <property id="wxfwTf" type="number">12</property>
+  <property id="wxfwGc" type="number">6</property>
+  <property id="wxfwGw" type="number">10</property>
 
   <!-- UV Hourly Forecast -->
-  <property id="wxForecastUvGraphMode" type="number">4</property>
-  <property id="wxForecastUvValueMode" type="number">2</property>
-  <property id="wxForecastUvTimeFrame" type="number">12</property>
-  <property id="wxForecastUvGraphColor" type="number">3</property>
-  <property id="wxForecastUvGraphWidth" type="number">10</property>
+  <property id="wxfuGm" type="number">4</property>
+  <property id="wxfuVm" type="number">2</property>
+  <property id="wxfuTf" type="number">12</property>
+  <property id="wxfuGc" type="number">3</property>
+  <property id="wxfuGw" type="number">10</property>
 
   <!-- Cloud Hourly Forecast -->
-  <property id="wxForecastCloudGraphMode" type="number">4</property>
-  <property id="wxForecastCloudValueMode" type="number">1</property>
-  <property id="wxForecastCloudTimeFrame" type="number">12</property>
-  <property id="wxForecastCloudGraphColor" type="number">8</property>
-  <property id="wxForecastCloudGraphWidth" type="number">10</property>
+  <property id="wxfcGm" type="number">4</property>
+  <property id="wxfcVm" type="number">1</property>
+  <property id="wxfcTf" type="number">12</property>
+  <property id="wxfcGc" type="number">8</property>
+  <property id="wxfcGw" type="number">10</property>
 
   <!-- Humidity Hourly Forecast -->
-  <property id="wxForecastHumidityGraphMode" type="number">4</property>
-  <property id="wxForecastHumidityValueMode" type="number">1</property>
-  <property id="wxForecastHumidityTimeFrame" type="number">12</property>
-  <property id="wxForecastHumidityGraphColor" type="number">2</property>
-  <property id="wxForecastHumidityGraphWidth" type="number">10</property>
+  <property id="wxfhGm" type="number">4</property>
+  <property id="wxfhVm" type="number">1</property>
+  <property id="wxfhTf" type="number">12</property>
+  <property id="wxfhGc" type="number">2</property>
+  <property id="wxfhGw" type="number">10</property>
 
   <!-- Day Forecast -->
-  <property id="wxForecastDailyViewMode" type="number">2</property>
-  <property id="wxForecastDailyValueMode" type="number">2</property>
-  <property id="wxForecastDailyDays" type="number">5</property>
-  <property id="wxForecastDailyGraphColor" type="number">16</property>
-  <property id="wxForecastDailyGraphWidth" type="number">8</property>
+  <property id="wxfdVw" type="number">2</property>
+  <property id="wxfdVm" type="number">2</property>
+  <property id="wxfdDy" type="number">5</property>
+  <property id="wxfdGc" type="number">16</property>
+  <property id="wxfdGw" type="number">8</property>
 
   <!-- Debug -->
-  <property id="showVersion" type="boolean">false</property>
+  <property id="shVer" type="boolean">false</property>
 
 </properties>

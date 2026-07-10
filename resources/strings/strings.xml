@@ -29,7 +29,6 @@
   <string id="BgBacklightMedium">Medium</string>
   <string id="BgBacklightStrong">Strong</string>
   <string id="FlickerEnabled">CRT Flicker</string>
-  <string id="VignetteEnabled">Side Vignette</string>
 
   <!-- Display options -->
   <string id="LeftPadding">Left Padding</string>

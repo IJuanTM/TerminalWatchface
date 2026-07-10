@@ -15,12 +15,9 @@ OUT_STRINGS = os.path.join(ROOT, "resources", "strings", "strings.xml")
 OUT_SETTINGS = os.path.join(ROOT, "resources", "settings.xml")
 OUT_FIELD_IDS = os.path.join(ROOT, "source", "FieldIds.mc")
 
-# ---------------------------------------------------------------------------
-# Shared data definitions
-# ---------------------------------------------------------------------------
+# --- Shared data definitions ---
 
-# (value, StringId, display text) — single source for both listEntries and strings.
-# Solid colors (0-9) are in hue-wheel display order; values are unchanged.
+# (value, StringId, display text); solid colors (0-9) are in hue-wheel order.
 COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
     (0, "ColorWhite", "White"),
     (5, "ColorRed", "Red"),
@@ -46,14 +43,10 @@ COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
 
 COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
 
-# Fields are grouped into categories, each a reserved 50-wide numeric block
-# (category 0 -> values 1-50, category 1 -> 51-100, ...) computed in
-# _build_fields() below; entries are (const_suffix, StringId, display text)
-# and the single source of truth for FIELD_* values (see FIELD_VALUE).
+# Each category gets a reserved 50-wide numeric block (category 0 -> 1-50, etc).
 FIELD_CATEGORY_WIDTH = 50
 
-# Graph cache key bit layout, generated into source/FieldIds.mc for
-# _packGraphKey/_graphKeyHi/_graphKeyLo in TerminalWatchfaceView.mc.
+# Graph cache key bit layout - generated into FieldIds.mc's _packGraphKey.
 CACHE_KEY_LO_SHIFT = 11
 CACHE_KEY_HI_SHIFT = 21
 CACHE_KEY_MASK = (1 << (CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT)) - 1
@@ -243,8 +236,7 @@ FIELD_CATEGORIES = [
 ]
 
 
-# Computed from FIELD_CATEGORIES: FIELDS_ALL is every (value, StringId,
-# display) including FieldNone; FIELD_VALUE is a StringId -> value lookup.
+# FIELDS_ALL: every (value, StringId, display) incl. FieldNone; FIELD_VALUE: StringId -> value.
 def _build_fields():
     total_span = FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)
     if total_span >= CACHE_KEY_FIELD_BUDGET:
@@ -274,11 +266,9 @@ def _build_fields():
 
 FIELDS_ALL, FIELD_VALUE = _build_fields()
 
-# Graph-capable sensor fields: (camelKey, StringPrefix, graph_mode_default,
-# sec_type_default, sec_field_default, time_frame_default, graph_color_default,
-# sec_color_default, value_mode_default). graph_mode: 0=value, 1=line, 2=bar,
-# 3=line+current, 4=bar+current, 5=area, 6=area+current. sec_field_default
-# indexes GRAPH_SEC_FIELDS below.
+# (camelKey, StringPrefix, graph_mode, sec_type, sec_field, time_frame,
+# graph_color, sec_color, value_mode). graph_mode: 0=value 1=line 2=bar
+# 3=line+cur 4=bar+cur 5=area 6=area+cur. sec_field indexes GRAPH_SEC_FIELDS.
 GRAPH_FIELDS = [
     ("hr", "HR", 3, 0, 2, 60, 5, 0, 0),
     ("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
@@ -289,10 +279,9 @@ GRAPH_FIELDS = [
     ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),
 ]
 
-# Goal-progress-bar fields: (camelKey, groupTitle, label, showBarDefault,
-# colorDefault, widthDefault, goalDefault, goalMin, goalMax, goalLabelSuffix).
-# goalDefault is None when the goal comes from ActivityMonitor.Info instead
-# of a user-set property (steps/floors/intensityMin).
+# (camelKey, groupTitle, label, showBarDefault, colorDefault, widthDefault,
+# goalDefault, goalMin, goalMax, goalLabelSuffix). goalDefault None means the
+# goal comes from ActivityMonitor.Info, not a user-set property.
 BAR_FIELDS = [
     ("steps", "Steps", "Steps", True, 1, 10, None, None, None, None),
     ("floors", "Floors", "Floors", False, 5, 8, None, None, None, None),
@@ -363,9 +352,8 @@ FORECAST_TIME_FRAMES = [
     (24, "TimeFrameForecast24h"),
 ]
 
-# _packGraphKey ORs periodMin straight into the low CACHE_KEY_LO_SHIFT bits of
-# the cache key with no mask, so any minute value here that reached the
-# CACHE_KEY_PERIOD_BUDGET ceiling would bleed into the adjacent field bits.
+# _packGraphKey ORs periodMin in unmasked, so a value reaching
+# CACHE_KEY_PERIOD_BUDGET would bleed into the adjacent field bits.
 _max_period_min = max(
     [m for m, _ in GRAPH_TIME_FRAMES] + [h for h, _ in FORECAST_TIME_FRAMES]
 )
@@ -396,8 +384,7 @@ GRAPH_DISPLAY_NAMES = {
     "pressure": "Pressure",
 }
 
-# Line 3/4/5 defaults: (line_num, slot, field_default, label_color_default,
-# value_color_default). field_default is looked up by name via FIELD_VALUE.
+# Line 3/4/5 defaults: (line_num, slot, field_default, label_color, value_color).
 _fv = FIELD_VALUE
 LINE_SLOTS = [
     # R1
@@ -465,9 +452,7 @@ FORECAST_VIEW_MODE_OPTIONS = [
     (2, "@Strings.ViewModeGraphCurrent"),
 ]
 
-# Hourly forecasts sharing one control layout: (camelKey, StringPrefix,
-# display, value_mode_default, graph_color_default). Temp hourly and the
-# daily forecast have a different shape and stay as explicit blocks.
+# (camelKey, StringPrefix, display, value_mode_default, graph_color_default).
 HOURLY_FORECASTS = [
     ("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
     ("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
@@ -476,13 +461,92 @@ HOURLY_FORECASTS = [
     ("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
 ]
 
-# ---------------------------------------------------------------------------
-# XML helpers
-# ---------------------------------------------------------------------------
+# --- XML helpers ---
 
 
 def ind(n):
     return "  " * n
+
+
+# Abbreviated to keep properties.xml under Connect IQ's size ceiling; mirrored
+# by hand in TerminalWatchfaceView.mc/Delegate.mc wherever a key is built.
+SUF = {
+    "GraphMode": "Gm",
+    "GraphValueMode": "Gvm",
+    "ValueMode": "Vm",
+    "SecondaryType": "St",
+    "SecondaryField": "Sf",
+    "SecondaryColor": "Se",
+    "TimeFrame": "Tf",
+    "GraphColor": "Gc",
+    "GraphWidth": "Gw",
+    "ShowBar": "Sb",
+    "ShowBarValue": "Sv",
+    "BarColor": "Bc",
+    "BarWidth": "Bw",
+    "BarGoal": "Bg",
+    "Enabled": "En",
+    "LabelColor": "Lc",
+    "ValueColor": "Vc",
+    "ViewMode": "Vw",
+    "Days": "Dy",
+}
+ROT = {
+    "Primary": "R1",
+    "Secondary": "R2",
+    "Tertiary": "R3",
+    "Quaternary": "R4",
+    "Quinary": "R5",
+    "Senary": "R6",
+}
+PFX = {
+    "wxForecast": "wxf",
+    "wxForecastPrecip": "wxfp",
+    "wxForecastWind": "wxfw",
+    "wxForecastUv": "wxfu",
+    "wxForecastCloud": "wxfc",
+    "wxForecastHumidity": "wxfh",
+    "wxForecastDaily": "wxfd",
+    "bodyBat": "bb",
+    "tempWrist": "tw",
+    "activeMinDay": "aMin",
+    "intensityMin": "iMin",
+    "steps": "stp",
+    "floors": "flr",
+    "calories": "cal",
+    "distance": "dist",
+    "stress": "str",
+    "elevation": "elev",
+    "pressure": "pres",
+}
+
+# One-off properties not composed from a prefix/suffix pair.
+STANDALONE_KEYS = {
+    "fontChoice": "font",
+    "colorTheme": "theme",
+    "scanlines": "scan",
+    "glowIntensity": "glow",
+    "bgBacklight": "bgLt",
+    "flickerEnabled": "flick",
+    "leftPadding": "lPad",
+    "areaOpacity": "aOpac",
+    "areaShowLine": "aLine",
+    "showBatteryDays": "batD",
+    "showSeconds": "shSec",
+    "showYear": "shYr",
+    "dateFormat": "dFmt",
+    "watchCommandStyle": "cmdSty",
+    "screen2Enabled": "s2En",
+    "screen3Enabled": "s3En",
+    "rotateInterval": "rotI",
+    "rotateIntervalAlt": "rotA",
+    "activeScreen": "aScr",
+    "line1LabelColor": "l1Lc",
+    "line1ValueColor": "l1Vc",
+    "line2LabelColor": "l2Lc",
+    "line2ValueColor": "l2Vc",
+    "showVersion": "shVer",
+}
 
 
 def prop(pid, ptype, default):
@@ -560,9 +624,7 @@ def group(gid, title_key, *blocks):
     return "\n".join(lines)
 
 
-# ---------------------------------------------------------------------------
-# source/FieldIds.mc
-# ---------------------------------------------------------------------------
+# --- source/FieldIds.mc ---
 
 
 def gen_field_ids():
@@ -595,56 +657,56 @@ def gen_field_ids():
     return "\n".join(lines) + "\n"
 
 
-# ---------------------------------------------------------------------------
-# properties.xml
-# ---------------------------------------------------------------------------
+# --- properties.xml ---
 
 
 def gen_properties():
     lines = ["<properties>"]
 
+    sk = STANDALONE_KEYS
     lines.append("\n  <!-- Appearance -->")
-    lines.append(prop("fontChoice", "number", 0))
-    lines.append(prop("colorTheme", "number", 0))
-    lines.append(prop("scanlines", "number", 2))
-    lines.append(prop("glowIntensity", "number", 2))
-    lines.append(prop("bgBacklight", "number", 2))
-    lines.append(prop("flickerEnabled", "boolean", "true"))
-    lines.append(prop("vignetteEnabled", "boolean", "false"))
+    lines.append(prop(sk["fontChoice"], "number", 0))
+    lines.append(prop(sk["colorTheme"], "number", 0))
+    lines.append(prop(sk["scanlines"], "number", 2))
+    lines.append(prop(sk["glowIntensity"], "number", 2))
+    lines.append(prop(sk["bgBacklight"], "number", 2))
+    lines.append(prop(sk["flickerEnabled"], "boolean", "true"))
 
     lines.append("\n  <!-- Display options -->")
-    lines.append(prop("leftPadding", "number", 4))
-    lines.append(prop("areaOpacity", "number", 64))
-    lines.append(prop("areaShowLine", "boolean", "true"))
-    lines.append(prop("showBatteryDays", "boolean", "true"))
-    lines.append(prop("showSeconds", "boolean", "false"))
-    lines.append(prop("showYear", "boolean", "false"))
-    lines.append(prop("dateFormat", "number", 0))
-    lines.append(prop("watchCommandStyle", "number", 2))
-    lines.append(prop("screen2Enabled", "boolean", "true"))
-    lines.append(prop("screen3Enabled", "boolean", "true"))
-    lines.append(prop("rotateInterval", "number", 10))
-    lines.append(prop("rotateIntervalAlt", "number", 5))
-    lines.append(prop("activeScreen", "number", 0))
+    lines.append(prop(sk["leftPadding"], "number", 4))
+    lines.append(prop(sk["areaOpacity"], "number", 64))
+    lines.append(prop(sk["areaShowLine"], "boolean", "true"))
+    lines.append(prop(sk["showBatteryDays"], "boolean", "true"))
+    lines.append(prop(sk["showSeconds"], "boolean", "false"))
+    lines.append(prop(sk["showYear"], "boolean", "false"))
+    lines.append(prop(sk["dateFormat"], "number", 0))
+    lines.append(prop(sk["watchCommandStyle"], "number", 2))
+    if SCREEN_COUNT >= 2:
+        lines.append(prop(sk["screen2Enabled"], "boolean", "true"))
+    if SCREEN_COUNT >= 3:
+        lines.append(prop(sk["screen3Enabled"], "boolean", "true"))
+    lines.append(prop(sk["rotateInterval"], "number", 10))
+    lines.append(prop(sk["rotateIntervalAlt"], "number", 5))
+    lines.append(prop(sk["activeScreen"], "number", 0))
 
     lines.append("\n  <!-- Time row (always visible) -->")
-    lines.append(prop("line1LabelColor", "number", 8))
-    lines.append(prop("line1ValueColor", "number", 0))
+    lines.append(prop(sk["line1LabelColor"], "number", 8))
+    lines.append(prop(sk["line1ValueColor"], "number", 0))
 
     lines.append("\n  <!-- Date row (always visible) -->")
-    lines.append(prop("line2LabelColor", "number", 8))
-    lines.append(prop("line2ValueColor", "number", 0))
+    lines.append(prop(sk["line2LabelColor"], "number", 8))
+    lines.append(prop(sk["line2ValueColor"], "number", 0))
 
     # Label/value colors are per line, shared across that line's rotation slots.
     for screen_idx in range(1, SCREEN_COUNT + 1):
         for ln, slot, fd, lc, vc in screen_line_slots(screen_idx):
-            pk = f"screen{screen_idx}_line{ln}"
+            pk = f"s{screen_idx}l{ln}"
             if slot == "Primary":
                 lines.append(f"\n  <!-- Screen {screen_idx} - Line {ln} -->")
-                lines.append(prop(f"{pk}Enabled", "boolean", "true"))
-                lines.append(prop(f"{pk}LabelColor", "number", lc))
-                lines.append(prop(f"{pk}ValueColor", "number", vc))
-            lines.append(prop(f"{pk}{slot}", "number", fd))
+                lines.append(prop(f"{pk}{SUF['Enabled']}", "boolean", "true"))
+                lines.append(prop(f"{pk}{SUF['LabelColor']}", "number", lc))
+                lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", vc))
+            lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
 
     for (
         key,
@@ -658,55 +720,59 @@ def gen_properties():
         _goal_max,
         _goal_suffix,
     ) in BAR_FIELDS:
+        pk = PFX.get(key, key)
         lines.append(f"\n  <!-- {group_title} -->")
         lines.append(
-            prop(f"{key}ShowBar", "boolean", "true" if show_bar_default else "false")
+            prop(
+                f"{pk}{SUF['ShowBar']}",
+                "boolean",
+                "true" if show_bar_default else "false",
+            )
         )
-        lines.append(prop(f"{key}ShowBarValue", "boolean", "true"))
-        lines.append(prop(f"{key}BarColor", "number", color_default))
-        lines.append(prop(f"{key}BarWidth", "number", width_default))
+        lines.append(prop(f"{pk}{SUF['ShowBarValue']}", "boolean", "true"))
+        lines.append(prop(f"{pk}{SUF['BarColor']}", "number", color_default))
+        lines.append(prop(f"{pk}{SUF['BarWidth']}", "number", width_default))
         if goal_default is not None:
-            lines.append(prop(f"{key}BarGoal", "number", goal_default))
+            lines.append(prop(f"{pk}{SUF['BarGoal']}", "number", goal_default))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for key, skey, mode, std, sfd, tfd, gcd, scd, vmd in GRAPH_FIELDS:
+        pk = PFX.get(key, key)
         lines.append(f"\n  <!-- {skey} -->")
-        lines.append(prop(f"{key}GraphMode", "number", mode))
-        lines.append(prop(f"{key}GraphValueMode", "number", vmd))
-        lines.append(prop(f"{key}SecondaryType", "number", std))
-        lines.append(prop(f"{key}SecondaryField", "number", sfd))
-        lines.append(prop(f"{key}TimeFrame", "number", tfd))
-        lines.append(prop(f"{key}GraphColor", "number", gcd))
-        lines.append(prop(f"{key}SecondaryColor", "number", scd))
-        lines.append(prop(f"{key}GraphWidth", "number", 10))
+        lines.append(prop(f"{pk}{SUF['GraphMode']}", "number", mode))
+        lines.append(prop(f"{pk}{SUF['GraphValueMode']}", "number", vmd))
+        lines.append(prop(f"{pk}{SUF['SecondaryType']}", "number", std))
+        lines.append(prop(f"{pk}{SUF['SecondaryField']}", "number", sfd))
+        lines.append(prop(f"{pk}{SUF['TimeFrame']}", "number", tfd))
+        lines.append(prop(f"{pk}{SUF['GraphColor']}", "number", gcd))
+        lines.append(prop(f"{pk}{SUF['SecondaryColor']}", "number", scd))
+        lines.append(prop(f"{pk}{SUF['GraphWidth']}", "number", 10))
 
     lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop("wxForecastGraphMode", "number", 4))
-    lines.append(prop("wxForecastValueMode", "number", 0))
-    lines.append(prop("wxForecastTimeFrame", "number", 12))
-    lines.append(prop("wxForecastGraphColor", "number", 16))
-    lines.append(prop("wxForecastGraphWidth", "number", 10))
+    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphMode']}", "number", 4))
+    lines.append(prop(f"{PFX['wxForecast']}{SUF['ValueMode']}", "number", 0))
+    lines.append(prop(f"{PFX['wxForecast']}{SUF['TimeFrame']}", "number", 12))
+    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphColor']}", "number", 16))
+    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphWidth']}", "number", 10))
 
     for row in HOURLY_FORECASTS:
         lines.append(hourly_forecast_props(*row))
 
     lines.append("\n  <!-- Day Forecast -->")
-    lines.append(prop("wxForecastDailyViewMode", "number", 2))
-    lines.append(prop("wxForecastDailyValueMode", "number", 2))
-    lines.append(prop("wxForecastDailyDays", "number", 5))
-    lines.append(prop("wxForecastDailyGraphColor", "number", 16))
-    lines.append(prop("wxForecastDailyGraphWidth", "number", 8))
+    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['ViewMode']}", "number", 2))
+    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['ValueMode']}", "number", 2))
+    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['Days']}", "number", 5))
+    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['GraphColor']}", "number", 16))
+    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}", "number", 8))
 
     lines.append("\n  <!-- Debug -->")
-    lines.append(prop("showVersion", "boolean", "false"))
+    lines.append(prop(sk["showVersion"], "boolean", "false"))
 
     lines.append("\n</properties>")
     return "\n".join(lines) + "\n"
 
 
-# ---------------------------------------------------------------------------
-# strings.xml
-# ---------------------------------------------------------------------------
+# --- strings.xml ---
 
 
 def gen_strings():
@@ -743,7 +809,6 @@ def gen_strings():
     lines.append(s("BgBacklightMedium", "Medium"))
     lines.append(s("BgBacklightStrong", "Strong"))
     lines.append(s("FlickerEnabled", "CRT Flicker"))
-    lines.append(s("VignetteEnabled", "Side Vignette"))
 
     lines.append("\n  <!-- Display options -->")
     lines.append(s("LeftPadding", "Left Padding"))
@@ -931,9 +996,7 @@ def gen_strings():
     return "\n".join(lines) + "\n"
 
 
-# ---------------------------------------------------------------------------
-# settings.xml
-# ---------------------------------------------------------------------------
+# --- settings.xml ---
 
 
 def width_setting(prop_key, title_key, indent=1):
@@ -941,14 +1004,17 @@ def width_setting(prop_key, title_key, indent=1):
 
 
 def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
+    pk = PFX.get(key, key)
     blocks = []
 
     blocks.append(
-        setting_list(f"{key}GraphMode", f"{skey}GraphMode", GRAPH_MODE_OPTIONS, indent)
+        setting_list(
+            f"{pk}{SUF['GraphMode']}", f"{skey}GraphMode", GRAPH_MODE_OPTIONS, indent
+        )
     )
     blocks.append(
         setting_list(
-            f"{key}GraphValueMode",
+            f"{pk}{SUF['GraphValueMode']}",
             f"{skey}GraphValueMode",
             GRAPH_VALUE_MODE_OPTIONS,
             indent,
@@ -956,7 +1022,7 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         setting_list(
-            f"{key}SecondaryType",
+            f"{pk}{SUF['SecondaryType']}",
             f"{skey}SecondaryType",
             [
                 (0, "@Strings.SecTypeNone"),
@@ -968,7 +1034,7 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         setting_list(
-            f"{key}SecondaryField",
+            f"{pk}{SUF['SecondaryField']}",
             f"{skey}SecondaryField",
             [(v, f"@Strings.{s}") for v, s in GRAPH_SEC_FIELDS],
             indent,
@@ -976,17 +1042,23 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         setting_list(
-            f"{key}TimeFrame",
+            f"{pk}{SUF['TimeFrame']}",
             f"{skey}TimeFrame",
             [(v, f"@Strings.{s}") for v, s in GRAPH_TIME_FRAMES],
             indent,
         )
     )
-    blocks.append(color_setting(f"{key}GraphColor", f"{skey}GraphColor", indent=indent))
     blocks.append(
-        color_setting(f"{key}SecondaryColor", f"{skey}SecondaryColor", indent=indent)
+        color_setting(f"{pk}{SUF['GraphColor']}", f"{skey}GraphColor", indent=indent)
     )
-    blocks.append(width_setting(f"{key}GraphWidth", f"{skey}GraphWidth", indent))
+    blocks.append(
+        color_setting(
+            f"{pk}{SUF['SecondaryColor']}", f"{skey}SecondaryColor", indent=indent
+        )
+    )
+    blocks.append(
+        width_setting(f"{pk}{SUF['GraphWidth']}", f"{skey}GraphWidth", indent)
+    )
 
     return "\n".join(blocks)
 
@@ -997,14 +1069,15 @@ def forecast_tf_entries():
 
 # Shared block builders for the shape-identical HOURLY_FORECASTS entries.
 def hourly_forecast_props(key, skey, display, vmode, color):
+    pk = PFX.get(key, key)
     return "\n".join(
         [
             f"\n  <!-- {display} Forecast -->",
-            prop(f"{key}GraphMode", "number", 4),
-            prop(f"{key}ValueMode", "number", vmode),
-            prop(f"{key}TimeFrame", "number", 12),
-            prop(f"{key}GraphColor", "number", color),
-            prop(f"{key}GraphWidth", "number", 10),
+            prop(f"{pk}{SUF['GraphMode']}", "number", 4),
+            prop(f"{pk}{SUF['ValueMode']}", "number", vmode),
+            prop(f"{pk}{SUF['TimeFrame']}", "number", 12),
+            prop(f"{pk}{SUF['GraphColor']}", "number", color),
+            prop(f"{pk}{SUF['GraphWidth']}", "number", 10),
         ]
     )
 
@@ -1024,38 +1097,45 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
 
 
 def hourly_forecast_settings(key, skey, display, vmode, color, indent=1):
+    pk = PFX.get(key, key)
     return "\n".join(
         [
             setting_list(
-                f"{key}GraphMode",
+                f"{pk}{SUF['GraphMode']}",
                 f"{skey}GraphMode",
                 FORECAST_GRAPH_MODE_OPTIONS,
                 indent,
             ),
             setting_list(
-                f"{key}ValueMode",
+                f"{pk}{SUF['ValueMode']}",
                 f"{skey}ValueMode",
                 GRAPH_VALUE_MODE_OPTIONS,
                 indent,
             ),
             setting_list(
-                f"{key}TimeFrame", f"{skey}TimeFrame", forecast_tf_entries(), indent
+                f"{pk}{SUF['TimeFrame']}",
+                f"{skey}TimeFrame",
+                forecast_tf_entries(),
+                indent,
             ),
-            color_setting(f"{key}GraphColor", f"{skey}GraphColor", indent=indent),
-            width_setting(f"{key}GraphWidth", f"{skey}GraphWidth", indent),
+            color_setting(
+                f"{pk}{SUF['GraphColor']}", f"{skey}GraphColor", indent=indent
+            ),
+            width_setting(f"{pk}{SUF['GraphWidth']}", f"{skey}GraphWidth", indent),
         ]
     )
 
 
 def gen_settings():
     parts = ["<settings>"]
+    sk = STANDALONE_KEYS
 
     parts.append(
         group(
             "appearance",
             "AppearanceGroup",
             setting_list(
-                "fontChoice",
+                sk["fontChoice"],
                 "FontChoice",
                 [
                     (0, "@Strings.FontJetBrainsMono"),
@@ -1066,7 +1146,7 @@ def gen_settings():
                 indent=2,
             ),
             setting_list(
-                "colorTheme",
+                sk["colorTheme"],
                 "ColorTheme",
                 [
                     (0, "@Strings.ColorThemeCustom"),
@@ -1077,7 +1157,7 @@ def gen_settings():
                 indent=2,
             ),
             setting_list(
-                "scanlines",
+                sk["scanlines"],
                 "Scanlines",
                 [
                     (0, "@Strings.ScanlinesOff"),
@@ -1088,7 +1168,7 @@ def gen_settings():
                 indent=2,
             ),
             setting_list(
-                "glowIntensity",
+                sk["glowIntensity"],
                 "GlowIntensity",
                 [
                     (0, "@Strings.GlowIntensityOff"),
@@ -1099,7 +1179,7 @@ def gen_settings():
                 indent=2,
             ),
             setting_list(
-                "bgBacklight",
+                sk["bgBacklight"],
                 "BgBacklight",
                 [
                     (0, "@Strings.BgBacklightOff"),
@@ -1109,10 +1189,9 @@ def gen_settings():
                 ],
                 indent=2,
             ),
-            setting_bool("flickerEnabled", "FlickerEnabled", indent=2),
-            setting_bool("vignetteEnabled", "VignetteEnabled", indent=2),
+            setting_bool(sk["flickerEnabled"], "FlickerEnabled", indent=2),
             setting_list(
-                "watchCommandStyle",
+                sk["watchCommandStyle"],
                 "WatchCommandStyle",
                 [
                     (0, "@Strings.WatchCommandWindows"),
@@ -1121,9 +1200,9 @@ def gen_settings():
                 ],
                 indent=2,
             ),
-            setting_numeric("leftPadding", "LeftPadding", 0, 8, indent=2),
+            setting_numeric(sk["leftPadding"], "LeftPadding", 0, 8, indent=2),
             setting_list(
-                "areaOpacity",
+                sk["areaOpacity"],
                 "AreaOpacity",
                 [
                     (0x40, "@Strings.AreaOpacity25"),
@@ -1133,8 +1212,8 @@ def gen_settings():
                 ],
                 indent=2,
             ),
-            setting_bool("areaShowLine", "AreaShowLine", indent=2),
-            setting_bool("showBatteryDays", "ShowBatteryDays", indent=2),
+            setting_bool(sk["areaShowLine"], "AreaShowLine", indent=2),
+            setting_bool(sk["showBatteryDays"], "ShowBatteryDays", indent=2),
         )
     )
 
@@ -1142,9 +1221,13 @@ def gen_settings():
         group(
             "timeRow",
             "TimeRowGroup",
-            setting_bool("showSeconds", "ShowSeconds", indent=2),
-            color_setting("line1LabelColor", "Line1LabelColor", COLORS_TEXT, indent=2),
-            color_setting("line1ValueColor", "Line1ValueColor", COLORS_TEXT, indent=2),
+            setting_bool(sk["showSeconds"], "ShowSeconds", indent=2),
+            color_setting(
+                sk["line1LabelColor"], "Line1LabelColor", COLORS_TEXT, indent=2
+            ),
+            color_setting(
+                sk["line1ValueColor"], "Line1ValueColor", COLORS_TEXT, indent=2
+            ),
         )
     )
 
@@ -1152,9 +1235,9 @@ def gen_settings():
         group(
             "dateRow",
             "DateRowGroup",
-            setting_bool("showYear", "ShowYear", indent=2),
+            setting_bool(sk["showYear"], "ShowYear", indent=2),
             setting_list(
-                "dateFormat",
+                sk["dateFormat"],
                 "DateFormat",
                 [
                     (0, "@Strings.DateFormatDayMon"),
@@ -1166,20 +1249,27 @@ def gen_settings():
                 ],
                 indent=2,
             ),
-            color_setting("line2LabelColor", "Line2LabelColor", COLORS_TEXT, indent=2),
-            color_setting("line2ValueColor", "Line2ValueColor", COLORS_TEXT, indent=2),
+            color_setting(
+                sk["line2LabelColor"], "Line2LabelColor", COLORS_TEXT, indent=2
+            ),
+            color_setting(
+                sk["line2ValueColor"], "Line2ValueColor", COLORS_TEXT, indent=2
+            ),
         )
     )
 
     # Master on/off per alternate screen (2/3), separate from the per-line toggles below.
-    parts.append(
-        group(
-            "screens",
-            "ScreenGroup",
-            setting_bool("screen2Enabled", "Screen2Enabled", indent=2),
-            setting_bool("screen3Enabled", "Screen3Enabled", indent=2),
+    _screen_toggles = []
+    if SCREEN_COUNT >= 2:
+        _screen_toggles.append(
+            setting_bool(sk["screen2Enabled"], "Screen2Enabled", indent=2)
         )
-    )
+    if SCREEN_COUNT >= 3:
+        _screen_toggles.append(
+            setting_bool(sk["screen3Enabled"], "Screen3Enabled", indent=2)
+        )
+    if _screen_toggles:
+        parts.append(group("screens", "ScreenGroup", *_screen_toggles))
 
     rotate_options = [
         (0, "Same as main"),
@@ -1195,13 +1285,13 @@ def gen_settings():
             "rotation",
             "RotationGroup",
             setting_list(
-                "rotateInterval", "RotateInterval", rotate_options[1:], indent=2
+                sk["rotateInterval"], "RotateInterval", rotate_options[1:], indent=2
             ),
             setting_list(
-                "rotateIntervalAlt", "RotateIntervalAlt", rotate_options, indent=2
+                sk["rotateIntervalAlt"], "RotateIntervalAlt", rotate_options, indent=2
             ),
             setting_list(
-                "activeScreen",
+                sk["activeScreen"],
                 "ActiveScreen",
                 [
                     (0, "@Strings.Screen1"),
@@ -1218,21 +1308,23 @@ def gen_settings():
         line_blocks = []
         for ln in (3, 4, 5):
             rows = [r for r in screen_line_slots(screen_idx) if r[0] == ln]
-            pk = f"screen{screen_idx}_line{ln}"
+            pk = f"s{screen_idx}l{ln}"
             sk = f"Screen{screen_idx}Line{ln}"
-            line_blocks.append(setting_bool(f"{pk}Enabled", f"{sk}Enabled", indent=2))
+            line_blocks.append(
+                setting_bool(f"{pk}{SUF['Enabled']}", f"{sk}Enabled", indent=2)
+            )
             line_blocks.append(
                 color_setting(
-                    f"{pk}LabelColor", f"{sk}LabelColor", COLORS_TEXT, indent=2
+                    f"{pk}{SUF['LabelColor']}", f"{sk}LabelColor", COLORS_TEXT, indent=2
                 )
             )
             line_blocks.append(
                 color_setting(
-                    f"{pk}ValueColor", f"{sk}ValueColor", COLORS_TEXT, indent=2
+                    f"{pk}{SUF['ValueColor']}", f"{sk}ValueColor", COLORS_TEXT, indent=2
                 )
             )
             line_blocks.extend(
-                field_setting(f"{pk}{slot}", f"{sk}{slot}", indent=2)
+                field_setting(f"{pk}{ROT[slot]}", f"{sk}{slot}", indent=2)
                 for _ln, slot, _fd, _lc, _vc in rows
             )
         parts.append(
@@ -1252,18 +1344,25 @@ def gen_settings():
         _goal_suffix,
     ) in BAR_FIELDS:
         id_prefix = key[0].upper() + key[1:]
+        pk = PFX.get(key, key)
         blocks = [
-            setting_bool(f"{key}ShowBar", f"{id_prefix}ShowBar", indent=2),
-            setting_bool(f"{key}ShowBarValue", f"{id_prefix}ShowBarValue", indent=2),
-            color_setting(
-                f"{key}BarColor", f"{id_prefix}BarColor", COLORS_TEXT, indent=2
+            setting_bool(f"{pk}{SUF['ShowBar']}", f"{id_prefix}ShowBar", indent=2),
+            setting_bool(
+                f"{pk}{SUF['ShowBarValue']}", f"{id_prefix}ShowBarValue", indent=2
             ),
-            width_setting(f"{key}BarWidth", f"{id_prefix}BarWidth", indent=2),
+            color_setting(
+                f"{pk}{SUF['BarColor']}", f"{id_prefix}BarColor", COLORS_TEXT, indent=2
+            ),
+            width_setting(f"{pk}{SUF['BarWidth']}", f"{id_prefix}BarWidth", indent=2),
         ]
         if goal_default is not None:
             blocks.append(
                 setting_numeric(
-                    f"{key}BarGoal", f"{id_prefix}BarGoal", goal_min, goal_max, indent=2
+                    f"{pk}{SUF['BarGoal']}",
+                    f"{id_prefix}BarGoal",
+                    goal_min,
+                    goal_max,
+                    indent=2,
                 )
             )
         parts.append(group(key, f"{id_prefix}Group", *blocks))
@@ -1279,25 +1378,33 @@ def gen_settings():
             "wxForecast",
             "WxForecastGroup",
             setting_list(
-                "wxForecastGraphMode",
+                f"{PFX['wxForecast']}{SUF['GraphMode']}",
                 "WxForecastGraphMode",
                 FORECAST_GRAPH_MODE_OPTIONS,
                 indent=2,
             ),
             setting_list(
-                "wxForecastValueMode",
+                f"{PFX['wxForecast']}{SUF['ValueMode']}",
                 "WxForecastValueMode",
                 GRAPH_VALUE_MODE_OPTIONS,
                 indent=2,
             ),
             setting_list(
-                "wxForecastTimeFrame",
+                f"{PFX['wxForecast']}{SUF['TimeFrame']}",
                 "WxForecastTimeFrame",
                 forecast_tf_entries(),
                 indent=2,
             ),
-            color_setting("wxForecastGraphColor", "WxForecastGraphColor", indent=2),
-            width_setting("wxForecastGraphWidth", "WxForecastGraphWidth", indent=2),
+            color_setting(
+                f"{PFX['wxForecast']}{SUF['GraphColor']}",
+                "WxForecastGraphColor",
+                indent=2,
+            ),
+            width_setting(
+                f"{PFX['wxForecast']}{SUF['GraphWidth']}",
+                "WxForecastGraphWidth",
+                indent=2,
+            ),
         )
     )
 
@@ -1312,19 +1419,19 @@ def gen_settings():
             "wxForecastDaily",
             "WxForecastDailyGroup",
             setting_list(
-                "wxForecastDailyViewMode",
+                f"{PFX['wxForecastDaily']}{SUF['ViewMode']}",
                 "WxForecastDailyViewMode",
                 FORECAST_VIEW_MODE_OPTIONS,
                 indent=2,
             ),
             setting_list(
-                "wxForecastDailyValueMode",
+                f"{PFX['wxForecastDaily']}{SUF['ValueMode']}",
                 "WxForecastDailyValueMode",
                 GRAPH_VALUE_MODE_OPTIONS,
                 indent=2,
             ),
             setting_list(
-                "wxForecastDailyDays",
+                f"{PFX['wxForecastDaily']}{SUF['Days']}",
                 "WxForecastDailyDays",
                 [
                     (3, "@Strings.TimeFrameForecastDays3"),
@@ -1334,17 +1441,23 @@ def gen_settings():
                 indent=2,
             ),
             color_setting(
-                "wxForecastDailyGraphColor", "WxForecastDailyGraphColor", indent=2
+                f"{PFX['wxForecastDaily']}{SUF['GraphColor']}",
+                "WxForecastDailyGraphColor",
+                indent=2,
             ),
             width_setting(
-                "wxForecastDailyGraphWidth", "WxForecastDailyGraphWidth", indent=2
+                f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}",
+                "WxForecastDailyGraphWidth",
+                indent=2,
             ),
         )
     )
 
     parts.append(
         group(
-            "debug", "DebugGroup", setting_bool("showVersion", "ShowVersion", indent=2)
+            "debug",
+            "DebugGroup",
+            setting_bool(STANDALONE_KEYS["showVersion"], "ShowVersion", indent=2),
         )
     )
 
@@ -1352,9 +1465,7 @@ def gen_settings():
     return "\n".join(parts) + "\n"
 
 
-# ---------------------------------------------------------------------------
-# Write output
-# ---------------------------------------------------------------------------
+# --- Write output ---
 
 
 def write(path, content):

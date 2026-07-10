@@ -1,0 +1,3 @@
+[] Add correctly-positioned glow to line and bar graphs, and to the line in area graphs (not the area fill itself). These render into an offscreen bitmap at local (0,0) coords, so halo writes during that render can't currently target the row's real screen position (see `_haloSuppressed`, added to fix the perf/misplaced-glow issue in 0.48.0) - restoring glow needs the render path to know the row's actual on-screen y-offset. The goal/progress bar graph (Steps/Floors/Calories/etc.) draws straight to the screen dc already and already glows correctly, so it's excluded.
+  - Above is written by Claude.
+  - I think it would be best to in some way see the entire line in a graph or the entire collection of bars in a bargraph

@@ -1,6 +1,6 @@
 <settings>
   <group id="appearance" title="@Strings.AppearanceGroup">
-    <setting propertyKey="@Properties.fontChoice" title="@Strings.FontChoice">
+    <setting propertyKey="@Properties.font" title="@Strings.FontChoice">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
         <listEntry value="1">@Strings.FontSpaceMono</listEntry>
@@ -8,7 +8,7 @@
         <listEntry value="3">@Strings.NBArchitekt</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.colorTheme" title="@Strings.ColorTheme">
+    <setting propertyKey="@Properties.theme" title="@Strings.ColorTheme">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorThemeCustom</listEntry>
         <listEntry value="1">@Strings.ColorThemeAmber</listEntry>
@@ -16,7 +16,7 @@
         <listEntry value="3">@Strings.ColorThemeBlue</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.scanlines" title="@Strings.Scanlines">
+    <setting propertyKey="@Properties.scan" title="@Strings.Scanlines">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ScanlinesOff</listEntry>
         <listEntry value="1">@Strings.ScanlinesSubtle</listEntry>
@@ -24,7 +24,7 @@
         <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.glowIntensity" title="@Strings.GlowIntensity">
+    <setting propertyKey="@Properties.glow" title="@Strings.GlowIntensity">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GlowIntensityOff</listEntry>
         <listEntry value="1">@Strings.GlowIntensitySubtle</listEntry>
@@ -32,7 +32,7 @@
         <listEntry value="3">@Strings.GlowIntensityStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bgBacklight" title="@Strings.BgBacklight">
+    <setting propertyKey="@Properties.bgLt" title="@Strings.BgBacklight">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BgBacklightOff</listEntry>
         <listEntry value="1">@Strings.BgBacklightSubtle</listEntry>
@@ -40,23 +40,20 @@
         <listEntry value="3">@Strings.BgBacklightStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.flickerEnabled" title="@Strings.FlickerEnabled">
+    <setting propertyKey="@Properties.flick" title="@Strings.FlickerEnabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.vignetteEnabled" title="@Strings.VignetteEnabled">
-      <settingConfig type="boolean" />
-    </setting>
-    <setting propertyKey="@Properties.watchCommandStyle" title="@Strings.WatchCommandStyle">
+    <setting propertyKey="@Properties.cmdSty" title="@Strings.WatchCommandStyle">
       <settingConfig type="list">
         <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
         <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
         <listEntry value="2">@Strings.WatchCommandBare</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.leftPadding" title="@Strings.LeftPadding">
+    <setting propertyKey="@Properties.lPad" title="@Strings.LeftPadding">
       <settingConfig type="numeric" min="0" max="8" />
     </setting>
-    <setting propertyKey="@Properties.areaOpacity" title="@Strings.AreaOpacity">
+    <setting propertyKey="@Properties.aOpac" title="@Strings.AreaOpacity">
       <settingConfig type="list">
         <listEntry value="64">@Strings.AreaOpacity25</listEntry>
         <listEntry value="128">@Strings.AreaOpacity50</listEntry>
@@ -64,18 +61,18 @@
         <listEntry value="255">@Strings.AreaOpacity100</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.areaShowLine" title="@Strings.AreaShowLine">
+    <setting propertyKey="@Properties.aLine" title="@Strings.AreaShowLine">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.showBatteryDays" title="@Strings.ShowBatteryDays">
+    <setting propertyKey="@Properties.batD" title="@Strings.ShowBatteryDays">
       <settingConfig type="boolean" />
     </setting>
   </group>
   <group id="timeRow" title="@Strings.TimeRowGroup">
-    <setting propertyKey="@Properties.showSeconds" title="@Strings.ShowSeconds">
+    <setting propertyKey="@Properties.shSec" title="@Strings.ShowSeconds">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.line1LabelColor" title="@Strings.Line1LabelColor">
+    <setting propertyKey="@Properties.l1Lc" title="@Strings.Line1LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -89,7 +86,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.line1ValueColor" title="@Strings.Line1ValueColor">
+    <setting propertyKey="@Properties.l1Vc" title="@Strings.Line1ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -105,10 +102,10 @@
     </setting>
   </group>
   <group id="dateRow" title="@Strings.DateRowGroup">
-    <setting propertyKey="@Properties.showYear" title="@Strings.ShowYear">
+    <setting propertyKey="@Properties.shYr" title="@Strings.ShowYear">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.dateFormat" title="@Strings.DateFormat">
+    <setting propertyKey="@Properties.dFmt" title="@Strings.DateFormat">
       <settingConfig type="list">
         <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
         <listEntry value="1">@Strings.DateFormatYMD</listEntry>
@@ -118,7 +115,7 @@
         <listEntry value="5">@Strings.DateFormatDMon</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.line2LabelColor" title="@Strings.Line2LabelColor">
+    <setting propertyKey="@Properties.l2Lc" title="@Strings.Line2LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -132,7 +129,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.line2ValueColor" title="@Strings.Line2ValueColor">
+    <setting propertyKey="@Properties.l2Vc" title="@Strings.Line2ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -148,15 +145,15 @@
     </setting>
   </group>
   <group id="screens" title="@Strings.ScreenGroup">
-    <setting propertyKey="@Properties.screen2Enabled" title="@Strings.Screen2Enabled">
+    <setting propertyKey="@Properties.s2En" title="@Strings.Screen2Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen3Enabled" title="@Strings.Screen3Enabled">
+    <setting propertyKey="@Properties.s3En" title="@Strings.Screen3Enabled">
       <settingConfig type="boolean" />
     </setting>
   </group>
   <group id="rotation" title="@Strings.RotationGroup">
-    <setting propertyKey="@Properties.rotateInterval" title="@Strings.RotateInterval">
+    <setting propertyKey="@Properties.rotI" title="@Strings.RotateInterval">
       <settingConfig type="list">
         <listEntry value="3">3 seconds</listEntry>
         <listEntry value="5">5 seconds</listEntry>
@@ -166,7 +163,7 @@
         <listEntry value="60">1 minute</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.rotateIntervalAlt" title="@Strings.RotateIntervalAlt">
+    <setting propertyKey="@Properties.rotA" title="@Strings.RotateIntervalAlt">
       <settingConfig type="list">
         <listEntry value="0">Same as main</listEntry>
         <listEntry value="3">3 seconds</listEntry>
@@ -177,7 +174,7 @@
         <listEntry value="60">1 minute</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.activeScreen" title="@Strings.ActiveScreen">
+    <setting propertyKey="@Properties.aScr" title="@Strings.ActiveScreen">
       <settingConfig type="list">
         <listEntry value="0">@Strings.Screen1</listEntry>
         <listEntry value="1">@Strings.Screen2</listEntry>
@@ -186,10 +183,10 @@
     </setting>
   </group>
   <group id="screen1" title="@Strings.Screen1ConfigGroup">
-    <setting propertyKey="@Properties.screen1_line3Enabled" title="@Strings.Screen1Line3Enabled">
+    <setting propertyKey="@Properties.s1l3En" title="@Strings.Screen1Line3Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen1_line3LabelColor" title="@Strings.Screen1Line3LabelColor">
+    <setting propertyKey="@Properties.s1l3Lc" title="@Strings.Screen1Line3LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -203,7 +200,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3ValueColor" title="@Strings.Screen1Line3ValueColor">
+    <setting propertyKey="@Properties.s1l3Vc" title="@Strings.Screen1Line3ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -217,7 +214,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Primary" title="@Strings.Screen1Line3Primary">
+    <setting propertyKey="@Properties.s1l3R1" title="@Strings.Screen1Line3Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -322,7 +319,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Secondary" title="@Strings.Screen1Line3Secondary">
+    <setting propertyKey="@Properties.s1l3R2" title="@Strings.Screen1Line3Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -427,7 +424,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Tertiary" title="@Strings.Screen1Line3Tertiary">
+    <setting propertyKey="@Properties.s1l3R3" title="@Strings.Screen1Line3Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -532,7 +529,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Quaternary" title="@Strings.Screen1Line3Quaternary">
+    <setting propertyKey="@Properties.s1l3R4" title="@Strings.Screen1Line3Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -637,7 +634,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Quinary" title="@Strings.Screen1Line3Quinary">
+    <setting propertyKey="@Properties.s1l3R5" title="@Strings.Screen1Line3Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -742,7 +739,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line3Senary" title="@Strings.Screen1Line3Senary">
+    <setting propertyKey="@Properties.s1l3R6" title="@Strings.Screen1Line3Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -847,10 +844,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Enabled" title="@Strings.Screen1Line4Enabled">
+    <setting propertyKey="@Properties.s1l4En" title="@Strings.Screen1Line4Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen1_line4LabelColor" title="@Strings.Screen1Line4LabelColor">
+    <setting propertyKey="@Properties.s1l4Lc" title="@Strings.Screen1Line4LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -864,7 +861,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4ValueColor" title="@Strings.Screen1Line4ValueColor">
+    <setting propertyKey="@Properties.s1l4Vc" title="@Strings.Screen1Line4ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -878,7 +875,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Primary" title="@Strings.Screen1Line4Primary">
+    <setting propertyKey="@Properties.s1l4R1" title="@Strings.Screen1Line4Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -983,7 +980,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Secondary" title="@Strings.Screen1Line4Secondary">
+    <setting propertyKey="@Properties.s1l4R2" title="@Strings.Screen1Line4Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1088,7 +1085,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Tertiary" title="@Strings.Screen1Line4Tertiary">
+    <setting propertyKey="@Properties.s1l4R3" title="@Strings.Screen1Line4Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1193,7 +1190,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Quaternary" title="@Strings.Screen1Line4Quaternary">
+    <setting propertyKey="@Properties.s1l4R4" title="@Strings.Screen1Line4Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1298,7 +1295,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Quinary" title="@Strings.Screen1Line4Quinary">
+    <setting propertyKey="@Properties.s1l4R5" title="@Strings.Screen1Line4Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1403,7 +1400,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line4Senary" title="@Strings.Screen1Line4Senary">
+    <setting propertyKey="@Properties.s1l4R6" title="@Strings.Screen1Line4Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1508,10 +1505,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Enabled" title="@Strings.Screen1Line5Enabled">
+    <setting propertyKey="@Properties.s1l5En" title="@Strings.Screen1Line5Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen1_line5LabelColor" title="@Strings.Screen1Line5LabelColor">
+    <setting propertyKey="@Properties.s1l5Lc" title="@Strings.Screen1Line5LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -1525,7 +1522,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5ValueColor" title="@Strings.Screen1Line5ValueColor">
+    <setting propertyKey="@Properties.s1l5Vc" title="@Strings.Screen1Line5ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -1539,7 +1536,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Primary" title="@Strings.Screen1Line5Primary">
+    <setting propertyKey="@Properties.s1l5R1" title="@Strings.Screen1Line5Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1644,7 +1641,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Secondary" title="@Strings.Screen1Line5Secondary">
+    <setting propertyKey="@Properties.s1l5R2" title="@Strings.Screen1Line5Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1749,7 +1746,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Tertiary" title="@Strings.Screen1Line5Tertiary">
+    <setting propertyKey="@Properties.s1l5R3" title="@Strings.Screen1Line5Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1854,7 +1851,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Quaternary" title="@Strings.Screen1Line5Quaternary">
+    <setting propertyKey="@Properties.s1l5R4" title="@Strings.Screen1Line5Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1959,7 +1956,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Quinary" title="@Strings.Screen1Line5Quinary">
+    <setting propertyKey="@Properties.s1l5R5" title="@Strings.Screen1Line5Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2064,7 +2061,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen1_line5Senary" title="@Strings.Screen1Line5Senary">
+    <setting propertyKey="@Properties.s1l5R6" title="@Strings.Screen1Line5Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2171,10 +2168,10 @@
     </setting>
   </group>
   <group id="screen2" title="@Strings.Screen2ConfigGroup">
-    <setting propertyKey="@Properties.screen2_line3Enabled" title="@Strings.Screen2Line3Enabled">
+    <setting propertyKey="@Properties.s2l3En" title="@Strings.Screen2Line3Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen2_line3LabelColor" title="@Strings.Screen2Line3LabelColor">
+    <setting propertyKey="@Properties.s2l3Lc" title="@Strings.Screen2Line3LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2188,7 +2185,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3ValueColor" title="@Strings.Screen2Line3ValueColor">
+    <setting propertyKey="@Properties.s2l3Vc" title="@Strings.Screen2Line3ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2202,7 +2199,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Primary" title="@Strings.Screen2Line3Primary">
+    <setting propertyKey="@Properties.s2l3R1" title="@Strings.Screen2Line3Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2307,7 +2304,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Secondary" title="@Strings.Screen2Line3Secondary">
+    <setting propertyKey="@Properties.s2l3R2" title="@Strings.Screen2Line3Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2412,7 +2409,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Tertiary" title="@Strings.Screen2Line3Tertiary">
+    <setting propertyKey="@Properties.s2l3R3" title="@Strings.Screen2Line3Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2517,7 +2514,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Quaternary" title="@Strings.Screen2Line3Quaternary">
+    <setting propertyKey="@Properties.s2l3R4" title="@Strings.Screen2Line3Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2622,7 +2619,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Quinary" title="@Strings.Screen2Line3Quinary">
+    <setting propertyKey="@Properties.s2l3R5" title="@Strings.Screen2Line3Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2727,7 +2724,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line3Senary" title="@Strings.Screen2Line3Senary">
+    <setting propertyKey="@Properties.s2l3R6" title="@Strings.Screen2Line3Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2832,10 +2829,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Enabled" title="@Strings.Screen2Line4Enabled">
+    <setting propertyKey="@Properties.s2l4En" title="@Strings.Screen2Line4Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen2_line4LabelColor" title="@Strings.Screen2Line4LabelColor">
+    <setting propertyKey="@Properties.s2l4Lc" title="@Strings.Screen2Line4LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2849,7 +2846,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4ValueColor" title="@Strings.Screen2Line4ValueColor">
+    <setting propertyKey="@Properties.s2l4Vc" title="@Strings.Screen2Line4ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2863,7 +2860,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Primary" title="@Strings.Screen2Line4Primary">
+    <setting propertyKey="@Properties.s2l4R1" title="@Strings.Screen2Line4Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2968,7 +2965,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Secondary" title="@Strings.Screen2Line4Secondary">
+    <setting propertyKey="@Properties.s2l4R2" title="@Strings.Screen2Line4Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3073,7 +3070,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Tertiary" title="@Strings.Screen2Line4Tertiary">
+    <setting propertyKey="@Properties.s2l4R3" title="@Strings.Screen2Line4Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3178,7 +3175,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Quaternary" title="@Strings.Screen2Line4Quaternary">
+    <setting propertyKey="@Properties.s2l4R4" title="@Strings.Screen2Line4Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3283,7 +3280,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Quinary" title="@Strings.Screen2Line4Quinary">
+    <setting propertyKey="@Properties.s2l4R5" title="@Strings.Screen2Line4Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3388,7 +3385,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line4Senary" title="@Strings.Screen2Line4Senary">
+    <setting propertyKey="@Properties.s2l4R6" title="@Strings.Screen2Line4Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3493,10 +3490,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Enabled" title="@Strings.Screen2Line5Enabled">
+    <setting propertyKey="@Properties.s2l5En" title="@Strings.Screen2Line5Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen2_line5LabelColor" title="@Strings.Screen2Line5LabelColor">
+    <setting propertyKey="@Properties.s2l5Lc" title="@Strings.Screen2Line5LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3510,7 +3507,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5ValueColor" title="@Strings.Screen2Line5ValueColor">
+    <setting propertyKey="@Properties.s2l5Vc" title="@Strings.Screen2Line5ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3524,7 +3521,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Primary" title="@Strings.Screen2Line5Primary">
+    <setting propertyKey="@Properties.s2l5R1" title="@Strings.Screen2Line5Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3629,7 +3626,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Secondary" title="@Strings.Screen2Line5Secondary">
+    <setting propertyKey="@Properties.s2l5R2" title="@Strings.Screen2Line5Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3734,7 +3731,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Tertiary" title="@Strings.Screen2Line5Tertiary">
+    <setting propertyKey="@Properties.s2l5R3" title="@Strings.Screen2Line5Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3839,7 +3836,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Quaternary" title="@Strings.Screen2Line5Quaternary">
+    <setting propertyKey="@Properties.s2l5R4" title="@Strings.Screen2Line5Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3944,7 +3941,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Quinary" title="@Strings.Screen2Line5Quinary">
+    <setting propertyKey="@Properties.s2l5R5" title="@Strings.Screen2Line5Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4049,7 +4046,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen2_line5Senary" title="@Strings.Screen2Line5Senary">
+    <setting propertyKey="@Properties.s2l5R6" title="@Strings.Screen2Line5Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4156,10 +4153,10 @@
     </setting>
   </group>
   <group id="screen3" title="@Strings.Screen3ConfigGroup">
-    <setting propertyKey="@Properties.screen3_line3Enabled" title="@Strings.Screen3Line3Enabled">
+    <setting propertyKey="@Properties.s3l3En" title="@Strings.Screen3Line3Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen3_line3LabelColor" title="@Strings.Screen3Line3LabelColor">
+    <setting propertyKey="@Properties.s3l3Lc" title="@Strings.Screen3Line3LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4173,7 +4170,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3ValueColor" title="@Strings.Screen3Line3ValueColor">
+    <setting propertyKey="@Properties.s3l3Vc" title="@Strings.Screen3Line3ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4187,7 +4184,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Primary" title="@Strings.Screen3Line3Primary">
+    <setting propertyKey="@Properties.s3l3R1" title="@Strings.Screen3Line3Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4292,7 +4289,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Secondary" title="@Strings.Screen3Line3Secondary">
+    <setting propertyKey="@Properties.s3l3R2" title="@Strings.Screen3Line3Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4397,7 +4394,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Tertiary" title="@Strings.Screen3Line3Tertiary">
+    <setting propertyKey="@Properties.s3l3R3" title="@Strings.Screen3Line3Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4502,7 +4499,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Quaternary" title="@Strings.Screen3Line3Quaternary">
+    <setting propertyKey="@Properties.s3l3R4" title="@Strings.Screen3Line3Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4607,7 +4604,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Quinary" title="@Strings.Screen3Line3Quinary">
+    <setting propertyKey="@Properties.s3l3R5" title="@Strings.Screen3Line3Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4712,7 +4709,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line3Senary" title="@Strings.Screen3Line3Senary">
+    <setting propertyKey="@Properties.s3l3R6" title="@Strings.Screen3Line3Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4817,10 +4814,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Enabled" title="@Strings.Screen3Line4Enabled">
+    <setting propertyKey="@Properties.s3l4En" title="@Strings.Screen3Line4Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen3_line4LabelColor" title="@Strings.Screen3Line4LabelColor">
+    <setting propertyKey="@Properties.s3l4Lc" title="@Strings.Screen3Line4LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4834,7 +4831,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4ValueColor" title="@Strings.Screen3Line4ValueColor">
+    <setting propertyKey="@Properties.s3l4Vc" title="@Strings.Screen3Line4ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4848,7 +4845,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Primary" title="@Strings.Screen3Line4Primary">
+    <setting propertyKey="@Properties.s3l4R1" title="@Strings.Screen3Line4Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -4953,7 +4950,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Secondary" title="@Strings.Screen3Line4Secondary">
+    <setting propertyKey="@Properties.s3l4R2" title="@Strings.Screen3Line4Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5058,7 +5055,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Tertiary" title="@Strings.Screen3Line4Tertiary">
+    <setting propertyKey="@Properties.s3l4R3" title="@Strings.Screen3Line4Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5163,7 +5160,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Quaternary" title="@Strings.Screen3Line4Quaternary">
+    <setting propertyKey="@Properties.s3l4R4" title="@Strings.Screen3Line4Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5268,7 +5265,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Quinary" title="@Strings.Screen3Line4Quinary">
+    <setting propertyKey="@Properties.s3l4R5" title="@Strings.Screen3Line4Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5373,7 +5370,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line4Senary" title="@Strings.Screen3Line4Senary">
+    <setting propertyKey="@Properties.s3l4R6" title="@Strings.Screen3Line4Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5478,10 +5475,10 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Enabled" title="@Strings.Screen3Line5Enabled">
+    <setting propertyKey="@Properties.s3l5En" title="@Strings.Screen3Line5Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.screen3_line5LabelColor" title="@Strings.Screen3Line5LabelColor">
+    <setting propertyKey="@Properties.s3l5Lc" title="@Strings.Screen3Line5LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -5495,7 +5492,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5ValueColor" title="@Strings.Screen3Line5ValueColor">
+    <setting propertyKey="@Properties.s3l5Vc" title="@Strings.Screen3Line5ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -5509,7 +5506,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Primary" title="@Strings.Screen3Line5Primary">
+    <setting propertyKey="@Properties.s3l5R1" title="@Strings.Screen3Line5Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5614,7 +5611,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Secondary" title="@Strings.Screen3Line5Secondary">
+    <setting propertyKey="@Properties.s3l5R2" title="@Strings.Screen3Line5Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5719,7 +5716,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Tertiary" title="@Strings.Screen3Line5Tertiary">
+    <setting propertyKey="@Properties.s3l5R3" title="@Strings.Screen3Line5Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5824,7 +5821,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Quaternary" title="@Strings.Screen3Line5Quaternary">
+    <setting propertyKey="@Properties.s3l5R4" title="@Strings.Screen3Line5Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -5929,7 +5926,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Quinary" title="@Strings.Screen3Line5Quinary">
+    <setting propertyKey="@Properties.s3l5R5" title="@Strings.Screen3Line5Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -6034,7 +6031,7 @@
         <listEntry value="653">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.screen3_line5Senary" title="@Strings.Screen3Line5Senary">
+    <setting propertyKey="@Properties.s3l5R6" title="@Strings.Screen3Line5Senary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -6141,13 +6138,13 @@
     </setting>
   </group>
   <group id="steps" title="@Strings.StepsGroup">
-    <setting propertyKey="@Properties.stepsShowBar" title="@Strings.StepsShowBar">
+    <setting propertyKey="@Properties.stpSb" title="@Strings.StepsShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.stepsShowBarValue" title="@Strings.StepsShowBarValue">
+    <setting propertyKey="@Properties.stpSv" title="@Strings.StepsShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.stepsBarColor" title="@Strings.StepsBarColor">
+    <setting propertyKey="@Properties.stpBc" title="@Strings.StepsBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6161,7 +6158,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stepsBarWidth" title="@Strings.StepsBarWidth">
+    <setting propertyKey="@Properties.stpBw" title="@Strings.StepsBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6173,13 +6170,13 @@
     </setting>
   </group>
   <group id="floors" title="@Strings.FloorsGroup">
-    <setting propertyKey="@Properties.floorsShowBar" title="@Strings.FloorsShowBar">
+    <setting propertyKey="@Properties.flrSb" title="@Strings.FloorsShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.floorsShowBarValue" title="@Strings.FloorsShowBarValue">
+    <setting propertyKey="@Properties.flrSv" title="@Strings.FloorsShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.floorsBarColor" title="@Strings.FloorsBarColor">
+    <setting propertyKey="@Properties.flrBc" title="@Strings.FloorsBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6193,7 +6190,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.floorsBarWidth" title="@Strings.FloorsBarWidth">
+    <setting propertyKey="@Properties.flrBw" title="@Strings.FloorsBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6205,13 +6202,13 @@
     </setting>
   </group>
   <group id="calories" title="@Strings.CaloriesGroup">
-    <setting propertyKey="@Properties.caloriesShowBar" title="@Strings.CaloriesShowBar">
+    <setting propertyKey="@Properties.calSb" title="@Strings.CaloriesShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.caloriesShowBarValue" title="@Strings.CaloriesShowBarValue">
+    <setting propertyKey="@Properties.calSv" title="@Strings.CaloriesShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.caloriesBarColor" title="@Strings.CaloriesBarColor">
+    <setting propertyKey="@Properties.calBc" title="@Strings.CaloriesBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6225,7 +6222,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.caloriesBarWidth" title="@Strings.CaloriesBarWidth">
+    <setting propertyKey="@Properties.calBw" title="@Strings.CaloriesBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6235,18 +6232,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.caloriesBarGoal" title="@Strings.CaloriesBarGoal">
+    <setting propertyKey="@Properties.calBg" title="@Strings.CaloriesBarGoal">
       <settingConfig type="numeric" min="500" max="9000" />
     </setting>
   </group>
   <group id="distance" title="@Strings.DistanceGroup">
-    <setting propertyKey="@Properties.distanceShowBar" title="@Strings.DistanceShowBar">
+    <setting propertyKey="@Properties.distSb" title="@Strings.DistanceShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.distanceShowBarValue" title="@Strings.DistanceShowBarValue">
+    <setting propertyKey="@Properties.distSv" title="@Strings.DistanceShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.distanceBarColor" title="@Strings.DistanceBarColor">
+    <setting propertyKey="@Properties.distBc" title="@Strings.DistanceBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6260,7 +6257,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.distanceBarWidth" title="@Strings.DistanceBarWidth">
+    <setting propertyKey="@Properties.distBw" title="@Strings.DistanceBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6270,18 +6267,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.distanceBarGoal" title="@Strings.DistanceBarGoal">
+    <setting propertyKey="@Properties.distBg" title="@Strings.DistanceBarGoal">
       <settingConfig type="numeric" min="1" max="200" />
     </setting>
   </group>
   <group id="activeMinDay" title="@Strings.ActiveMinDayGroup">
-    <setting propertyKey="@Properties.activeMinDayShowBar" title="@Strings.ActiveMinDayShowBar">
+    <setting propertyKey="@Properties.aMinSb" title="@Strings.ActiveMinDayShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.activeMinDayShowBarValue" title="@Strings.ActiveMinDayShowBarValue">
+    <setting propertyKey="@Properties.aMinSv" title="@Strings.ActiveMinDayShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.activeMinDayBarColor" title="@Strings.ActiveMinDayBarColor">
+    <setting propertyKey="@Properties.aMinBc" title="@Strings.ActiveMinDayBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6295,7 +6292,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.activeMinDayBarWidth" title="@Strings.ActiveMinDayBarWidth">
+    <setting propertyKey="@Properties.aMinBw" title="@Strings.ActiveMinDayBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6305,18 +6302,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.activeMinDayBarGoal" title="@Strings.ActiveMinDayBarGoal">
+    <setting propertyKey="@Properties.aMinBg" title="@Strings.ActiveMinDayBarGoal">
       <settingConfig type="numeric" min="5" max="480" />
     </setting>
   </group>
   <group id="intensityMin" title="@Strings.IntensityMinGroup">
-    <setting propertyKey="@Properties.intensityMinShowBar" title="@Strings.IntensityMinShowBar">
+    <setting propertyKey="@Properties.iMinSb" title="@Strings.IntensityMinShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.intensityMinShowBarValue" title="@Strings.IntensityMinShowBarValue">
+    <setting propertyKey="@Properties.iMinSv" title="@Strings.IntensityMinShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.intensityMinBarColor" title="@Strings.IntensityMinBarColor">
+    <setting propertyKey="@Properties.iMinBc" title="@Strings.IntensityMinBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6330,7 +6327,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.intensityMinBarWidth" title="@Strings.IntensityMinBarWidth">
+    <setting propertyKey="@Properties.iMinBw" title="@Strings.IntensityMinBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6342,7 +6339,7 @@
     </setting>
   </group>
   <group id="graph_hr" title="@Strings.HRGraphGroup">
-    <setting propertyKey="@Properties.hrGraphMode" title="@Strings.HRGraphMode">
+    <setting propertyKey="@Properties.hrGm" title="@Strings.HRGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6353,7 +6350,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGraphValueMode" title="@Strings.HRGraphValueMode">
+    <setting propertyKey="@Properties.hrGvm" title="@Strings.HRGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6361,14 +6358,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSecondaryType" title="@Strings.HRSecondaryType">
+    <setting propertyKey="@Properties.hrSt" title="@Strings.HRSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSecondaryField" title="@Strings.HRSecondaryField">
+    <setting propertyKey="@Properties.hrSf" title="@Strings.HRSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6379,7 +6376,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrTimeFrame" title="@Strings.HRTimeFrame">
+    <setting propertyKey="@Properties.hrTf" title="@Strings.HRTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6391,7 +6388,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGraphColor" title="@Strings.HRGraphColor">
+    <setting propertyKey="@Properties.hrGc" title="@Strings.HRGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6415,7 +6412,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSecondaryColor" title="@Strings.HRSecondaryColor">
+    <setting propertyKey="@Properties.hrSe" title="@Strings.HRSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6439,7 +6436,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGraphWidth" title="@Strings.HRGraphWidth">
+    <setting propertyKey="@Properties.hrGw" title="@Strings.HRGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6451,7 +6448,7 @@
     </setting>
   </group>
   <group id="graph_spo2" title="@Strings.SpO2GraphGroup">
-    <setting propertyKey="@Properties.spo2GraphMode" title="@Strings.SpO2GraphMode">
+    <setting propertyKey="@Properties.spo2Gm" title="@Strings.SpO2GraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6462,7 +6459,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2GraphValueMode" title="@Strings.SpO2GraphValueMode">
+    <setting propertyKey="@Properties.spo2Gvm" title="@Strings.SpO2GraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6470,14 +6467,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2SecondaryType" title="@Strings.SpO2SecondaryType">
+    <setting propertyKey="@Properties.spo2St" title="@Strings.SpO2SecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2SecondaryField" title="@Strings.SpO2SecondaryField">
+    <setting propertyKey="@Properties.spo2Sf" title="@Strings.SpO2SecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6488,7 +6485,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2TimeFrame" title="@Strings.SpO2TimeFrame">
+    <setting propertyKey="@Properties.spo2Tf" title="@Strings.SpO2TimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6500,7 +6497,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2GraphColor" title="@Strings.SpO2GraphColor">
+    <setting propertyKey="@Properties.spo2Gc" title="@Strings.SpO2GraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6524,7 +6521,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2SecondaryColor" title="@Strings.SpO2SecondaryColor">
+    <setting propertyKey="@Properties.spo2Se" title="@Strings.SpO2SecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6548,7 +6545,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2GraphWidth" title="@Strings.SpO2GraphWidth">
+    <setting propertyKey="@Properties.spo2Gw" title="@Strings.SpO2GraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6560,7 +6557,7 @@
     </setting>
   </group>
   <group id="graph_bodyBat" title="@Strings.BodyBatGraphGroup">
-    <setting propertyKey="@Properties.bodyBatGraphMode" title="@Strings.BodyBatGraphMode">
+    <setting propertyKey="@Properties.bbGm" title="@Strings.BodyBatGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6571,7 +6568,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatGraphValueMode" title="@Strings.BodyBatGraphValueMode">
+    <setting propertyKey="@Properties.bbGvm" title="@Strings.BodyBatGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6579,14 +6576,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryType" title="@Strings.BodyBatSecondaryType">
+    <setting propertyKey="@Properties.bbSt" title="@Strings.BodyBatSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryField" title="@Strings.BodyBatSecondaryField">
+    <setting propertyKey="@Properties.bbSf" title="@Strings.BodyBatSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6597,7 +6594,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatTimeFrame" title="@Strings.BodyBatTimeFrame">
+    <setting propertyKey="@Properties.bbTf" title="@Strings.BodyBatTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6609,7 +6606,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatGraphColor" title="@Strings.BodyBatGraphColor">
+    <setting propertyKey="@Properties.bbGc" title="@Strings.BodyBatGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6633,7 +6630,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatSecondaryColor" title="@Strings.BodyBatSecondaryColor">
+    <setting propertyKey="@Properties.bbSe" title="@Strings.BodyBatSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6657,7 +6654,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bodyBatGraphWidth" title="@Strings.BodyBatGraphWidth">
+    <setting propertyKey="@Properties.bbGw" title="@Strings.BodyBatGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6669,7 +6666,7 @@
     </setting>
   </group>
   <group id="graph_stress" title="@Strings.StressGraphGroup">
-    <setting propertyKey="@Properties.stressGraphMode" title="@Strings.StressGraphMode">
+    <setting propertyKey="@Properties.strGm" title="@Strings.StressGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6680,7 +6677,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressGraphValueMode" title="@Strings.StressGraphValueMode">
+    <setting propertyKey="@Properties.strGvm" title="@Strings.StressGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6688,14 +6685,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressSecondaryType" title="@Strings.StressSecondaryType">
+    <setting propertyKey="@Properties.strSt" title="@Strings.StressSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressSecondaryField" title="@Strings.StressSecondaryField">
+    <setting propertyKey="@Properties.strSf" title="@Strings.StressSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6706,7 +6703,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressTimeFrame" title="@Strings.StressTimeFrame">
+    <setting propertyKey="@Properties.strTf" title="@Strings.StressTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6718,7 +6715,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressGraphColor" title="@Strings.StressGraphColor">
+    <setting propertyKey="@Properties.strGc" title="@Strings.StressGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6742,7 +6739,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressSecondaryColor" title="@Strings.StressSecondaryColor">
+    <setting propertyKey="@Properties.strSe" title="@Strings.StressSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6766,7 +6763,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stressGraphWidth" title="@Strings.StressGraphWidth">
+    <setting propertyKey="@Properties.strGw" title="@Strings.StressGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6778,7 +6775,7 @@
     </setting>
   </group>
   <group id="graph_tempWrist" title="@Strings.TempWristGraphGroup">
-    <setting propertyKey="@Properties.tempWristGraphMode" title="@Strings.TempWristGraphMode">
+    <setting propertyKey="@Properties.twGm" title="@Strings.TempWristGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6789,7 +6786,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristGraphValueMode" title="@Strings.TempWristGraphValueMode">
+    <setting propertyKey="@Properties.twGvm" title="@Strings.TempWristGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6797,14 +6794,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryType" title="@Strings.TempWristSecondaryType">
+    <setting propertyKey="@Properties.twSt" title="@Strings.TempWristSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryField" title="@Strings.TempWristSecondaryField">
+    <setting propertyKey="@Properties.twSf" title="@Strings.TempWristSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6815,7 +6812,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristTimeFrame" title="@Strings.TempWristTimeFrame">
+    <setting propertyKey="@Properties.twTf" title="@Strings.TempWristTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6827,7 +6824,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristGraphColor" title="@Strings.TempWristGraphColor">
+    <setting propertyKey="@Properties.twGc" title="@Strings.TempWristGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6851,7 +6848,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristSecondaryColor" title="@Strings.TempWristSecondaryColor">
+    <setting propertyKey="@Properties.twSe" title="@Strings.TempWristSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6875,7 +6872,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.tempWristGraphWidth" title="@Strings.TempWristGraphWidth">
+    <setting propertyKey="@Properties.twGw" title="@Strings.TempWristGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6887,7 +6884,7 @@
     </setting>
   </group>
   <group id="graph_elevation" title="@Strings.ElevationGraphGroup">
-    <setting propertyKey="@Properties.elevationGraphMode" title="@Strings.ElevationGraphMode">
+    <setting propertyKey="@Properties.elevGm" title="@Strings.ElevationGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -6898,7 +6895,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationGraphValueMode" title="@Strings.ElevationGraphValueMode">
+    <setting propertyKey="@Properties.elevGvm" title="@Strings.ElevationGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -6906,14 +6903,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationSecondaryType" title="@Strings.ElevationSecondaryType">
+    <setting propertyKey="@Properties.elevSt" title="@Strings.ElevationSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationSecondaryField" title="@Strings.ElevationSecondaryField">
+    <setting propertyKey="@Properties.elevSf" title="@Strings.ElevationSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -6924,7 +6921,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationTimeFrame" title="@Strings.ElevationTimeFrame">
+    <setting propertyKey="@Properties.elevTf" title="@Strings.ElevationTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -6936,7 +6933,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationGraphColor" title="@Strings.ElevationGraphColor">
+    <setting propertyKey="@Properties.elevGc" title="@Strings.ElevationGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6960,7 +6957,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationSecondaryColor" title="@Strings.ElevationSecondaryColor">
+    <setting propertyKey="@Properties.elevSe" title="@Strings.ElevationSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -6984,7 +6981,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevationGraphWidth" title="@Strings.ElevationGraphWidth">
+    <setting propertyKey="@Properties.elevGw" title="@Strings.ElevationGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -6996,7 +6993,7 @@
     </setting>
   </group>
   <group id="graph_pressure" title="@Strings.PressureGraphGroup">
-    <setting propertyKey="@Properties.pressureGraphMode" title="@Strings.PressureGraphMode">
+    <setting propertyKey="@Properties.presGm" title="@Strings.PressureGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -7007,7 +7004,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureGraphValueMode" title="@Strings.PressureGraphValueMode">
+    <setting propertyKey="@Properties.presGvm" title="@Strings.PressureGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7015,14 +7012,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureSecondaryType" title="@Strings.PressureSecondaryType">
+    <setting propertyKey="@Properties.presSt" title="@Strings.PressureSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureSecondaryField" title="@Strings.PressureSecondaryField">
+    <setting propertyKey="@Properties.presSf" title="@Strings.PressureSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -7033,7 +7030,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureTimeFrame" title="@Strings.PressureTimeFrame">
+    <setting propertyKey="@Properties.presTf" title="@Strings.PressureTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -7045,7 +7042,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureGraphColor" title="@Strings.PressureGraphColor">
+    <setting propertyKey="@Properties.presGc" title="@Strings.PressureGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7069,7 +7066,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureSecondaryColor" title="@Strings.PressureSecondaryColor">
+    <setting propertyKey="@Properties.presSe" title="@Strings.PressureSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7093,7 +7090,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.pressureGraphWidth" title="@Strings.PressureGraphWidth">
+    <setting propertyKey="@Properties.presGw" title="@Strings.PressureGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7105,7 +7102,7 @@
     </setting>
   </group>
   <group id="wxForecast" title="@Strings.WxForecastGroup">
-    <setting propertyKey="@Properties.wxForecastGraphMode" title="@Strings.WxForecastGraphMode">
+    <setting propertyKey="@Properties.wxfGm" title="@Strings.WxForecastGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7115,7 +7112,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastValueMode" title="@Strings.WxForecastValueMode">
+    <setting propertyKey="@Properties.wxfVm" title="@Strings.WxForecastValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7123,7 +7120,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastTimeFrame" title="@Strings.WxForecastTimeFrame">
+    <setting propertyKey="@Properties.wxfTf" title="@Strings.WxForecastTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7131,7 +7128,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastGraphColor" title="@Strings.WxForecastGraphColor">
+    <setting propertyKey="@Properties.wxfGc" title="@Strings.WxForecastGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7155,7 +7152,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastGraphWidth" title="@Strings.WxForecastGraphWidth">
+    <setting propertyKey="@Properties.wxfGw" title="@Strings.WxForecastGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7167,7 +7164,7 @@
     </setting>
   </group>
   <group id="wxForecastPrecip" title="@Strings.WxForecastPrecipGroup">
-    <setting propertyKey="@Properties.wxForecastPrecipGraphMode" title="@Strings.WxForecastPrecipGraphMode">
+    <setting propertyKey="@Properties.wxfpGm" title="@Strings.WxForecastPrecipGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7177,7 +7174,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastPrecipValueMode" title="@Strings.WxForecastPrecipValueMode">
+    <setting propertyKey="@Properties.wxfpVm" title="@Strings.WxForecastPrecipValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7185,7 +7182,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastPrecipTimeFrame" title="@Strings.WxForecastPrecipTimeFrame">
+    <setting propertyKey="@Properties.wxfpTf" title="@Strings.WxForecastPrecipTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7193,7 +7190,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastPrecipGraphColor" title="@Strings.WxForecastPrecipGraphColor">
+    <setting propertyKey="@Properties.wxfpGc" title="@Strings.WxForecastPrecipGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7217,7 +7214,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastPrecipGraphWidth" title="@Strings.WxForecastPrecipGraphWidth">
+    <setting propertyKey="@Properties.wxfpGw" title="@Strings.WxForecastPrecipGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7229,7 +7226,7 @@
     </setting>
   </group>
   <group id="wxForecastWind" title="@Strings.WxForecastWindGroup">
-    <setting propertyKey="@Properties.wxForecastWindGraphMode" title="@Strings.WxForecastWindGraphMode">
+    <setting propertyKey="@Properties.wxfwGm" title="@Strings.WxForecastWindGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7239,7 +7236,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastWindValueMode" title="@Strings.WxForecastWindValueMode">
+    <setting propertyKey="@Properties.wxfwVm" title="@Strings.WxForecastWindValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7247,7 +7244,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastWindTimeFrame" title="@Strings.WxForecastWindTimeFrame">
+    <setting propertyKey="@Properties.wxfwTf" title="@Strings.WxForecastWindTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7255,7 +7252,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastWindGraphColor" title="@Strings.WxForecastWindGraphColor">
+    <setting propertyKey="@Properties.wxfwGc" title="@Strings.WxForecastWindGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7279,7 +7276,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastWindGraphWidth" title="@Strings.WxForecastWindGraphWidth">
+    <setting propertyKey="@Properties.wxfwGw" title="@Strings.WxForecastWindGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7291,7 +7288,7 @@
     </setting>
   </group>
   <group id="wxForecastUv" title="@Strings.WxForecastUvGroup">
-    <setting propertyKey="@Properties.wxForecastUvGraphMode" title="@Strings.WxForecastUvGraphMode">
+    <setting propertyKey="@Properties.wxfuGm" title="@Strings.WxForecastUvGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7301,7 +7298,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastUvValueMode" title="@Strings.WxForecastUvValueMode">
+    <setting propertyKey="@Properties.wxfuVm" title="@Strings.WxForecastUvValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7309,7 +7306,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastUvTimeFrame" title="@Strings.WxForecastUvTimeFrame">
+    <setting propertyKey="@Properties.wxfuTf" title="@Strings.WxForecastUvTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7317,7 +7314,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastUvGraphColor" title="@Strings.WxForecastUvGraphColor">
+    <setting propertyKey="@Properties.wxfuGc" title="@Strings.WxForecastUvGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7341,7 +7338,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastUvGraphWidth" title="@Strings.WxForecastUvGraphWidth">
+    <setting propertyKey="@Properties.wxfuGw" title="@Strings.WxForecastUvGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7353,7 +7350,7 @@
     </setting>
   </group>
   <group id="wxForecastCloud" title="@Strings.WxForecastCloudGroup">
-    <setting propertyKey="@Properties.wxForecastCloudGraphMode" title="@Strings.WxForecastCloudGraphMode">
+    <setting propertyKey="@Properties.wxfcGm" title="@Strings.WxForecastCloudGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7363,7 +7360,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastCloudValueMode" title="@Strings.WxForecastCloudValueMode">
+    <setting propertyKey="@Properties.wxfcVm" title="@Strings.WxForecastCloudValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7371,7 +7368,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastCloudTimeFrame" title="@Strings.WxForecastCloudTimeFrame">
+    <setting propertyKey="@Properties.wxfcTf" title="@Strings.WxForecastCloudTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7379,7 +7376,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastCloudGraphColor" title="@Strings.WxForecastCloudGraphColor">
+    <setting propertyKey="@Properties.wxfcGc" title="@Strings.WxForecastCloudGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7403,7 +7400,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastCloudGraphWidth" title="@Strings.WxForecastCloudGraphWidth">
+    <setting propertyKey="@Properties.wxfcGw" title="@Strings.WxForecastCloudGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7415,7 +7412,7 @@
     </setting>
   </group>
   <group id="wxForecastHumidity" title="@Strings.WxForecastHumidityGroup">
-    <setting propertyKey="@Properties.wxForecastHumidityGraphMode" title="@Strings.WxForecastHumidityGraphMode">
+    <setting propertyKey="@Properties.wxfhGm" title="@Strings.WxForecastHumidityGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -7425,7 +7422,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastHumidityValueMode" title="@Strings.WxForecastHumidityValueMode">
+    <setting propertyKey="@Properties.wxfhVm" title="@Strings.WxForecastHumidityValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7433,7 +7430,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastHumidityTimeFrame" title="@Strings.WxForecastHumidityTimeFrame">
+    <setting propertyKey="@Properties.wxfhTf" title="@Strings.WxForecastHumidityTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -7441,7 +7438,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastHumidityGraphColor" title="@Strings.WxForecastHumidityGraphColor">
+    <setting propertyKey="@Properties.wxfhGc" title="@Strings.WxForecastHumidityGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7465,7 +7462,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastHumidityGraphWidth" title="@Strings.WxForecastHumidityGraphWidth">
+    <setting propertyKey="@Properties.wxfhGw" title="@Strings.WxForecastHumidityGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7477,13 +7474,13 @@
     </setting>
   </group>
   <group id="wxForecastDaily" title="@Strings.WxForecastDailyGroup">
-    <setting propertyKey="@Properties.wxForecastDailyViewMode" title="@Strings.WxForecastDailyViewMode">
+    <setting propertyKey="@Properties.wxfdVw" title="@Strings.WxForecastDailyViewMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.ViewModeGraph</listEntry>
         <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastDailyValueMode" title="@Strings.WxForecastDailyValueMode">
+    <setting propertyKey="@Properties.wxfdVm" title="@Strings.WxForecastDailyValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -7491,14 +7488,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastDailyDays" title="@Strings.WxForecastDailyDays">
+    <setting propertyKey="@Properties.wxfdDy" title="@Strings.WxForecastDailyDays">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
         <listEntry value="5">@Strings.TimeFrameForecastDays5</listEntry>
         <listEntry value="7">@Strings.TimeFrameForecastDays7</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastDailyGraphColor" title="@Strings.WxForecastDailyGraphColor">
+    <setting propertyKey="@Properties.wxfdGc" title="@Strings.WxForecastDailyGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -7522,7 +7519,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxForecastDailyGraphWidth" title="@Strings.WxForecastDailyGraphWidth">
+    <setting propertyKey="@Properties.wxfdGw" title="@Strings.WxForecastDailyGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -7534,7 +7531,7 @@
     </setting>
   </group>
   <group id="debug" title="@Strings.DebugGroup">
-    <setting propertyKey="@Properties.showVersion" title="@Strings.ShowVersion">
+    <setting propertyKey="@Properties.shVer" title="@Strings.ShowVersion">
       <settingConfig type="boolean" />
     </setting>
   </group>

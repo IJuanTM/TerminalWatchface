@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.47.1";
+const APP_VERSION = "0.48.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -43,13 +43,11 @@ const COLOR_GRAD_TEMP_INFERNO_REV = 19;
 
 // CACHE_KEY_* (graph cache key bit layout) also lives in generated FieldIds.mc.
 
-const ROTATE_SLOT_NAMES =
-    ["Secondary", "Tertiary", "Quaternary", "Quinary", "Senary"] as
-    Array<String>;
+// Must match ROT in scripts/generate_resources.py.
+const ROTATE_SLOT_NAMES = ["R2", "R3", "R4", "R5", "R6"] as Array<String>;
 
-// Property key prefix per screen index (0-2), selected by the activeScreen
-// property and cycled on-device via a long-press (TerminalWatchfaceDelegate).
-const SCREEN_PREFIXES = ["screen1_", "screen2_", "screen3_"] as Array<String>;
+// Property key prefix per screen (activeScreen 0-2); must match SCREEN_PREFIXES in generate_resources.py.
+const SCREEN_PREFIXES = ["s1", "s2", "s3"] as Array<String>;
 
 // Indices into this array are used as the SecondaryField property value
 const GRAPH_SEC_FIELDS =
@@ -138,12 +136,6 @@ const FLICKER_CHANCE_PCT = 20;
 // Max vertical shift (px) on a backlight flicker tick, and padding above/below to cover it.
 const BG_BACKLIGHT_SHIFT_MAX = 20;
 const BG_BACKLIGHT_PAD = 22;
-// Side vignette gray mask: darkest at true edge/mid-height, fades to none.
-const VIGNETTE_REACH = 0.32;
-const VIGNETTE_Y_LIMIT = 1.0;
-const VIGNETTE_MIN_GRAY = 150;
-const VIGNETTE_ROW_BAND = 10;
-const VIGNETTE_COL_STEPS = 24;
 
 // Exponential falloff width for the backlight glow - smaller = tighter peak.
 const BG_BACKLIGHT_SIGMA = 0.26;
@@ -274,12 +266,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _haloBmp as Graphics.BufferedBitmap? = null;
     // Null until first drawBitmap attempt; caches whether it worked.
     private var _haloDrawOk as Boolean? = null;
+    // True while rendering a graph bitmap offscreen (halo coords would be bitmap-local, not screen-space).
+    private var _haloSuppressed as Boolean = false;
     private var _bgBacklightBmp as Graphics.BufferedBitmap? = null;
     private var _bgBacklightDrawOk as Boolean? = null;
     private var _bgBacklightDimBmp as Graphics.BufferedBitmap? = null;
     private var _bgBacklightDimDrawOk as Boolean? = null;
-    private var _vignetteBmp as Graphics.BufferedBitmap? = null;
-    private var _vignetteDrawOk as Boolean? = null;
     private var _graphBmpDrawOk as Boolean? = null;
     private var _is24Hour as Boolean = true;
     private var _firstDow as Number = 1;
@@ -295,7 +287,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _bgBacklight as Number = 2;
     private var _lastColorTheme as Number = -1;
     private var _flickerEnabled as Boolean = true;
-    private var _vignetteEnabled as Boolean = false;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
     private var _rotateMaxPhase as Number = 5;
@@ -398,7 +389,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _acInfo = Activity.getActivityInfo();
         _posInfo = Position.getInfo();
         reloadFont();
-        _applyColorTheme(_getProp("colorTheme", 0));
+        _applyColorTheme(_getProp("theme", 0));
         _readActiveScreen();
         _computeRotateMaxPhase();
     }
@@ -406,7 +397,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Pre-renders here so first-frame cost doesn't share onUpdate's budget.
     public function onLayout(dc as Dc) as Void {
         _renderBacklightBitmap();
-        _renderVignetteBitmap();
     }
 
     public function onShow() as Void {}
@@ -538,7 +528,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _cachedTimeMin = -1;
         _forecastFetched = false;
         _wxCurrentFetched = false;
-        _applyColorTheme(_getProp("colorTheme", 0));
+        _applyColorTheme(_getProp("theme", 0));
         _readActiveScreen();
         _computeRotateMaxPhase();
     }
@@ -559,43 +549,41 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _readActiveScreen() as Void {
-        var p = _getProp("activeScreen", 0);
+        var p = _getProp("aScr", 0);
         _activeScreen = p < 0 || p > 2 ? 0 : p;
         _screenMasterEnabled =
             _activeScreen == 0
                 ? true
-                : _getBoolProp(
-                      "screen" + (_activeScreen + 1).toString() + "Enabled"
-                  );
+                : _getBoolProp("s" + (_activeScreen + 1).toString() + "En");
 
         // No badge on screen 1 if there's nothing else to switch to.
-        var screen2Off = !_getBoolProp("screen2Enabled");
-        var screen3Off = !_getBoolProp("screen3Enabled");
+        var screen2Off = !_getBoolProp("s2En");
+        var screen3Off = !_getBoolProp("s3En");
         _showScreenBadge = !(_activeScreen == 0 && screen2Off && screen3Off);
     }
 
     private function _computeRotateMaxPhase() as Void {
-        var ri = _getProp("rotateInterval", 10);
+        var ri = _getProp("rotI", 10);
         if (ri < 1) {
             ri = 1;
         }
         _rotateMainMs = ri * 1000;
-        var ra = _getProp("rotateIntervalAlt", 5);
+        var ra = _getProp("rotA", 5);
         _rotateAltMs = ra > 0 ? ra * 1000 : _rotateMainMs;
         _rotateMaxPhase = 0;
         if (!_screenMasterEnabled) {
             return;
         }
         var pk = SCREEN_PREFIXES[_activeScreen];
-        var e3 = _getBoolProp(pk + "line3Enabled");
-        var e4 = _getBoolProp(pk + "line4Enabled");
-        var e5 = _getBoolProp(pk + "line5Enabled");
+        var e3 = _getBoolProp(pk + "l3En");
+        var e4 = _getBoolProp(pk + "l4En");
+        var e5 = _getBoolProp(pk + "l5En");
         for (var p = 4; p >= 0; p--) {
             var sn = ROTATE_SLOT_NAMES[p];
             if (
-                (e3 && _getProp(pk + "line3" + sn, FIELD_NONE) != FIELD_NONE) ||
-                (e4 && _getProp(pk + "line4" + sn, FIELD_NONE) != FIELD_NONE) ||
-                (e5 && _getProp(pk + "line5" + sn, FIELD_NONE) != FIELD_NONE)
+                (e3 && _getProp(pk + "l3" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e4 && _getProp(pk + "l4" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e5 && _getProp(pk + "l5" + sn, FIELD_NONE) != FIELD_NONE)
             ) {
                 _rotateMaxPhase = p + 1;
                 break;
@@ -605,7 +593,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
     (:extendedCode)
     public function reloadFont() as Void {
-        var choice = _getProp("fontChoice", 0);
+        var choice = _getProp("font", 0);
         if (choice < 0 || choice > 3) {
             choice = 0;
         }
@@ -632,21 +620,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             $.Rez.Fonts.FiraCode_TINY,
             $.Rez.Fonts.NBArchitekt_TINY,
         ];
-        try {
-            _font =
-                WatchUi.loadResource(normalRes[choice]) as
-                Graphics.FontDefinition;
-        } catch (e instanceof Lang.Exception) {}
-        try {
-            _fontSmall =
-                WatchUi.loadResource(smallRes[choice]) as
-                Graphics.FontDefinition;
-        } catch (e instanceof Lang.Exception) {}
-        try {
-            _fontTiny =
-                WatchUi.loadResource(tinyRes[choice]) as
-                Graphics.FontDefinition;
-        } catch (e instanceof Lang.Exception) {}
+        _font =
+            WatchUi.loadResource(normalRes[choice]) as Graphics.FontDefinition;
+        _fontSmall =
+            WatchUi.loadResource(smallRes[choice]) as Graphics.FontDefinition;
+        _fontTiny =
+            WatchUi.loadResource(tinyRes[choice]) as Graphics.FontDefinition;
 
         // choice 1 = SpaceMono (lineHeight 30); all others use lineHeight 28
         var newSizeSet = choice == 1 ? 1 : 0;
@@ -799,28 +778,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _is24Hour = settings.is24Hour;
             var fDow = settings.firstDayOfWeek;
             _firstDow = fDow != null ? ((fDow as Number) - 1) % 7 : 1;
-            _showSeconds = _getBoolProp("showSeconds");
-            _leftPad = _getProp("leftPadding", 4);
-            _areaOpacity = _getProp("areaOpacity", 64);
-            _areaShowLine = _getBoolProp("areaShowLine");
-            _showBatteryDays = _getBoolProp("showBatteryDays");
-            _scanlineIntensity = _getProp("scanlines", 2);
-            _glowIntensity = _getProp("glowIntensity", 2);
+            _showSeconds = _getBoolProp("shSec");
+            _leftPad = _getProp("lPad", 4);
+            _areaOpacity = _getProp("aOpac", 64);
+            _areaShowLine = _getBoolProp("aLine");
+            _showBatteryDays = _getBoolProp("batD");
+            _scanlineIntensity = _getProp("scan", 2);
+            _glowIntensity = _getProp("glow", 2);
             if (_glowIntensity < 0 || _glowIntensity > 3) {
                 _glowIntensity = 2;
             }
-            _bgBacklight = _getProp("bgBacklight", 2);
+            _bgBacklight = _getProp("bgLt", 2);
             if (_bgBacklight < 0 || _bgBacklight > 3) {
                 _bgBacklight = 2;
             }
-            _flickerEnabled = _getBoolProp("flickerEnabled");
-            _vignetteEnabled = _getBoolProp("vignetteEnabled");
+            _flickerEnabled = _getBoolProp("flick");
             _wxUnit = _metric ? "C" : "F";
             _amInfo = ActivityMonitor.getInfo();
             _refreshComplications();
             _refreshPointSamples();
-            var showVer = _getBoolProp("showVersion");
-            var cmdStyle = _getProp("watchCommandStyle", 2);
+            var showVer = _getBoolProp("shVer");
+            var cmdStyle = _getProp("cmdSty", 2);
             if (cmdStyle == 1) {
                 _watchCmd = showVer
                     ? "./watch@" + APP_VERSION + ".sh"
@@ -832,12 +810,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ? ".\\watch@" + APP_VERSION + ".bat"
                     : ".\\watch.bat";
             }
-            _line1LabelC = _getProp("line1LabelColor", 8);
-            _line1ValueC = _getProp("line1ValueColor", 0);
-            _line2LabelC = _getProp("line2LabelColor", 8);
-            _line2ValueC = _getProp("line2ValueColor", 0);
-            var fmt = _getProp("dateFormat", 0);
-            var sy = _getBoolProp("showYear");
+            _line1LabelC = _getProp("l1Lc", 8);
+            _line1ValueC = _getProp("l1Vc", 0);
+            _line2LabelC = _getProp("l2Lc", 8);
+            _line2ValueC = _getProp("l2Vc", 0);
+            var fmt = _getProp("dFmt", 0);
+            var sy = _getBoolProp("shYr");
             if (fmt != _dateFormat || sy != _showYear) {
                 _dateFormat = fmt;
                 _showYear = sy;
@@ -936,10 +914,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
             _drawScanlines(dc, SCANLINE_ALPHA[_scanlineIntensity]);
-        }
-
-        if (!_lowPower && _vignetteEnabled) {
-            _drawVignette(dc);
         }
 
         if (_haloActive()) {
@@ -1421,88 +1395,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    private function _drawVignette(dc as Dc) as Void {
-        if (_vignetteBmp == null) {
-            _renderVignetteBitmap();
-        }
-        if (_vignetteBmp == null) {
-            return;
-        }
-        var bmp = _vignetteBmp as Graphics.BufferedBitmap;
-        dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
-        if (_vignetteDrawOk == null) {
-            _vignetteDrawOk = _tryDrawBitmap(dc, 0, 0, bmp);
-        } else if (_vignetteDrawOk as Boolean) {
-            dc.drawBitmap(0, 0, bmp);
-        }
-        dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
-    }
-
-    private function _renderVignetteBitmap() as Void {
-        var bmp = _createBitmap(_screenW, _screenH);
-        if (bmp == null) {
-            return;
-        }
-        _vignetteBmp = bmp;
-        var bdc = bmp.getDc();
-        bdc.setColor(0xffffff, Graphics.COLOR_TRANSPARENT);
-        bdc.fillRectangle(0, 0, _screenW, _screenH);
-
-        var cx = _screenW / 2;
-        var cy = _screenH / 2;
-        var maxR = (_screenW / 2).toFloat();
-        var reachPx = maxR * VIGNETTE_REACH;
-
-        var y = 0;
-        while (y < _screenH) {
-            var dy = (y + VIGNETTE_ROW_BAND / 2 - cy).toFloat();
-            var yFrac = dy.abs() / maxR;
-            if (yFrac < VIGNETTE_Y_LIMIT) {
-                var t = yFrac / VIGNETTE_Y_LIMIT;
-                var vFactor = Math.sqrt(1.0 - t * t);
-                var reach = reachPx * vFactor;
-                // Anchor to the round display's actual boundary, not the square bitmap's edge.
-                var halfW = Math.sqrt(maxR * maxR - dy * dy);
-                var bandH = VIGNETTE_ROW_BAND;
-                if (y + bandH > _screenH) {
-                    bandH = _screenH - y;
-                }
-                var seg = 0;
-                while (seg < VIGNETTE_COL_STEPS) {
-                    var hFrac = (seg + 0.5) / VIGNETTE_COL_STEPS;
-                    var falloff = 1.0 - hFrac;
-                    falloff = falloff * falloff * falloff;
-                    var gray = (
-                        255 -
-                        (255 - VIGNETTE_MIN_GRAY) * vFactor * falloff
-                    ).toNumber();
-                    bdc.setColor(
-                        (gray << 16) | (gray << 8) | gray,
-                        Graphics.COLOR_TRANSPARENT
-                    );
-                    var off0 = (reach * seg) / VIGNETTE_COL_STEPS;
-                    var off1 = (reach * (seg + 1)) / VIGNETTE_COL_STEPS;
-                    var segX0 = (cx - halfW + off0).toNumber();
-                    var segX1 = (cx - halfW + off1).toNumber();
-                    var segW = segX1 - segX0;
-                    if (segW < 1) {
-                        segW = 1;
-                    }
-                    bdc.fillRectangle(segX0, y, segW, bandH);
-                    var rSegX1 = (cx + halfW - off0).toNumber();
-                    var rSegX0 = (cx + halfW - off1).toNumber();
-                    var rSegW = rSegX1 - rSegX0;
-                    if (rSegW < 1) {
-                        rSegW = 1;
-                    }
-                    bdc.fillRectangle(rSegX0, y, rSegW, bandH);
-                    seg += 1;
-                }
-            }
-            y += VIGNETTE_ROW_BAND;
-        }
-    }
-
     // Full bright range, taller than the screen so a flicker shift has room.
     private function _renderBacklightBitmap() as Void {
         var bmpH = _screenH + BG_BACKLIGHT_PAD * 2;
@@ -1572,7 +1464,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Same one-time-test-then-cache pattern as _bgBacklightDrawOk/_vignetteDrawOk.
+    // Same one-time-test-then-cache pattern as _bgBacklightDrawOk.
     private function _drawCachedGraphBitmap(
         dc as Dc,
         x as Number,
@@ -1642,6 +1534,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _activeHaloDc() as Dc? {
+        if (_haloSuppressed) {
+            return null;
+        }
         return _haloActive() ? _haloDc() : null;
     }
 
@@ -1855,9 +1750,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _resolveAllLines(phase as Number) as Void {
-        _resolveOneLine(0, "line3", phase);
-        _resolveOneLine(1, "line4", phase);
-        _resolveOneLine(2, "line5", phase);
+        _resolveOneLine(0, "l3", phase);
+        _resolveOneLine(1, "l4", phase);
+        _resolveOneLine(2, "l5", phase);
         _resolveLineGraph(0);
         _resolveLineGraph(1);
         _resolveLineGraph(2);
@@ -1871,17 +1766,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         // Label/value colors are per line (shared across rotation slots); only the field rotates.
         var pk = SCREEN_PREFIXES[_activeScreen] + key;
         var f = FIELD_NONE;
-        if (_screenMasterEnabled && _getBoolProp(pk + "Enabled")) {
+        if (_screenMasterEnabled && _getBoolProp(pk + "En")) {
             if (phase >= 1 && phase <= 5) {
                 f = _getProp(pk + ROTATE_SLOT_NAMES[phase - 1], FIELD_NONE);
             }
             if (f == FIELD_NONE) {
-                f = _getProp(pk + "Primary", FIELD_NONE);
+                f = _getProp(pk + "R1", FIELD_NONE);
             }
         }
         _resolvedFields[li] = f;
-        _resolvedLabelC[li] = _getProp(pk + "LabelColor", 8);
-        _resolvedValueC[li] = _getProp(pk + "ValueColor", 0);
+        _resolvedLabelC[li] = _getProp(pk + "Lc", 8);
+        _resolvedValueC[li] = _getProp(pk + "Vc", 0);
     }
 
     // mode: 1=line,2=bar,3=line+current,4=bar+current,5=area,6=area+current.
@@ -1891,7 +1786,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         colorDefault as Number,
         valueDefault as Number
     ) as Void {
-        var mode = _getProp(key + "GraphMode", 4);
+        var mode = _getProp(key + "Gm", 4);
         _lineViewMode[li] =
             mode == 3 || mode == 4 || mode == 6 ? VIEW_GRAPH_VALUE : VIEW_GRAPH;
         _lineGraphType[li] =
@@ -1900,10 +1795,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 : mode == 5 || mode == 6
                   ? GRAPH_AREA
                   : GRAPH_LINE;
-        _lineValueMode[li] = _getProp(key + "ValueMode", valueDefault);
-        _lineGraphColor[li] = _getProp(key + "GraphColor", colorDefault);
-        _linePeriodMin[li] = _getProp(key + "TimeFrame", 12);
-        _lineGraphWidth[li] = _getProp(key + "GraphWidth", 10);
+        _lineValueMode[li] = _getProp(key + "Vm", valueDefault);
+        _lineGraphColor[li] = _getProp(key + "Gc", colorDefault);
+        _linePeriodMin[li] = _getProp(key + "Tf", 12);
+        _lineGraphWidth[li] = _getProp(key + "Gw", 10);
     }
 
     // Resolves the show/color/width settings shared by every goal-bar field.
@@ -1913,13 +1808,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         defaultColor as Number,
         defaultWidth as Number
     ) as Void {
-        _lineViewMode[li] = _getBoolProp(propPrefix + "ShowBar")
-            ? _getBoolProp(propPrefix + "ShowBarValue")
+        _lineViewMode[li] = _getBoolProp(propPrefix + "Sb")
+            ? _getBoolProp(propPrefix + "Sv")
                 ? 2
                 : 1
             : 0;
-        _lineGraphColor[li] = _getProp(propPrefix + "BarColor", defaultColor);
-        _lineGraphWidth[li] = _getProp(propPrefix + "BarWidth", defaultWidth);
+        _lineGraphColor[li] = _getProp(propPrefix + "Bc", defaultColor);
+        _lineGraphWidth[li] = _getProp(propPrefix + "Bw", defaultWidth);
     }
 
     private function _resolveLineGraph(li as Number) as Void {
@@ -1932,75 +1827,72 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lineGraphWidth[li] = 10;
         var field = _resolvedFields[li];
         if (field == FIELD_STEPS) {
-            _resolveBarField(li, "steps", 1, 10);
+            _resolveBarField(li, "stp", 1, 10);
             return;
         }
         if (field == FIELD_FLOORS) {
-            _resolveBarField(li, "floors", 5, 8);
+            _resolveBarField(li, "flr", 5, 8);
             return;
         }
         if (field == FIELD_INTENSITY_MIN) {
-            _resolveBarField(li, "intensityMin", 5, 8);
+            _resolveBarField(li, "iMin", 5, 8);
             return;
         }
         if (field == FIELD_CALORIES) {
-            _resolveBarField(li, "calories", 4, 10);
-            var caloriesGoal = _getProp("caloriesBarGoal", 2000);
+            _resolveBarField(li, "cal", 4, 10);
+            var caloriesGoal = _getProp("calBg", 2000);
             _lineGoal[li] = caloriesGoal <= 0 ? 2000 : caloriesGoal;
             return;
         }
         if (field == FIELD_DISTANCE) {
-            _resolveBarField(li, "distance", 6, 10);
-            var distanceGoal = _getProp("distanceBarGoal", 5);
+            _resolveBarField(li, "dist", 6, 10);
+            var distanceGoal = _getProp("distBg", 5);
             _lineGoal[li] = distanceGoal <= 0 ? 5 : distanceGoal;
             return;
         }
         if (field == FIELD_ACTIVE_MIN_DAY) {
-            _resolveBarField(li, "activeMinDay", 9, 10);
-            var activeMinGoal = _getProp("activeMinDayBarGoal", 30);
+            _resolveBarField(li, "aMin", 9, 10);
+            var activeMinGoal = _getProp("aMinBg", 30);
             _lineGoal[li] = activeMinGoal <= 0 ? 30 : activeMinGoal;
             return;
         }
         if (field == FIELD_WX_FCST_TEMP) {
-            _resolveForecastGraph(li, "wxForecast", 16, 0);
+            _resolveForecastGraph(li, "wxf", 16, 0);
             return;
         }
         if (field == FIELD_WX_FCST_PRECIP) {
-            _resolveForecastGraph(li, "wxForecastPrecip", 6, 1);
+            _resolveForecastGraph(li, "wxfp", 6, 1);
             return;
         }
         if (field == FIELD_WX_FCST_DAILY) {
-            _lineViewMode[li] = _getProp(
-                "wxForecastDailyViewMode",
-                VIEW_GRAPH_VALUE
-            );
-            _lineValueMode[li] = _getProp("wxForecastDailyValueMode", 2);
-            _lineGraphColor[li] = _getProp("wxForecastDailyGraphColor", 16);
-            _linePeriodMin[li] = _getProp("wxForecastDailyDays", 5);
-            _lineGraphWidth[li] = _getProp("wxForecastDailyGraphWidth", 8);
+            _lineViewMode[li] = _getProp("wxfdVw", VIEW_GRAPH_VALUE);
+            _lineValueMode[li] = _getProp("wxfdVm", 2);
+            _lineGraphColor[li] = _getProp("wxfdGc", 16);
+            _linePeriodMin[li] = _getProp("wxfdDy", 5);
+            _lineGraphWidth[li] = _getProp("wxfdGw", 8);
             return;
         }
         if (field == FIELD_WX_FCST_WIND) {
-            _resolveForecastGraph(li, "wxForecastWind", 6, 1);
+            _resolveForecastGraph(li, "wxfw", 6, 1);
             return;
         }
         if (field == FIELD_WX_FCST_HUMIDITY) {
-            _resolveForecastGraph(li, "wxForecastHumidity", 2, 1);
+            _resolveForecastGraph(li, "wxfh", 2, 1);
             return;
         }
         if (field == FIELD_WX_FCST_UV) {
-            _resolveForecastGraph(li, "wxForecastUv", 3, 2);
+            _resolveForecastGraph(li, "wxfu", 3, 2);
             return;
         }
         if (field == FIELD_WX_FCST_CLOUD) {
-            _resolveForecastGraph(li, "wxForecastCloud", 8, 1);
+            _resolveForecastGraph(li, "wxfc", 8, 1);
             return;
         }
         var gk = _fieldGraphKey(field);
         if (gk == null) {
             return;
         }
-        var mode = _getProp(gk + "GraphMode", 0);
+        var mode = _getProp(gk + "Gm", 0);
         _lineViewMode[li] =
             mode == 3 || mode == 4 || mode == 6
                 ? VIEW_GRAPH_VALUE
@@ -2013,26 +1905,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 : mode == 5 || mode == 6
                   ? GRAPH_AREA
                   : GRAPH_LINE;
-        _linePeriodMin[li] = _getProp(gk + "TimeFrame", 60);
-        _lineGraphColor[li] = _getProp(
-            gk + "GraphColor",
-            field == FIELD_HR ? 5 : 0
-        );
-        _lineSecType[li] = _getProp(gk + "SecondaryType", SEC_NONE);
-        _lineValueMode[li] = _getProp(gk + "GraphValueMode", 0);
+        _linePeriodMin[li] = _getProp(gk + "Tf", 60);
+        _lineGraphColor[li] = _getProp(gk + "Gc", field == FIELD_HR ? 5 : 0);
+        _lineSecType[li] = _getProp(gk + "St", SEC_NONE);
+        _lineValueMode[li] = _getProp(gk + "Gvm", 0);
         var vm = _lineViewMode[li];
         if (
             _lineSecType[li] != SEC_NONE &&
             (vm == VIEW_GRAPH || vm == VIEW_GRAPH_VALUE)
         ) {
-            var sidx = _getProp(gk + "SecondaryField", 0);
+            var sidx = _getProp(gk + "Sf", 0);
             if (sidx < 0 || sidx >= GRAPH_SEC_FIELDS.size()) {
                 sidx = 0;
             }
             _lineSecField[li] = sidx;
-            _lineSecColor[li] = _getProp(gk + "SecondaryColor", 0);
+            _lineSecColor[li] = _getProp(gk + "Se", 0);
         }
-        _lineGraphWidth[li] = _getProp(gk + "GraphWidth", 10);
+        _lineGraphWidth[li] = _getProp(gk + "Gw", 10);
     }
 
     private function _drawLineRow(
@@ -2126,13 +2015,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _lineGraphColor[li]
                 );
             } else {
-                if (_amInfo == null) {
-                    return true;
+                var steps = 0;
+                var goal = 10000;
+                if (_amInfo != null) {
+                    var info = _amInfo as ActivityMonitor.Info;
+                    steps = info.steps != null ? info.steps as Number : 0;
+                    goal =
+                        info.stepGoal != null ? info.stepGoal as Number : 10000;
                 }
-                var info = _amInfo as ActivityMonitor.Info;
-                var steps = info.steps != null ? info.steps as Number : 0;
-                var goal =
-                    info.stepGoal != null ? info.stepGoal as Number : 10000;
                 _rowBuf[0] = "Steps";
                 _rowBuf[1] = steps.format(
                     "%0" + goal.toString().length() + "d"
@@ -2231,21 +2121,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_CALORIES) {
             var vm = _lineViewMode[li];
             if (vm == 1 || vm == 2) {
+                var current = 0;
                 if (_amInfo != null) {
                     var info = _amInfo as ActivityMonitor.Info;
-                    _drawGoalBarRow(
-                        dc,
-                        cx,
-                        y,
-                        "Day Cals",
-                        info.calories != null ? info.calories as Number : 0,
-                        _lineGoal[li],
-                        labelColor,
-                        valueColor,
-                        vm == 2,
-                        _lineGraphColor[li]
-                    );
+                    current =
+                        info.calories != null ? info.calories as Number : 0;
                 }
+                _drawGoalBarRow(
+                    dc,
+                    cx,
+                    y,
+                    "Day Cals",
+                    current,
+                    _lineGoal[li],
+                    labelColor,
+                    valueColor,
+                    vm == 2,
+                    _lineGraphColor[li]
+                );
                 return true;
             }
             return false;
@@ -2253,28 +2146,28 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_DISTANCE) {
             var vm = _lineViewMode[li];
             if (vm == 1 || vm == 2) {
+                var current = 0;
                 if (_amInfo != null) {
                     var info = _amInfo as ActivityMonitor.Info;
-                    var current = 0;
                     if (info.distance != null) {
                         var cm = info.distance as Number;
                         current = _metric
                             ? (cm / 100000.0 + 0.5).toNumber()
                             : (cm / 160934.0 + 0.5).toNumber();
                     }
-                    _drawGoalBarRow(
-                        dc,
-                        cx,
-                        y,
-                        "Day Dist",
-                        current,
-                        _lineGoal[li],
-                        labelColor,
-                        valueColor,
-                        vm == 2,
-                        _lineGraphColor[li]
-                    );
                 }
+                _drawGoalBarRow(
+                    dc,
+                    cx,
+                    y,
+                    "Day Dist",
+                    current,
+                    _lineGoal[li],
+                    labelColor,
+                    valueColor,
+                    vm == 2,
+                    _lineGraphColor[li]
+                );
                 return true;
             }
             return false;
@@ -2282,24 +2175,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_ACTIVE_MIN_DAY) {
             var vm = _lineViewMode[li];
             if (vm == 1 || vm == 2) {
+                var current = 0;
                 if (_amInfo != null) {
                     var info = _amInfo as ActivityMonitor.Info;
                     var mins = info.activeMinutesDay;
-                    _drawGoalBarRow(
-                        dc,
-                        cx,
-                        y,
-                        "Act Min",
+                    current =
                         mins != null && mins.total != null
                             ? mins.total as Number
-                            : 0,
-                        _lineGoal[li],
-                        labelColor,
-                        valueColor,
-                        vm == 2,
-                        _lineGraphColor[li]
-                    );
+                            : 0;
                 }
+                _drawGoalBarRow(
+                    dc,
+                    cx,
+                    y,
+                    "Act Min",
+                    current,
+                    _lineGoal[li],
+                    labelColor,
+                    valueColor,
+                    vm == 2,
+                    _lineGraphColor[li]
+                );
                 return true;
             }
             return false;
@@ -2797,20 +2693,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         showValue as Boolean,
         barColor as Number
     ) as Void {
-        if (_amInfo == null) {
-            return;
-        }
-        var info = _amInfo as ActivityMonitor.Info;
-        var goal = info.stepGoal != null ? info.stepGoal as Number : 0;
-        if (goal <= 0) {
-            goal = 10000;
+        var steps = 0;
+        var goal = 10000;
+        if (_amInfo != null) {
+            var info = _amInfo as ActivityMonitor.Info;
+            steps = info.steps != null ? info.steps as Number : 0;
+            goal = info.stepGoal != null ? info.stepGoal as Number : 0;
+            if (goal <= 0) {
+                goal = 10000;
+            }
         }
         _drawGoalBarRow(
             dc,
             cx,
             y,
             "Steps",
-            info.steps != null ? info.steps as Number : 0,
+            steps,
             goal,
             labelColor,
             valueColor,
@@ -2826,15 +2724,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         labelIdx as Number,
         valIdx as Number
     ) as Void {
-        if (_amInfo == null) {
-            return;
-        }
-        var info = _amInfo as ActivityMonitor.Info;
+        var info = _amInfo;
+        var climbed = 0;
         var up = (
-            info.floorsClimbed != null ? info.floorsClimbed as Number : 0
+            info != null && info.floorsClimbed != null
+                ? info.floorsClimbed as Number
+                : 0
         ).toString();
         var dn = (
-            info.floorsDescended != null ? info.floorsDescended as Number : 0
+            info != null && info.floorsDescended != null
+                ? info.floorsDescended as Number
+                : 0
         ).toString();
         _rowBuf[0] = "Floors";
         _rowBuf[1] = "";
@@ -2858,14 +2758,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         _glowText(dc, x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT, valColor);
-        var goal =
-            info has :floorsClimbedGoal && info.floorsClimbedGoal != null
-                ? info.floorsClimbedGoal as Number
-                : 10;
-        if (
-            (info.floorsClimbed != null ? info.floorsClimbed as Number : 0) >=
-            goal
-        ) {
+        var goal = 10;
+        if (info != null) {
+            climbed =
+                info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
+            if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
+                goal = info.floorsClimbedGoal as Number;
+            }
+        }
+        if (climbed >= goal) {
             x += dc.getTextWidthInPixels(dn, _font);
             _glowText(
                 dc,
@@ -2888,23 +2789,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         showValue as Boolean,
         barColor as Number
     ) as Void {
-        if (_amInfo == null) {
-            return;
-        }
-        var info = _amInfo as ActivityMonitor.Info;
+        var climbed = 0;
         var goal = 10;
-        if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
-            goal = info.floorsClimbedGoal as Number;
-        }
-        if (goal <= 0) {
-            goal = 10;
+        if (_amInfo != null) {
+            var info = _amInfo as ActivityMonitor.Info;
+            climbed =
+                info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
+            if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
+                goal = info.floorsClimbedGoal as Number;
+            }
+            if (goal <= 0) {
+                goal = 10;
+            }
         }
         _drawGoalBarRow(
             dc,
             cx,
             y,
             "Floors",
-            info.floorsClimbed != null ? info.floorsClimbed as Number : 0,
+            climbed,
             goal,
             labelColor,
             valueColor,
@@ -2922,27 +2825,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         showValue as Boolean,
         barColor as Number
     ) as Void {
-        if (_amInfo == null) {
-            return;
-        }
-        var info = _amInfo as ActivityMonitor.Info;
-        var mins = info.activeMinutesWeek;
+        var current = 0;
         var goal = 150;
-        if (
-            info has :activeMinutesWeekGoal &&
-            info.activeMinutesWeekGoal != null
-        ) {
-            goal = info.activeMinutesWeekGoal as Number;
-        }
-        if (goal <= 0) {
-            goal = 150;
+        if (_amInfo != null) {
+            var info = _amInfo as ActivityMonitor.Info;
+            var mins = info.activeMinutesWeek;
+            current =
+                mins != null && mins.total != null ? mins.total as Number : 0;
+            if (
+                info has :activeMinutesWeekGoal &&
+                info.activeMinutesWeekGoal != null
+            ) {
+                goal = info.activeMinutesWeekGoal as Number;
+            }
+            if (goal <= 0) {
+                goal = 150;
+            }
         }
         _drawGoalBarRow(
             dc,
             cx,
             y,
             "Intens Min",
-            mins != null && mins.total != null ? mins.total as Number : 0,
+            current,
             goal,
             labelColor,
             valueColor,
@@ -3877,7 +3782,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             ageColor
         );
         var ageSecDual = _dataAge(data, effDual);
-        if (ageSecDual > _fieldUpdateMin(field) * SECS_PER_MIN + 30) {
+        if (ageSecDual > _graphStaleSec(field)) {
             _glowText(
                 dc,
                 _graphX,
@@ -3895,22 +3800,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return "hr";
         }
         if (field == FIELD_BODY_BAT) {
-            return "bodyBat";
+            return "bb";
         }
         if (field == FIELD_STRESS) {
-            return "stress";
+            return "str";
         }
         if (field == FIELD_SPO2) {
             return "spo2";
         }
         if (field == FIELD_WRIST_TEMP) {
-            return "tempWrist";
+            return "tw";
         }
         if (field == FIELD_ELEVATION) {
-            return "elevation";
+            return "elev";
         }
         if (field == FIELD_PRESSURE) {
-            return "pressure";
+            return "pres";
         }
         return null;
     }
@@ -4034,6 +3939,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return 5;
         }
         return 1;
+    }
+
+    private function _pointStaleSec(field as Number) as Number {
+        return _fieldUpdateMin(field) * SECS_PER_MIN * 3;
+    }
+
+    private function _graphStaleSec(field as Number) as Number {
+        return _pointStaleSec(field) / 2;
     }
 
     private function _getFieldHistory(
@@ -4345,6 +4258,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var bmpDc = bmp.getDc();
         bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
         bmpDc.clear();
+        _haloSuppressed = true;
         _drawMeanLine(
             bmpDc,
             data,
@@ -4373,6 +4287,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             gradRange,
             maxGap
         );
+        _haloSuppressed = false;
         _graphBmpCache.put(cacheKey, newRef);
         return bmp;
     }
@@ -4413,6 +4328,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var bmpDc = bmp.getDc();
         bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
         bmpDc.clear();
+        _haloSuppressed = true;
         _drawMeanLine(
             bmpDc,
             data,
@@ -4480,6 +4396,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
             }
         }
+        _haloSuppressed = false;
         _graphBmpDualCache.put(cacheKey, newRef);
         return bmp;
     }
@@ -4590,7 +4507,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             Graphics.TEXT_JUSTIFY_RIGHT,
             ageColor
         );
-        if (ageSec > _fieldUpdateMin(field) * SECS_PER_MIN + 30) {
+        if (ageSec > _graphStaleSec(field)) {
             _glowText(
                 dc,
                 gx,
@@ -7093,29 +7010,48 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _fieldNeeded(FIELD_BODY_BAT_REST_HR)
         ) {
             var sample = SensorHistory.getBodyBatteryHistory({}).next();
-            if (sample != null && sample.data != null) {
+            if (
+                sample != null &&
+                sample.data != null &&
+                Time.now().value() - (sample.when as Time.Moment).value() <=
+                    _pointStaleSec(FIELD_BODY_BAT)
+            ) {
                 var d = sample.data;
                 _cachedBodyBat =
                     (d instanceof Float
                         ? (d as Float).format("%.0f")
                         : (d as Number).toString()) + "%";
+            } else {
+                _cachedBodyBat = "-";
             }
         }
         if (_fieldNeeded(FIELD_WRIST_TEMP)) {
             var sample = SensorHistory.getTemperatureHistory({}).next();
-            if (sample != null && sample.data != null) {
+            if (
+                sample != null &&
+                sample.data != null &&
+                Time.now().value() - (sample.when as Time.Moment).value() <=
+                    _pointStaleSec(FIELD_WRIST_TEMP)
+            ) {
                 var td = sample.data;
                 var tempC =
                     td instanceof Float
                         ? td as Float
                         : (td as Number).toFloat();
                 _cachedTempWrist = _tempStr(tempC);
+            } else {
+                _cachedTempWrist = "-";
             }
         }
         if (_fieldNeeded(FIELD_PRESSURE)) {
             var pIter = SensorHistory.getPressureHistory({ :period => 30 });
             var s1 = pIter.next();
-            if (s1 != null && s1.data != null) {
+            if (
+                s1 != null &&
+                s1.data != null &&
+                Time.now().value() - (s1.when as Time.Moment).value() <=
+                    _pointStaleSec(FIELD_PRESSURE)
+            ) {
                 var pd = s1.data;
                 var pa =
                     pd instanceof Float
@@ -7140,17 +7076,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _cachedPressureTrend =
                         pa - opa > 100.0 ? 1 : pa - opa < -100.0 ? -1 : 0;
                 }
+            } else {
+                _cachedPressure = "-";
+                _cachedPressureTrend = 0;
             }
         }
         if (_fieldNeeded(FIELD_ELEVATION)) {
             var sample = SensorHistory.getElevationHistory({}).next();
-            if (sample != null && sample.data != null) {
+            if (
+                sample != null &&
+                sample.data != null &&
+                Time.now().value() - (sample.when as Time.Moment).value() <=
+                    _pointStaleSec(FIELD_ELEVATION)
+            ) {
                 var ed = sample.data;
                 var elev =
                     ed instanceof Float
                         ? ed as Float
                         : (ed as Number).toFloat();
                 _cachedElevation = _altStr(elev);
+            } else {
+                _cachedElevation = "-";
             }
         }
         if (
@@ -7173,7 +7119,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (ss != null && ss.data != null) {
                     var stressAge =
                         Time.now().value() - (ss.when as Time.Moment).value();
-                    if (stressAge <= 600) {
+                    if (stressAge <= _pointStaleSec(FIELD_STRESS)) {
                         var sd = ss.data;
                         _cachedStress =
                             sd instanceof Float
@@ -7443,18 +7389,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _getProp(key as String, defaultVal as Number) as Number {
-        var val = Properties.getValue(key);
-        if (val instanceof Number) {
-            return val as Number;
-        }
+        try {
+            var val = Properties.getValue(key);
+            if (val instanceof Number) {
+                return val as Number;
+            }
+        } catch (e instanceof Lang.Exception) {}
         return defaultVal;
     }
 
     private function _getBoolProp(key as String) as Boolean {
-        var val = Properties.getValue(key);
-        if (val instanceof Boolean) {
-            return val as Boolean;
-        }
+        try {
+            var val = Properties.getValue(key);
+            if (val instanceof Boolean) {
+                return val as Boolean;
+            }
+        } catch (e instanceof Lang.Exception) {}
         return false;
     }
 
