@@ -1,3 +1,2 @@
 [ ] Try and add back the area graph glow. Four different offset strategies (diagonal, vertical-down, vertical-up, symmetric, asymmetric-into-fill) have all looked wrong against the area fill's hard top edge - needs a genuinely different geometric idea, not another offset guess. See project_context.md memory for the full history.
-
-[ ] (Resurfaced from an old memory note, unverified - check before trusting) The backlight/glow-intensity/CRT-flicker settings were reported as silently non-functional (visually don't apply, revert to default) since 0.45.x->0.46.2, and that was never actually investigated/fixed. Confirm whether this is still true before doing anything else with it.
+[ ] Update README

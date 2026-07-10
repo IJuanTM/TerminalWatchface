@@ -827,8 +827,6 @@ def gen_strings():
     lines.append(s("BgBacklightMedium", "Medium"))
     lines.append(s("BgBacklightStrong", "Strong"))
     lines.append(s("FlickerEnabled", "CRT Flicker"))
-
-    lines.append("\n  <!-- Display options -->")
     lines.append(s("LeftPadding", "Left Padding"))
     lines.append(s("AreaOpacity", "Area Graph: Opacity"))
     lines.append(s("AreaOpacity25", "25%"))
@@ -837,7 +835,17 @@ def gen_strings():
     lines.append(s("AreaOpacity100", "100%"))
     lines.append(s("AreaShowLine", "Area Graph: Show Line"))
     lines.append(s("ShowBatteryDays", "Show Battery Days Remaining"))
+    lines.append(s("WatchCommandStyle", "Command Style"))
+    lines.append(s("WatchCommandWindows", "Windows (watch.bat)"))
+    lines.append(s("WatchCommandLinux", "Linux (watch.sh)"))
+    lines.append(s("WatchCommandBare", "Bare (watch)"))
+
+    lines.append("\n  <!-- Fixed rows -->")
+    lines.append(s("TimeRowGroup", "Time Row"))
     lines.append(s("ShowSeconds", "Show Seconds"))
+    lines.append(s("Line1LabelColor", "Time: Label Color"))
+    lines.append(s("Line1ValueColor", "Time: Value Color"))
+    lines.append(s("DateRowGroup", "Date Row"))
     lines.append(s("ShowYear", "Show Year in Date"))
     lines.append(s("DateFormat", "Date Format"))
     lines.append(s("DateFormatDayMon", "Day Month (Mon, 1 Jan)"))
@@ -846,6 +854,10 @@ def gen_strings():
     lines.append(s("DateFormatMDY", "MM-DD-YYYY"))
     lines.append(s("DateFormatDayNum", "Day Name + Number (Mon 14)"))
     lines.append(s("DateFormatDMon", "Date + Month (14 Jun)"))
+    lines.append(s("Line2LabelColor", "Date: Label Color"))
+    lines.append(s("Line2ValueColor", "Date: Value Color"))
+
+    lines.append("\n  <!-- Screens & Rotation -->")
     lines.append(s("ScreenGroup", "Screens"))
     lines.append(s("Screen2Enabled", "Screen 2: Enabled"))
     lines.append(s("Screen3Enabled", "Screen 3: Enabled"))
@@ -856,19 +868,6 @@ def gen_strings():
     lines.append(s("Screen1", "Screen 1"))
     lines.append(s("Screen2", "Screen 2"))
     lines.append(s("Screen3", "Screen 3"))
-
-    lines.append(s("WatchCommandStyle", "Command Style"))
-    lines.append(s("WatchCommandWindows", "Windows (watch.bat)"))
-    lines.append(s("WatchCommandLinux", "Linux (watch.sh)"))
-    lines.append(s("WatchCommandBare", "Bare (watch)"))
-
-    lines.append("\n  <!-- Fixed rows -->")
-    lines.append(s("TimeRowGroup", "Time Row"))
-    lines.append(s("Line1LabelColor", "Time: Label Color"))
-    lines.append(s("Line1ValueColor", "Time: Value Color"))
-    lines.append(s("DateRowGroup", "Date Row"))
-    lines.append(s("Line2LabelColor", "Date: Label Color"))
-    lines.append(s("Line2ValueColor", "Date: Value Color"))
 
     _slot_r = {
         "Primary": " (R1)",
@@ -905,21 +904,21 @@ def gen_strings():
     lines.append("\n  <!-- Shared: graph mode options (sensor graphs) -->")
     lines.append(s("GraphModeValue", "Value only"))
     lines.append(s("GraphModeLineGraph", "Line graph"))
+    lines.append(s("GraphModeLineCurrent", "Line + value"))
     lines.append(s("GraphModeBarGraph", "Bar graph"))
-    lines.append(s("GraphModeLineCurrent", "Line + current value"))
-    lines.append(s("GraphModeBarCurrent", "Bar + current value"))
+    lines.append(s("GraphModeBarCurrent", "Bar + value"))
     lines.append(s("GraphModeAreaGraph", "Area graph"))
-    lines.append(s("GraphModeAreaCurrent", "Area + current value"))
+    lines.append(s("GraphModeAreaCurrent", "Area + value"))
 
     lines.append("\n  <!-- Shared: graph value mode options -->")
     lines.append(s("GraphValueCurrent", "Current value"))
     lines.append(s("GraphValueAvg", "Average"))
     lines.append(s("GraphValueMaxMin", "Max / Min"))
-    lines.append(s("GraphValueMean", "Mean (midpoint)"))
+    lines.append(s("GraphValueMean", "Midpoint"))
 
     lines.append("\n  <!-- Shared: forecast view mode options (daily) -->")
     lines.append(s("ViewModeGraph", "Graph"))
-    lines.append(s("ViewModeGraphCurrent", "Graph + Current"))
+    lines.append(s("ViewModeGraphCurrent", "Graph + Value"))
 
     lines.append("\n  <!-- Shared: graph width options -->")
     lines.append(s("GraphWidth6", "6 chars"))
@@ -930,7 +929,7 @@ def gen_strings():
     lines.append(s("GraphWidth16", "16 chars"))
 
     lines.append("\n  <!-- Shared: bar grouping options -->")
-    lines.append(s("BarGroupOff", "Off (1 bar per pixel)"))
+    lines.append(s("BarGroupOff", "Off (full detail)"))
     lines.append(s("BarGroupTight", "Tight"))
     lines.append(s("BarGroupNormal", "Normal"))
     lines.append(s("BarGroupLoose", "Loose"))
@@ -982,14 +981,14 @@ def gen_strings():
         lines.append(s(f"{skey}GraphGroup", f"{GRAPH_CONFIG_PREFIX}{display}"))
         lines.append(s(f"{skey}GraphMode", f"{display}: Graph Mode"))
         lines.append(s(f"{skey}GraphValueMode", f"{display}: Graph Value Mode"))
+        lines.append(s(f"{skey}BarGroup", f"{display}: Bar Grouping"))
+        lines.append(s(f"{skey}BarGroupAgg", f"{display}: Bar Grouping Aggregation"))
         lines.append(s(f"{skey}SecondaryType", f"{display}: 2nd Graph Type"))
         lines.append(s(f"{skey}SecondaryField", f"{display}: 2nd Graph Field"))
         lines.append(s(f"{skey}TimeFrame", f"{display}: Time Frame"))
         lines.append(s(f"{skey}GraphColor", f"{display}: Graph Color"))
         lines.append(s(f"{skey}SecondaryColor", f"{display}: 2nd Graph Color"))
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
-        lines.append(s(f"{skey}BarGroup", f"{display}: Bar Grouping"))
-        lines.append(s(f"{skey}BarGroupAgg", f"{display}: Bar Grouping Aggregation"))
 
     lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
     lines.append(s("WxForecastGroup", GRAPH_CONFIG_PREFIX + "Temp Hourly Forecast"))
@@ -1051,6 +1050,22 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         setting_list(
+            f"{pk}{SUF['BarGroup']}",
+            f"{skey}BarGroup",
+            BAR_GROUP_OPTIONS,
+            indent,
+        )
+    )
+    blocks.append(
+        setting_list(
+            f"{pk}{SUF['BarGroupAgg']}",
+            f"{skey}BarGroupAgg",
+            BAR_GROUP_AGG_OPTIONS,
+            indent,
+        )
+    )
+    blocks.append(
+        setting_list(
             f"{pk}{SUF['SecondaryType']}",
             f"{skey}SecondaryType",
             [
@@ -1087,22 +1102,6 @@ def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
     )
     blocks.append(
         width_setting(f"{pk}{SUF['GraphWidth']}", f"{skey}GraphWidth", indent)
-    )
-    blocks.append(
-        setting_list(
-            f"{pk}{SUF['BarGroup']}",
-            f"{skey}BarGroup",
-            BAR_GROUP_OPTIONS,
-            indent,
-        )
-    )
-    blocks.append(
-        setting_list(
-            f"{pk}{SUF['BarGroupAgg']}",
-            f"{skey}BarGroupAgg",
-            BAR_GROUP_AGG_OPTIONS,
-            indent,
-        )
     )
 
     return "\n".join(blocks)
@@ -1235,16 +1234,6 @@ def gen_settings():
                 indent=2,
             ),
             setting_bool(sk["flickerEnabled"], "FlickerEnabled", indent=2),
-            setting_list(
-                sk["watchCommandStyle"],
-                "WatchCommandStyle",
-                [
-                    (0, "@Strings.WatchCommandWindows"),
-                    (1, "@Strings.WatchCommandLinux"),
-                    (2, "@Strings.WatchCommandBare"),
-                ],
-                indent=2,
-            ),
             setting_numeric(sk["leftPadding"], "LeftPadding", 0, 8, indent=2),
             setting_list(
                 sk["areaOpacity"],
@@ -1259,6 +1248,16 @@ def gen_settings():
             ),
             setting_bool(sk["areaShowLine"], "AreaShowLine", indent=2),
             setting_bool(sk["showBatteryDays"], "ShowBatteryDays", indent=2),
+            setting_list(
+                sk["watchCommandStyle"],
+                "WatchCommandStyle",
+                [
+                    (0, "@Strings.WatchCommandWindows"),
+                    (1, "@Strings.WatchCommandLinux"),
+                    (2, "@Strings.WatchCommandBare"),
+                ],
+                indent=2,
+            ),
         )
     )
 

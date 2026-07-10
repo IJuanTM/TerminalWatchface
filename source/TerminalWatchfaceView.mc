@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.49.5";
+const APP_VERSION = "0.49.7";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -145,16 +145,16 @@ const BG_BACKLIGHT_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
 // Halo blend fraction toward a shape's own color, per glowIntensity level (0=off).
 const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 
-// Vertical spread (px) shared by every glow shape/primitive.
-const GLOW_V_SPREAD = 1;
+// Glow offset (px); diagonal everywhere except the line-ribbon glow (self-intersection risk).
+const GLOW_SPREAD = 1;
 
-// 0=shadow, 1=bar bg, 2=dashed lines/separators, 3=mean line/no-data/axes
+// 0=shadow, 1=bar bg, 2=dashed lines/mean line, 3=separators/no-data/axes
 const GRAYS =
     [
         0x111111, // 0  shadow
         0x333333, // 1  bar background
-        0x555555, // 2  dashed lines, text separators
-        0x777777, // 3  mean line, no-data text, graph axes
+        0x555555, // 2  dashed lines, mean line
+        0x777777, // 3  text separators, no-data text, graph axes
     ] as Array<Number>;
 
 const DAY_NAMES =
@@ -1202,8 +1202,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            _drawIconShape(hdc, x, y - GLOW_V_SPREAD, iconType);
-            _drawIconShape(hdc, x, y + GLOW_V_SPREAD, iconType);
+            _drawIconShape(hdc, x, y + GLOW_SPREAD, iconType);
+            _drawIconShape(hdc, x + GLOW_SPREAD, y, iconType);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawIconShape(dc, x, y, iconType);
@@ -1666,8 +1666,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawText(x, y - GLOW_V_SPREAD, font, text, justify);
-            hdc.drawText(x, y + GLOW_V_SPREAD, font, text, justify);
+            hdc.drawText(x, y + GLOW_SPREAD, font, text, justify);
+            hdc.drawText(x + GLOW_SPREAD, y, font, text, justify);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, font, text, justify);
@@ -1684,22 +1684,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawLine(x1, y1 - GLOW_V_SPREAD, x2, y2 - GLOW_V_SPREAD);
-            hdc.drawLine(x1, y1 + GLOW_V_SPREAD, x2, y2 + GLOW_V_SPREAD);
+            hdc.drawLine(x1, y1 + GLOW_SPREAD, x2, y2 + GLOW_SPREAD);
+            hdc.drawLine(x1 + GLOW_SPREAD, y1, x2 + GLOW_SPREAD, y2);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(x1, y1, x2, y2);
     }
 
-    // Shared vertical-glow footprint for every rect-based glow shape below.
-    private function _haloFillVSpread(
+    private function _haloFillDiagSpread(
         hdc as Dc,
         x as Number,
         y as Number,
         w as Number,
         h as Number
     ) as Void {
-        hdc.fillRectangle(x, y - GLOW_V_SPREAD, w, h + 2 * GLOW_V_SPREAD);
+        hdc.fillRectangle(x, y + GLOW_SPREAD, w, h);
+        hdc.fillRectangle(x + GLOW_SPREAD, y, w, h);
     }
 
     private function _glowRect(
@@ -1713,7 +1713,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            _haloFillVSpread(hdc, x, y, w, h);
+            _haloFillDiagSpread(hdc, x, y, w, h);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(x, y, w, h);
@@ -1881,7 +1881,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 color = ColorUtils.gradColor(colorIdx, frac);
             }
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            _haloFillVSpread(hdc, r[0], r[1], r[2], r[3]);
+            _haloFillDiagSpread(hdc, r[0], r[1], r[2], r[3]);
         }
     }
 
@@ -1940,7 +1940,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _glowColor(ColorUtils.gradColor(colorIdx1, frac1)),
                     Graphics.COLOR_TRANSPARENT
                 );
-                _haloFillVSpread(hdc, r1[0], r1[1], r1[2], r1[3]);
+                _haloFillDiagSpread(hdc, r1[0], r1[1], r1[2], r1[3]);
             }
             if (data2[i] != null) {
                 var v2 = data2[i] as Float;
@@ -1968,7 +1968,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _glowColor(ColorUtils.gradColor(colorIdx2, frac2)),
                     Graphics.COLOR_TRANSPARENT
                 );
-                _haloFillVSpread(hdc, r2[0], r2[1], r2[2], r2[3]);
+                _haloFillDiagSpread(hdc, r2[0], r2[1], r2[2], r2[3]);
             }
         }
     }
@@ -2021,8 +2021,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 gradMinV,
                 gradRange,
                 maxGap,
-                -GLOW_V_SPREAD,
-                GLOW_V_SPREAD
+                -GLOW_SPREAD,
+                GLOW_SPREAD
             );
         }
     }
@@ -2038,8 +2038,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawCircle(x, y - GLOW_V_SPREAD, r);
-            hdc.drawCircle(x, y + GLOW_V_SPREAD, r);
+            hdc.drawCircle(x, y + GLOW_SPREAD, r);
+            hdc.drawCircle(x + GLOW_SPREAD, y, r);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(x, y, r);
@@ -3275,7 +3275,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH, GRAYS[2]);
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
         var goalStr = goal.toString();
-        var axisColor = GRAYS[3];
+        var axisColor = ColorUtils.colorFromIdx(0);
         _glowText(
             dc,
             gx - 4,
@@ -3638,7 +3638,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             valColor
         );
         x += dc.getTextWidthInPixels(_wxUnit, _font);
-        _glowText(dc, x, y, _font, " / ", Graphics.TEXT_JUSTIFY_LEFT, GRAYS[2]);
+        _glowText(dc, x, y, _font, " / ", Graphics.TEXT_JUSTIFY_LEFT, GRAYS[3]);
         x += dc.getTextWidthInPixels(" / ", _font);
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
@@ -5217,7 +5217,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var color =
             colorIdx >= COLOR_GRAD_TRI
                 ? ColorUtils.gradColor(colorIdx, meanFrac)
-                : GRAYS[3];
+                : GRAYS[2];
         return [meanY, color] as Array<Number>;
     }
 
@@ -5283,7 +5283,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         hdc.setColor(_glowColor(r[1]), Graphics.COLOR_TRANSPARENT);
-        _haloFillVSpread(hdc, gx, r[0], gw, 1);
+        _haloFillDiagSpread(hdc, gx, r[0], gw, 1);
     }
 
     private function _drawGradLine(
@@ -6331,7 +6331,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _glowColor(ColorUtils.gradColor(colorIdx, frac)),
                 Graphics.COLOR_TRANSPARENT
             );
-            _haloFillVSpread(hdc, r[0], r[1], r[2], r[3]);
+            _haloFillDiagSpread(hdc, r[0], r[1], r[2], r[3]);
         }
     }
 
@@ -8365,28 +8365,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         _cursorOn = cursorOn;
-        // Widened by GLOW_V_SPREAD so the glow bleed isn't clipped away.
-        dc.setClip(
-            _cursorX,
-            _cursorY - GLOW_V_SPREAD,
-            _cursorCharW,
-            _cursorFh + 2 * GLOW_V_SPREAD
-        );
+        dc.setClip(_cursorX, _cursorY, _cursorCharW, _cursorFh);
         if (_cursorOn) {
             var hdc = _haloDcIfDrawable();
             if (hdc != null) {
                 hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
                 hdc.fillRectangle(
                     _cursorX,
-                    _cursorY - GLOW_V_SPREAD,
-                    _cursorCharW,
-                    _cursorFh + 2 * GLOW_V_SPREAD
+                    _cursorY,
+                    _cursorCharW + GLOW_SPREAD,
+                    _cursorFh + GLOW_SPREAD
                 );
                 hdc.setColor(
                     _glowColor(ColorUtils.colorFromIdx(0)),
                     Graphics.COLOR_TRANSPARENT
                 );
-                _haloFillVSpread(
+                _haloFillDiagSpread(
                     hdc,
                     _cursorX,
                     _cursorY,
@@ -8399,12 +8393,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
         } else {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-            dc.fillRectangle(
-                _cursorX,
-                _cursorY - GLOW_V_SPREAD,
-                _cursorCharW,
-                _cursorFh + 2 * GLOW_V_SPREAD
-            );
+            dc.fillRectangle(_cursorX, _cursorY, _cursorCharW, _cursorFh);
             if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
                 dc.setStroke(
                     (_flickerAlpha(
@@ -8432,15 +8421,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var secStr = ":" + sec.format("%02d");
         var x = _timeValueX + _cachedTimeStrW;
         var w = _charW * 3;
-        // Same clip widening as the cursor blink above.
-        dc.setClip(x, _timeValueY - GLOW_V_SPREAD, w, _fh + 2 * GLOW_V_SPREAD);
+        dc.setClip(x, _timeValueY, w, _fh);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-        dc.fillRectangle(
-            x,
-            _timeValueY - GLOW_V_SPREAD,
-            w,
-            _fh + 2 * GLOW_V_SPREAD
-        );
+        dc.fillRectangle(x, _timeValueY, w, _fh);
         if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
             dc.setStroke(
                 (_flickerAlpha(
@@ -8463,9 +8446,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
             hdc.fillRectangle(
                 x,
-                _timeValueY - GLOW_V_SPREAD,
-                w,
-                _fh + 2 * GLOW_V_SPREAD
+                _timeValueY,
+                w + GLOW_SPREAD,
+                _fh + GLOW_SPREAD
             );
             hdc.setColor(
                 _glowColor(ColorUtils.colorFromIdx(_line1ValueC)),
@@ -8473,14 +8456,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
             hdc.drawText(
                 x,
-                _timeValueY - GLOW_V_SPREAD,
+                _timeValueY + GLOW_SPREAD,
                 _font,
                 secStr,
                 Graphics.TEXT_JUSTIFY_LEFT
             );
             hdc.drawText(
-                x,
-                _timeValueY + GLOW_V_SPREAD,
+                x + GLOW_SPREAD,
+                _timeValueY,
                 _font,
                 secStr,
                 Graphics.TEXT_JUSTIFY_LEFT
