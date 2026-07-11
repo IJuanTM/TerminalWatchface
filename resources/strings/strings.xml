@@ -29,8 +29,6 @@
   <string id="BgBacklightMedium">Medium</string>
   <string id="BgBacklightStrong">Strong</string>
   <string id="FlickerEnabled">CRT Flicker</string>
-
-  <!-- Display options -->
   <string id="LeftPadding">Left Padding</string>
   <string id="AreaOpacity">Area Graph: Opacity</string>
   <string id="AreaOpacity25">25%</string>
@@ -39,7 +37,17 @@
   <string id="AreaOpacity100">100%</string>
   <string id="AreaShowLine">Area Graph: Show Line</string>
   <string id="ShowBatteryDays">Show Battery Days Remaining</string>
+  <string id="WatchCommandStyle">Command Style</string>
+  <string id="WatchCommandWindows">Windows (watch.bat)</string>
+  <string id="WatchCommandLinux">Linux (watch.sh)</string>
+  <string id="WatchCommandBare">Bare (watch)</string>
+
+  <!-- Fixed rows -->
+  <string id="TimeRowGroup">Time Row</string>
   <string id="ShowSeconds">Show Seconds</string>
+  <string id="Line1LabelColor">Time: Label Color</string>
+  <string id="Line1ValueColor">Time: Value Color</string>
+  <string id="DateRowGroup">Date Row</string>
   <string id="ShowYear">Show Year in Date</string>
   <string id="DateFormat">Date Format</string>
   <string id="DateFormatDayMon">Day Month (Mon, 1 Jan)</string>
@@ -48,6 +56,10 @@
   <string id="DateFormatMDY">MM-DD-YYYY</string>
   <string id="DateFormatDayNum">Day Name + Number (Mon 14)</string>
   <string id="DateFormatDMon">Date + Month (14 Jun)</string>
+  <string id="Line2LabelColor">Date: Label Color</string>
+  <string id="Line2ValueColor">Date: Value Color</string>
+
+  <!-- Screens & Rotation -->
   <string id="ScreenGroup">Screens</string>
   <string id="Screen2Enabled">Screen 2: Enabled</string>
   <string id="Screen3Enabled">Screen 3: Enabled</string>
@@ -58,18 +70,6 @@
   <string id="Screen1">Screen 1</string>
   <string id="Screen2">Screen 2</string>
   <string id="Screen3">Screen 3</string>
-  <string id="WatchCommandStyle">Command Style</string>
-  <string id="WatchCommandWindows">Windows (watch.bat)</string>
-  <string id="WatchCommandLinux">Linux (watch.sh)</string>
-  <string id="WatchCommandBare">Bare (watch)</string>
-
-  <!-- Fixed rows -->
-  <string id="TimeRowGroup">Time Row</string>
-  <string id="Line1LabelColor">Time: Label Color</string>
-  <string id="Line1ValueColor">Time: Value Color</string>
-  <string id="DateRowGroup">Date Row</string>
-  <string id="Line2LabelColor">Date: Label Color</string>
-  <string id="Line2ValueColor">Date: Value Color</string>
 
   <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->
   <string id="Screen1ConfigGroup">Screen 1 Configuration</string>
@@ -285,21 +285,21 @@
   <!-- Shared: graph mode options (sensor graphs) -->
   <string id="GraphModeValue">Value only</string>
   <string id="GraphModeLineGraph">Line graph</string>
+  <string id="GraphModeLineCurrent">Line + value</string>
   <string id="GraphModeBarGraph">Bar graph</string>
-  <string id="GraphModeLineCurrent">Line + current value</string>
-  <string id="GraphModeBarCurrent">Bar + current value</string>
+  <string id="GraphModeBarCurrent">Bar + value</string>
   <string id="GraphModeAreaGraph">Area graph</string>
-  <string id="GraphModeAreaCurrent">Area + current value</string>
+  <string id="GraphModeAreaCurrent">Area + value</string>
 
   <!-- Shared: graph value mode options -->
   <string id="GraphValueCurrent">Current value</string>
   <string id="GraphValueAvg">Average</string>
   <string id="GraphValueMaxMin">Max / Min</string>
-  <string id="GraphValueMean">Mean (midpoint)</string>
+  <string id="GraphValueMean">Midpoint</string>
 
   <!-- Shared: forecast view mode options (daily) -->
   <string id="ViewModeGraph">Graph</string>
-  <string id="ViewModeGraphCurrent">Graph + Current</string>
+  <string id="ViewModeGraphCurrent">Graph + Value</string>
 
   <!-- Shared: graph width options -->
   <string id="GraphWidth6">6 chars</string>
@@ -310,7 +310,7 @@
   <string id="GraphWidth16">16 chars</string>
 
   <!-- Shared: bar grouping options -->
-  <string id="BarGroupOff">Off (1 bar per pixel)</string>
+  <string id="BarGroupOff">Off (full detail)</string>
   <string id="BarGroupTight">Tight</string>
   <string id="BarGroupNormal">Normal</string>
   <string id="BarGroupLoose">Loose</string>
@@ -382,92 +382,92 @@
   <string id="HRGraphGroup">Graph Config - Heart Rate</string>
   <string id="HRGraphMode">Heart Rate: Graph Mode</string>
   <string id="HRGraphValueMode">Heart Rate: Graph Value Mode</string>
+  <string id="HRBarGroup">Heart Rate: Bar Grouping</string>
+  <string id="HRBarGroupAgg">Heart Rate: Bar Grouping Aggregation</string>
   <string id="HRSecondaryType">Heart Rate: 2nd Graph Type</string>
   <string id="HRSecondaryField">Heart Rate: 2nd Graph Field</string>
   <string id="HRTimeFrame">Heart Rate: Time Frame</string>
   <string id="HRGraphColor">Heart Rate: Graph Color</string>
   <string id="HRSecondaryColor">Heart Rate: 2nd Graph Color</string>
   <string id="HRGraphWidth">Heart Rate: Graph Width</string>
-  <string id="HRBarGroup">Heart Rate: Bar Grouping</string>
-  <string id="HRBarGroupAgg">Heart Rate: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Blood O2 -->
   <string id="SpO2GraphGroup">Graph Config - Blood O2</string>
   <string id="SpO2GraphMode">Blood O2: Graph Mode</string>
   <string id="SpO2GraphValueMode">Blood O2: Graph Value Mode</string>
+  <string id="SpO2BarGroup">Blood O2: Bar Grouping</string>
+  <string id="SpO2BarGroupAgg">Blood O2: Bar Grouping Aggregation</string>
   <string id="SpO2SecondaryType">Blood O2: 2nd Graph Type</string>
   <string id="SpO2SecondaryField">Blood O2: 2nd Graph Field</string>
   <string id="SpO2TimeFrame">Blood O2: Time Frame</string>
   <string id="SpO2GraphColor">Blood O2: Graph Color</string>
   <string id="SpO2SecondaryColor">Blood O2: 2nd Graph Color</string>
   <string id="SpO2GraphWidth">Blood O2: Graph Width</string>
-  <string id="SpO2BarGroup">Blood O2: Bar Grouping</string>
-  <string id="SpO2BarGroupAgg">Blood O2: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Body Battery -->
   <string id="BodyBatGraphGroup">Graph Config - Body Battery</string>
   <string id="BodyBatGraphMode">Body Battery: Graph Mode</string>
   <string id="BodyBatGraphValueMode">Body Battery: Graph Value Mode</string>
+  <string id="BodyBatBarGroup">Body Battery: Bar Grouping</string>
+  <string id="BodyBatBarGroupAgg">Body Battery: Bar Grouping Aggregation</string>
   <string id="BodyBatSecondaryType">Body Battery: 2nd Graph Type</string>
   <string id="BodyBatSecondaryField">Body Battery: 2nd Graph Field</string>
   <string id="BodyBatTimeFrame">Body Battery: Time Frame</string>
   <string id="BodyBatGraphColor">Body Battery: Graph Color</string>
   <string id="BodyBatSecondaryColor">Body Battery: 2nd Graph Color</string>
   <string id="BodyBatGraphWidth">Body Battery: Graph Width</string>
-  <string id="BodyBatBarGroup">Body Battery: Bar Grouping</string>
-  <string id="BodyBatBarGroupAgg">Body Battery: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Stress -->
   <string id="StressGraphGroup">Graph Config - Stress</string>
   <string id="StressGraphMode">Stress: Graph Mode</string>
   <string id="StressGraphValueMode">Stress: Graph Value Mode</string>
+  <string id="StressBarGroup">Stress: Bar Grouping</string>
+  <string id="StressBarGroupAgg">Stress: Bar Grouping Aggregation</string>
   <string id="StressSecondaryType">Stress: 2nd Graph Type</string>
   <string id="StressSecondaryField">Stress: 2nd Graph Field</string>
   <string id="StressTimeFrame">Stress: Time Frame</string>
   <string id="StressGraphColor">Stress: Graph Color</string>
   <string id="StressSecondaryColor">Stress: 2nd Graph Color</string>
   <string id="StressGraphWidth">Stress: Graph Width</string>
-  <string id="StressBarGroup">Stress: Bar Grouping</string>
-  <string id="StressBarGroupAgg">Stress: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Wrist Temp -->
   <string id="TempWristGraphGroup">Graph Config - Wrist Temp</string>
   <string id="TempWristGraphMode">Wrist Temp: Graph Mode</string>
   <string id="TempWristGraphValueMode">Wrist Temp: Graph Value Mode</string>
+  <string id="TempWristBarGroup">Wrist Temp: Bar Grouping</string>
+  <string id="TempWristBarGroupAgg">Wrist Temp: Bar Grouping Aggregation</string>
   <string id="TempWristSecondaryType">Wrist Temp: 2nd Graph Type</string>
   <string id="TempWristSecondaryField">Wrist Temp: 2nd Graph Field</string>
   <string id="TempWristTimeFrame">Wrist Temp: Time Frame</string>
   <string id="TempWristGraphColor">Wrist Temp: Graph Color</string>
   <string id="TempWristSecondaryColor">Wrist Temp: 2nd Graph Color</string>
   <string id="TempWristGraphWidth">Wrist Temp: Graph Width</string>
-  <string id="TempWristBarGroup">Wrist Temp: Bar Grouping</string>
-  <string id="TempWristBarGroupAgg">Wrist Temp: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Elevation -->
   <string id="ElevationGraphGroup">Graph Config - Elevation</string>
   <string id="ElevationGraphMode">Elevation: Graph Mode</string>
   <string id="ElevationGraphValueMode">Elevation: Graph Value Mode</string>
+  <string id="ElevationBarGroup">Elevation: Bar Grouping</string>
+  <string id="ElevationBarGroupAgg">Elevation: Bar Grouping Aggregation</string>
   <string id="ElevationSecondaryType">Elevation: 2nd Graph Type</string>
   <string id="ElevationSecondaryField">Elevation: 2nd Graph Field</string>
   <string id="ElevationTimeFrame">Elevation: Time Frame</string>
   <string id="ElevationGraphColor">Elevation: Graph Color</string>
   <string id="ElevationSecondaryColor">Elevation: 2nd Graph Color</string>
   <string id="ElevationGraphWidth">Elevation: Graph Width</string>
-  <string id="ElevationBarGroup">Elevation: Bar Grouping</string>
-  <string id="ElevationBarGroupAgg">Elevation: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Pressure -->
   <string id="PressureGraphGroup">Graph Config - Pressure</string>
   <string id="PressureGraphMode">Pressure: Graph Mode</string>
   <string id="PressureGraphValueMode">Pressure: Graph Value Mode</string>
+  <string id="PressureBarGroup">Pressure: Bar Grouping</string>
+  <string id="PressureBarGroupAgg">Pressure: Bar Grouping Aggregation</string>
   <string id="PressureSecondaryType">Pressure: 2nd Graph Type</string>
   <string id="PressureSecondaryField">Pressure: 2nd Graph Field</string>
   <string id="PressureTimeFrame">Pressure: Time Frame</string>
   <string id="PressureGraphColor">Pressure: Graph Color</string>
   <string id="PressureSecondaryColor">Pressure: 2nd Graph Color</string>
   <string id="PressureGraphWidth">Pressure: Graph Width</string>
-  <string id="PressureBarGroup">Pressure: Bar Grouping</string>
-  <string id="PressureBarGroupAgg">Pressure: Bar Grouping Aggregation</string>
 
   <!-- Graph settings: Temp Hourly Forecast -->
   <string id="WxForecastGroup">Graph Config - Temp Hourly Forecast</string>

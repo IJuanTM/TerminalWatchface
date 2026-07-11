@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.49.7";
+const APP_VERSION = "0.50.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -130,10 +130,9 @@ const TRI_GRAD = [0x55ff77, 0xff9944, 0xff5555] as Array<Number>;
 const SCANLINE_SPACING = 3;
 // Black overlay alpha per intensity (0=off, 1=subtle, 2=medium, 3=strong).
 const SCANLINE_ALPHA = [0, 15, 30, 45] as Array<Number>;
-// CRT flicker: max brightness swing, and odds any given second flickers at all.
 const FLICKER_MAGNITUDE = 10;
 const FLICKER_CHANCE_PCT = 20;
-// Max vertical shift (px) on a backlight flicker tick, and padding above/below to cover it.
+// PAD must exceed SHIFT_MAX so the flicker shift never clips.
 const BG_BACKLIGHT_SHIFT_MAX = 20;
 const BG_BACKLIGHT_PAD = 22;
 
@@ -572,7 +571,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? true
                 : _getBoolProp("s" + (_activeScreen + 1).toString() + "En");
 
-        // No badge on screen 1 if there's nothing else to switch to.
         var screen2Off = !_getBoolProp("s2En");
         var screen3Off = !_getBoolProp("s3En");
         _showScreenBadge = !(_activeScreen == 0 && screen2Off && screen3Off);
@@ -1554,6 +1552,30 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    private function _bmpCacheLookup(
+        cache as Dictionary,
+        cacheKey as Number
+    ) as Graphics.BufferedBitmap? {
+        return _resolveBmpRef(
+            cache.get(cacheKey) as Graphics.BufferedBitmapReference?
+        );
+    }
+
+    private function _newClearedBitmap(
+        w as Number,
+        h as Number
+    ) as [Graphics.BufferedBitmapReference, Graphics.BufferedBitmap]? {
+        var newRef = _tryCreateBufferedBitmap(w, h);
+        var bmp = _resolveBmpRef(newRef);
+        if (bmp == null) {
+            return null;
+        }
+        var bmpDc = bmp.getDc();
+        bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
+        bmpDc.clear();
+        return [newRef, bmp];
+    }
+
     private function _clampByte(v as Number) as Number {
         if (v < 0) {
             return 0;
@@ -1627,14 +1649,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Wipes the halo surface to black before this redraw's halos are drawn.
     private function _clearHalo() as Void {
         var hdc = _haloDc();
         hdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         hdc.clear();
     }
 
-    // Composites the halo surface onto dc additively so it brightens rather than replaces.
     private function _compositeHalo(dc as Dc) as Void {
         var bmp = _haloBmp as Graphics.BufferedBitmap;
         dc.setBlendMode(Graphics.BLEND_MODE_ADDITIVE);
@@ -1644,7 +1664,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.setBlendMode(Graphics.BLEND_MODE_DEFAULT);
     }
 
-    // Blends a color toward black by the current halo fraction.
     private function _glowColor(color as Number) as Number {
         var f = GLOW_FRACTION[_glowIntensity];
         var r = (((color >> 16) & 0xff) * f).toNumber();
@@ -1719,11 +1738,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.fillRectangle(x, y, w, h);
     }
 
-    // One glow shape per gap-run instead of per-point, drawn live at the row's
-    // real screen position (the old per-point _glowLine/_glowRect calls are
-    // suppressed during the cached bitmap render, see _haloSuppressed).
-    // topOff/botOff offset the ribbon's two edges from the line's y - see
-    // _glowOneGraph for the symmetric vs area-fill-edge cases.
+    // One glow shape per gap-run (live-drawn; per-point glow suppressed for cached bitmaps, see _haloSuppressed).
     private function _glowLineShape(
         dc as Dc,
         data as Array<Float>,
@@ -1765,14 +1780,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if ((atEnd || gapBreak) && runX.size() > 0) {
                 var color = flatColor;
                 if (isGrad) {
-                    var frac =
-                        (runSum / runCnt.toFloat() - gradMinV) / gradRange;
-                    if (frac < 0.0) {
-                        frac = 0.0;
-                    }
-                    if (frac > 1.0) {
-                        frac = 1.0;
-                    }
+                    var frac = _fracClamp(
+                        runSum / runCnt.toFloat(),
+                        gradMinV,
+                        gradRange
+                    );
                     color = ColorUtils.gradColor(colorIdx, frac);
                 }
                 _fillGlowRibbon(
@@ -1800,11 +1812,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Fills a ribbon along (xs, ys) with edges at topOff/botOff from the line.
-    // Chunked into segments of <=16 points (32 vertices) - a single
-    // ~240-vertex polygon only rendered partially, hitting an undocumented
-    // fillPolygon vertex-count limit. Chunks share their boundary point so
-    // segments connect with no visible seam.
+    // Chunked to <=16 points (32 vertices): fillPolygon has an undocumented ~240-vertex limit and silently mis-renders past it.
     private function _fillGlowRibbon(
         hdc as Dc,
         xs as Array<Number>,
@@ -1871,13 +1879,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var r = _barRect(gx, gw, y, gh, i, n, v, minV, range, ghf);
             var color = flatColor;
             if (isGrad) {
-                var frac = (v - gradMinV) / gradRange;
-                if (frac < 0.0) {
-                    frac = 0.0;
-                }
-                if (frac > 1.0) {
-                    frac = 1.0;
-                }
+                var frac = _fracClamp(v, gradMinV, gradRange);
                 color = ColorUtils.gradColor(colorIdx, frac);
             }
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
@@ -1929,13 +1931,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     true
                 );
-                var frac1 = (v1 - gradMinV1) / gradRange1;
-                if (frac1 < 0.0) {
-                    frac1 = 0.0;
-                }
-                if (frac1 > 1.0) {
-                    frac1 = 1.0;
-                }
+                var frac1 = _fracClamp(v1, gradMinV1, gradRange1);
                 hdc.setColor(
                     _glowColor(ColorUtils.gradColor(colorIdx1, frac1)),
                     Graphics.COLOR_TRANSPARENT
@@ -1957,13 +1953,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     false
                 );
-                var frac2 = (v2 - gradMinV2) / gradRange2;
-                if (frac2 < 0.0) {
-                    frac2 = 0.0;
-                }
-                if (frac2 > 1.0) {
-                    frac2 = 1.0;
-                }
+                var frac2 = _fracClamp(v2, gradMinV2, gradRange2);
                 hdc.setColor(
                     _glowColor(ColorUtils.gradColor(colorIdx2, frac2)),
                     Graphics.COLOR_TRANSPARENT
@@ -3870,7 +3860,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _clampFrac(v as Float) as Float {
-        var frac = (v - _gradMin) / _gradRange;
+        return _fracClamp(v, _gradMin, _gradRange);
+    }
+
+    private function _fracClamp(
+        v as Float,
+        gradMinV as Float,
+        gradRange as Float
+    ) as Float {
+        var frac = (v - gradMinV) / gradRange;
         if (frac < 0.0) {
             return 0.0;
         }
@@ -4150,7 +4148,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
         }
 
-        // Secondary min/max outside right
         if (data2 != null) {
             _glowText(
                 dc,
@@ -4206,7 +4203,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
         }
 
-        // Primary min/max outside left
         _glowText(
             dc,
             _graphX - 4,
@@ -4333,8 +4329,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             badAgeStreak = 0;
             if (age >= 0 && s.data != null) {
                 var v = s.data;
-                var fv =
-                    v instanceof Float ? v as Float : (v as Number).toFloat();
+                var fv = _numToFloat(v as Numeric);
                 if (!skipZero || fv != 0.0) {
                     if (age > maxAge) {
                         maxAge = age;
@@ -4405,7 +4400,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return result;
     }
 
-    // How often (minutes) each sensor field generates a new reading.
     private function _fieldUpdateMin(field as Number) as Number {
         if (field == FIELD_STRESS || field == FIELD_WRIST_TEMP) {
             return 3;
@@ -4420,10 +4414,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return _fieldUpdateMin(field) * SECS_PER_MIN * 3;
     }
 
-    // Density (0=off, 1=Tight/100%, 2=Normal/50%, 3=Loose/25% of the cap) is
-    // qualitative rather than a raw bar count, so it stays meaningful across
-    // every Time Frame/GraphWidth; floored by the field's real sample
-    // cadence so it never fabricates more bars than genuinely exist.
+    private function _sampleFresh(
+        sample as SensorHistory.SensorSample?,
+        field as Number
+    ) as Boolean {
+        return (
+            sample != null &&
+            sample.data != null &&
+            Time.now().value() - (sample.when as Time.Moment).value() <=
+                _pointStaleSec(field)
+        );
+    }
+
+    private function _numToFloat(v as Numeric) as Float {
+        return v instanceof Float ? v as Float : (v as Number).toFloat();
+    }
+
+    // Density is qualitative (Tight/Normal/Loose %) so it stays meaningful across time frames, floored by field cadence so it never fabricates samples.
     private function _resolveBarCount(
         field as Number,
         periodMin as Number,
@@ -4753,21 +4760,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradRange as Float,
         maxGap as Number
     ) as Graphics.BufferedBitmap? {
-        var ref =
-            _graphBmpCache.get(cacheKey) as Graphics.BufferedBitmapReference?;
-        var cached = _resolveBmpRef(ref);
+        var cached = _bmpCacheLookup(_graphBmpCache, cacheKey);
         if (cached != null) {
             return cached;
         }
         // +1 width/+2 height: the rightmost point and fill's bottom row land exactly at gw/gh+1, past a plain gw x (gh+1) buffer's bounds.
-        var newRef = _tryCreateBufferedBitmap(gw + 1, gh + 2);
-        var bmp = _resolveBmpRef(newRef);
-        if (bmp == null) {
+        var created = _newClearedBitmap(gw + 1, gh + 2);
+        if (created == null) {
             return null;
         }
+        var newRef = created[0];
+        var bmp = created[1];
         var bmpDc = bmp.getDc();
-        bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
-        bmpDc.clear();
         _haloSuppressed = true;
         _drawMeanLine(
             bmpDc,
@@ -4822,22 +4826,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradRange2 as Float,
         dualMaxGap as Number
     ) as Graphics.BufferedBitmap? {
-        var ref =
-            _graphBmpDualCache.get(cacheKey) as
-            Graphics.BufferedBitmapReference?;
-        var cached = _resolveBmpRef(ref);
+        var cached = _bmpCacheLookup(_graphBmpDualCache, cacheKey);
         if (cached != null) {
             return cached;
         }
         // +1 width/+2 height: the rightmost point and fill's bottom row land exactly at gw/gh+1, past a plain gw x (gh+1) buffer's bounds.
-        var newRef = _tryCreateBufferedBitmap(gw + 1, gh + 2);
-        var bmp = _resolveBmpRef(newRef);
-        if (bmp == null) {
+        var created = _newClearedBitmap(gw + 1, gh + 2);
+        if (created == null) {
             return null;
         }
+        var newRef = created[0];
+        var bmp = created[1];
         var bmpDc = bmp.getDc();
-        bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
-        bmpDc.clear();
         _haloSuppressed = true;
         _drawMeanLine(
             bmpDc,
@@ -5207,13 +5207,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             meanH = gh;
         }
         var meanY = y + gh - meanH;
-        var meanFrac = (mean - gradMinV) / gradRange;
-        if (meanFrac < 0.0) {
-            meanFrac = 0.0;
-        }
-        if (meanFrac > 1.0) {
-            meanFrac = 1.0;
-        }
+        var meanFrac = _fracClamp(mean, gradMinV, gradRange);
         var color =
             colorIdx >= COLOR_GRAD_TRI
                 ? ColorUtils.gradColor(colorIdx, meanFrac)
@@ -5319,13 +5313,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var py = _linePointY(y, gh, v, minV, range, ghf);
             if (lastX >= 0 && i - lastI <= maxGap) {
                 var mid = (v + lastV) / 2.0;
-                var mfrac = (mid - gradMinV) / gradRange;
-                if (mfrac < 0.0) {
-                    mfrac = 0.0;
-                }
-                if (mfrac > 1.0) {
-                    mfrac = 1.0;
-                }
+                var mfrac = _fracClamp(mid, gradMinV, gradRange);
                 _glowLine(
                     dc,
                     x,
@@ -5335,13 +5323,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ColorUtils.gradColor(colorIdx, mfrac)
                 );
             }
-            var frac = (v - gradMinV) / gradRange;
-            if (frac < 0.0) {
-                frac = 0.0;
-            }
-            if (frac > 1.0) {
-                frac = 1.0;
-            }
+            var frac = _fracClamp(v, gradMinV, gradRange);
             _glowRect(dc, x, py, 1, 1, ColorUtils.gradColor(colorIdx, frac));
             lastX = x;
             lastY = py;
@@ -5503,13 +5485,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var v = data[i] as Float;
             var r = _barRect(gx, gw, y, gh, i, n, v, minV, range, ghf);
-            var frac = (v - gradMinV) / gradRange;
-            if (frac < 0.0) {
-                frac = 0.0;
-            }
-            if (frac > 1.0) {
-                frac = 1.0;
-            }
+            var frac = _fracClamp(v, gradMinV, gradRange);
             _glowRect(
                 dc,
                 r[0],
@@ -5592,13 +5568,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     true
                 );
-                var frac1 = (v1 - gradMinV1) / gradRange1;
-                if (frac1 < 0.0) {
-                    frac1 = 0.0;
-                }
-                if (frac1 > 1.0) {
-                    frac1 = 1.0;
-                }
+                var frac1 = _fracClamp(v1, gradMinV1, gradRange1);
                 _glowRect(
                     dc,
                     r1[0],
@@ -5623,13 +5593,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     false
                 );
-                var frac2 = (v2 - gradMinV2) / gradRange2;
-                if (frac2 < 0.0) {
-                    frac2 = 0.0;
-                }
-                if (frac2 > 1.0) {
-                    frac2 = 1.0;
-                }
+                var frac2 = _fracClamp(v2, gradMinV2, gradRange2);
                 _glowRect(
                     dc,
                     r2[0],
@@ -5982,13 +5946,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (prevX >= 0 && i - prevI <= maxGap) {
                 var dx = prevX - x;
                 if (dx == 0) {
-                    var frac = (v - gradMinV) / gradRange;
-                    if (frac < 0.0) {
-                        frac = 0.0;
-                    }
-                    if (frac > 1.0) {
-                        frac = 1.0;
-                    }
+                    var frac = _fracClamp(v, gradMinV, gradRange);
                     dc.setStroke(
                         ColorUtils.withAlpha(
                             ColorUtils.gradColor(colorIdx, frac),
@@ -6013,13 +5971,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                             v +
                             ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
                         var lerpY = py + ((px - x) * (prevPY - py)) / dx;
-                        var frac = (lerpV - gradMinV) / gradRange;
-                        if (frac < 0.0) {
-                            frac = 0.0;
-                        }
-                        if (frac > 1.0) {
-                            frac = 1.0;
-                        }
+                        var frac = _fracClamp(lerpV, gradMinV, gradRange);
                         dc.setStroke(
                             ColorUtils.withAlpha(
                                 ColorUtils.gradColor(colorIdx, frac),
@@ -6030,13 +5982,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     }
                 }
             } else {
-                var frac = (v - gradMinV) / gradRange;
-                if (frac < 0.0) {
-                    frac = 0.0;
-                }
-                if (frac > 1.0) {
-                    frac = 1.0;
-                }
+                var frac = _fracClamp(v, gradMinV, gradRange);
                 dc.setStroke(
                     ColorUtils.withAlpha(
                         ColorUtils.gradColor(colorIdx, frac),
@@ -6347,20 +6293,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gh as Number,
         colorIdx as Number
     ) as Graphics.BufferedBitmap? {
-        var ref =
-            _graphBmpCache.get(cacheKey) as Graphics.BufferedBitmapReference?;
-        var cached = _resolveBmpRef(ref);
+        var cached = _bmpCacheLookup(_graphBmpCache, cacheKey);
         if (cached != null) {
             return cached;
         }
-        var newRef = _tryCreateBufferedBitmap(gw + 1, gh + 1);
-        var bmp = _resolveBmpRef(newRef);
-        if (bmp == null) {
+        var created = _newClearedBitmap(gw + 1, gh + 1);
+        if (created == null) {
             return null;
         }
+        var newRef = created[0];
+        var bmp = created[1];
         var bmpDc = bmp.getDc();
-        bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
-        bmpDc.clear();
         _haloSuppressed = true;
         _drawDailyBars(
             bmpDc,
@@ -7947,12 +7890,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _fieldNeeded(FIELD_BODY_BAT_REST_HR)
         ) {
             var sample = SensorHistory.getBodyBatteryHistory({}).next();
-            if (
-                sample != null &&
-                sample.data != null &&
-                Time.now().value() - (sample.when as Time.Moment).value() <=
-                    _pointStaleSec(FIELD_BODY_BAT)
-            ) {
+            if (_sampleFresh(sample, FIELD_BODY_BAT)) {
                 var d = sample.data;
                 _cachedBodyBat =
                     (d instanceof Float
@@ -7964,17 +7902,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (_fieldNeeded(FIELD_WRIST_TEMP)) {
             var sample = SensorHistory.getTemperatureHistory({}).next();
-            if (
-                sample != null &&
-                sample.data != null &&
-                Time.now().value() - (sample.when as Time.Moment).value() <=
-                    _pointStaleSec(FIELD_WRIST_TEMP)
-            ) {
+            if (_sampleFresh(sample, FIELD_WRIST_TEMP)) {
                 var td = sample.data;
-                var tempC =
-                    td instanceof Float
-                        ? td as Float
-                        : (td as Number).toFloat();
+                var tempC = _numToFloat(td as Numeric);
                 _cachedTempWrist = _tempStr(tempC);
             } else {
                 _cachedTempWrist = "-";
@@ -7983,17 +7913,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (_fieldNeeded(FIELD_PRESSURE)) {
             var pIter = SensorHistory.getPressureHistory({ :period => 30 });
             var s1 = pIter.next();
-            if (
-                s1 != null &&
-                s1.data != null &&
-                Time.now().value() - (s1.when as Time.Moment).value() <=
-                    _pointStaleSec(FIELD_PRESSURE)
-            ) {
+            if (_sampleFresh(s1, FIELD_PRESSURE)) {
                 var pd = s1.data;
-                var pa =
-                    pd instanceof Float
-                        ? pd as Float
-                        : (pd as Number).toFloat();
+                var pa = _numToFloat(pd as Numeric);
                 _cachedPressure = _metric
                     ? (pa / 100.0).format("%.1f") + "hPa"
                     : (pa / PA_PER_INHG).format("%.2f") + "inHg";
@@ -8006,10 +7928,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
                 if (oldest != s1 && oldest.data != null) {
                     var od = oldest.data;
-                    var opa =
-                        od instanceof Float
-                            ? od as Float
-                            : (od as Number).toFloat();
+                    var opa = _numToFloat(od as Numeric);
                     _cachedPressureTrend =
                         pa - opa > 100.0 ? 1 : pa - opa < -100.0 ? -1 : 0;
                 }
@@ -8020,17 +7939,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (_fieldNeeded(FIELD_ELEVATION)) {
             var sample = SensorHistory.getElevationHistory({}).next();
-            if (
-                sample != null &&
-                sample.data != null &&
-                Time.now().value() - (sample.when as Time.Moment).value() <=
-                    _pointStaleSec(FIELD_ELEVATION)
-            ) {
+            if (_sampleFresh(sample, FIELD_ELEVATION)) {
                 var ed = sample.data;
-                var elev =
-                    ed instanceof Float
-                        ? ed as Float
-                        : (ed as Number).toFloat();
+                var elev = _numToFloat(ed as Numeric);
                 _cachedElevation = _altStr(elev);
             } else {
                 _cachedElevation = "-";
@@ -8053,18 +7964,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var ss = SensorHistory.getStressHistory({
                     :period => 10,
                 }).next();
-                if (ss != null && ss.data != null) {
-                    var stressAge =
-                        Time.now().value() - (ss.when as Time.Moment).value();
-                    if (stressAge <= _pointStaleSec(FIELD_STRESS)) {
-                        var sd = ss.data;
-                        _cachedStress =
-                            sd instanceof Float
-                                ? (sd as Float).format("%.0f")
-                                : (sd as Number).toString();
-                    } else {
-                        _cachedStress = "-";
-                    }
+                if (_sampleFresh(ss, FIELD_STRESS)) {
+                    var sd = ss.data;
+                    _cachedStress =
+                        sd instanceof Float
+                            ? (sd as Float).format("%.0f")
+                            : (sd as Number).toString();
                 } else {
                     _cachedStress = "-";
                 }
@@ -8090,35 +7995,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var metric = _metric;
         if (c.temperature != null) {
             var t = c.temperature;
-            _wxTemp = _tempStr(
-                t instanceof Float ? t as Float : (t as Number).toFloat()
-            );
+            _wxTemp = _tempStr(_numToFloat(t as Numeric));
         }
         if (c.feelsLikeTemperature != null) {
             var fl = c.feelsLikeTemperature;
-            _wxFeels = _tempStr(
-                fl instanceof Float ? fl as Float : (fl as Number).toFloat()
-            );
+            _wxFeels = _tempStr(_numToFloat(fl as Numeric));
         }
         if (c.lowTemperature != null) {
             var lo = c.lowTemperature;
-            _wxLow = _tempStr0(
-                lo instanceof Float ? lo as Float : (lo as Number).toFloat()
-            );
+            _wxLow = _tempStr0(_numToFloat(lo as Numeric));
         }
         if (c.highTemperature != null) {
             var hi = c.highTemperature;
-            _wxHigh = _tempStr0(
-                hi instanceof Float ? hi as Float : (hi as Number).toFloat()
-            );
+            _wxHigh = _tempStr0(_numToFloat(hi as Numeric));
         }
         if (c.precipitationChance != null) {
             _wxPrecip = (c.precipitationChance as Number).toString() + "%";
         }
         if (c.windSpeed != null) {
             var ws = c.windSpeed;
-            var spd =
-                ws instanceof Float ? ws as Float : (ws as Number).toFloat();
+            var spd = _numToFloat(ws as Numeric);
             _wxWind = metric
                 ? (spd * KMH_PER_MPS).format("%.0f") + "km/h"
                 : (spd * MPH_PER_MPS).format("%.0f") + "mph";
@@ -8132,9 +8028,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (c.uvIndex != null) {
             var uv = c.uvIndex;
-            _wxUvNum = Math.round(
-                uv instanceof Float ? uv as Float : (uv as Number).toFloat()
-            ).toNumber();
+            _wxUvNum = Math.round(_numToFloat(uv as Numeric)).toNumber();
             _wxUv = _wxUvNum.toString() + _uvTag();
         }
         if (c.condition != null) {
@@ -8146,14 +8040,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (c.dewPoint != null) {
             var dp = c.dewPoint;
-            _wxDewPoint = _tempStr(
-                dp instanceof Float ? dp as Float : (dp as Number).toFloat()
-            );
+            _wxDewPoint = _tempStr(_numToFloat(dp as Numeric));
         }
         if (c.visibility != null) {
             var vs = c.visibility;
-            var vis =
-                vs instanceof Float ? vs as Float : (vs as Number).toFloat();
+            var vis = _numToFloat(vs as Numeric);
             _wxVisibility = metric
                 ? (vis / 1000.0).format("%.1f") + "km"
                 : (vis / METERS_PER_MILE).format("%.1f") + "mi";
@@ -8174,7 +8065,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (c.temperature != null && _wxHumidityNum >= 0) {
             var ht = c.temperature;
             _wxHeatIndex = _calcHeatIndex(
-                ht instanceof Float ? ht as Float : (ht as Number).toFloat(),
+                _numToFloat(ht as Numeric),
                 _wxHumidityNum
             );
         }
@@ -8195,10 +8086,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     var h = forecast[i];
                     if (h.temperature != null) {
                         var ht2 = h.temperature;
-                        arr[i] =
-                            ht2 instanceof Float
-                                ? ht2 as Float
-                                : (ht2 as Number).toFloat();
+                        arr[i] = _numToFloat(ht2 as Numeric);
                     }
                     if (h.precipitationChance != null) {
                         precipArr[i] = (
@@ -8207,20 +8095,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     }
                     if (h.windSpeed != null) {
                         var hws = h.windSpeed;
-                        windArr[i] =
-                            hws instanceof Float
-                                ? hws as Float
-                                : (hws as Number).toFloat();
+                        windArr[i] = _numToFloat(hws as Numeric);
                     }
                     if (h.relativeHumidity != null) {
                         humArr[i] = (h.relativeHumidity as Number).toFloat();
                     }
                     if (h.uvIndex != null) {
                         var huv = h.uvIndex;
-                        uvArr[i] =
-                            huv instanceof Float
-                                ? huv as Float
-                                : (huv as Number).toFloat();
+                        uvArr[i] = _numToFloat(huv as Numeric);
                     }
                     if (h.cloudCover != null) {
                         cloudArr[i] = (h.cloudCover as Number).toFloat();
@@ -8248,17 +8130,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     var dfc = daily[i];
                     if (dfc.highTemperature != null) {
                         var dh = dfc.highTemperature;
-                        dhigh[i] =
-                            dh instanceof Float
-                                ? dh as Float
-                                : (dh as Number).toFloat();
+                        dhigh[i] = _numToFloat(dh as Numeric);
                     }
                     if (dfc.lowTemperature != null) {
                         var dl = dfc.lowTemperature;
-                        dlow[i] =
-                            dl instanceof Float
-                                ? dl as Float
-                                : (dl as Number).toFloat();
+                        dlow[i] = _numToFloat(dl as Numeric);
                     }
                 }
                 _wxDailyForecastHigh = dhigh;

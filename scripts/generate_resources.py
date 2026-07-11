@@ -8,6 +8,7 @@ Run from the project root:
 """
 
 import os
+from typing import NamedTuple, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_PROPERTIES = os.path.join(ROOT, "resources", "properties.xml")
@@ -18,7 +19,7 @@ OUT_FIELD_IDS = os.path.join(ROOT, "source", "FieldIds.mc")
 # --- Shared data definitions ---
 
 # (value, StringId, display text); solid colors (0-9) are in hue-wheel order.
-COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
+COLORS_FULL = [  # includes gradient options, used for graph lines
     (0, "ColorWhite", "White"),
     (5, "ColorRed", "Red"),
     (4, "ColorOrange", "Orange"),
@@ -41,7 +42,7 @@ COLORS_FULL = [  # 0-19, includes gradient options — used for graph lines
     (19, "GradTempInfernoRev", "Temp: Inferno (hot->cold)"),
 ]
 
-COLORS_TEXT = COLORS_FULL[:10]  # 0-9, solid colors only — used for text labels/values
+COLORS_TEXT = COLORS_FULL[:10]  # used for text labels/values
 
 # Each category gets a reserved 50-wide numeric block (category 0 -> 1-50, etc).
 FIELD_CATEGORY_WIDTH = 50
@@ -266,27 +267,51 @@ def _build_fields():
 
 FIELDS_ALL, FIELD_VALUE = _build_fields()
 
-# (camelKey, StringPrefix, graph_mode, sec_type, sec_field, time_frame,
-# graph_color, sec_color, value_mode). graph_mode: 0=value 1=line 2=bar
-# 3=line+cur 4=bar+cur 5=area 6=area+cur. sec_field indexes GRAPH_SEC_FIELDS.
+
+class GraphField(NamedTuple):
+    key: str
+    skey: str  # StringPrefix
+    mode: int  # 0=value 1=line 2=bar 3=line+cur 4=bar+cur 5=area 6=area+cur
+    sec_type: int
+    sec_field: int  # indexes GRAPH_SEC_FIELDS
+    time_frame: int
+    graph_color: int
+    sec_color: int
+    value_mode: int
+
+
 GRAPH_FIELDS = [
-    ("hr", "HR", 3, 0, 2, 60, 5, 0, 0),
-    ("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
-    ("bodyBat", "BodyBat", 6, 0, 3, 240, 11, 0, 0),
-    ("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
-    ("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),
-    ("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),
-    ("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),
+    GraphField("hr", "HR", 3, 0, 2, 60, 5, 0, 0),
+    GraphField("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
+    GraphField("bodyBat", "BodyBat", 6, 0, 3, 240, 11, 0, 0),
+    GraphField("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
+    GraphField("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),
+    GraphField("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),
+    GraphField("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),
 ]
 
-# (camelKey, groupTitle, label, showBarDefault, colorDefault, widthDefault,
-# goalDefault, goalMin, goalMax, goalLabelSuffix). goalDefault None means the
-# goal comes from ActivityMonitor.Info, not a user-set property.
+
+class BarField(NamedTuple):
+    key: str  # camelKey
+    group_title: str
+    label: str
+    show_bar_default: bool
+    color_default: int
+    width_default: int
+    # goal_default None means the goal comes from ActivityMonitor.Info, not a user-set property.
+    goal_default: Optional[int]
+    goal_min: Optional[int]
+    goal_max: Optional[int]
+    goal_label_suffix: Optional[str]
+
+
 BAR_FIELDS = [
-    ("steps", "Steps", "Steps", True, 1, 10, None, None, None, None),
-    ("floors", "Floors", "Floors", False, 5, 8, None, None, None, None),
-    ("calories", "Calories (Daily)", "Calories", False, 4, 10, 2000, 500, 9000, None),
-    (
+    BarField("steps", "Steps", "Steps", True, 1, 10, None, None, None, None),
+    BarField("floors", "Floors", "Floors", False, 5, 8, None, None, None, None),
+    BarField(
+        "calories", "Calories (Daily)", "Calories", False, 4, 10, 2000, 500, 9000, None
+    ),
+    BarField(
         "distance",
         "Distance (Daily)",
         "Distance",
@@ -298,7 +323,7 @@ BAR_FIELDS = [
         200,
         " (km or mi - matches your device's distance unit)",
     ),
-    (
+    BarField(
         "activeMinDay",
         "Active Minutes (Daily)",
         "Active Min",
@@ -310,7 +335,7 @@ BAR_FIELDS = [
         480,
         None,
     ),
-    (
+    BarField(
         "intensityMin",
         "Intensity Minutes (Weekly)",
         "Intensity Min",
@@ -384,47 +409,45 @@ GRAPH_DISPLAY_NAMES = {
     "pressure": "Pressure",
 }
 
-# Line 3/4/5 defaults: (line_num, slot, field_default, label_color, value_color).
+
+class LineSlot(NamedTuple):
+    line_num: int
+    slot: str
+    field_default: int
+    label_color_default: int
+    value_color_default: int
+
+
 _fv = FIELD_VALUE
 LINE_SLOTS = [
-    # R1
-    (3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
-    (4, "Primary", _fv["FieldSteps"], 1, 0),
-    (5, "Primary", _fv["FieldHR"], 5, 0),
-    # R2
-    (3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),
-    (4, "Secondary", _fv["FieldElevation"], 1, 0),
-    (5, "Secondary", _fv["FieldStress"], 5, 0),
-    # R3
-    (3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
-    (4, "Tertiary", _fv["FieldDistance"], 1, 0),
-    (5, "Tertiary", _fv["FieldSpO2"], 5, 0),
-    # R4
-    (3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),
-    (4, "Quaternary", _fv["FieldFloors"], 1, 0),
-    (5, "Quaternary", _fv["FieldIntensityMin"], 5, 0),
-    # R5
-    (3, "Quinary", _fv["FieldNone"], 6, 0),
-    (4, "Quinary", _fv["FieldNone"], 1, 0),
-    (5, "Quinary", _fv["FieldNone"], 5, 0),
-    # R6
-    (3, "Senary", _fv["FieldNone"], 6, 0),
-    (4, "Senary", _fv["FieldNone"], 1, 0),
-    (5, "Senary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
+    LineSlot(4, "Primary", _fv["FieldSteps"], 1, 0),
+    LineSlot(5, "Primary", _fv["FieldHR"], 5, 0),
+    LineSlot(3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),
+    LineSlot(4, "Secondary", _fv["FieldElevation"], 1, 0),
+    LineSlot(5, "Secondary", _fv["FieldStress"], 5, 0),
+    LineSlot(3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
+    LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
+    LineSlot(5, "Tertiary", _fv["FieldSpO2"], 5, 0),
+    LineSlot(3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),
+    LineSlot(4, "Quaternary", _fv["FieldFloors"], 1, 0),
+    LineSlot(5, "Quaternary", _fv["FieldIntensityMin"], 5, 0),
+    LineSlot(3, "Quinary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Quinary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Quinary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Senary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Senary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
 ]
 
 SCREEN_COUNT = 3
 
 
 def screen_line_slots(screen_idx):
-    """(line_num, slot, field_default, label_color_default, value_color_default)
-    rows for one screen. Screen 1 keeps today's curated defaults; screens 2/3
-    start blank (all fields None, default gray label / white value)."""
+    """Screen 1 keeps curated defaults; screens 2/3 blank all fields (color idx 8=gray label, 0=white value)."""
     if screen_idx == 1:
         return LINE_SLOTS
-    return [
-        (ln, slot, _fv["FieldNone"], 8, 0) for ln, slot, _fd, _lc, _vc in LINE_SLOTS
-    ]
+    return [LineSlot(s.line_num, s.slot, _fv["FieldNone"], 8, 0) for s in LINE_SLOTS]
 
 
 GRAPH_MODE_OPTIONS = [
@@ -466,13 +489,21 @@ BAR_GROUP_AGG_OPTIONS = [
     (2, "@Strings.BarGroupAggLast"),
 ]
 
-# (camelKey, StringPrefix, display, value_mode_default, graph_color_default).
+
+class HourlyForecast(NamedTuple):
+    key: str  # camelKey
+    skey: str  # StringPrefix
+    display: str
+    value_mode_default: int
+    graph_color_default: int
+
+
 HOURLY_FORECASTS = [
-    ("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
-    ("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
-    ("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
-    ("wxForecastCloud", "WxForecastCloud", "Cloud Hourly", 1, 8),
-    ("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
+    HourlyForecast("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
+    HourlyForecast("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
+    HourlyForecast("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
+    HourlyForecast("wxForecastCloud", "WxForecastCloud", "Cloud Hourly", 1, 8),
+    HourlyForecast("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
 ]
 
 # --- XML helpers ---
@@ -724,44 +755,33 @@ def gen_properties():
                 lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", vc))
             lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
 
-    for (
-        key,
-        group_title,
-        _label,
-        show_bar_default,
-        color_default,
-        width_default,
-        goal_default,
-        _goal_min,
-        _goal_max,
-        _goal_suffix,
-    ) in BAR_FIELDS:
-        pk = PFX.get(key, key)
-        lines.append(f"\n  <!-- {group_title} -->")
+    for bf in BAR_FIELDS:
+        pk = PFX.get(bf.key, bf.key)
+        lines.append(f"\n  <!-- {bf.group_title} -->")
         lines.append(
             prop(
                 f"{pk}{SUF['ShowBar']}",
                 "boolean",
-                "true" if show_bar_default else "false",
+                "true" if bf.show_bar_default else "false",
             )
         )
         lines.append(prop(f"{pk}{SUF['ShowBarValue']}", "boolean", "true"))
-        lines.append(prop(f"{pk}{SUF['BarColor']}", "number", color_default))
-        lines.append(prop(f"{pk}{SUF['BarWidth']}", "number", width_default))
-        if goal_default is not None:
-            lines.append(prop(f"{pk}{SUF['BarGoal']}", "number", goal_default))
+        lines.append(prop(f"{pk}{SUF['BarColor']}", "number", bf.color_default))
+        lines.append(prop(f"{pk}{SUF['BarWidth']}", "number", bf.width_default))
+        if bf.goal_default is not None:
+            lines.append(prop(f"{pk}{SUF['BarGoal']}", "number", bf.goal_default))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
-    for key, skey, mode, std, sfd, tfd, gcd, scd, vmd in GRAPH_FIELDS:
-        pk = PFX.get(key, key)
-        lines.append(f"\n  <!-- {skey} -->")
-        lines.append(prop(f"{pk}{SUF['GraphMode']}", "number", mode))
-        lines.append(prop(f"{pk}{SUF['GraphValueMode']}", "number", vmd))
-        lines.append(prop(f"{pk}{SUF['SecondaryType']}", "number", std))
-        lines.append(prop(f"{pk}{SUF['SecondaryField']}", "number", sfd))
-        lines.append(prop(f"{pk}{SUF['TimeFrame']}", "number", tfd))
-        lines.append(prop(f"{pk}{SUF['GraphColor']}", "number", gcd))
-        lines.append(prop(f"{pk}{SUF['SecondaryColor']}", "number", scd))
+    for gf in GRAPH_FIELDS:
+        pk = PFX.get(gf.key, gf.key)
+        lines.append(f"\n  <!-- {gf.skey} -->")
+        lines.append(prop(f"{pk}{SUF['GraphMode']}", "number", gf.mode))
+        lines.append(prop(f"{pk}{SUF['GraphValueMode']}", "number", gf.value_mode))
+        lines.append(prop(f"{pk}{SUF['SecondaryType']}", "number", gf.sec_type))
+        lines.append(prop(f"{pk}{SUF['SecondaryField']}", "number", gf.sec_field))
+        lines.append(prop(f"{pk}{SUF['TimeFrame']}", "number", gf.time_frame))
+        lines.append(prop(f"{pk}{SUF['GraphColor']}", "number", gf.graph_color))
+        lines.append(prop(f"{pk}{SUF['SecondaryColor']}", "number", gf.sec_color))
         lines.append(prop(f"{pk}{SUF['GraphWidth']}", "number", 10))
         lines.append(prop(f"{pk}{SUF['BarGroup']}", "number", 0))
         lines.append(prop(f"{pk}{SUF['BarGroupAgg']}", "number", 0))
@@ -773,8 +793,8 @@ def gen_properties():
     lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphColor']}", "number", 16))
     lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphWidth']}", "number", 10))
 
-    for row in HOURLY_FORECASTS:
-        lines.append(hourly_forecast_props(*row))
+    for hf in HOURLY_FORECASTS:
+        lines.append(hourly_forecast_props(hf))
 
     lines.append("\n  <!-- Day Forecast -->")
     lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['ViewMode']}", "number", 2))
@@ -937,27 +957,17 @@ def gen_strings():
     lines.append(s("BarGroupAggMax", "Max"))
     lines.append(s("BarGroupAggLast", "Last value"))
 
-    for (
-        key,
-        group_title,
-        label,
-        _show_bar_default,
-        _color_default,
-        _width_default,
-        goal_default,
-        _goal_min,
-        _goal_max,
-        goal_suffix,
-    ) in BAR_FIELDS:
-        id_prefix = key[0].upper() + key[1:]
-        lines.append(f"\n  <!-- {group_title} -->")
-        lines.append(s(f"{id_prefix}Group", BAR_CONFIG_PREFIX + group_title))
+    for bf in BAR_FIELDS:
+        id_prefix = bf.key[0].upper() + bf.key[1:]
+        label = bf.label
+        lines.append(f"\n  <!-- {bf.group_title} -->")
+        lines.append(s(f"{id_prefix}Group", BAR_CONFIG_PREFIX + bf.group_title))
         lines.append(s(f"{id_prefix}ShowBar", f"{label}: Show Progress Bar"))
         lines.append(s(f"{id_prefix}ShowBarValue", f"{label}: Show Value in Bar"))
         lines.append(s(f"{id_prefix}BarColor", f"{label}: Bar Color"))
         lines.append(s(f"{id_prefix}BarWidth", f"{label}: Bar Width"))
-        if goal_default is not None:
-            suffix = goal_suffix if goal_suffix else ""
+        if bf.goal_default is not None:
+            suffix = bf.goal_label_suffix if bf.goal_label_suffix else ""
             lines.append(s(f"{id_prefix}BarGoal", f"{label}: Daily Goal{suffix}"))
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
@@ -975,8 +985,9 @@ def gen_strings():
     lines.append(s("TimeFrame12h", "12 hours"))
     lines.append(s("TimeFrame24h", "24 hours"))
 
-    for key, skey, *_ in GRAPH_FIELDS:
-        display = GRAPH_DISPLAY_NAMES[key]
+    for gf in GRAPH_FIELDS:
+        display = GRAPH_DISPLAY_NAMES[gf.key]
+        skey = gf.skey
         lines.append(f"\n  <!-- Graph settings: {display} -->")
         lines.append(s(f"{skey}GraphGroup", f"{GRAPH_CONFIG_PREFIX}{display}"))
         lines.append(s(f"{skey}GraphMode", f"{display}: Graph Mode"))
@@ -1002,8 +1013,8 @@ def gen_strings():
     lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
     lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
 
-    for row in HOURLY_FORECASTS:
-        lines.append(hourly_forecast_strings(*row))
+    for hf in HOURLY_FORECASTS:
+        lines.append(hourly_forecast_strings(hf))
 
     lines.append("\n  <!-- Graph settings: Temp Daily Forecast -->")
     lines.append(s("WxForecastDailyGroup", GRAPH_CONFIG_PREFIX + "Temp Daily Forecast"))
@@ -1031,8 +1042,9 @@ def width_setting(prop_key, title_key, indent=1):
     return setting_list(prop_key, title_key, width_entries(), indent)
 
 
-def graph_section(key, skey, mode, std, sfd, tfd, gcd, scd, vmd, indent=1):
-    pk = PFX.get(key, key)
+def graph_section(gf, indent=1):
+    pk = PFX.get(gf.key, gf.key)
+    skey = gf.skey
     blocks = []
 
     blocks.append(
@@ -1112,21 +1124,23 @@ def forecast_tf_entries():
 
 
 # Shared block builders for the shape-identical HOURLY_FORECASTS entries.
-def hourly_forecast_props(key, skey, display, vmode, color):
-    pk = PFX.get(key, key)
+def hourly_forecast_props(hf):
+    pk = PFX.get(hf.key, hf.key)
     return "\n".join(
         [
-            f"\n  <!-- {display} Forecast -->",
+            f"\n  <!-- {hf.display} Forecast -->",
             prop(f"{pk}{SUF['GraphMode']}", "number", 4),
-            prop(f"{pk}{SUF['ValueMode']}", "number", vmode),
+            prop(f"{pk}{SUF['ValueMode']}", "number", hf.value_mode_default),
             prop(f"{pk}{SUF['TimeFrame']}", "number", 12),
-            prop(f"{pk}{SUF['GraphColor']}", "number", color),
+            prop(f"{pk}{SUF['GraphColor']}", "number", hf.graph_color_default),
             prop(f"{pk}{SUF['GraphWidth']}", "number", 10),
         ]
     )
 
 
-def hourly_forecast_strings(key, skey, display, vmode, color):
+def hourly_forecast_strings(hf):
+    display = hf.display
+    skey = hf.skey
     return "\n".join(
         [
             f"\n  <!-- Graph settings: {display} Forecast -->",
@@ -1140,8 +1154,9 @@ def hourly_forecast_strings(key, skey, display, vmode, color):
     )
 
 
-def hourly_forecast_settings(key, skey, display, vmode, color, indent=1):
-    pk = PFX.get(key, key)
+def hourly_forecast_settings(hf, indent=1):
+    pk = PFX.get(hf.key, hf.key)
+    skey = hf.skey
     return "\n".join(
         [
             setting_list(
@@ -1351,7 +1366,7 @@ def gen_settings():
     for screen_idx in range(1, SCREEN_COUNT + 1):
         line_blocks = []
         for ln in (3, 4, 5):
-            rows = [r for r in screen_line_slots(screen_idx) if r[0] == ln]
+            rows = [r for r in screen_line_slots(screen_idx) if r.line_num == ln]
             pk = f"s{screen_idx}l{ln}"
             sk = f"Screen{screen_idx}Line{ln}"
             line_blocks.append(
@@ -1368,27 +1383,16 @@ def gen_settings():
                 )
             )
             line_blocks.extend(
-                field_setting(f"{pk}{ROT[slot]}", f"{sk}{slot}", indent=2)
-                for _ln, slot, _fd, _lc, _vc in rows
+                field_setting(f"{pk}{ROT[r.slot]}", f"{sk}{r.slot}", indent=2)
+                for r in rows
             )
         parts.append(
             group(f"screen{screen_idx}", f"Screen{screen_idx}ConfigGroup", *line_blocks)
         )
 
-    for (
-        key,
-        _group_title,
-        _label,
-        _show_bar_default,
-        _color_default,
-        _width_default,
-        goal_default,
-        goal_min,
-        goal_max,
-        _goal_suffix,
-    ) in BAR_FIELDS:
-        id_prefix = key[0].upper() + key[1:]
-        pk = PFX.get(key, key)
+    for bf in BAR_FIELDS:
+        id_prefix = bf.key[0].upper() + bf.key[1:]
+        pk = PFX.get(bf.key, bf.key)
         blocks = [
             setting_bool(f"{pk}{SUF['ShowBar']}", f"{id_prefix}ShowBar", indent=2),
             setting_bool(
@@ -1399,22 +1403,23 @@ def gen_settings():
             ),
             width_setting(f"{pk}{SUF['BarWidth']}", f"{id_prefix}BarWidth", indent=2),
         ]
-        if goal_default is not None:
+        if bf.goal_default is not None:
             blocks.append(
                 setting_numeric(
                     f"{pk}{SUF['BarGoal']}",
                     f"{id_prefix}BarGoal",
-                    goal_min,
-                    goal_max,
+                    bf.goal_min,
+                    bf.goal_max,
                     indent=2,
                 )
             )
-        parts.append(group(key, f"{id_prefix}Group", *blocks))
+        parts.append(group(bf.key, f"{id_prefix}Group", *blocks))
 
-    for row in GRAPH_FIELDS:
-        key, skey = row[0], row[1]
+    for gf in GRAPH_FIELDS:
         parts.append(
-            group(f"graph_{key}", f"{skey}GraphGroup", graph_section(*row, indent=2))
+            group(
+                f"graph_{gf.key}", f"{gf.skey}GraphGroup", graph_section(gf, indent=2)
+            )
         )
 
     parts.append(
@@ -1452,10 +1457,9 @@ def gen_settings():
         )
     )
 
-    for row in HOURLY_FORECASTS:
-        key, skey = row[0], row[1]
+    for hf in HOURLY_FORECASTS:
         parts.append(
-            group(key, f"{skey}Group", hourly_forecast_settings(*row, indent=2))
+            group(hf.key, f"{hf.skey}Group", hourly_forecast_settings(hf, indent=2))
         )
 
     parts.append(

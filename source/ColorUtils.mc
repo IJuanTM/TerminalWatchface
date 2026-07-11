@@ -1,7 +1,6 @@
 import Toybox.Lang;
 import Toybox.Position;
 
-// Pure color lookup and gradient math shared by row and graph drawing code.
 module ColorUtils {
     function colorFromIdx(idx as Number) as Number {
         return idx >= 0 && idx < 10 ? _activeColors[idx] : 0xffffff;

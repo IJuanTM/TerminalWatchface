@@ -43,13 +43,6 @@
     <setting propertyKey="@Properties.flick" title="@Strings.FlickerEnabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.cmdSty" title="@Strings.WatchCommandStyle">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
-        <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
-        <listEntry value="2">@Strings.WatchCommandBare</listEntry>
-      </settingConfig>
-    </setting>
     <setting propertyKey="@Properties.lPad" title="@Strings.LeftPadding">
       <settingConfig type="numeric" min="0" max="8" />
     </setting>
@@ -66,6 +59,13 @@
     </setting>
     <setting propertyKey="@Properties.batD" title="@Strings.ShowBatteryDays">
       <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.cmdSty" title="@Strings.WatchCommandStyle">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
+        <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
+        <listEntry value="2">@Strings.WatchCommandBare</listEntry>
+      </settingConfig>
     </setting>
   </group>
   <group id="timeRow" title="@Strings.TimeRowGroup">
@@ -6358,6 +6358,21 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.hrBn" title="@Strings.HRBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.hrBa" title="@Strings.HRBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
+      </settingConfig>
+    </setting>
     <setting propertyKey="@Properties.hrSt" title="@Strings.HRSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
@@ -6446,21 +6461,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrBn" title="@Strings.HRBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.hrBa" title="@Strings.HRBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_spo2" title="@Strings.SpO2GraphGroup">
     <setting propertyKey="@Properties.spo2Gm" title="@Strings.SpO2GraphMode">
@@ -6480,6 +6480,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.spo2Bn" title="@Strings.SpO2BarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.spo2Ba" title="@Strings.SpO2BarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.spo2St" title="@Strings.SpO2SecondaryType">
@@ -6570,21 +6585,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Bn" title="@Strings.SpO2BarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.spo2Ba" title="@Strings.SpO2BarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_bodyBat" title="@Strings.BodyBatGraphGroup">
     <setting propertyKey="@Properties.bbGm" title="@Strings.BodyBatGraphMode">
@@ -6604,6 +6604,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.bbBn" title="@Strings.BodyBatBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.bbBa" title="@Strings.BodyBatBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.bbSt" title="@Strings.BodyBatSecondaryType">
@@ -6694,21 +6709,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbBn" title="@Strings.BodyBatBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.bbBa" title="@Strings.BodyBatBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_stress" title="@Strings.StressGraphGroup">
     <setting propertyKey="@Properties.strGm" title="@Strings.StressGraphMode">
@@ -6728,6 +6728,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.strBn" title="@Strings.StressBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.strBa" title="@Strings.StressBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.strSt" title="@Strings.StressSecondaryType">
@@ -6818,21 +6833,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strBn" title="@Strings.StressBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.strBa" title="@Strings.StressBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_tempWrist" title="@Strings.TempWristGraphGroup">
     <setting propertyKey="@Properties.twGm" title="@Strings.TempWristGraphMode">
@@ -6852,6 +6852,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.twBn" title="@Strings.TempWristBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.twBa" title="@Strings.TempWristBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.twSt" title="@Strings.TempWristSecondaryType">
@@ -6942,21 +6957,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twBn" title="@Strings.TempWristBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.twBa" title="@Strings.TempWristBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_elevation" title="@Strings.ElevationGraphGroup">
     <setting propertyKey="@Properties.elevGm" title="@Strings.ElevationGraphMode">
@@ -6976,6 +6976,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.elevBn" title="@Strings.ElevationBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.elevBa" title="@Strings.ElevationBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.elevSt" title="@Strings.ElevationSecondaryType">
@@ -7066,21 +7081,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevBn" title="@Strings.ElevationBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.elevBa" title="@Strings.ElevationBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
-      </settingConfig>
-    </setting>
   </group>
   <group id="graph_pressure" title="@Strings.PressureGraphGroup">
     <setting propertyKey="@Properties.presGm" title="@Strings.PressureGraphMode">
@@ -7100,6 +7100,21 @@
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
         <listEntry value="2">@Strings.GraphValueMaxMin</listEntry>
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.presBn" title="@Strings.PressureBarGroup">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupOff</listEntry>
+        <listEntry value="1">@Strings.BarGroupTight</listEntry>
+        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
+        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.presBa" title="@Strings.PressureBarGroupAgg">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
+        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
+        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.presSt" title="@Strings.PressureSecondaryType">
@@ -7188,21 +7203,6 @@
         <listEntry value="12">@Strings.GraphWidth12</listEntry>
         <listEntry value="14">@Strings.GraphWidth14</listEntry>
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.presBn" title="@Strings.PressureBarGroup">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupOff</listEntry>
-        <listEntry value="1">@Strings.BarGroupTight</listEntry>
-        <listEntry value="2">@Strings.BarGroupNormal</listEntry>
-        <listEntry value="3">@Strings.BarGroupLoose</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.presBa" title="@Strings.PressureBarGroupAgg">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
-        <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
-        <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
   </group>

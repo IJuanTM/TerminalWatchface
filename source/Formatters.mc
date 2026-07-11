@@ -1,7 +1,6 @@
 import Toybox.Lang;
 import Toybox.Weather;
 
-// Pure string formatting helpers shared by row and graph drawing code.
 module Formatters {
     function fieldShortName(field as Number) as String {
         if (field == FIELD_HR) {
