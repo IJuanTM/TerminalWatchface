@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.50.1";
+const APP_VERSION = "0.51.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -281,6 +281,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _bgBacklightDrawOk as Boolean? = null;
     private var _bgBacklightDrawOkMin as Number = -1;
     private var _bgBacklightDimBmp as Graphics.BufferedBitmap? = null;
+    private var _bgBacklightDimGray as Number = -1;
     private var _bgBacklightDimDrawOk as Boolean? = null;
     private var _bgBacklightDimDrawOkMin as Number = -1;
     private var _graphBmpDrawOk as Boolean? = null;
@@ -291,6 +292,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _lowPower as Boolean = false;
     private var _alwaysOn as Boolean = false;
     private var _wakeFlicker as Boolean = true;
+    private var _deferThisFrame as Boolean = false;
+    private var _deferredWorkPending as Boolean = false;
     private var _leftPad as Number = 4;
     private var _areaOpacity as Number = 64;
     private var _areaShowLine as Boolean = true;
@@ -338,6 +341,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _needsLiveActivity as Boolean = true;
     private var _needsGps as Boolean = false;
     private var _needsForecast as Boolean = true;
+    private var _needsComplications as Boolean = true;
     private var _resolvedLabelC as Array<Number> = [8, 8, 8] as Array<Number>;
     private var _resolvedValueC as Array<Number> = [0, 0, 0] as Array<Number>;
     private var _rowBuf as Array<String> = ["", ""] as Array<String>;
@@ -391,6 +395,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compFcstCond2d as Number? = null;
     private var _compFcstCond3d as Number? = null;
     private var _compSeaLevelPressure as Float? = null;
+    private var _compEverFetched as Boolean = false;
     private var _wxForecastUvData as Array<Float>? = null;
     private var _wxForecastCloudData as Array<Float>? = null;
     private var _cachedPressureTrend as Number = 0;
@@ -529,6 +534,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             comp = iter.next() as Complications.Complication?;
         }
+        _compEverFetched = true;
     }
 
     public function invalidateSettings() as Void {
@@ -667,6 +673,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onUpdate(dc as Dc) as Void {
+        // Captured before _wakeFlicker's own clear-color use resets it, so callees later in
+        // this same frame can still tell they're on the frame that must not block wake-up.
+        _deferThisFrame = _wakeFlicker;
+        _deferredWorkPending = false;
+        // Guards against the phase-change and per-minute blocks both refreshing complications this same call.
+        var compHandledThisFrame = false;
         var now = System.getTimer();
         if (now - _notifLastMs >= 5000) {
             _notifLastMs = now;
@@ -695,6 +707,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var needsGps = false;
             var needsForecast = false;
             var needsWxCurrent = false;
+            var needsComp = false;
             for (var i = 0; i < 3; i++) {
                 var f = _resolvedFields[i];
                 if (
@@ -758,6 +771,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ) {
                     needsWxCurrent = true;
                 }
+                if (
+                    f == FIELD_WEEKLY_RUN ||
+                    f == FIELD_WEEKLY_BIKE ||
+                    f == FIELD_SOLAR ||
+                    f == FIELD_WEEKLY_DISTANCES ||
+                    f == FIELD_SOLAR_BATTERY ||
+                    f == FIELD_SLEEP ||
+                    f == FIELD_TRAINING_STATUS ||
+                    f == FIELD_VO2_TRAINING ||
+                    f == FIELD_SLEEP_RECOVERY ||
+                    f == FIELD_SUNRISE ||
+                    f == FIELD_SUNSET ||
+                    f == FIELD_SUNRISE_SUNSET ||
+                    f == FIELD_CALENDAR ||
+                    f == FIELD_NOTIFICATIONS ||
+                    f == FIELD_RACE_5K ||
+                    f == FIELD_RACE_10K ||
+                    f == FIELD_RACE_HALF ||
+                    f == FIELD_RACE_MARATHON ||
+                    f == FIELD_RACE_PACE_5K ||
+                    f == FIELD_RACE_PACE_10K ||
+                    f == FIELD_RACE_PACE_HALF ||
+                    f == FIELD_RACE_PACE_MARATHON ||
+                    f == FIELD_WX_SEA_PRESS ||
+                    f == FIELD_WX_COND_FCST_1D ||
+                    f == FIELD_WX_FCST_COND_12D ||
+                    f == FIELD_WX_FCST_COND_1D ||
+                    f == FIELD_WX_FCST_COND_2D ||
+                    f == FIELD_WX_FCST_COND_3D
+                ) {
+                    needsComp = true;
+                }
                 if (_lineSecType[i] != SEC_NONE) {
                     var sf = GRAPH_SEC_FIELDS[_lineSecField[i]] as Number;
                     if (sf == FIELD_HR || sf == FIELD_SPO2) {
@@ -768,6 +813,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _needsLiveActivity = needsAct;
             _needsGps = needsGps;
             _needsForecast = needsForecast;
+            if (needsComp && !_needsComplications) {
+                // Freshly needed - refresh now rather than waiting for the next per-minute tick.
+                if (_deferThisFrame && _compEverFetched) {
+                    _deferredWorkPending = true;
+                } else {
+                    _refreshComplications();
+                }
+                compHandledThisFrame = true;
+            }
+            _needsComplications = needsComp;
             // Forecast fields fall back to current-conditions strings too, so they need this refresh too.
             _needsWeatherCurrent = needsWxCurrent || needsForecast;
             // Force a refresh now if a forecast field just rotated into view mid-minute.
@@ -809,7 +864,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _flickerEnabled = _getBoolProp("flick");
             _wxUnit = _metric ? "C" : "F";
             _amInfo = ActivityMonitor.getInfo();
-            _refreshComplications();
+            if (_needsComplications && !compHandledThisFrame) {
+                if (_deferThisFrame && _compEverFetched) {
+                    _deferredWorkPending = true;
+                } else {
+                    _refreshComplications();
+                }
+            }
             _refreshPointSamples();
             var showVer = _getBoolProp("shVer");
             var cmdStyle = _getProp("cmdSty", 2);
@@ -923,7 +984,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.clear();
 
         if (!_lowPower && _bgBacklight > 0 && _bgBacklight < 4) {
-            _drawBacklight(dc);
+            if (_deferThisFrame) {
+                // Full-screen blend-mode composite - same one-frame defer as the halo.
+                _deferredWorkPending = true;
+            } else {
+                _drawBacklight(dc);
+            }
         }
 
         if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
@@ -1067,6 +1133,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         if (_haloActive()) {
             _compositeHalo(dc);
+        }
+
+        if (_deferredWorkPending) {
+            _deferredWorkPending = false;
+            WatchUi.requestUpdate();
         }
     }
 
@@ -1398,12 +1469,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 System.getClockTime().sec + 500,
                 FLICKER_MAGNITUDE
             );
-            var dimBdc = dimBmp.getDc();
-            dimBdc.setColor(
-                (gray << 16) | (gray << 8) | gray,
-                Graphics.COLOR_TRANSPARENT
-            );
-            dimBdc.fillRectangle(0, 0, _screenW, _screenH);
+            // gray is a pure function of the current clock second, so a same-second
+            // redraw (rotation, wake) would otherwise refill this full-screen bitmap for nothing.
+            if (gray != _bgBacklightDimGray) {
+                _bgBacklightDimGray = gray;
+                var dimBdc = dimBmp.getDc();
+                dimBdc.setColor(
+                    (gray << 16) | (gray << 8) | gray,
+                    Graphics.COLOR_TRANSPARENT
+                );
+                dimBdc.fillRectangle(0, 0, _screenW, _screenH);
+            }
             dc.setBlendMode(Graphics.BLEND_MODE_MULTIPLY);
             var dimR = _tryDrawBitmapRetry(
                 dc,
@@ -1589,6 +1665,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Whether the halo is worth drawing into this frame; lazily creates _haloBmp.
     private function _haloActive() as Boolean {
         if (_glowIntensity == 0 || _lowPower) {
+            return false;
+        }
+        if (_deferThisFrame) {
+            // Glow triples every draw call it touches - skip it on the wake frame itself and
+            // let it bloom in on the immediate follow-up frame instead of blocking wake-up.
+            _deferredWorkPending = true;
             return false;
         }
         if (_haloBmp == null) {
@@ -4470,11 +4552,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Array<Float>? {
         var cacheKey = _packGraphKey(_graphW, field, periodMin);
         var nowUnixMin = _nowUnixMin;
-        if (_graphCache.hasKey(cacheKey)) {
-            var entry = _graphCache.get(cacheKey) as [Array<Float>?, Number];
-            if (nowUnixMin - entry[1] < _fieldUpdateMin(field)) {
-                return entry[0];
-            }
+        var entry = _graphCache.hasKey(cacheKey)
+            ? _graphCache.get(cacheKey) as [Array<Float>?, Number]
+            : null;
+        if (entry != null && nowUnixMin - entry[1] < _fieldUpdateMin(field)) {
+            return entry[0];
+        }
+        // Reuse the stale entry on the wake frame so the sensor-history scan below can't
+        // delay the screen turning on; a real refresh runs on the very next frame instead.
+        if (_deferThisFrame && entry != null) {
+            _deferredWorkPending = true;
+            return entry[0];
         }
         _graphCache.put(
             cacheKey,
@@ -7919,18 +8007,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _cachedPressure = _metric
                     ? (pa / 100.0).format("%.1f") + "hPa"
                     : (pa / PA_PER_INHG).format("%.2f") + "inHg";
-                var oldest = s1;
-                var ps = pIter.next();
-                var deadline = System.getTimer() + 100;
-                while (ps != null && System.getTimer() < deadline) {
-                    oldest = ps;
-                    ps = pIter.next();
-                }
-                if (oldest != s1 && oldest.data != null) {
-                    var od = oldest.data;
-                    var opa = _numToFloat(od as Numeric);
-                    _cachedPressureTrend =
-                        pa - opa > 100.0 ? 1 : pa - opa < -100.0 ? -1 : 0;
+                // The trend scan below can walk up to 30 min of samples; skip it on the wake
+                // frame and keep the last-known trend so it can't delay the screen turning on.
+                if (_deferThisFrame) {
+                    _deferredWorkPending = true;
+                } else {
+                    var oldest = s1;
+                    var ps = pIter.next();
+                    var deadline = System.getTimer() + 100;
+                    while (ps != null && System.getTimer() < deadline) {
+                        oldest = ps;
+                        ps = pIter.next();
+                    }
+                    if (oldest != s1 && oldest.data != null) {
+                        var od = oldest.data;
+                        var opa = _numToFloat(od as Numeric);
+                        _cachedPressureTrend =
+                            pa - opa > 100.0 ? 1 : pa - opa < -100.0 ? -1 : 0;
+                    }
                 }
             } else {
                 _cachedPressure = "-";
