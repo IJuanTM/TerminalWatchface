@@ -300,6 +300,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -405,6 +406,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -510,6 +512,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -615,6 +618,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -720,6 +724,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -825,6 +830,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -961,6 +967,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1066,6 +1073,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1171,6 +1179,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1276,6 +1285,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1381,6 +1391,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1486,6 +1497,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1622,6 +1634,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1727,6 +1740,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1832,6 +1846,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -1937,6 +1952,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2042,6 +2058,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2147,6 +2164,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2285,6 +2303,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2390,6 +2409,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2495,6 +2515,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2600,6 +2621,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2705,6 +2727,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2810,6 +2833,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -2946,6 +2970,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3051,6 +3076,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3156,6 +3182,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3261,6 +3288,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3366,6 +3394,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3471,6 +3500,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3607,6 +3637,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3712,6 +3743,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3817,6 +3849,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -3922,6 +3955,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4027,6 +4061,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4132,6 +4167,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4270,6 +4306,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4375,6 +4412,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4480,6 +4518,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4585,6 +4624,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4690,6 +4730,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4795,6 +4836,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -4931,6 +4973,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5036,6 +5079,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5141,6 +5185,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5246,6 +5291,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5351,6 +5397,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5456,6 +5503,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5592,6 +5640,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5697,6 +5746,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5802,6 +5852,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -5907,6 +5958,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -6012,6 +6064,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>
@@ -6117,6 +6170,7 @@
         <listEntry value="461">@Strings.FieldWxHumidityPrecip</listEntry>
         <listEntry value="462">@Strings.FieldWxUVWind</listEntry>
         <listEntry value="463">@Strings.FieldWxHumidityDew</listEntry>
+        <listEntry value="464">@Strings.FieldWxCondCloud</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstTemp</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstDaily</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstPrecip</listEntry>

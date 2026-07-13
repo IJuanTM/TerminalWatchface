@@ -264,6 +264,7 @@
   <string id="FieldWxHumidityPrecip">Weather: Rain + Humidity</string>
   <string id="FieldWxUVWind">Weather: UV + Wind</string>
   <string id="FieldWxHumidityDew">Weather: Humidity + Dew Point</string>
+  <string id="FieldWxCondCloud">Weather: Condition + Cloud</string>
   <string id="FieldWxFcstTemp">Forecast: Temp (Hourly)</string>
   <string id="FieldWxFcstDaily">Forecast: Temp (Daily)</string>
   <string id="FieldWxFcstPrecip">Forecast: Rain (Hourly)</string>

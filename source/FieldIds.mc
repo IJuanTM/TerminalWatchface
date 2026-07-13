@@ -114,6 +114,7 @@ const FIELD_WX_CLOUD_PRECIP = 460;
 const FIELD_WX_HUMIDITY_PRECIP = 461;
 const FIELD_WX_UV_WIND = 462;
 const FIELD_WX_HUMIDITY_DEW = 463;
+const FIELD_WX_COND_CLOUD = 464;
 
 // --- Weather: forecast (501-550) ---
 const FIELD_WX_FCST_TEMP = 501;

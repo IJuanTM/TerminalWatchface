@@ -18,7 +18,7 @@
   <property id="dFmt" type="number">0</property>
   <property id="cmdSty" type="number">2</property>
   <property id="s2En" type="boolean">true</property>
-  <property id="s3En" type="boolean">true</property>
+  <property id="s3En" type="boolean">false</property>
   <property id="rotI" type="number">10</property>
   <property id="rotA" type="number">5</property>
   <property id="aScr" type="number">0</property>
@@ -53,10 +53,10 @@
   <property id="s1l5R2" type="number">8</property>
   <property id="s1l3R3" type="number">462</property>
   <property id="s1l4R3" type="number">52</property>
-  <property id="s1l5R3" type="number">5</property>
-  <property id="s1l3R4" type="number">502</property>
-  <property id="s1l4R4" type="number">2</property>
-  <property id="s1l5R4" type="number">54</property>
+  <property id="s1l5R3" type="number">7</property>
+  <property id="s1l3R4" type="number">0</property>
+  <property id="s1l4R4" type="number">0</property>
+  <property id="s1l5R4" type="number">0</property>
   <property id="s1l3R5" type="number">0</property>
   <property id="s1l4R5" type="number">0</property>
   <property id="s1l5R5" type="number">0</property>
@@ -66,27 +66,27 @@
 
   <!-- Screen 2 - Line 3 -->
   <property id="s2l3En" type="boolean">true</property>
-  <property id="s2l3Lc" type="number">8</property>
+  <property id="s2l3Lc" type="number">6</property>
   <property id="s2l3Vc" type="number">0</property>
-  <property id="s2l3R1" type="number">0</property>
+  <property id="s2l3R1" type="number">502</property>
 
   <!-- Screen 2 - Line 4 -->
   <property id="s2l4En" type="boolean">true</property>
-  <property id="s2l4Lc" type="number">8</property>
+  <property id="s2l4Lc" type="number">1</property>
   <property id="s2l4Vc" type="number">0</property>
-  <property id="s2l4R1" type="number">0</property>
+  <property id="s2l4R1" type="number">203</property>
 
   <!-- Screen 2 - Line 5 -->
   <property id="s2l5En" type="boolean">true</property>
-  <property id="s2l5Lc" type="number">8</property>
+  <property id="s2l5Lc" type="number">5</property>
   <property id="s2l5Vc" type="number">0</property>
-  <property id="s2l5R1" type="number">0</property>
-  <property id="s2l3R2" type="number">0</property>
-  <property id="s2l4R2" type="number">0</property>
-  <property id="s2l5R2" type="number">0</property>
-  <property id="s2l3R3" type="number">0</property>
-  <property id="s2l4R3" type="number">0</property>
-  <property id="s2l5R3" type="number">0</property>
+  <property id="s2l5R1" type="number">51</property>
+  <property id="s2l3R2" type="number">464</property>
+  <property id="s2l4R2" type="number">304</property>
+  <property id="s2l5R2" type="number">54</property>
+  <property id="s2l3R3" type="number">503</property>
+  <property id="s2l4R3" type="number">306</property>
+  <property id="s2l5R3" type="number">53</property>
   <property id="s2l3R4" type="number">0</property>
   <property id="s2l4R4" type="number">0</property>
   <property id="s2l5R4" type="number">0</property>

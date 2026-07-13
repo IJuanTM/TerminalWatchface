@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.51.2";
+const APP_VERSION = "0.52.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -179,6 +179,26 @@ const MONTH_NAMES =
 
 const WIND_DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as Array<String>;
 
+const COMPASS_DIRS_16 =
+    [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "NW",
+        "NNW",
+    ] as Array<String>;
+
 // 0=Sun-indexed, matches Gregorian.Info.day_of_week - 1 under FORMAT_SHORT.
 const DAY_NAMES_SHORT = ["S", "M", "T", "W", "T", "F", "S"] as Array<String>;
 
@@ -231,6 +251,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxFeels as String = "-";
     private var _wxPrecip as String = "-";
     private var _wxWind as String = "-";
+    private var _headingCompassStr as String = "";
     private var _wxUv as String = "-";
     private var _wxUvNum as Number = -1;
     private var _wxCond as String = "-";
@@ -782,6 +803,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     f == FIELD_WX_TEMP_PRECIP ||
                     f == FIELD_WX_HUMIDITY_PRECIP ||
                     f == FIELD_WX_CLOUD_PRECIP ||
+                    f == FIELD_WX_COND_CLOUD ||
                     f == FIELD_WX_OBS_TIME ||
                     f == FIELD_WX_COND_FCST_1D
                 ) {
@@ -1446,9 +1468,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _screenBadgeLabel,
                 _fontTiny
             );
-            // C/M/Y per screen so the active screen is distinguishable at a glance.
+            // Orange/Purple/Blue per screen so the active screen is distinguishable at a glance.
             _screenBadgeColor = ColorUtils.colorFromIdx(
-                _activeScreen == 0 ? 2 : _activeScreen == 1 ? 7 : 3
+                _activeScreen == 0 ? 4 : _activeScreen == 1 ? 9 : 6
             );
         }
         var x = _screenW / 2 - _screenBadgeW / 2;
@@ -2716,6 +2738,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (!valStr.equals("-")) {
                 x += dc.getTextWidthInPixels(valStr, _font);
                 _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valueColor);
+                x += _degW;
+                _glowText(
+                    dc,
+                    x,
+                    y,
+                    _font,
+                    " " + _headingCompassStr,
+                    Graphics.TEXT_JUSTIFY_LEFT,
+                    ColorUtils.colorFromIdx(valueColor)
+                );
             }
             return true;
         }
@@ -7634,9 +7666,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 var deg = Math.toDegrees(pos.heading as Float).toNumber();
                 deg = ((deg % 360) + 360) % 360;
                 _rowBuf[1] = deg.toString();
+                _headingCompassStr =
+                    COMPASS_DIRS_16[((deg * 2 + 22) / 45) % 16];
                 return true;
             }
             _rowBuf[1] = "-";
+            _headingCompassStr = "";
             return true;
         }
         if (field == FIELD_GPS_LAT_LON) {
@@ -7937,6 +7972,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_WX_CLOUD_PRECIP) {
             _rowBuf[0] = "Rain+Cloud";
             _rowBuf[1] = _wxPrecip + " | " + _wxCloudCover;
+            return true;
+        }
+        if (field == FIELD_WX_COND_CLOUD) {
+            _rowBuf[0] = "Cond+Cloud";
+            _rowBuf[1] = _wxCond + " | " + _wxCloudCover;
             return true;
         }
         if (field == FIELD_WX_SEA_PRESS) {

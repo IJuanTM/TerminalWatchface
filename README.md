@@ -13,7 +13,7 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Each configurable line has **6 rotation slots** (Primary + 5 alternates) that cycle automatically
 - Two independent rotation intervals — one for the primary slot, one for alternates
 - **3 independent screens**, each switchable on-device via long-press, each with its own full set of line/field/color configuration
-- **100 data fields** across activity, health, weather, navigation, and lifestyle categories
+- **101 data fields** across activity, health, weather, navigation, and lifestyle categories
 - **Inline sensor graphs** — line, bar, or area charts with configurable timeframe, color, and width
 - **Dual-overlay graphs** — two sensor histories on the same chart, each with its own color and min/max labels
 - **7 forecast graph types** — hourly temp, rain, wind, UV, cloud cover, humidity, and multi-day daily temp
@@ -21,7 +21,7 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Always-On Display support — a dimmed time/date view during low-power mode if your device's Always-On setting is enabled
 - Battery footer with bolt icon while charging, percentage, and estimated days remaining
 - Notification count badge in the header (also available as a data row)
-- CRT visual effects: scanlines, glow/halo, backlight wash, flicker, and side vignette (each independently configurable)
+- CRT visual effects: scanlines, glow/halo, backlight wash, and flicker (each independently configurable)
 - **4 font families** with independent line heights
 - **3 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
 - Show seconds, optional year in date, 6 date formats, and 12/24-hour display
@@ -57,41 +57,40 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 
 ### Appearance
 
-| Setting        | Options                                                          |
-| -------------- | ----------------------------------------------------------------- |
-| Font           | JetBrains Mono, Space Mono, Fira Code Mono, NB Architekt          |
-| Color Theme    | Custom (per-field colors), Amber CRT, Green Phosphor, Blue Terminal |
-| Scanlines      | Off, Subtle, Medium, Strong                                        |
-| Glow Intensity | Off, Subtle, Medium, Strong                                        |
-| Backlight      | Off, Subtle, Medium, Strong                                        |
-| CRT Flicker    | On / Off                                                           |
-| Side Vignette  | On / Off                                                           |
-| Command Style  | Windows _(watch.bat)_, Linux _(watch.sh)_, Bare _(watch)_          |
-| Left Padding   | Number of character-widths (0–8) the layout is offset from center |
-| Area Graph: Opacity   | 25%, 50%, 75%, 100% — fill transparency for area graphs     |
-| Area Graph: Show Line | On / Off — draw the line curve on top of the area fill      |
-| Show Battery Days Remaining | On / Off                                                    |
+| Setting                     | Options                                                             |
+| --------------------------- | ------------------------------------------------------------------- |
+| Font                        | JetBrains Mono, Space Mono, Fira Code Mono, NB Architekt            |
+| Color Theme                 | Custom (per-field colors), Amber CRT, Green Phosphor, Blue Terminal |
+| Scanlines                   | Off, Subtle, Medium, Strong                                         |
+| Glow Intensity              | Off, Subtle, Medium, Strong                                         |
+| Backlight                   | Off, Subtle, Medium, Strong                                         |
+| CRT Flicker                 | On / Off                                                            |
+| Command Style               | Windows _(watch.bat)_, Linux _(watch.sh)_, Bare _(watch)_           |
+| Left Padding                | Number of character-widths (0–8) the layout is offset from center   |
+| Area Graph: Opacity         | 25%, 50%, 75%, 100% — fill transparency for area graphs             |
+| Area Graph: Show Line       | On / Off — draw the line curve on top of the area fill              |
+| Show Battery Days Remaining | On / Off                                                            |
 
 ### Display
 
-| Setting          | Options                                                                                                         |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| Show Seconds     | On / Off                                                                                                        |
-| Show Year        | On / Off — appends year to compatible date formats                                                              |
-| Date Format      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
-| Show Version     | On / Off — appends app version to the command _(watch@0.46.2)_                                                  |
+| Setting                          | Options                                                                                                         |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Show Seconds                     | On / Off                                                                                                        |
+| Show Year                        | On / Off — appends year to compatible date formats                                                              |
+| Date Format                      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
+| Show App Version _(Debug group)_ | On / Off — appends app version to the command _(watch@0.51.2)_                                                  |
 
 ### Rotation
 
-| Setting          | Options                                                                  |
-| ---------------- | ------------------------------------------------------------------------- |
-| Rotate Every      | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                       |
-| Rotate Alt Every  | Alternate slot interval (Secondary–Senary); defaults to primary if unset |
-| Active Screen     | Screen 1 / 2 / 3 — the currently displayed screen; also cycled on-device via long-press |
+| Setting          | Options                                                                                 |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                     |
+| Rotate Alt Every | Alternate slot interval (Secondary–Senary); defaults to primary if unset                |
+| Active Screen    | Screen 1 / 2 / 3 — the currently displayed screen; also cycled on-device via long-press |
 
 ### Screens
 
-Three independent screens are available; switch between them on-device via long-press. Screen 2 and 3 can each be fully disabled with a master toggle, and each screen has its own enabled toggle per line plus its own field rotations and colors — one screen can look completely different from another. A small `[2]`/`[3]` badge appears near the footer when a non-default screen is active (hidden if screens 2 and 3 are both disabled).
+Three independent screens are available; switch between them on-device via long-press. Screen 2 and 3 can each be fully disabled with a master toggle (screen 3 ships disabled by default), and each screen has its own enabled toggle per line plus its own field rotations and colors — one screen can look completely different from another. A small `[1]`/`[2]`/`[3]` badge (orange/purple/blue) appears near the footer when screen switching is available, so the active screen is identifiable at a glance.
 
 ### Colors (Time and Date rows)
 
@@ -167,9 +166,9 @@ Fields that only populate during an actively recorded workout (elapsed time, in-
 | GPS Lat + Lon       | `52.37020, 4.89520`      |
 | GPS (with Accuracy) | `52.3702, 4.8952 [FAIR]` |
 | GPS Accuracy        | `FAIR`                   |
-| Heading             | `247°`                   |
+| Heading             | `247° WSW`               |
 
-Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy is color-coded and tagged `GOOD` / `FAIR` / `POOR` / `LAST` / `N/A` (green/yellow/orange/grey/red).
+Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy is color-coded and tagged `GOOD` / `FAIR` / `POOR` / `LAST` / `N/A` (green/yellow/orange/grey/red). Heading shows both raw degrees and a 16-point compass direction (N, NNE, NE, ENE, ... NNW).
 
 ### Schedule & Lifestyle
 
@@ -230,6 +229,7 @@ Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy
 | Rain + Humidity  | `60% \| 72%`            |
 | UV + Wind        | `5 [AVG] \| 14 km/h NW` |
 | Hum + Dew Point  | `72% \| 11.2°C`         |
+| Cond + Cloud     | `[PCLOUD] \| 45%`       |
 | Cond / +1d       | `[PCLOUD] \| [RAIN]`    |
 | +1d / +2d        | `[RAIN] \| [CLEAR]`     |
 | Forecast +1d     | `[RAIN]`                |
@@ -270,30 +270,34 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 
 ### Graph settings (per sensor field, in its own "Graph Config -" group)
 
-| Setting         | Options                                                             |
-| --------------- | ------------------------------------------------------------------- |
-| Graph Mode      | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value          |
-| Time Frame      | 15m, 30m, 1h, 2h, 4h, 8h, 12h, 24h                                  |
-| Graph Color     | Any of the 20 available colors                                      |
-| Graph Width     | Width in character units (6, 8, 10, 12, 14, or 16)                  |
-| Value Display   | Current, Average, Max/Min, Midpoint                                 |
-| Secondary Type  | None, Line, Bar                                                     |
-| Secondary Field | HR, Blood O2, Body Battery, Stress, Wrist Temp, Elevation, Pressure |
-| Secondary Color | Any of the 20 available colors                                      |
+| Setting                  | Options                                                             |
+| ------------------------ | ------------------------------------------------------------------- |
+| Graph Mode               | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value           |
+| Time Frame               | 15m, 30m, 1h, 2h, 4h, 8h, 12h, 24h                                  |
+| Graph Color              | Any of the 20 available colors                                      |
+| Graph Width              | Width in character units (6, 8, 10, 12, 14, or 16)                  |
+| Value Display            | Current, Average, Max/Min, Midpoint                                 |
+| Bar Grouping             | Off (full detail), Tight, Normal, Loose — Bar/Bar+Value modes only  |
+| Bar Grouping Aggregation | Mean, Max, Last value — how samples combine within a group          |
+| Secondary Type           | None, Line, Bar                                                     |
+| Secondary Field          | HR, Blood O2, Body Battery, Stress, Wrist Temp, Elevation, Pressure |
+| Secondary Color          | Any of the 20 available colors                                      |
 
 **Dual Graph** overlays a secondary sensor history on the same chart. Primary min/max labels appear on the left; secondary on the right. A short field name is shown below the right edge.
+
+**Bar Grouping** reduces the number of bars drawn at wide time frames for readability — density is qualitative (Tight/Normal/Loose), not a fixed count, and scales automatically with Graph Width and the field's real sensor update cadence so it never fabricates more bars than genuine samples exist. A live period suffix (e.g. `-2m`) is appended to the graph's timeframe label showing the actual resulting bar duration.
 
 The graph caches rendered bitmaps and only re-renders when fresh sensor data arrives (not every minute), which keeps the update cost — and battery impact — low.
 
 ### Forecast graph settings (per forecast field, in its own "Graph Config -" group)
 
-| Setting       | Options                                            |
-| ------------- | -------------------------------------------------- |
-| Graph Mode    | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value (Temp Hourly); Line, Line+Value, Bar, Bar+Value, Area, Area+Value (others) |
-| Time Frame    | 3h, 6h, 12h, 24h (hourly); 3, 5, or 7 days (daily) |
-| Graph Color   | Any of the 20 available colors                     |
-| Graph Width   | Width in character units                           |
-| Value Display | Current, Average, Max/Min, Midpoint                |
+| Setting       | Options                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Graph Mode    | Line, Line+Value, Bar, Bar+Value, Area, Area+Value — forecasts always draw a graph, so there's no plain Value-only mode |
+| Time Frame    | 3h, 6h, 12h, 24h (hourly); 3, 5, or 7 days (daily)                                                                      |
+| Graph Color   | Any of the 20 available colors                                                                                          |
+| Graph Width   | Width in character units                                                                                                |
+| Value Display | Current, Average, Max/Min, Midpoint                                                                                     |
 
 ### Progress bars (in their own "Bar Config -" groups)
 
@@ -328,14 +332,14 @@ Days remaining is shown when the device can estimate it. The bolt icon is always
 | #   | Name                             |
 | --- | -------------------------------- |
 | 0   | White                            |
-| 5   | Red                               |
-| 4   | Orange                            |
-| 3   | Yellow                            |
-| 1   | Green                             |
-| 2   | Cyan                              |
-| 6   | Blue                              |
-| 9   | Purple                            |
-| 7   | Magenta                           |
+| 5   | Red                              |
+| 4   | Orange                           |
+| 3   | Yellow                           |
+| 1   | Green                            |
+| 2   | Cyan                             |
+| 6   | Blue                             |
+| 9   | Purple                           |
+| 7   | Magenta                          |
 | 8   | Light Grey                       |
 | 10  | Gradient: Green → Orange → Red   |
 | 11  | Gradient: Red → Orange → Green   |

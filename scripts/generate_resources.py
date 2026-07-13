@@ -195,6 +195,7 @@ FIELD_CATEGORIES = [
             ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip", "Weather: Rain + Humidity"),
             ("WX_UV_WIND", "FieldWxUVWind", "Weather: UV + Wind"),
             ("WX_HUMIDITY_DEW", "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
+            ("WX_COND_CLOUD", "FieldWxCondCloud", "Weather: Condition + Cloud"),
         ],
     ),
     (
@@ -419,7 +420,10 @@ class LineSlot(NamedTuple):
 
 
 _fv = FIELD_VALUE
-LINE_SLOTS = [
+
+# Screen 1 - "all day, every day": weather forecast / activity totals / vitals.
+# Line 3 (vitals) only has 2 curated rotations (Intensity Minutes moved to screen 2).
+SCREEN1_LINE_SLOTS = [
     LineSlot(3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
     LineSlot(4, "Primary", _fv["FieldSteps"], 1, 0),
     LineSlot(5, "Primary", _fv["FieldHR"], 5, 0),
@@ -428,10 +432,10 @@ LINE_SLOTS = [
     LineSlot(5, "Secondary", _fv["FieldStress"], 5, 0),
     LineSlot(3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
     LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
-    LineSlot(5, "Tertiary", _fv["FieldSpO2"], 5, 0),
-    LineSlot(3, "Quaternary", _fv["FieldWxFcstDaily"], 6, 0),
-    LineSlot(4, "Quaternary", _fv["FieldFloors"], 1, 0),
-    LineSlot(5, "Quaternary", _fv["FieldIntensityMin"], 5, 0),
+    LineSlot(5, "Tertiary", _fv["FieldBodyBat"], 5, 0),
+    LineSlot(3, "Quaternary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Quaternary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Quaternary", _fv["FieldNone"], 5, 0),
     LineSlot(3, "Quinary", _fv["FieldNone"], 6, 0),
     LineSlot(4, "Quinary", _fv["FieldNone"], 1, 0),
     LineSlot(5, "Quinary", _fv["FieldNone"], 5, 0),
@@ -440,14 +444,61 @@ LINE_SLOTS = [
     LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
 ]
 
+# Screen 2 - weather / GPS+outdoor / daily exertion, 3 rotations per line.
+SCREEN2_LINE_SLOTS = [
+    LineSlot(3, "Primary", _fv["FieldWxFcstDaily"], 6, 0),
+    LineSlot(4, "Primary", _fv["FieldClimbDescendDay"], 1, 0),
+    LineSlot(5, "Primary", _fv["FieldCalories"], 5, 0),
+    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"], 6, 0),
+    LineSlot(4, "Secondary", _fv["FieldGpsLatLon"], 1, 0),
+    LineSlot(5, "Secondary", _fv["FieldIntensityMin"], 5, 0),
+    LineSlot(3, "Tertiary", _fv["FieldWxFcstPrecip"], 6, 0),
+    LineSlot(4, "Tertiary", _fv["FieldHeading"], 1, 0),
+    LineSlot(5, "Tertiary", _fv["FieldActiveMinDay"], 5, 0),
+    LineSlot(3, "Quaternary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Quaternary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Quaternary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Quinary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Quinary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Quinary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Senary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Senary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
+]
+
+# Screen 3 - disabled by default (see screen3Enabled below), all fields blank.
+SCREEN3_LINE_SLOTS = [
+    LineSlot(3, "Primary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Primary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Primary", _fv["FieldNone"], 8, 0),
+    LineSlot(3, "Secondary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Secondary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Secondary", _fv["FieldNone"], 8, 0),
+    LineSlot(3, "Tertiary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Tertiary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Tertiary", _fv["FieldNone"], 8, 0),
+    LineSlot(3, "Quaternary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Quaternary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Quaternary", _fv["FieldNone"], 8, 0),
+    LineSlot(3, "Quinary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Quinary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Quinary", _fv["FieldNone"], 8, 0),
+    LineSlot(3, "Senary", _fv["FieldNone"], 8, 0),
+    LineSlot(4, "Senary", _fv["FieldNone"], 8, 0),
+    LineSlot(5, "Senary", _fv["FieldNone"], 8, 0),
+]
+
 SCREEN_COUNT = 3
+
+_SCREEN_LINE_SLOTS = {
+    1: SCREEN1_LINE_SLOTS,
+    2: SCREEN2_LINE_SLOTS,
+    3: SCREEN3_LINE_SLOTS,
+}
 
 
 def screen_line_slots(screen_idx):
-    """Screen 1 keeps curated defaults; screens 2/3 blank all fields (color idx 8=gray label, 0=white value)."""
-    if screen_idx == 1:
-        return LINE_SLOTS
-    return [LineSlot(s.line_num, s.slot, _fv["FieldNone"], 8, 0) for s in LINE_SLOTS]
+    return _SCREEN_LINE_SLOTS[screen_idx]
 
 
 GRAPH_MODE_OPTIONS = [
@@ -731,7 +782,7 @@ def gen_properties():
     if SCREEN_COUNT >= 2:
         lines.append(prop(sk["screen2Enabled"], "boolean", "true"))
     if SCREEN_COUNT >= 3:
-        lines.append(prop(sk["screen3Enabled"], "boolean", "true"))
+        lines.append(prop(sk["screen3Enabled"], "boolean", "false"))
     lines.append(prop(sk["rotateInterval"], "number", 10))
     lines.append(prop(sk["rotateIntervalAlt"], "number", 5))
     lines.append(prop(sk["activeScreen"], "number", 0))
