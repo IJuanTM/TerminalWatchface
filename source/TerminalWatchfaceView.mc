@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.51.0";
+const APP_VERSION = "0.51.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -147,13 +147,16 @@ const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 // Glow offset (px); diagonal everywhere except the line-ribbon glow (self-intersection risk).
 const GLOW_SPREAD = 1;
 
-// 0=shadow, 1=bar bg, 2=dashed lines/mean line, 3=separators/no-data/axes
+// Dim factor for dashed lines (progress bar ticks, HR zones, mean line, daily dividers).
+const DASH_ALPHA = 0x80;
+
+// 0=shadow, 1=bar bg, 2=unused, 3=separators/no-data/axes/progress-bar-border
 const GRAYS =
     [
         0x111111, // 0  shadow
-        0x333333, // 1  bar background
-        0x555555, // 2  dashed lines, mean line
-        0x777777, // 3  text separators, no-data text, graph axes
+        0x333333, // 1  unfilled Move Bar blocks
+        0x555555, // 2  unused - dashed lines/mean line now use a dimmed color instead
+        0x777777, // 3  text separators, no-data text, graph axes, progress bar border
     ] as Array<Number>;
 
 const DAY_NAMES =
@@ -1271,8 +1274,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            _drawIconShape(hdc, x, y + GLOW_SPREAD, iconType);
-            _drawIconShape(hdc, x + GLOW_SPREAD, y, iconType);
+            _drawIconShape(hdc, x + GLOW_SPREAD, y + GLOW_SPREAD, iconType);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         _drawIconShape(dc, x, y, iconType);
@@ -1767,8 +1769,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawText(x, y + GLOW_SPREAD, font, text, justify);
-            hdc.drawText(x + GLOW_SPREAD, y, font, text, justify);
+            hdc.drawText(x + GLOW_SPREAD, y + GLOW_SPREAD, font, text, justify);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, font, text, justify);
@@ -1785,8 +1786,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawLine(x1, y1 + GLOW_SPREAD, x2, y2 + GLOW_SPREAD);
-            hdc.drawLine(x1 + GLOW_SPREAD, y1, x2 + GLOW_SPREAD, y2);
+            hdc.drawLine(
+                x1 + GLOW_SPREAD,
+                y1 + GLOW_SPREAD,
+                x2 + GLOW_SPREAD,
+                y2 + GLOW_SPREAD
+            );
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(x1, y1, x2, y2);
@@ -1799,8 +1804,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         w as Number,
         h as Number
     ) as Void {
-        hdc.fillRectangle(x, y + GLOW_SPREAD, w, h);
-        hdc.fillRectangle(x + GLOW_SPREAD, y, w, h);
+        hdc.fillRectangle(x + GLOW_SPREAD, y + GLOW_SPREAD, w, h);
     }
 
     private function _glowRect(
@@ -2110,8 +2114,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var hdc = _activeHaloDc();
         if (hdc != null) {
             hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawCircle(x, y + GLOW_SPREAD, r);
-            hdc.drawCircle(x + GLOW_SPREAD, y, r);
+            hdc.drawCircle(x + GLOW_SPREAD, y + GLOW_SPREAD, r);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(x, y, r);
@@ -3319,9 +3322,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var gx = cx + _splitPad + _charW;
         var gw = _graphW;
         var barH = _fh;
-        dc.setStroke(
-            ColorUtils.withAlpha(ColorUtils.colorFromIdx(barColor), 0x40)
-        );
+        var barCol = ColorUtils.colorFromIdx(barColor);
+        dc.setStroke(ColorUtils.withAlpha(barCol, 0x40));
         for (var bx = gx; bx < gx + gw; bx++) {
             dc.drawLine(bx, y, bx, y + barH - 1);
         }
@@ -3331,20 +3333,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fillW = (frac * gw.toFloat()).toNumber();
         if (fillW > 0) {
-            _glowRect(
-                dc,
-                gx,
-                y,
-                fillW,
-                barH,
-                ColorUtils.colorFromIdx(barColor)
-            );
+            _glowRect(dc, gx, y, fillW, barH, barCol);
         }
         _glowLine(dc, gx - 1, y, gx - 1, y + barH - 1, GRAYS[3]);
         _glowLine(dc, gx + gw, y, gx + gw, y + barH - 1, GRAYS[3]);
-        _drawDashedV(dc, gx + gw / 4, y, y + barH, GRAYS[2]);
-        _drawDashedV(dc, gx + gw / 2, y, y + barH, GRAYS[2]);
-        _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH, GRAYS[2]);
+        _drawDashedV(dc, gx + gw / 4, y, y + barH, barCol, DASH_ALPHA);
+        _drawDashedV(dc, gx + gw / 2, y, y + barH, barCol, DASH_ALPHA);
+        _drawDashedV(dc, gx + (gw * 3) / 4, y, y + barH, barCol, DASH_ALPHA);
         var labelY = y + (_fh - _tinyFh) / 2 - 1;
         var goalStr = goal.toString();
         var axisColor = ColorUtils.colorFromIdx(0);
@@ -5194,19 +5189,43 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
+    // alpha == null draws opaque glowing dashes (halo); non-null draws flat, in the dimmed color the caller already set via setColor.
+    private function _dashSeg(
+        dc as Dc,
+        x1 as Number,
+        y1 as Number,
+        x2 as Number,
+        y2 as Number,
+        color as Number,
+        alpha as Number?
+    ) as Void {
+        if (alpha != null) {
+            dc.drawLine(x1, y1, x2, y2);
+        } else {
+            _glowLine(dc, x1, y1, x2, y2, color);
+        }
+    }
+
     private function _drawDashedH(
         dc as Dc,
         x1 as Number,
         x2 as Number,
         y as Number,
-        color as Number
+        color as Number,
+        alpha as Number?
     ) as Void {
         var w = x2 - x1;
         if (w <= 0) {
             return;
         }
+        if (alpha != null) {
+            dc.setColor(
+                ColorUtils.dim(color, alpha),
+                Graphics.COLOR_TRANSPARENT
+            );
+        }
         if (w <= 3) {
-            _glowLine(dc, x1, y, x2 - 1, y, color);
+            _dashSeg(dc, x1, y, x2 - 1, y, color, alpha);
             return;
         }
         // Dashes/gaps are 2px; for odd w the last dash absorbs the extra 1px so gaps stay exact.
@@ -5219,14 +5238,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (f < 1) {
             f = 1;
         }
-        _glowLine(dc, x1, y, x1 + f - 1, y, color);
+        _dashSeg(dc, x1, y, x1 + f - 1, y, color, alpha);
         var x = x1 + f + 2;
         for (var i = 1; i < n - 1; i++) {
-            _glowLine(dc, x, y, x + 1, y, color);
+            _dashSeg(dc, x, y, x + 1, y, color, alpha);
             x += 4;
         }
         var fLast = f + (w - wEven);
-        _glowLine(dc, x2 - fLast, y, x2 - 1, y, color);
+        _dashSeg(dc, x2 - fLast, y, x2 - 1, y, color, alpha);
     }
 
     private function _drawDashedV(
@@ -5234,14 +5253,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         x as Number,
         y1 as Number,
         y2 as Number,
-        color as Number
+        color as Number,
+        alpha as Number?
     ) as Void {
         var h = y2 - y1;
         if (h <= 0) {
             return;
         }
+        if (alpha != null) {
+            dc.setColor(
+                ColorUtils.dim(color, alpha),
+                Graphics.COLOR_TRANSPARENT
+            );
+        }
         if (h <= 3) {
-            _glowLine(dc, x, y1, x, y2 - 1, color);
+            _dashSeg(dc, x, y1, x, y2 - 1, color, alpha);
             return;
         }
         var hEven = h - (h % 2);
@@ -5253,14 +5279,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (f < 1) {
             f = 1;
         }
-        _glowLine(dc, x, y1, x, y1 + f - 1, color);
+        _dashSeg(dc, x, y1, x, y1 + f - 1, color, alpha);
         var yp = y1 + f + 2;
         for (var i = 1; i < n - 1; i++) {
-            _glowLine(dc, x, yp, x, yp + 1, color);
+            _dashSeg(dc, x, yp, x, yp + 1, color, alpha);
             yp += 4;
         }
         var fLast = f + (h - hEven);
-        _glowLine(dc, x, y2 - fLast, x, y2 - 1, color);
+        _dashSeg(dc, x, y2 - fLast, x, y2 - 1, color, alpha);
     }
 
     // Shared position/color calc for _drawMeanLine and _glowMeanLine.
@@ -5299,7 +5325,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var color =
             colorIdx >= COLOR_GRAD_TRI
                 ? ColorUtils.gradColor(colorIdx, meanFrac)
-                : GRAYS[2];
+                : Graphics.COLOR_WHITE;
         return [meanY, color] as Array<Number>;
     }
 
@@ -5329,11 +5355,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (r == null) {
             return;
         }
-        _drawDashedH(dc, gx, gx + gw, r[0], r[1]);
+        // Gradient graphs keep the opaque glowing line; other graphs get a flat translucent one.
+        _drawDashedH(
+            dc,
+            gx,
+            gx + gw,
+            r[0],
+            r[1],
+            colorIdx >= COLOR_GRAD_TRI ? null : DASH_ALPHA
+        );
     }
 
     // Restores the mean line's glow on the cache-hit path, as a continuous
     // band rather than dashed - the crisp dashes on top already read as dashed.
+    // No-op for the translucent (non-gradient) mean line, which has no halo layer.
     private function _glowMeanLine(
         dc as Dc,
         data as Array<Float>,
@@ -5347,6 +5382,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gradMinV as Float,
         gradRange as Float
     ) as Void {
+        if (colorIdx < COLOR_GRAD_TRI) {
+            return;
+        }
         var hdc = _activeHaloDc();
         if (hdc == null) {
             return;
@@ -5882,13 +5920,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var zones = _hrZones as Array<Number>;
         var n = zones.size();
+        if (n == 0) {
+            return;
+        }
+        // Color each threshold by its position across the zones' own range (low=green, high=red).
+        var zLo = (zones[0] as Number).toFloat();
+        var zSpan = (zones[n - 1] as Number).toFloat() - zLo;
         for (var i = 0; i < n; i++) {
             var zv = (zones[i] as Number).toFloat();
             if (zv <= minV || zv >= minV + range) {
                 continue;
             }
             var zy = y + gh - (((zv - minV) * gh.toFloat()) / range).toNumber();
-            _drawDashedH(dc, gx, gx + gw, zy, GRAYS[1]);
+            var zFrac = zSpan > 0.0 ? (zv - zLo) / zSpan : 0.0;
+            _drawDashedH(
+                dc,
+                gx,
+                gx + gw,
+                zy,
+                ColorUtils.gradFromStops(TRI_GRAD, zFrac),
+                DASH_ALPHA
+            );
         }
     }
 
@@ -6285,7 +6337,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var ghf = gh.toFloat();
         for (var si = 1; si < n; si++) {
-            _drawDashedV(dc, gx + (si * gw) / n - 1, y, y + gh, GRAYS[2]);
+            _drawDashedV(
+                dc,
+                gx + (si * gw) / n - 1,
+                y,
+                y + gh,
+                Graphics.COLOR_WHITE,
+                DASH_ALPHA
+            );
         }
         for (var i = 0; i < n; i++) {
             if (highsArr[i] == null || lowsArr[i] == null) {
@@ -8076,10 +8135,17 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (nowMin == _wxLastMin) {
             return;
         }
-        _wxLastMin = nowMin;
         if (!_needsWeatherCurrent) {
+            _wxLastMin = nowMin;
             return;
         }
+        if (_deferThisFrame && _wxCurrentFetched) {
+            // Same one-frame defer as complications - reuse stale weather data on the
+            // wake frame and let the follow-up requestUpdate() do the real refresh.
+            _deferredWorkPending = true;
+            return;
+        }
+        _wxLastMin = nowMin;
         _wxCurrentFetched = true;
         var c = Weather.getCurrentConditions();
         if (c == null) {
@@ -8425,15 +8491,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 Graphics.COLOR_TRANSPARENT
             );
             hdc.drawText(
-                x,
-                _timeValueY + GLOW_SPREAD,
-                _font,
-                secStr,
-                Graphics.TEXT_JUSTIFY_LEFT
-            );
-            hdc.drawText(
                 x + GLOW_SPREAD,
-                _timeValueY,
+                _timeValueY + GLOW_SPREAD,
                 _font,
                 secStr,
                 Graphics.TEXT_JUSTIFY_LEFT
