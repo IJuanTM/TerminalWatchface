@@ -78,7 +78,8 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 | Show Seconds                     | On / Off                                                                                                        |
 | Show Year                        | On / Off — appends year to compatible date formats                                                              |
 | Date Format                      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
-| Show App Version _(Debug group)_ | On / Off — appends app version to the command _(watch@0.51.2)_                                                  |
+| Show App Version _(Debug group)_ | On / Off — appends the app version to the command _(watch@x.y.z)_                                               |
+| Show Graph Gaps _(Debug group)_  | On / Off — marks graph gaps with a dashed grey line/fill instead of leaving them blank, for diagnosing missing sensor data |
 
 ### Rotation
 
@@ -289,15 +290,27 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 
 The graph caches rendered bitmaps and only re-renders when fresh sensor data arrives (not every minute), which keeps the update cost — and battery impact — low.
 
-### Forecast graph settings (per forecast field, in its own "Graph Config -" group)
+### Hourly forecast settings — Temp, Rain, Wind, UV, Cloud, Humidity (each in its own "Graph Config -" group)
 
 | Setting       | Options                                                                                                                 |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Graph Mode    | Line, Line+Value, Bar, Bar+Value, Area, Area+Value — forecasts always draw a graph, so there's no plain Value-only mode |
-| Time Frame    | 3h, 6h, 12h, 24h (hourly); 3, 5, or 7 days (daily)                                                                      |
+| Time Frame    | 3h, 6h, 12h, 24h ahead                                                                                                  |
 | Graph Color   | Any of the 20 available colors                                                                                          |
 | Graph Width   | Width in character units                                                                                                |
 | Value Display | Current, Average, Max/Min, Midpoint                                                                                     |
+
+### Daily forecast settings — Temp Daily ("Graph Config - Temp Daily Forecast" group)
+
+Structurally different from the hourly forecasts above: it always renders as a bar chart (high/low range per day), so there's no Line/Bar/Area mode choice.
+
+| Setting       | Options                            |
+| ------------- | ----------------------------------- |
+| View Mode     | Graph, Graph + Value                |
+| Days          | 3, 5, or 7 days ahead                |
+| Graph Color   | Any of the 20 available colors      |
+| Graph Width   | Width in character units            |
+| Value Display | Current, Average, Max/Min, Midpoint |
 
 ### Progress bars (in their own "Bar Config -" groups)
 
