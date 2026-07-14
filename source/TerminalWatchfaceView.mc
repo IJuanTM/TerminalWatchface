@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.1";
+const APP_VERSION = "0.52.2";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -4384,7 +4384,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var count = 0;
         var maxAge = 0;
         var deadline = System.getTimer() + 150;
-        // Tolerate a short run of corrupted (far-past) .when samples before giving up.
+        // Real devices emit occasional ~20yr-off corrupted timestamps here (documented Garmin bug) - don't count those toward the give-up streak.
+        var corruptAgeSec = 24 * SECS_PER_HOUR;
         var badAgeStreak = 0;
         while (s != null) {
             if (System.getTimer() > deadline) {
@@ -4392,9 +4393,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var age = now - (s.when as Time.Moment).value();
             if (age >= periodSec) {
-                badAgeStreak++;
-                if (badAgeStreak >= 3) {
-                    break;
+                if (age < corruptAgeSec) {
+                    badAgeStreak++;
+                    if (badAgeStreak >= 3) {
+                        break;
+                    }
                 }
                 s = iter.next();
                 continue;
@@ -5304,8 +5307,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return y + gh - (((v - minV) * ghf) / range).toNumber();
     }
 
-    // DebugGraphGaps setting only: marks a normally-skipped gap with a dashed GRAYS[2]
-    // line/fill so a genuinely-empty graph can be told apart from a hidden-data bug.
+    // DebugGraphGaps setting only: marks a normally-skipped gap in GRAYS[2] instead of leaving it blank.
     private function _drawDebugGapLine(
         dc as Dc,
         x1 as Number,
