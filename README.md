@@ -73,12 +73,12 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 
 ### Display
 
-| Setting                          | Options                                                                                                         |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Show Seconds                     | On / Off                                                                                                        |
-| Show Year                        | On / Off — appends year to compatible date formats                                                              |
-| Date Format                      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
-| Show App Version _(Debug group)_ | On / Off — appends the app version to the command _(watch@x.y.z)_                                               |
+| Setting                          | Options                                                                                                                    |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Show Seconds                     | On / Off                                                                                                                   |
+| Show Year                        | On / Off — appends year to compatible date formats                                                                         |
+| Date Format                      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_            |
+| Show App Version _(Debug group)_ | On / Off — appends the app version to the command _(watch@x.y.z)_                                                          |
 | Show Graph Gaps _(Debug group)_  | On / Off — marks graph gaps with a dashed grey line/fill instead of leaving them blank, for diagnosing missing sensor data |
 
 ### Rotation
@@ -173,20 +173,20 @@ Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy
 
 ### Schedule & Lifestyle
 
-| Field            | Example              |
-| ---------------- | -------------------- |
-| Sunrise          | `05:42`              |
-| Sunset           | `22:08`              |
-| Sunrise + Sunset | `05:42 / 22:08`      |
-| Calendar Event   | `Meeting 14:00`      |
-| Bedtime          | `23:00`              |
-| Wake Time        | `07:00`              |
-| Sleep Schedule   | `23:00 \| 07:00`     |
-| Notifications    | `3`                  |
-| Weather Data Age | `14m`                |
-| Weekly Run       | `24.5 km`            |
-| Weekly Bike      | `80.2 km`            |
-| Run + Bike       | `24.5 km \| 80.2 km` |
+| Field            | Example                                       |
+| ---------------- | --------------------------------------------- |
+| Sunrise          | `05:42`                                       |
+| Sunset           | `22:08`                                       |
+| Sunrise + Sunset | `05:42 / 22:08`                               |
+| Calendar Event   | `Meeting 14:00`                               |
+| Bedtime          | `23:00`                                       |
+| Wake Time        | `07:00`                                       |
+| Sleep Schedule   | `23:00 \| 07:00`                              |
+| Notifications    | `3`                                           |
+| Weather Data Age | `>14m` _(scales to `>3h` for older readings)_ |
+| Weekly Run       | `24.5 km`                                     |
+| Weekly Bike      | `80.2 km`                                     |
+| Run + Bike       | `24.5 km \| 80.2 km`                          |
 
 ### Race Predictors
 
@@ -304,10 +304,10 @@ The graph caches rendered bitmaps and only re-renders when fresh sensor data arr
 
 Structurally different from the hourly forecasts above: it always renders as a bar chart (high/low range per day), so there's no Line/Bar/Area mode choice.
 
-| Setting       | Options                            |
+| Setting       | Options                             |
 | ------------- | ----------------------------------- |
 | View Mode     | Graph, Graph + Value                |
-| Days          | 3, 5, or 7 days ahead                |
+| Days          | 3, 5, or 7 days ahead               |
 | Graph Color   | Any of the 20 available colors      |
 | Graph Width   | Width in character units            |
 | Value Display | Current, Average, Max/Min, Midpoint |
@@ -316,11 +316,11 @@ Structurally different from the hourly forecasts above: it always renders as a b
 
 Steps, Floors, Calories, Distance, Active Minutes, and Intensity Minutes each have their own bar display independent of the graph system:
 
-| Mode         | Display                                     |
-| ------------ | ------------------------------------------- |
-| Value        | numeric value (+ `[GOAL]` tag when reached) |
-| Progress Bar | filled bar scaled to today's goal           |
-| Bar + Value  | bar with the count overlaid at center       |
+| Mode         | Display                                                             |
+| ------------ | ------------------------------------------------------------------- |
+| Value        | numeric value (+ `[GOAL]` tag when reached)                         |
+| Progress Bar | filled bar scaled to today's goal                                   |
+| Bar + Value  | bar with the count overlaid at center (+ `[GOAL]` tag when reached) |
 
 Bar color and width are independently configurable for each field. Calories, Distance, and Active Minutes additionally have a user-configurable daily goal; Steps, Floors, and Intensity Minutes use the device's own goal.
 

@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.4";
+const APP_VERSION = "0.52.5";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -2263,6 +2263,89 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _resolveLineGraph(2);
     }
 
+    // Rotation-slot field fallback (R4-R6/screen3 are really FIELD_NONE) - mirrors SCREEN1/2_LINE_SLOTS.
+    private function _lineSlotDefaultField(
+        pk as String,
+        slotName as String
+    ) as Number {
+        if (pk.equals("s1l3")) {
+            if (slotName.equals("R1")) {
+                return FIELD_WX_FCST_TEMP;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_WX_HUMIDITY_PRECIP;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_WX_UV_WIND;
+            }
+        } else if (pk.equals("s1l4")) {
+            if (slotName.equals("R1")) {
+                return FIELD_STEPS;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_ELEVATION;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_DISTANCE;
+            }
+        } else if (pk.equals("s1l5")) {
+            if (slotName.equals("R1")) {
+                return FIELD_HR;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_STRESS;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_BODY_BAT;
+            }
+        } else if (pk.equals("s2l3")) {
+            if (slotName.equals("R1")) {
+                return FIELD_WX_FCST_DAILY;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_WX_COND_CLOUD;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_WX_FCST_PRECIP;
+            }
+        } else if (pk.equals("s2l4")) {
+            if (slotName.equals("R1")) {
+                return FIELD_CLIMB_DESCEND_DAY;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_GPS_LAT_LON;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_HEADING;
+            }
+        } else if (pk.equals("s2l5")) {
+            if (slotName.equals("R1")) {
+                return FIELD_CALORIES;
+            }
+            if (slotName.equals("R2")) {
+                return FIELD_INTENSITY_MIN;
+            }
+            if (slotName.equals("R3")) {
+                return FIELD_ACTIVE_MIN_DAY;
+            }
+        }
+        return FIELD_NONE;
+    }
+
+    // Label-color fallback per line (screen 3's real default is 8, matching the generic fallback).
+    private function _lineLabelColorDefault(pk as String) as Number {
+        if (pk.equals("s1l3") || pk.equals("s2l3")) {
+            return 6;
+        }
+        if (pk.equals("s1l4") || pk.equals("s2l4")) {
+            return 1;
+        }
+        if (pk.equals("s1l5") || pk.equals("s2l5")) {
+            return 5;
+        }
+        return 8;
+    }
+
     private function _resolveOneLine(
         li as Number,
         key as String,
@@ -2273,14 +2356,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var f = FIELD_NONE;
         if (_screenMasterEnabled && _getBoolProp(pk + "En", true)) {
             if (phase >= 1 && phase <= 5) {
-                f = _getProp(pk + ROTATE_SLOT_NAMES[phase - 1], FIELD_NONE);
+                var slotName = ROTATE_SLOT_NAMES[phase - 1];
+                f = _getProp(
+                    pk + slotName,
+                    _lineSlotDefaultField(pk, slotName)
+                );
             }
             if (f == FIELD_NONE) {
-                f = _getProp(pk + "R1", FIELD_NONE);
+                f = _getProp(pk + "R1", _lineSlotDefaultField(pk, "R1"));
             }
         }
         _resolvedFields[li] = f;
-        _resolvedLabelC[li] = _getProp(pk + "Lc", 8);
+        _resolvedLabelC[li] = _getProp(pk + "Lc", _lineLabelColorDefault(pk));
         _resolvedValueC[li] = _getProp(pk + "Vc", 0);
     }
 
@@ -2415,13 +2502,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _linePeriodMin[li] = _getProp(gk + "Tf", defaults[1]);
         _lineGraphColor[li] = _getProp(gk + "Gc", defaults[2]);
         _lineSecType[li] = _getProp(gk + "St", SEC_NONE);
-        _lineValueMode[li] = _getProp(gk + "Gvm", 0);
+        _lineValueMode[li] = _getProp(gk + "Gvm", defaults[3]);
         var vm = _lineViewMode[li];
         if (
             _lineSecType[li] != SEC_NONE &&
             (vm == VIEW_GRAPH || vm == VIEW_GRAPH_VALUE)
         ) {
-            var sidx = _getProp(gk + "Sf", 0);
+            var sidx = _getProp(gk + "Sf", defaults[4]);
             if (sidx < 0 || sidx >= GRAPH_SEC_FIELDS.size()) {
                 sidx = 0;
             }
@@ -4437,29 +4524,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return null;
     }
 
-    // Fallback [mode, timeFrameMin, graphColor] per field - mirrors GRAPH_FIELDS in generate_resources.py.
+    // Fallback [mode, timeFrameMin, graphColor, valueMode, secField] per field - mirrors GRAPH_FIELDS in generate_resources.py.
     private function _graphFieldDefaults(
         field as Number
-    ) as [Number, Number, Number] {
+    ) as [Number, Number, Number, Number, Number] {
         if (field == FIELD_HR) {
-            return [3, 60, 5];
+            return [3, 60, 5, 0, 2];
         }
         if (field == FIELD_SPO2) {
-            return [6, 60, 6];
+            return [6, 60, 6, 2, 0];
         }
         if (field == FIELD_BODY_BAT) {
-            return [6, 240, 11];
+            return [6, 240, 11, 0, 3];
         }
         if (field == FIELD_STRESS) {
-            return [3, 120, 10];
+            return [3, 120, 10, 1, 0];
         }
         if (field == FIELD_WRIST_TEMP) {
-            return [3, 60, 16];
+            return [3, 60, 16, 1, 0];
         }
         if (field == FIELD_ELEVATION) {
-            return [6, 480, 1];
+            return [6, 480, 1, 0, 6];
         }
-        return [3, 120, 2];
+        return [3, 120, 2, 1, 5];
     }
 
     // Buckets sensor history into gw time slots (0=most recent). skipZero
