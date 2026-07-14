@@ -536,5 +536,6 @@
   <!-- Debug -->
   <string id="DebugGroup">Debug</string>
   <string id="ShowVersion">Show App Version (testing)</string>
+  <string id="DebugGraphGaps">Show Graph Gaps (testing)</string>
 
 </strings>

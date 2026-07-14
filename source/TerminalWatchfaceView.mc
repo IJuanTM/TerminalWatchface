@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.0";
+const APP_VERSION = "0.52.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -328,6 +328,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _leftPad as Number = 4;
     private var _areaOpacity as Number = 64;
     private var _areaShowLine as Boolean = true;
+    private var _debugGraphGaps as Boolean = false;
     private var _scanlineIntensity as Number = 2;
     private var _glowIntensity as Number = 2;
     private var _bgBacklight as Number = 2;
@@ -889,6 +890,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _leftPad = _getProp("lPad", 4);
             _areaOpacity = _getProp("aOpac", 64);
             _areaShowLine = _getBoolProp("aLine");
+            _debugGraphGaps = _getBoolProp("dbgGG");
             _showBatteryDays = _getBoolProp("batD");
             _scanlineIntensity = _getProp("scan", 2);
             _glowIntensity = _getProp("glow", 2);
@@ -5302,6 +5304,44 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return y + gh - (((v - minV) * ghf) / range).toNumber();
     }
 
+    // DebugGraphGaps setting only: marks a normally-skipped gap with a dashed GRAYS[2]
+    // line/fill so a genuinely-empty graph can be told apart from a hidden-data bug.
+    private function _drawDebugGapLine(
+        dc as Dc,
+        x1 as Number,
+        y1 as Number,
+        x2 as Number,
+        y2 as Number
+    ) as Void {
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var adx = dx < 0 ? -dx : dx;
+        var ady = dy < 0 ? -dy : dy;
+        var steps = adx > ady ? adx : ady;
+        if (steps < 1) {
+            steps = 1;
+        }
+        dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
+        var i = 0;
+        var on = true;
+        while (i < steps) {
+            var j = i + 3;
+            if (j > steps) {
+                j = steps;
+            }
+            if (on) {
+                dc.drawLine(
+                    x1 + (dx * i) / steps,
+                    y1 + (dy * i) / steps,
+                    x1 + (dx * j) / steps,
+                    y1 + (dy * j) / steps
+                );
+            }
+            on = !on;
+            i = j;
+        }
+    }
+
     // data[0] = newest (rightmost), data[n-1] = oldest (leftmost)
     private function _drawGraphLine(
         dc as Dc,
@@ -5333,6 +5373,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var py = _linePointY(y, gh, v, minV, range, ghf);
             if (lastX >= 0 && i - lastI <= maxGap) {
                 _glowLine(dc, x, py, lastX, lastY, color);
+            } else if (lastX >= 0 && _debugGraphGaps) {
+                _drawDebugGapLine(dc, lastX, lastY, x, py);
             }
             _glowRect(dc, x, py, 1, 1, color);
             lastX = x;
@@ -5600,6 +5642,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     lastY,
                     ColorUtils.gradColor(colorIdx, mfrac)
                 );
+            } else if (lastX >= 0 && _debugGraphGaps) {
+                _drawDebugGapLine(dc, lastX, lastY, x, py);
             }
             var frac = _fracClamp(v, gradMinV, gradRange);
             _glowRect(dc, x, py, 1, 1, ColorUtils.gradColor(colorIdx, frac));
@@ -6109,7 +6153,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         gh as Number,
         minV as Float,
         range as Float,
-        maxGap as Number
+        maxGap as Number,
+        fillColor as Number
     ) as Void {
         var n = data.size();
         if (n < 2) {
@@ -6158,6 +6203,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     }
                 }
             } else {
+                if (prevX >= 0 && _debugGraphGaps) {
+                    dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
+                    var gdx = prevX - x;
+                    if (gdx == 0) {
+                        var gTopY = py < prevPY ? py : prevPY;
+                        dc.drawLine(x, gTopY, x, fillBottom);
+                    } else {
+                        for (var gpx = x; gpx < prevX; gpx++) {
+                            var glerpY = py + ((gpx - x) * (prevPY - py)) / gdx;
+                            dc.drawLine(gpx, glerpY, gpx, fillBottom);
+                        }
+                    }
+                    dc.setStroke(fillColor);
+                }
                 dc.drawLine(x, py, x, fillBottom);
             }
             prevX = x;
@@ -6244,6 +6303,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     }
                 }
             } else {
+                if (prevX >= 0 && _debugGraphGaps) {
+                    dc.setColor(GRAYS[2], Graphics.COLOR_TRANSPARENT);
+                    var gdx = prevX - x;
+                    if (gdx == 0) {
+                        var gTopY = py < prevPY ? py : prevPY;
+                        dc.drawLine(x, gTopY, x, fillBottom);
+                    } else {
+                        for (var gpx = x; gpx < prevX; gpx++) {
+                            var glerpY = py + ((gpx - x) * (prevPY - py)) / gdx;
+                            dc.drawLine(gpx, glerpY, gpx, fillBottom);
+                        }
+                    }
+                }
                 var frac = _fracClamp(v, gradMinV, gradRange);
                 dc.setStroke(
                     ColorUtils.withAlpha(
@@ -6983,13 +7055,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     );
                 }
             } else {
-                dc.setStroke(
-                    ColorUtils.withAlpha(
-                        ColorUtils.colorFromIdx(colorIdx),
-                        _areaOpacity
-                    )
+                var fillColor = ColorUtils.withAlpha(
+                    ColorUtils.colorFromIdx(colorIdx),
+                    _areaOpacity
                 );
-                _drawAreaLine(dc, data, gx, gw, y, gh, minV, range, maxGap);
+                dc.setStroke(fillColor);
+                _drawAreaLine(
+                    dc,
+                    data,
+                    gx,
+                    gw,
+                    y,
+                    gh,
+                    minV,
+                    range,
+                    maxGap,
+                    fillColor
+                );
                 if (_areaShowLine) {
                     _drawGraphLine(
                         dc,

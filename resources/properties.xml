@@ -306,5 +306,6 @@
 
   <!-- Debug -->
   <property id="shVer" type="boolean">false</property>
+  <property id="dbgGG" type="boolean">false</property>
 
 </properties>

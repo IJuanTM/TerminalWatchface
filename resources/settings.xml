@@ -7693,6 +7693,9 @@
     <setting propertyKey="@Properties.shVer" title="@Strings.ShowVersion">
       <settingConfig type="boolean" />
     </setting>
+    <setting propertyKey="@Properties.dbgGG" title="@Strings.DebugGraphGaps">
+      <settingConfig type="boolean" />
+    </setting>
   </group>
 
 </settings>

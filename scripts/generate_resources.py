@@ -644,6 +644,7 @@ STANDALONE_KEYS = {
     "line2LabelColor": "l2Lc",
     "line2ValueColor": "l2Vc",
     "showVersion": "shVer",
+    "debugGraphGaps": "dbgGG",
 }
 
 
@@ -856,6 +857,7 @@ def gen_properties():
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop(sk["showVersion"], "boolean", "false"))
+    lines.append(prop(sk["debugGraphGaps"], "boolean", "false"))
 
     lines.append("\n</properties>")
     return "\n".join(lines) + "\n"
@@ -1081,6 +1083,9 @@ def gen_strings():
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
     lines.append(s("ShowVersion", "Show App Version (testing)"))
+    lines.append(
+        s("DebugGraphGaps", "Show Graph Gaps (testing)")
+    )
 
     lines.append("\n</strings>")
     return "\n".join(lines) + "\n"
@@ -1557,6 +1562,9 @@ def gen_settings():
             "debug",
             "DebugGroup",
             setting_bool(STANDALONE_KEYS["showVersion"], "ShowVersion", indent=2),
+            setting_bool(
+                STANDALONE_KEYS["debugGraphGaps"], "DebugGraphGaps", indent=2
+            ),
         )
     )
 
