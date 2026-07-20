@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.8";
+const APP_VERSION = "0.52.9";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -149,6 +149,9 @@ const GLOW_SPREAD = 1;
 
 // Dim factor for dashed lines (progress bar ticks, HR zones, mean line, daily dividers).
 const DASH_ALPHA = 0x80;
+
+// Forecast graphs are one entry per hour; bridge a single missing hour, not more.
+const FORECAST_GAP_HOURS = 2;
 
 // 0=shadow, 1=bar bg, 2=unused, 3=separators/no-data/axes/progress-bar-border
 const GRAYS =
@@ -1674,7 +1677,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return r[0];
     }
 
-    // .get() can throw under memory pressure; treat that as a reclaimed bitmap.
+    // .get() can throw or silently return a pool-reclaimed bitmap; isCached() catches the latter.
     private function _resolveBmpRef(
         ref as Graphics.BufferedBitmapReference?
     ) as Graphics.BufferedBitmap? {
@@ -1682,7 +1685,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return null;
         }
         try {
-            return ref.get() as Graphics.BufferedBitmap?;
+            var bmp = ref.get() as Graphics.BufferedBitmap?;
+            return bmp != null && bmp.isCached() ? bmp : null;
         } catch (e instanceof Lang.Exception) {
             return null;
         }
@@ -4270,7 +4274,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (dualMaxGap < 1) {
             dualMaxGap = 1;
         }
-        var dualCacheKey = _packGraphKey(field, fieldSecondary, periodMin);
+        // Folds GraphWidth into the period slot so two slots sharing (field, fieldSecondary, periodMin) at different widths don't collide.
+        var widthIdx = (_graphW / _charW - 6) / 2;
+        var dualPeriodKey = (periodMin / 15) * 6 + widthIdx;
+        var dualCacheKey = _packGraphKey(field, fieldSecondary, dualPeriodKey);
         var dualBmps = _renderDualGraphToBitmap(
             dualCacheKey,
             field,
@@ -6226,6 +6233,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[0] = "Temp Fcst";
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+        var fcstMaxGap = FORECAST_GAP_HOURS;
         var fcstTempBmps = _renderGraphToBitmap(
             fcstTempCacheKey,
             FIELD_WX_FCST_TEMP,
@@ -6238,7 +6246,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            data.size()
+            fcstMaxGap
         );
         _drawGraphRowGlow(
             dc,
@@ -6252,7 +6260,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            data.size()
+            fcstMaxGap
         );
         _drawRowAxes(dc, y);
         _drawSingleGraphLabels(
@@ -6639,6 +6647,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[0] = label;
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+        var fcstMaxGap = FORECAST_GAP_HOURS;
         var fcstBmps = _renderGraphToBitmap(
             fcstCacheKey,
             fieldConst,
@@ -6651,7 +6660,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            data.size()
+            fcstMaxGap
         );
         _drawGraphRowGlow(
             dc,
@@ -6665,7 +6674,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            data.size()
+            fcstMaxGap
         );
         _drawRowAxes(dc, y);
         _drawSingleGraphLabels(
