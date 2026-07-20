@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.5";
+const APP_VERSION = "0.52.6";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -6187,17 +6187,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _graphX = _graphBaseX;
         var all = _wxForecastData;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
-        if (n < 2) {
+        var data = new Array<Float>[n];
+        var realCount = 0;
+        for (var i = 0; i < n; i++) {
+            var v = (all as Array<Float>)[n - 1 - i];
+            data[i] = v;
+            if (v != null) {
+                realCount++;
+            }
+        }
+        if (realCount < 2) {
             _rowBuf[0] = "Temp Fcst";
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
             return;
-        }
-
-        var data = new Array<Float>[n];
-        for (var i = 0; i < n; i++) {
-            data[i] = (all as Array<Float>)[n - 1 - i];
         }
 
         var fcstTempCacheKey = _packGraphKey(
@@ -6602,16 +6606,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         _graphX = _graphBaseX;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
-        if (n < 2) {
+        var data = new Array<Float>[n];
+        var realCount = 0;
+        for (var i = 0; i < n; i++) {
+            var v = (all as Array<Float>)[n - 1 - i];
+            data[i] = v;
+            if (v != null) {
+                realCount++;
+            }
+        }
+        if (realCount < 2) {
             _rowBuf[0] = label;
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
             return;
-        }
-        var data = new Array<Float>[n];
-        for (var i = 0; i < n; i++) {
-            data[i] = (all as Array<Float>)[n - 1 - i];
         }
         var fcstCacheKey = _packGraphKey(_graphW, fieldConst, hours);
         _calcMinMaxCached(fcstCacheKey, all as Array<Float>, data);
@@ -6967,6 +6976,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var allMin = 1.0e38 as Float;
         var allMax = -1.0e38 as Float;
+        var realDays = 0;
         for (var i = 0; i < n; i++) {
             if (lowsArr[i] != null && (lowsArr[i] as Float) < allMin) {
                 allMin = lowsArr[i] as Float;
@@ -6974,6 +6984,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (highsArr[i] != null && (highsArr[i] as Float) > allMax) {
                 allMax = highsArr[i] as Float;
             }
+            if (highsArr[i] != null && lowsArr[i] != null) {
+                realDays++;
+            }
+        }
+        if (realDays < 2) {
+            _rowBuf[0] = "Day Fcst";
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
+            return;
         }
         if (allMin > allMax) {
             allMin = 0.0;
