@@ -14,7 +14,7 @@ import Toybox.UserProfile;
 import Toybox.Complications;
 import Toybox.Position;
 
-const APP_VERSION = "0.52.7";
+const APP_VERSION = "0.52.8";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -129,7 +129,7 @@ const TRI_GRAD = [0x55ff77, 0xff9944, 0xff5555] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
 // Black overlay alpha per intensity (0=off, 1=subtle, 2=medium, 3=strong).
-const SCANLINE_ALPHA = [0, 15, 30, 45] as Array<Number>;
+const SCANLINE_ALPHA = [0, 15, 35, 55] as Array<Number>;
 const FLICKER_MAGNITUDE = 10;
 const FLICKER_CHANCE_PCT = 20;
 // PAD must exceed SHIFT_MAX so the flicker shift never clips.
