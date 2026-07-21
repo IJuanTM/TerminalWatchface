@@ -138,17 +138,6 @@ FIELD_CATEGORIES = [
         ],
     ),
     (
-        "GPS / Navigation",
-        [
-            ("GPS_LAT", "FieldGpsLat", "GPS: Latitude"),
-            ("GPS_LON", "FieldGpsLon", "GPS: Longitude"),
-            ("GPS_ACCURACY", "FieldGpsAccuracy", "GPS: Accuracy"),
-            ("GPS_LAT_LON", "FieldGpsLatLon", "GPS: Lat + Lon"),
-            ("GPS_LAT_LON_ACC", "FieldGpsLatLonAcc", "GPS: Lat + Lon + Accuracy"),
-            ("HEADING", "FieldHeading", "Heading"),
-        ],
-    ),
-    (
         "Time / Calendar",
         [
             ("SUNRISE", "FieldSunrise", "Sunrise"),
@@ -450,10 +439,10 @@ SCREEN2_LINE_SLOTS = [
     LineSlot(4, "Primary", _fv["FieldClimbDescendDay"], 1, 0),
     LineSlot(5, "Primary", _fv["FieldCalories"], 5, 0),
     LineSlot(3, "Secondary", _fv["FieldWxCondCloud"], 6, 0),
-    LineSlot(4, "Secondary", _fv["FieldGpsLatLon"], 1, 0),
+    LineSlot(4, "Secondary", _fv["FieldFloors"], 1, 0),
     LineSlot(5, "Secondary", _fv["FieldIntensityMin"], 5, 0),
     LineSlot(3, "Tertiary", _fv["FieldWxFcstPrecip"], 6, 0),
-    LineSlot(4, "Tertiary", _fv["FieldHeading"], 1, 0),
+    LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
     LineSlot(5, "Tertiary", _fv["FieldActiveMinDay"], 5, 0),
     LineSlot(3, "Quaternary", _fv["FieldNone"], 6, 0),
     LineSlot(4, "Quaternary", _fv["FieldNone"], 1, 0),
@@ -768,7 +757,7 @@ def gen_properties():
     lines.append(prop(sk["colorTheme"], "number", 0))
     lines.append(prop(sk["scanlines"], "number", 2))
     lines.append(prop(sk["glowIntensity"], "number", 2))
-    lines.append(prop(sk["bgBacklight"], "number", 2))
+    lines.append(prop(sk["bgBacklight"], "number", 0))
     lines.append(prop(sk["flickerEnabled"], "boolean", "true"))
 
     lines.append("\n  <!-- Display options -->")
@@ -1083,9 +1072,7 @@ def gen_strings():
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
     lines.append(s("ShowVersion", "Show App Version (testing)"))
-    lines.append(
-        s("DebugGraphGaps", "Show Graph Gaps (testing)")
-    )
+    lines.append(s("DebugGraphGaps", "Show Graph Gaps (testing)"))
 
     lines.append("\n</strings>")
     return "\n".join(lines) + "\n"
@@ -1562,9 +1549,7 @@ def gen_settings():
             "debug",
             "DebugGroup",
             setting_bool(STANDALONE_KEYS["showVersion"], "ShowVersion", indent=2),
-            setting_bool(
-                STANDALONE_KEYS["debugGraphGaps"], "DebugGraphGaps", indent=2
-            ),
+            setting_bool(STANDALONE_KEYS["debugGraphGaps"], "DebugGraphGaps", indent=2),
         )
     )
 

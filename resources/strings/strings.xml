@@ -226,12 +226,6 @@
   <string id="FieldWeeklyRun">Distance (Weekly Run)</string>
   <string id="FieldWeeklyBike">Distance (Weekly Bike)</string>
   <string id="FieldWeeklyDistances">Distance (Weekly Run + Bike)</string>
-  <string id="FieldGpsLat">GPS: Latitude</string>
-  <string id="FieldGpsLon">GPS: Longitude</string>
-  <string id="FieldGpsAccuracy">GPS: Accuracy</string>
-  <string id="FieldGpsLatLon">GPS: Lat + Lon</string>
-  <string id="FieldGpsLatLonAcc">GPS: Lat + Lon + Accuracy</string>
-  <string id="FieldHeading">Heading</string>
   <string id="FieldSunrise">Sunrise</string>
   <string id="FieldSunset">Sunset</string>
   <string id="FieldSunriseSunset">Sunrise + Sunset</string>

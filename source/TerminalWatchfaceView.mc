@@ -12,9 +12,8 @@ import Toybox.Weather;
 import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
-import Toybox.Position;
 
-const APP_VERSION = "0.52.9";
+const APP_VERSION = "0.53.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -27,7 +26,6 @@ const GRAPH_BAR = 1;
 const GRAPH_AREA = 2;
 
 const SEC_NONE = 0;
-const SEC_LINE = 1;
 const SEC_BAR = 2;
 
 const COLOR_GRAD_TRI = 10;
@@ -147,6 +145,9 @@ const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 // Glow offset (px); diagonal everywhere except the line-ribbon glow (self-intersection risk).
 const GLOW_SPREAD = 1;
 
+// Small cap - shares the constrained graphics memory pool with graph/halo bitmaps.
+const GLOW_GLYPH_CACHE_CAP = 16;
+
 // Dim factor for dashed lines (progress bar ticks, HR zones, mean line, daily dividers).
 const DASH_ALPHA = 0x80;
 
@@ -181,26 +182,6 @@ const MONTH_NAMES =
     ] as Array<String>;
 
 const WIND_DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"] as Array<String>;
-
-const COMPASS_DIRS_16 =
-    [
-        "N",
-        "NNE",
-        "NE",
-        "ENE",
-        "E",
-        "ESE",
-        "SE",
-        "SSE",
-        "S",
-        "SSW",
-        "SW",
-        "WSW",
-        "W",
-        "WNW",
-        "NW",
-        "NNW",
-    ] as Array<String>;
 
 // 0=Sun-indexed, matches Gregorian.Info.day_of_week - 1 under FORMAT_SHORT.
 const DAY_NAMES_SHORT = ["S", "M", "T", "W", "T", "F", "S"] as Array<String>;
@@ -256,7 +237,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxFeels as String = "-";
     private var _wxPrecip as String = "-";
     private var _wxWind as String = "-";
-    private var _headingCompassStr as String = "";
     private var _wxUv as String = "-";
     private var _wxUvNum as Number = -1;
     private var _wxCond as String = "-";
@@ -293,7 +273,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compCalendar as String? = null;
     private var _compWeeklyRun as Float? = null;
     private var _compWeeklyBike as Float? = null;
-    private var _posInfo as Position.Info? = null;
     private var _compTrainingStatus as String? = null;
     private var _compRace5k as Number? = null;
     private var _compRace10k as Number? = null;
@@ -301,6 +280,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _compRaceMarathon as Number? = null;
     private var _graphBmpCache as Dictionary = {};
     private var _graphBmpDualCache as Dictionary = {};
+    // _glowText halo-copy cache, round-robin evicted so repeat-hit labels survive high-cardinality live-value churn.
+    private var _glowGlyphCache as Dictionary = {};
+    private var _glowGlyphKeys as Array<String?> = new [GLOW_GLYPH_CACHE_CAP];
+    private var _glowGlyphIdx as Number = 0;
     // Offscreen surface every halo is drawn onto, then additively composited.
     private var _haloBmp as Graphics.BufferedBitmap? = null;
     // Null until first drawBitmap attempt; caches whether it worked. Retried
@@ -336,7 +319,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _debugGraphGaps as Boolean = false;
     private var _scanlineIntensity as Number = 2;
     private var _glowIntensity as Number = 2;
-    private var _bgBacklight as Number = 2;
+    private var _bgBacklight as Number = 0;
     private var _lastColorTheme as Number = -1;
     private var _flickerEnabled as Boolean = true;
     private var _rotateMainMs as Number = 5000;
@@ -382,7 +365,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _resolvedPhase as Number = -1;
     private var _resolvedFields as Array<Number> = [7, 7, 7] as Array<Number>;
     private var _needsLiveActivity as Boolean = true;
-    private var _needsGps as Boolean = false;
+    private var _needsAm as Boolean = true;
     private var _needsForecast as Boolean = true;
     private var _needsComplications as Boolean = true;
     private var _resolvedLabelC as Array<Number> = [8, 8, 8] as Array<Number>;
@@ -452,7 +435,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _screenH = s.screenHeight;
         _amInfo = ActivityMonitor.getInfo();
         _acInfo = Activity.getActivityInfo();
-        _posInfo = Position.getInfo();
         reloadFont();
         _applyColorTheme(_getProp("theme", 0));
         _readActiveScreen();
@@ -591,6 +573,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _graphEffPeriod = {};
         _graphBmpCache = {};
         _graphBmpDualCache = {};
+        _glowGlyphCache = {};
+        _glowGlyphKeys = new [GLOW_GLYPH_CACHE_CAP];
+        _glowGlyphIdx = 0;
         _lastDateDay = -1;
         _cachedTimeMin = -1;
         _forecastFetched = false;
@@ -726,16 +711,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         // this same frame can still tell they're on the frame that must not block wake-up.
         _deferThisFrame = _wakeFlicker;
         _deferredWorkPending = false;
+        // Guards the retry below plus the phase-change/per-minute blocks against double-refreshing this call.
+        var compHandledThisFrame = false;
         if (_compFetchDeferred && !_deferThisFrame) {
             _compFetchDeferred = false;
             _refreshComplications();
+            compHandledThisFrame = true;
         }
-        // Guards against the phase-change and per-minute blocks both refreshing complications this same call.
-        var compHandledThisFrame = false;
         var now = System.getTimer();
+        // Shared with the per-minute settings block below to avoid a redundant duplicate read.
+        var ds = System.getDeviceSettings();
         if (now - _notifLastMs >= 5000) {
             _notifLastMs = now;
-            var ds = System.getDeviceSettings();
             var nc = ds.notificationCount;
             var newCount = nc != null ? nc as Number : 0;
             if (newCount != _notifCount) {
@@ -753,14 +740,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             Gregorian.info(nowMoment, Time.FORMAT_SHORT) as Gregorian.Info;
         _clockInfo = clockInfo;
         var nowMin = clockInfo.min as Number;
-        if (phase != _resolvedPhase) {
+        // Rotation/complication-need state is interactive-only - AOD never reaches _drawLineRow.
+        if (phase != _resolvedPhase && !_lowPower) {
             _resolvedPhase = phase;
             _resolveAllLines(phase);
             var needsAct = false;
-            var needsGps = false;
             var needsForecast = false;
             var needsWxCurrent = false;
             var needsComp = false;
+            var needsAm = false;
             for (var i = 0; i < 3; i++) {
                 var f = _resolvedFields[i];
                 if (
@@ -773,14 +761,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     needsAct = true;
                 }
                 if (
-                    f == FIELD_GPS_LAT ||
-                    f == FIELD_GPS_LON ||
-                    f == FIELD_GPS_ACCURACY ||
-                    f == FIELD_HEADING ||
-                    f == FIELD_GPS_LAT_LON ||
-                    f == FIELD_GPS_LAT_LON_ACC
+                    f == FIELD_STEPS ||
+                    f == FIELD_FLOORS ||
+                    f == FIELD_CALORIES ||
+                    f == FIELD_DISTANCE ||
+                    f == FIELD_ACTIVE_MIN_DAY ||
+                    f == FIELD_INTENSITY_MIN ||
+                    f == FIELD_MOVE_BAR ||
+                    f == FIELD_CLIMB_DESCEND_DAY ||
+                    f == FIELD_CLIMB_DAY ||
+                    f == FIELD_DESCENT_DAY ||
+                    f == FIELD_RESP ||
+                    f == FIELD_RECOVERY ||
+                    f == FIELD_BODY_BAT_RECOVERY ||
+                    f == FIELD_STRESS_RECOVERY ||
+                    f == FIELD_RESP_SPO2 ||
+                    f == FIELD_SLEEP_RECOVERY
                 ) {
-                    needsGps = true;
+                    needsAm = true;
                 }
                 if (
                     f == FIELD_WX_FCST_TEMP ||
@@ -870,9 +868,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
             }
             _needsLiveActivity = needsAct;
-            _needsGps = needsGps;
+            // Freshly needed - refresh now rather than waiting for the next per-minute tick.
+            if (needsAm && !_needsAm && !_lowPower) {
+                _amInfo = ActivityMonitor.getInfo();
+            }
+            _needsAm = needsAm;
             _needsForecast = needsForecast;
-            if (needsComp && !_needsComplications) {
+            if (needsComp && !_needsComplications && !compHandledThisFrame) {
                 // Freshly needed - refresh now rather than waiting for the next per-minute tick.
                 if (_deferThisFrame && _compEverFetched) {
                     _deferredWorkPending = true;
@@ -893,19 +895,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _wxLastMin = -1;
             }
         }
-        if (_needsLiveActivity) {
+        if (_needsLiveActivity && !_lowPower) {
             _acInfo = Activity.getActivityInfo();
-        }
-        if (_needsGps) {
-            _posInfo = Position.getInfo();
         }
         if (nowMin != _graphCacheMin) {
             _graphCacheMin = nowMin;
             // Not cleared here: _cacheResult() invalidates only the specific key that refreshed.
-            var settings = System.getDeviceSettings();
-            _metric = settings.distanceUnits == System.UNIT_METRIC;
-            _is24Hour = settings.is24Hour;
-            var fDow = settings.firstDayOfWeek;
+            _metric = ds.distanceUnits == System.UNIT_METRIC;
+            _is24Hour = ds.is24Hour;
+            var fDow = ds.firstDayOfWeek;
             _firstDow = fDow != null ? ((fDow as Number) - 1) % 7 : 1;
             _showSeconds = _getBoolProp("shSec", false);
             _leftPad = _getProp("lPad", 4);
@@ -918,34 +916,42 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (_glowIntensity < 0 || _glowIntensity > 3) {
                 _glowIntensity = 2;
             }
-            _bgBacklight = _getProp("bgLt", 2);
+            _bgBacklight = _getProp("bgLt", 0);
             if (_bgBacklight < 0 || _bgBacklight > 3) {
-                _bgBacklight = 2;
+                _bgBacklight = 0;
             }
             _flickerEnabled = _getBoolProp("flick", true);
             _wxUnit = _metric ? "C" : "F";
-            _amInfo = ActivityMonitor.getInfo();
-            if (_needsComplications && !compHandledThisFrame) {
-                if (_deferThisFrame && _compEverFetched) {
-                    _deferredWorkPending = true;
-                    _compFetchDeferred = true;
-                } else {
-                    _refreshComplications();
+            // Fitness/complications/pressure-trend data below is interactive-row-only - AOD never draws it.
+            if (!_lowPower) {
+                if (_needsAm) {
+                    _amInfo = ActivityMonitor.getInfo();
                 }
+                if (_needsComplications && !compHandledThisFrame) {
+                    if (_deferThisFrame && _compEverFetched) {
+                        _deferredWorkPending = true;
+                        _compFetchDeferred = true;
+                    } else {
+                        _refreshComplications();
+                    }
+                }
+                _refreshPointSamples();
             }
-            _refreshPointSamples();
-            var showVer = _getBoolProp("shVer", false);
-            var cmdStyle = _getProp("cmdSty", 2);
-            if (cmdStyle == 1) {
-                _watchCmd = showVer
-                    ? "./watch@" + APP_VERSION + ".sh"
-                    : "./watch.sh";
-            } else if (cmdStyle == 2) {
-                _watchCmd = showVer ? "watch@" + APP_VERSION : "watch";
-            } else {
-                _watchCmd = showVer
-                    ? ".\\watch@" + APP_VERSION + ".bat"
-                    : ".\\watch.bat";
+            // _watchCmd is only drawn on the interactive prompt line, never in AOD.
+            if (!_lowPower) {
+                var showVer = _getBoolProp("shVer", false);
+                var cmdStyle = _getProp("cmdSty", 2);
+                if (cmdStyle == 1) {
+                    _watchCmd = showVer
+                        ? "./watch@" + APP_VERSION + ".sh"
+                        : "./watch.sh";
+                } else if (cmdStyle == 2) {
+                    _watchCmd = showVer ? "watch@" + APP_VERSION : "watch";
+                } else {
+                    _watchCmd = showVer
+                        ? ".\\watch@" + APP_VERSION + ".bat"
+                        : ".\\watch.bat";
+                }
             }
             _line1LabelC = _getProp("l1Lc", 8);
             _line1ValueC = _getProp("l1Vc", 0);
@@ -958,71 +964,74 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _showYear = sy;
                 _lastDateDay = -1;
             }
-            var profile = UserProfile.getProfile();
-            var vo2 = profile.vo2maxRunning;
-            if (vo2 == null) {
-                vo2 = profile.vo2maxCycling;
-            }
-            _cachedVo2Max = vo2 != null ? (vo2 as Number).toString() : "-";
-            if (
-                profile has :restingHeartRate &&
-                profile.restingHeartRate != null
-            ) {
-                _cachedRestingHR = (
-                    profile.restingHeartRate as Number
-                ).toString();
-            } else {
-                _cachedRestingHR = "-";
-            }
-            if (
-                profile has :averageRestingHeartRate &&
-                profile.averageRestingHeartRate != null
-            ) {
-                _cachedAvgRestingHR = (
-                    profile.averageRestingHeartRate as Number
-                ).toString();
-            } else {
-                _cachedAvgRestingHR = "-";
-            }
-            if (
-                profile has :upcomingSleepTime &&
-                profile.upcomingSleepTime != null
-            ) {
-                var st =
-                    Gregorian.info(
-                        profile.upcomingSleepTime as Time.Moment,
-                        Time.FORMAT_SHORT
-                    ) as Gregorian.Info;
-                _cachedSleepTime =
-                    (st.hour as Number).format("%02d") +
-                    ":" +
-                    (st.min as Number).format("%02d");
-            } else {
-                _cachedSleepTime = "-";
-            }
-            if (
-                profile has :upcomingWakeTime &&
-                profile.upcomingWakeTime != null
-            ) {
-                var wt =
-                    Gregorian.info(
-                        profile.upcomingWakeTime as Time.Moment,
-                        Time.FORMAT_SHORT
-                    ) as Gregorian.Info;
-                _cachedWakeTime =
-                    (wt.hour as Number).format("%02d") +
-                    ":" +
-                    (wt.min as Number).format("%02d");
-            } else {
-                _cachedWakeTime = "-";
-            }
-            // UserProfile.Profile has no hrZones field - zones come from this module function instead.
-            try {
-                _hrZones = UserProfile.getHeartRateZones(
-                    UserProfile.HR_ZONE_SPORT_GENERIC
-                );
-            } catch (e instanceof Lang.Exception) {
-                _hrZones = null;
+            // Profile/HR-zone lookups below only feed interactive-row values, never drawn in AOD.
+            if (!_lowPower) {
+                var profile = UserProfile.getProfile();
+                var vo2 = profile.vo2maxRunning;
+                if (vo2 == null) {
+                    vo2 = profile.vo2maxCycling;
+                }
+                _cachedVo2Max = vo2 != null ? (vo2 as Number).toString() : "-";
+                if (
+                    profile has :restingHeartRate &&
+                    profile.restingHeartRate != null
+                ) {
+                    _cachedRestingHR = (
+                        profile.restingHeartRate as Number
+                    ).toString();
+                } else {
+                    _cachedRestingHR = "-";
+                }
+                if (
+                    profile has :averageRestingHeartRate &&
+                    profile.averageRestingHeartRate != null
+                ) {
+                    _cachedAvgRestingHR = (
+                        profile.averageRestingHeartRate as Number
+                    ).toString();
+                } else {
+                    _cachedAvgRestingHR = "-";
+                }
+                if (
+                    profile has :upcomingSleepTime &&
+                    profile.upcomingSleepTime != null
+                ) {
+                    var st =
+                        Gregorian.info(
+                            profile.upcomingSleepTime as Time.Moment,
+                            Time.FORMAT_SHORT
+                        ) as Gregorian.Info;
+                    _cachedSleepTime =
+                        (st.hour as Number).format("%02d") +
+                        ":" +
+                        (st.min as Number).format("%02d");
+                } else {
+                    _cachedSleepTime = "-";
+                }
+                if (
+                    profile has :upcomingWakeTime &&
+                    profile.upcomingWakeTime != null
+                ) {
+                    var wt =
+                        Gregorian.info(
+                            profile.upcomingWakeTime as Time.Moment,
+                            Time.FORMAT_SHORT
+                        ) as Gregorian.Info;
+                    _cachedWakeTime =
+                        (wt.hour as Number).format("%02d") +
+                        ":" +
+                        (wt.min as Number).format("%02d");
+                } else {
+                    _cachedWakeTime = "-";
+                }
+                // UserProfile.Profile has no hrZones field - zones come from this module function instead.
+                try {
+                    _hrZones = UserProfile.getHeartRateZones(
+                        UserProfile.HR_ZONE_SPORT_GENERIC
+                    );
+                } catch (e instanceof Lang.Exception) {
+                    _hrZones = null;
+                }
             }
             var stats = System.getSystemStats();
             _charging = stats.charging;
@@ -1036,7 +1045,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _batW = 0;
             _spacedBatW = 0;
         }
-        _refreshWeather(nowMin);
+        // Weather only feeds interactive-row values, never drawn in AOD.
+        if (!_lowPower) {
+            _refreshWeather(nowMin);
+        }
 
         if (_wakeFlicker) {
             _wakeFlicker = false;
@@ -1836,11 +1848,67 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var hdc = _activeHaloDc();
         if (hdc != null) {
-            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
-            hdc.drawText(x + GLOW_SPREAD, y + GLOW_SPREAD, font, text, justify);
+            var tinted = _glowColor(color);
+            var w = dc.getTextWidthInPixels(text, font);
+            var leftX = x;
+            if (justify == Graphics.TEXT_JUSTIFY_RIGHT) {
+                leftX = x - w;
+            } else if (justify == Graphics.TEXT_JUSTIFY_CENTER) {
+                leftX = x - w / 2;
+            }
+            var bmp = _glowGlyphBmp(dc, font, text, tinted, w);
+            if (bmp != null) {
+                hdc.drawBitmap(leftX + GLOW_SPREAD, y + GLOW_SPREAD, bmp);
+            } else {
+                hdc.setColor(tinted, Graphics.COLOR_TRANSPARENT);
+                hdc.drawText(
+                    x + GLOW_SPREAD,
+                    y + GLOW_SPREAD,
+                    font,
+                    text,
+                    justify
+                );
+            }
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, font, text, justify);
+    }
+
+    private function _glowGlyphBmp(
+        dc as Dc,
+        font as Graphics.FontType,
+        text as String,
+        tinted as Number,
+        w as Number
+    ) as Graphics.BufferedBitmap? {
+        var key = text + "\t" + font.toString() + "\t" + tinted.toString();
+        if (_glowGlyphCache.hasKey(key)) {
+            var cached = _resolveBmpRef(
+                _glowGlyphCache.get(key) as Graphics.BufferedBitmapReference
+            );
+            if (cached != null) {
+                return cached;
+            }
+            _glowGlyphCache.remove(key);
+        }
+        var made = _newClearedBitmap(w, dc.getFontHeight(font));
+        if (made == null) {
+            return null;
+        }
+        var ref = made[0];
+        var bmp = made[1];
+        var bmpDc = bmp.getDc();
+        bmpDc.setColor(tinted, Graphics.COLOR_TRANSPARENT);
+        bmpDc.drawText(0, 0, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+
+        var evictKey = _glowGlyphKeys[_glowGlyphIdx];
+        if (evictKey != null) {
+            _glowGlyphCache.remove(evictKey as String);
+        }
+        _glowGlyphKeys[_glowGlyphIdx] = key;
+        _glowGlyphIdx = (_glowGlyphIdx + 1) % GLOW_GLYPH_CACHE_CAP;
+        _glowGlyphCache.put(key, ref);
+        return bmp;
     }
 
     private function _glowLine(
@@ -2317,10 +2385,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return FIELD_CLIMB_DESCEND_DAY;
             }
             if (slotName.equals("R2")) {
-                return FIELD_GPS_LAT_LON;
+                return FIELD_FLOORS;
             }
             if (slotName.equals("R3")) {
-                return FIELD_HEADING;
+                return FIELD_DISTANCE;
             }
         } else if (pk.equals("s2l5")) {
             if (slotName.equals("R1")) {
@@ -2541,9 +2609,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (_drawLineRowHealth(dc, cx, y, field, labelColor, valueColor, li)) {
-            return;
-        }
-        if (_drawLineRowNav(dc, cx, y, field, labelColor, valueColor, li)) {
             return;
         }
         if (
@@ -2844,6 +2909,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return true;
         }
+        if (field == FIELD_PRESSURE) {
+            _getFieldParts(field);
+            var valStr = _rowBuf[1];
+            _rowBuf[1] = "";
+            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
+            var x = cx + _splitPad;
+            var valColor = ColorUtils.colorFromIdx(valueColor);
+            _glowText(
+                dc,
+                x,
+                y,
+                _font,
+                valStr,
+                Graphics.TEXT_JUSTIFY_LEFT,
+                valColor
+            );
+            if (_cachedPressureTrend != 0) {
+                x += dc.getTextWidthInPixels(valStr, _font) + ARROW_PAD;
+                _drawIcon(
+                    dc,
+                    x,
+                    y + (_fh - _arrowH) / 2 + 1,
+                    _cachedPressureTrend == 1 ? ICON_ARROW_UP : ICON_ARROW_DN,
+                    valueColor
+                );
+            }
+            return true;
+        }
         return false;
     }
 
@@ -2867,95 +2960,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 labelColor,
                 valueColor
             );
-            return true;
-        }
-        return false;
-    }
-
-    private function _drawLineRowNav(
-        dc as Dc,
-        cx as Number,
-        y as Number,
-        field as Number,
-        labelColor as Number,
-        valueColor as Number,
-        li as Number
-    ) as Boolean {
-        if (field == FIELD_HEADING) {
-            _getFieldParts(field);
-            var valStr = _rowBuf[1];
-            _rowBuf[1] = "";
-            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            var x = cx + _splitPad;
-            _glowText(
-                dc,
-                x,
-                y,
-                _font,
-                valStr,
-                Graphics.TEXT_JUSTIFY_LEFT,
-                ColorUtils.colorFromIdx(valueColor)
-            );
-            if (!valStr.equals("-")) {
-                x += dc.getTextWidthInPixels(valStr, _font);
-                _drawIcon(dc, x, y + (_fh - _degW) / 4, ICON_DEG, valueColor);
-                x += _degW;
-                _glowText(
-                    dc,
-                    x,
-                    y,
-                    _font,
-                    " " + _headingCompassStr,
-                    Graphics.TEXT_JUSTIFY_LEFT,
-                    ColorUtils.colorFromIdx(valueColor)
-                );
-            }
-            return true;
-        }
-        if (field == FIELD_GPS_ACCURACY) {
-            _getFieldParts(field);
-            var val = _rowBuf[1];
-            _rowBuf[1] = "";
-            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            var pos = _posInfo;
-            _glowText(
-                dc,
-                cx + _splitPad,
-                y,
-                _font,
-                val,
-                Graphics.TEXT_JUSTIFY_LEFT,
-                pos != null
-                    ? ColorUtils.gpsQualityColor(pos.accuracy)
-                    : 0xffffff
-            );
-            return true;
-        }
-        if (field == FIELD_GPS_LAT_LON_ACC) {
-            _getFieldParts(field);
-            var full = _rowBuf[1];
-            var sepIdx = full.find(" [");
-            if (sepIdx != null) {
-                var coords = full.substring(0, sepIdx) as String;
-                _rowBuf[1] = coords;
-                _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-                var pos = _posInfo;
-                var vx =
-                    cx + _splitPad + dc.getTextWidthInPixels(coords, _font);
-                _glowText(
-                    dc,
-                    vx,
-                    y,
-                    _font,
-                    full.substring(sepIdx, full.length()) as String,
-                    Graphics.TEXT_JUSTIFY_LEFT,
-                    pos != null
-                        ? ColorUtils.gpsQualityColor(pos.accuracy)
-                        : 0xffffff
-                );
-            } else {
-                _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            }
             return true;
         }
         return false;
@@ -7569,15 +7573,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // FLOORS and the WX_TEMP*/WX_UV* fields early-return in _drawLineRow, never reach here.
     private function _getFieldParts(field as Number) as Void {
         if (_getFitnessFieldParts(field)) {
             return;
         }
         if (_getHealthFieldParts(field)) {
-            return;
-        }
-        if (_getNavFieldParts(field)) {
             return;
         }
         if (_getScheduleFieldParts(field)) {
@@ -7597,29 +7597,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _getFitnessFieldParts(field as Number) as Boolean {
-        if (field == FIELD_CALORIES) {
-            _rowBuf[0] = "Day Cals";
-            var info = _amInfo;
-            _rowBuf[1] =
-                (info != null && info.calories != null
-                    ? info.calories as Number
-                    : 0
-                ).toString() + " kcal";
-            return true;
-        }
-        if (field == FIELD_DISTANCE) {
-            _rowBuf[0] = "Day Dist";
-            var info = _amInfo;
-            if (info == null || info.distance == null) {
-                _rowBuf[1] = "-";
-                return true;
-            }
-            var distCm = info.distance as Number;
-            _rowBuf[1] = _metric
-                ? (distCm / 100000.0).format("%.2f") + "km"
-                : (distCm / 160934.0).format("%.2f") + "mi";
-            return true;
-        }
         if (field == FIELD_ALTITUDE) {
             _rowBuf[0] = "Altitude";
             var a = _acInfo;
@@ -7639,34 +7616,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     : "0";
             return true;
         }
-        if (field == FIELD_MOVE_BAR) {
-            _rowBuf[0] = "Move Bar";
-            var info = _amInfo;
-            _rowBuf[1] =
-                info != null && info.moveBarLevel != null
-                    ? (info.moveBarLevel as Number).toString() + "/5"
-                    : "-";
-            return true;
-        }
-        if (field == FIELD_ACTIVE_MIN_DAY) {
-            _rowBuf[0] = "Act Min";
-            var info = _amInfo;
-            var mins = info != null ? info.activeMinutesDay : null;
-            _rowBuf[1] =
-                mins != null && mins.total != null
-                    ? (mins.total as Number).toString()
-                    : "0";
-            return true;
-        }
         if (field == FIELD_PRESSURE) {
             _rowBuf[0] = "Pressure";
-            var ptag =
-                _cachedPressureTrend == 1
-                    ? " [R]"
-                    : _cachedPressureTrend == -1
-                      ? " [F]"
-                      : "";
-            _rowBuf[1] = _cachedPressure + ptag;
+            _rowBuf[1] = _cachedPressure;
             return true;
         }
         if (field == FIELD_ELEVATION) {
@@ -7688,43 +7640,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _compWeeklyBike != null
                     ? _distStr(_compWeeklyBike as Float)
                     : "-";
-            return true;
-        }
-        if (field == FIELD_FLOORS) {
-            _rowBuf[0] = "Floors";
-            var info = _amInfo;
-            if (info == null) {
-                _rowBuf[1] = "0/0";
-                return true;
-            }
-            _rowBuf[1] =
-                (info.floorsClimbed != null
-                    ? info.floorsClimbed as Number
-                    : 0
-                ).toString() +
-                "/" +
-                (info.floorsDescended != null
-                    ? info.floorsDescended as Number
-                    : 0
-                ).toString();
-            return true;
-        }
-        if (field == FIELD_STEPS) {
-            _rowBuf[0] = "Steps";
-            var info = _amInfo;
-            if (info == null) {
-                _rowBuf[1] = "0";
-                return true;
-            }
-            var goalStr = (
-                info.stepGoal != null ? info.stepGoal as Number : 10000
-            ).toString();
-            _rowBuf[1] =
-                (info.steps != null ? info.steps as Number : 0).format(
-                    "%0" + goalStr.length() + "d"
-                ) +
-                "/" +
-                goalStr;
             return true;
         }
         if (field == FIELD_CLIMB_DAY) {
@@ -7751,22 +7666,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _compSolar != null
                     ? (_compSolar as Number).toString() + "%"
                     : "-";
-            return true;
-        }
-        if (field == FIELD_CLIMB_DESCEND_DAY) {
-            var up = "-";
-            var dn = "-";
-            if (_amInfo != null) {
-                var info = _amInfo as ActivityMonitor.Info;
-                if (info.metersClimbed != null) {
-                    up = _altStr(info.metersClimbed as Float);
-                }
-                if (info.metersDescended != null) {
-                    dn = _altStr(info.metersDescended as Float);
-                }
-            }
-            _rowBuf[0] = "Climb+Desc";
-            _rowBuf[1] = up + " | " + dn;
             return true;
         }
         if (field == FIELD_WEEKLY_DISTANCES) {
@@ -7988,114 +7887,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return false;
     }
 
-    private function _getNavFieldParts(field as Number) as Boolean {
-        if (field == FIELD_GPS_LAT) {
-            _rowBuf[0] = "Latitude";
-            var pos = _posInfo;
-            if (pos != null && pos.position != null) {
-                _rowBuf[1] = (
-                    (pos.position as Position.Location).toDegrees()[0] as Double
-                ).format("%.5f");
-                return true;
-            }
-            _rowBuf[1] = "-";
-            return true;
-        }
-        if (field == FIELD_GPS_LON) {
-            _rowBuf[0] = "Longitude";
-            var pos = _posInfo;
-            if (pos != null && pos.position != null) {
-                _rowBuf[1] = (
-                    (pos.position as Position.Location).toDegrees()[1] as Double
-                ).format("%.5f");
-                return true;
-            }
-            _rowBuf[1] = "-";
-            return true;
-        }
-        if (field == FIELD_GPS_ACCURACY) {
-            _rowBuf[0] = "GPS Accur";
-            var pos = _posInfo;
-            if (pos == null) {
-                _rowBuf[1] = "-";
-                return true;
-            }
-            var acc = pos.accuracy;
-            var label = "-";
-            if (acc == Position.QUALITY_GOOD) {
-                label = "GOOD";
-            } else if (acc == Position.QUALITY_USABLE) {
-                label = "FAIR";
-            } else if (acc == Position.QUALITY_POOR) {
-                label = "POOR";
-            } else if (acc == Position.QUALITY_LAST_KNOWN) {
-                label = "LAST";
-            } else if (acc == Position.QUALITY_NOT_AVAILABLE) {
-                label = "N/A";
-            }
-            _rowBuf[1] = label;
-            return true;
-        }
-        if (field == FIELD_HEADING) {
-            _rowBuf[0] = "Heading";
-            var pos = _posInfo;
-            if (pos != null && pos.heading != null) {
-                var deg = Math.toDegrees(pos.heading as Float).toNumber();
-                deg = ((deg % 360) + 360) % 360;
-                _rowBuf[1] = deg.toString();
-                _headingCompassStr =
-                    COMPASS_DIRS_16[((deg * 2 + 22) / 45) % 16];
-                return true;
-            }
-            _rowBuf[1] = "-";
-            _headingCompassStr = "";
-            return true;
-        }
-        if (field == FIELD_GPS_LAT_LON) {
-            _rowBuf[0] = "Lat+Lon";
-            var pos = _posInfo;
-            if (pos != null && pos.position != null) {
-                var coords = (pos.position as Position.Location).toDegrees();
-                _rowBuf[1] =
-                    (coords[0] as Double).format("%.5f") +
-                    ", " +
-                    (coords[1] as Double).format("%.5f");
-                return true;
-            }
-            _rowBuf[1] = "-";
-            return true;
-        }
-        if (field == FIELD_GPS_LAT_LON_ACC) {
-            _rowBuf[0] = "GPS";
-            var pos = _posInfo;
-            if (pos == null || pos.position == null) {
-                _rowBuf[1] = "-";
-                return true;
-            }
-            var coords = (pos.position as Position.Location).toDegrees();
-            var acc = pos.accuracy;
-            var accLabel = "";
-            if (acc == Position.QUALITY_GOOD) {
-                accLabel = " [GOOD]";
-            } else if (acc == Position.QUALITY_USABLE) {
-                accLabel = " [FAIR]";
-            } else if (acc == Position.QUALITY_POOR) {
-                accLabel = " [POOR]";
-            } else if (acc == Position.QUALITY_LAST_KNOWN) {
-                accLabel = " [LAST]";
-            } else if (acc == Position.QUALITY_NOT_AVAILABLE) {
-                accLabel = " [N/A]";
-            }
-            _rowBuf[1] =
-                (coords[0] as Double).format("%.4f") +
-                ", " +
-                (coords[1] as Double).format("%.4f") +
-                accLabel;
-            return true;
-        }
-        return false;
-    }
-
     private function _getScheduleFieldParts(field as Number) as Boolean {
         if (field == FIELD_SUNRISE) {
             _rowBuf[0] = "Sunrise";
@@ -8291,11 +8082,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _wxUv + " | " + _wxWind;
             return true;
         }
-        if (field == FIELD_WX_TEMP_HIGH_LOW) {
-            _rowBuf[0] = "Temp";
-            _rowBuf[1] = _wxTemp + " " + _wxHigh + "/" + _wxLow + _wxUnit;
-            return true;
-        }
         if (field == FIELD_WX_HUMIDITY) {
             _rowBuf[0] = "Humidity";
             _rowBuf[1] = _wxHumidity;
@@ -8316,29 +8102,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = _wxCloudCover;
             return true;
         }
-        if (field == FIELD_WX_HIGH_LOW) {
-            _rowBuf[0] = "Temp Hi/Lo";
-            _rowBuf[1] = _wxHigh + "/" + _wxLow + _wxUnit;
-            return true;
-        }
-        if (field == FIELD_WX_HUMIDITY_DEW) {
-            _rowBuf[0] = "Hum+Dew";
-            _rowBuf[1] = _wxHumidity + " | " + _wxDewPoint + _wxUnit;
-            return true;
-        }
         if (field == FIELD_WX_HEAT_INDEX) {
             _rowBuf[0] = "Heat Index";
             _rowBuf[1] = _wxHeatIndex + _wxUnit;
-            return true;
-        }
-        if (field == FIELD_WX_TEMP_HUMIDITY) {
-            _rowBuf[0] = "Temp+Hum";
-            _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxHumidity;
-            return true;
-        }
-        if (field == FIELD_WX_TEMP_PRECIP) {
-            _rowBuf[0] = "Temp+Rain";
-            _rowBuf[1] = _wxTemp + _wxUnit + " " + _wxPrecip;
             return true;
         }
         if (field == FIELD_WX_HUMIDITY_PRECIP) {
@@ -8374,42 +8140,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return false;
     }
 
+    // FIELD_WX_FCST_TEMP/PRECIP/DAILY/WIND/HUMIDITY/UV/CLOUD are handled entirely by
+    // _drawLineRowWeatherForecast (every view mode) - they never reach this function.
     private function _getWeatherForecastFieldParts(field as Number) as Boolean {
-        if (field == FIELD_WX_FCST_TEMP) {
-            _rowBuf[0] = "Temp Fcst";
-            _rowBuf[1] = _wxTemp + _wxUnit;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_PRECIP) {
-            _rowBuf[0] = "Rain %";
-            _rowBuf[1] = _wxPrecip;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_DAILY) {
-            _rowBuf[0] = "Day Fcst";
-            _rowBuf[1] = _wxTemp + _wxUnit;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_WIND) {
-            _rowBuf[0] = "Wind Fcst";
-            _rowBuf[1] = _wxWind;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_HUMIDITY) {
-            _rowBuf[0] = "Hum Fcst";
-            _rowBuf[1] = _wxHumidity;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_UV) {
-            _rowBuf[0] = "UV Fcst";
-            _rowBuf[1] = _wxUv;
-            return true;
-        }
-        if (field == FIELD_WX_FCST_CLOUD) {
-            _rowBuf[0] = "Cloud Fcst";
-            _rowBuf[1] = _wxCloudCover;
-            return true;
-        }
         if (field == FIELD_WX_COND_FCST_1D) {
             _rowBuf[0] = "Cond/+1d";
             _rowBuf[1] =

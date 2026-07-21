@@ -1,28 +1,8 @@
 import Toybox.Lang;
-import Toybox.Position;
 
 module ColorUtils {
     function colorFromIdx(idx as Number) as Number {
         return idx >= 0 && idx < 10 ? _activeColors[idx] : 0xffffff;
-    }
-
-    function gpsQualityColor(acc as Number) as Number {
-        if (acc == Position.QUALITY_GOOD) {
-            return colorFromIdx(1);
-        }
-        if (acc == Position.QUALITY_USABLE) {
-            return colorFromIdx(3);
-        }
-        if (acc == Position.QUALITY_POOR) {
-            return colorFromIdx(4);
-        }
-        if (acc == Position.QUALITY_LAST_KNOWN) {
-            return colorFromIdx(8);
-        }
-        if (acc == Position.QUALITY_NOT_AVAILABLE) {
-            return colorFromIdx(5);
-        }
-        return 0xffffff;
     }
 
     function gradFromStops(

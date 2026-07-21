@@ -13,7 +13,7 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Each configurable line has **6 rotation slots** (Primary + 5 alternates) that cycle automatically
 - Two independent rotation intervals — one for the primary slot, one for alternates
 - **3 independent screens**, each switchable on-device via long-press, each with its own full set of line/field/color configuration
-- **101 data fields** across activity, health, weather, navigation, and lifestyle categories
+- **95 data fields** across activity, health, weather, and lifestyle categories
 - **Inline sensor graphs** — line, bar, or area charts with configurable timeframe, color, and width
 - **Dual-overlay graphs** — two sensor histories on the same chart, each with its own color and min/max labels
 - **7 forecast graph types** — hourly temp, rain, wind, UV, cloud cover, humidity, and multi-day daily temp
@@ -155,21 +155,15 @@ Fields that only populate during an actively recorded workout (elapsed time, in-
 | Sleep + Recovery      | `78 \| 18h`     |
 | VO2 + Training Status | `52 PRODUCTIVE` |
 
-### Navigation & Environment
+### Environment
 
-| Field               | Example                  |
-| ------------------- | ------------------------ |
-| Elevation (Baro)    | `126 m`                  |
-| Barometric Pressure | `1013.2 hPa [R]`         |
-| Sea Level Pressure  | `1015.3 hPa`             |
-| GPS Latitude        | `52.37020`               |
-| GPS Longitude       | `4.89520`                |
-| GPS Lat + Lon       | `52.37020, 4.89520`      |
-| GPS (with Accuracy) | `52.3702, 4.8952 [FAIR]` |
-| GPS Accuracy        | `FAIR`                   |
-| Heading             | `247° WSW`               |
+| Field               | Example        |
+| ------------------- | -------------- |
+| Elevation (Baro)    | `126 m`        |
+| Barometric Pressure | `1013.2 hPa ↑` |
+| Sea Level Pressure  | `1015.3 hPa`   |
 
-Barometric Pressure shows a trend tag: `[R]` rising, `[F]` falling. GPS Accuracy is color-coded and tagged `GOOD` / `FAIR` / `POOR` / `LAST` / `N/A` (green/yellow/orange/grey/red). Heading shows both raw degrees and a 16-point compass direction (N, NNE, NE, ENE, ... NNW).
+Barometric Pressure shows an up/down arrow icon (the same one used for Climb/Descent) when the trend is rising or falling; no icon when it's flat.
 
 ### Schedule & Lifestyle
 
