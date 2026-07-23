@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.53.0";
+const APP_VERSION = "0.53.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -266,7 +266,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _notifLabel as String = "";
     private var _phoneConnected as Boolean = true;
     private var _dndOn as Boolean = false;
-    private var _notifLastMs as Number = -5000;
+    private var _notifLastMs as Number = -3000;
     private var _compSleepScore as Number? = null;
     private var _compSunrise as Number? = null;
     private var _compSunset as Number? = null;
@@ -719,19 +719,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             compHandledThisFrame = true;
         }
         var now = System.getTimer();
-        // Shared with the per-minute settings block below to avoid a redundant duplicate read.
-        var ds = System.getDeviceSettings();
-        if (now - _notifLastMs >= 5000) {
-            _notifLastMs = now;
-            var nc = ds.notificationCount;
-            var newCount = nc != null ? nc as Number : 0;
-            if (newCount != _notifCount) {
-                _notifCount = newCount;
-                _notifLabel = "[" + newCount.toString() + " UNREAD]";
-            }
-            _phoneConnected = ds.phoneConnected;
-            _dndOn = ds.doNotDisturb;
-        }
         var nowMoment = Time.now();
         var phase = _getPhase(nowMoment.value());
         _cursorOn = (now / 1000) % 2 == 0;
@@ -740,6 +727,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             Gregorian.info(nowMoment, Time.FORMAT_SHORT) as Gregorian.Info;
         _clockInfo = clockInfo;
         var nowMin = clockInfo.min as Number;
+        var notifDue = now - _notifLastMs >= 3000;
+        var minuteRolled = nowMin != _graphCacheMin;
+        if (notifDue || minuteRolled) {
+            var ds = System.getDeviceSettings();
+            if (notifDue) {
+                _notifLastMs = now;
+                var newCount = ds.notificationCount;
+                if (newCount != _notifCount) {
+                    _notifCount = newCount;
+                    _notifLabel = "[" + newCount.toString() + " UNREAD]";
+                }
+                _phoneConnected = ds.phoneConnected;
+                _dndOn = ds has :doNotDisturb && ds.doNotDisturb;
+            }
+            if (minuteRolled) {
+                _metric = ds.distanceUnits == System.UNIT_METRIC;
+                _is24Hour = ds.is24Hour;
+                var fDow = ds.firstDayOfWeek;
+                _firstDow = fDow != null ? ((fDow as Number) - 1) % 7 : 1;
+            }
+        }
         // Rotation/complication-need state is interactive-only - AOD never reaches _drawLineRow.
         if (phase != _resolvedPhase && !_lowPower) {
             _resolvedPhase = phase;
@@ -898,13 +906,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (_needsLiveActivity && !_lowPower) {
             _acInfo = Activity.getActivityInfo();
         }
-        if (nowMin != _graphCacheMin) {
+        if (minuteRolled) {
             _graphCacheMin = nowMin;
             // Not cleared here: _cacheResult() invalidates only the specific key that refreshed.
-            _metric = ds.distanceUnits == System.UNIT_METRIC;
-            _is24Hour = ds.is24Hour;
-            var fDow = ds.firstDayOfWeek;
-            _firstDow = fDow != null ? ((fDow as Number) - 1) % 7 : 1;
             _showSeconds = _getBoolProp("shSec", false);
             _leftPad = _getProp("lPad", 4);
             _areaOpacity = _getProp("aOpac", 64);
@@ -1094,11 +1098,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var y = (_screenH - step * 6 - _fh) / 2;
         var row = 0;
 
-        _drawHeader(dc, y);
-
-        // Always-on: same layout math, but only time/date values plus header/footer, no scanlines (AMOLED pixel budget).
+        // Always-on: same layout math, but only header/time/date values plus footer, no scanlines (AMOLED pixel budget).
         if (_lowPower) {
             if (_alwaysOn) {
+                _drawHeader(dc, y);
                 _getTimeParts(dc);
                 _drawAodValue(dc, cx, y + step, _cachedTimeStr, _line1ValueC);
                 _drawAodValue(
@@ -1113,6 +1116,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             return;
         }
+
+        _drawHeader(dc, y);
 
         _drawPromptLine(dc, cx, y + step * row, _watchCmd);
         row++;
