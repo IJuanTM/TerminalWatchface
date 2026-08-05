@@ -17,11 +17,9 @@
   <property id="shYr" type="boolean">false</property>
   <property id="dFmt" type="number">0</property>
   <property id="cmdSty" type="number">2</property>
-  <property id="s2En" type="boolean">true</property>
-  <property id="s3En" type="boolean">false</property>
-  <property id="rotI" type="number">10</property>
-  <property id="rotA" type="number">5</property>
-  <property id="aScr" type="number">0</property>
+  <property id="rotI" type="number">5</property>
+  <property id="rotA" type="number">0</property>
+  <property id="rotMode" type="number">2</property>
 
   <!-- Time row (always visible) -->
   <property id="l1Lc" type="number">8</property>
@@ -31,104 +29,47 @@
   <property id="l2Lc" type="number">8</property>
   <property id="l2Vc" type="number">0</property>
 
-  <!-- Screen 1 - Line 3 -->
-  <property id="s1l3En" type="boolean">true</property>
-  <property id="s1l3Lc" type="number">6</property>
-  <property id="s1l3Vc" type="number">0</property>
-  <property id="s1l3R1" type="number">451</property>
+  <!-- Line 3 -->
+  <property id="l3En" type="boolean">true</property>
+  <property id="l3Lc" type="number">6</property>
+  <property id="l3Vc" type="number">0</property>
+  <property id="l3R1" type="number">451</property>
 
-  <!-- Screen 1 - Line 4 -->
-  <property id="s1l4En" type="boolean">true</property>
-  <property id="s1l4Lc" type="number">1</property>
-  <property id="s1l4Vc" type="number">0</property>
-  <property id="s1l4R1" type="number">1</property>
+  <!-- Line 4 -->
+  <property id="l4En" type="boolean">true</property>
+  <property id="l4Lc" type="number">1</property>
+  <property id="l4Vc" type="number">0</property>
+  <property id="l4R1" type="number">1</property>
 
-  <!-- Screen 1 - Line 5 -->
-  <property id="s1l5En" type="boolean">true</property>
-  <property id="s1l5Lc" type="number">5</property>
-  <property id="s1l5Vc" type="number">0</property>
-  <property id="s1l5R1" type="number">4</property>
-  <property id="s1l3R2" type="number">411</property>
-  <property id="s1l4R2" type="number">102</property>
-  <property id="s1l5R2" type="number">8</property>
-  <property id="s1l3R3" type="number">412</property>
-  <property id="s1l4R3" type="number">52</property>
-  <property id="s1l5R3" type="number">7</property>
-  <property id="s1l3R4" type="number">0</property>
-  <property id="s1l4R4" type="number">0</property>
-  <property id="s1l5R4" type="number">0</property>
-  <property id="s1l3R5" type="number">0</property>
-  <property id="s1l4R5" type="number">0</property>
-  <property id="s1l5R5" type="number">0</property>
-  <property id="s1l3R6" type="number">0</property>
-  <property id="s1l4R6" type="number">0</property>
-  <property id="s1l5R6" type="number">0</property>
-
-  <!-- Screen 2 - Line 3 -->
-  <property id="s2l3En" type="boolean">true</property>
-  <property id="s2l3Lc" type="number">6</property>
-  <property id="s2l3Vc" type="number">0</property>
-  <property id="s2l3R1" type="number">452</property>
-
-  <!-- Screen 2 - Line 4 -->
-  <property id="s2l4En" type="boolean">true</property>
-  <property id="s2l4Lc" type="number">1</property>
-  <property id="s2l4Vc" type="number">0</property>
-  <property id="s2l4R1" type="number">203</property>
-
-  <!-- Screen 2 - Line 5 -->
-  <property id="s2l5En" type="boolean">true</property>
-  <property id="s2l5Lc" type="number">5</property>
-  <property id="s2l5Vc" type="number">0</property>
-  <property id="s2l5R1" type="number">51</property>
-  <property id="s2l3R2" type="number">414</property>
-  <property id="s2l4R2" type="number">2</property>
-  <property id="s2l5R2" type="number">54</property>
-  <property id="s2l3R3" type="number">453</property>
-  <property id="s2l4R3" type="number">52</property>
-  <property id="s2l5R3" type="number">53</property>
-  <property id="s2l3R4" type="number">0</property>
-  <property id="s2l4R4" type="number">0</property>
-  <property id="s2l5R4" type="number">0</property>
-  <property id="s2l3R5" type="number">0</property>
-  <property id="s2l4R5" type="number">0</property>
-  <property id="s2l5R5" type="number">0</property>
-  <property id="s2l3R6" type="number">0</property>
-  <property id="s2l4R6" type="number">0</property>
-  <property id="s2l5R6" type="number">0</property>
-
-  <!-- Screen 3 - Line 3 -->
-  <property id="s3l3En" type="boolean">true</property>
-  <property id="s3l3Lc" type="number">8</property>
-  <property id="s3l3Vc" type="number">0</property>
-  <property id="s3l3R1" type="number">0</property>
-
-  <!-- Screen 3 - Line 4 -->
-  <property id="s3l4En" type="boolean">true</property>
-  <property id="s3l4Lc" type="number">8</property>
-  <property id="s3l4Vc" type="number">0</property>
-  <property id="s3l4R1" type="number">0</property>
-
-  <!-- Screen 3 - Line 5 -->
-  <property id="s3l5En" type="boolean">true</property>
-  <property id="s3l5Lc" type="number">8</property>
-  <property id="s3l5Vc" type="number">0</property>
-  <property id="s3l5R1" type="number">0</property>
-  <property id="s3l3R2" type="number">0</property>
-  <property id="s3l4R2" type="number">0</property>
-  <property id="s3l5R2" type="number">0</property>
-  <property id="s3l3R3" type="number">0</property>
-  <property id="s3l4R3" type="number">0</property>
-  <property id="s3l5R3" type="number">0</property>
-  <property id="s3l3R4" type="number">0</property>
-  <property id="s3l4R4" type="number">0</property>
-  <property id="s3l5R4" type="number">0</property>
-  <property id="s3l3R5" type="number">0</property>
-  <property id="s3l4R5" type="number">0</property>
-  <property id="s3l5R5" type="number">0</property>
-  <property id="s3l3R6" type="number">0</property>
-  <property id="s3l4R6" type="number">0</property>
-  <property id="s3l5R6" type="number">0</property>
+  <!-- Line 5 -->
+  <property id="l5En" type="boolean">true</property>
+  <property id="l5Lc" type="number">5</property>
+  <property id="l5Vc" type="number">0</property>
+  <property id="l5R1" type="number">4</property>
+  <property id="l3R2" type="number">414</property>
+  <property id="l4R2" type="number">102</property>
+  <property id="l5R2" type="number">8</property>
+  <property id="l3R3" type="number">412</property>
+  <property id="l4R3" type="number">52</property>
+  <property id="l5R3" type="number">7</property>
+  <property id="l3R4" type="number">411</property>
+  <property id="l4R4" type="number">2</property>
+  <property id="l5R4" type="number">53</property>
+  <property id="l3R5" type="number">452</property>
+  <property id="l4R5" type="number">203</property>
+  <property id="l5R5" type="number">54</property>
+  <property id="l3R6" type="number">0</property>
+  <property id="l4R6" type="number">0</property>
+  <property id="l5R6" type="number">0</property>
+  <property id="l3R7" type="number">0</property>
+  <property id="l4R7" type="number">0</property>
+  <property id="l5R7" type="number">0</property>
+  <property id="l3R8" type="number">0</property>
+  <property id="l4R8" type="number">0</property>
+  <property id="l5R8" type="number">0</property>
+  <property id="l3R9" type="number">0</property>
+  <property id="l4R9" type="number">0</property>
+  <property id="l5R9" type="number">0</property>
 
   <!-- Steps -->
   <property id="stpSb" type="boolean">true</property>

@@ -10,9 +10,9 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 
 - Monospace terminal layout with shell prompt and blinking cursor
 - **Fixed rows** for time and date; **3 configurable data rows** (lines 3–5)
-- Each configurable line has **6 rotation slots** (Primary + 5 alternates) that cycle automatically
+- Each configurable line has **9 rotation slots** (Primary + 8 alternates) that cycle automatically
 - Two independent rotation intervals — one for the primary slot, one for alternates
-- **3 independent screens**, each switchable on-device via long-press, each with its own full set of line/field/color configuration
+- **3 rotation modes** — Automatic (time-based), Manual (long-press only), and Hybrid (time-based, with long-press to jump ahead and reset that slot's dwell time); every wake resets rotation back to the first slot
 - **95 data fields** across activity, health, weather, and lifestyle categories
 - **Inline sensor graphs** — line, bar, or area charts with configurable timeframe, color, and width
 - **Dual-overlay graphs** — two sensor histories on the same chart, each with its own color and min/max labels
@@ -53,7 +53,7 @@ Temp  : 18.5° [↓12] [↑24]                <- line 5
 
 ## Settings
 
-Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed **"Graph Config -"** hold the per-field chart settings (mode, timeframe, color, width); groups prefixed **"Bar Config -"** hold the progress bar settings. Each screen's line/field/color settings live together in one **"Screen N Configuration"** group rather than being split across several submenus.
+Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed **"Graph Config -"** hold the per-field chart settings (mode, timeframe, color, width); groups prefixed **"Bar Config -"** hold the progress bar settings. Each configurable line's field/color settings live together in one **"Line N Configuration"** group rather than being split across several submenus.
 
 ### Appearance
 
@@ -83,23 +83,21 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 
 ### Rotation
 
-| Setting          | Options                                                                                 |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                     |
-| Rotate Alt Every | Alternate slot interval (Secondary–Senary); defaults to primary if unset                |
-| Active Screen    | Screen 1 / 2 / 3 — the currently displayed screen; also cycled on-device via long-press |
+| Setting          | Options                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                          |
+| Rotate Alt Every | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                     |
+| Rotation Mode    | Automatic (time-based, current behavior), Manual (advances only on long-press, no timer), Hybrid (time-based, plus long-press to jump ahead and reset that slot's dwell time) |
 
-### Screens
-
-Three independent screens are available; switch between them on-device via long-press. Screen 2 and 3 can each be fully disabled with a master toggle (screen 3 ships disabled by default), and each screen has its own enabled toggle per line plus its own field rotations and colors — one screen can look completely different from another. A small `[1]`/`[2]`/`[3]` badge (orange/purple/blue) appears near the footer when screen switching is available, so the active screen is identifiable at a glance.
+Regardless of mode, rotation always resets to the first slot whenever the screen wakes (wrist raise), so every glance starts predictable instead of landing mid-cycle.
 
 ### Colors (Time and Date rows)
 
 Label and value color can be set independently for the Time and Date rows.
 
-### Lines 3–5 (Configurable, per screen)
+### Lines 3–5 (Configurable)
 
-Each line has **6 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, and **Senary**. The active slot cycles on the rotate interval; slots set to _None_ are skipped. Each slot has its own field, label color, and value color.
+Each line has **9 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, **Senary**, **Septenary**, **Octonary**, and **Nonary**. The active slot cycles on the rotate interval (or on long-press, per Rotation Mode above); slots set to _None_ are skipped. Each slot has its own field, label color, and value color.
 
 ### Always-On Display
 

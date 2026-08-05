@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.53.2";
+const APP_VERSION = "0.54.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -27,6 +27,10 @@ const GRAPH_AREA = 2;
 
 const SEC_NONE = 0;
 const SEC_BAR = 2;
+
+const ROTATION_AUTOMATIC = 0;
+const ROTATION_MANUAL = 1;
+const ROTATION_HYBRID = 2;
 
 const COLOR_GRAD_TRI = 10;
 const COLOR_GRAD_TRI_REV = 11;
@@ -42,10 +46,8 @@ const COLOR_GRAD_TEMP_INFERNO_REV = 19;
 // CACHE_KEY_* (graph cache key bit layout) also lives in generated FieldIds.mc.
 
 // Must match ROT in scripts/generate_resources.py.
-const ROTATE_SLOT_NAMES = ["R2", "R3", "R4", "R5", "R6"] as Array<String>;
-
-// Property key prefix per screen (activeScreen 0-2); must match SCREEN_PREFIXES in generate_resources.py.
-const SCREEN_PREFIXES = ["s1", "s2", "s3"] as Array<String>;
+const ROTATE_SLOT_NAMES =
+    ["R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9"] as Array<String>;
 
 // Indices into this array are used as the SecondaryField property value
 const GRAPH_SEC_FIELDS =
@@ -324,14 +326,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _flickerEnabled as Boolean = true;
     private var _rotateMainMs as Number = 5000;
     private var _rotateAltMs as Number = 5000;
-    private var _rotateMaxPhase as Number = 5;
-    private var _activeScreen as Number = 0;
-    private var _showScreenBadge as Boolean = true;
-    private var _screenBadgeScreen as Number = -1;
-    private var _screenBadgeLabel as String = "";
-    private var _screenBadgeW as Number = 0;
-    private var _screenBadgeColor as Number = 0;
-    private var _screenMasterEnabled as Boolean = true;
+    private var _rotateMaxPhase as Number = 8;
+    private var _rotationMode as Number = ROTATION_HYBRID;
+    private var _manualPhase as Number = 0;
+    private var _phaseAnchorSec as Number = -1;
     private var _metricsValid as Boolean = false;
     private var _graphW as Number = 0;
     private var _graphX as Number = 0;
@@ -437,7 +435,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _acInfo = Activity.getActivityInfo();
         reloadFont();
         _applyColorTheme(_getProp("theme", 0));
-        _readActiveScreen();
         _computeRotateMaxPhase();
     }
 
@@ -581,7 +578,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _forecastFetched = false;
         _wxCurrentFetched = false;
         _applyColorTheme(_getProp("theme", 0));
-        _readActiveScreen();
         _computeRotateMaxPhase();
     }
 
@@ -600,44 +596,29 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _bgBacklightBmp = null;
     }
 
-    private function _readActiveScreen() as Void {
-        var p = _getProp("aScr", 0);
-        _activeScreen = p < 0 || p > 2 ? 0 : p;
-        _screenMasterEnabled =
-            _activeScreen == 0
-                ? true
-                : _getBoolProp(
-                      "s" + (_activeScreen + 1).toString() + "En",
-                      _activeScreen == 1
-                  );
-
-        var screen2Off = !_getBoolProp("s2En", true);
-        var screen3Off = !_getBoolProp("s3En", false);
-        _showScreenBadge = !(_activeScreen == 0 && screen2Off && screen3Off);
-    }
-
     private function _computeRotateMaxPhase() as Void {
-        var ri = _getProp("rotI", 10);
+        var ri = _getProp("rotI", 5);
         if (ri < 1) {
             ri = 1;
         }
         _rotateMainMs = ri * 1000;
-        var ra = _getProp("rotA", 5);
+        var ra = _getProp("rotA", 0);
         _rotateAltMs = ra > 0 ? ra * 1000 : _rotateMainMs;
+        var rm = _getProp("rotMode", ROTATION_HYBRID);
+        _rotationMode =
+            rm < ROTATION_AUTOMATIC || rm > ROTATION_HYBRID
+                ? ROTATION_AUTOMATIC
+                : rm;
         _rotateMaxPhase = 0;
-        if (!_screenMasterEnabled) {
-            return;
-        }
-        var pk = SCREEN_PREFIXES[_activeScreen];
-        var e3 = _getBoolProp(pk + "l3En", true);
-        var e4 = _getBoolProp(pk + "l4En", true);
-        var e5 = _getBoolProp(pk + "l5En", true);
-        for (var p = 4; p >= 0; p--) {
+        var e3 = _getBoolProp("l3En", true);
+        var e4 = _getBoolProp("l4En", true);
+        var e5 = _getBoolProp("l5En", true);
+        for (var p = 7; p >= 0; p--) {
             var sn = ROTATE_SLOT_NAMES[p];
             if (
-                (e3 && _getProp(pk + "l3" + sn, FIELD_NONE) != FIELD_NONE) ||
-                (e4 && _getProp(pk + "l4" + sn, FIELD_NONE) != FIELD_NONE) ||
-                (e5 && _getProp(pk + "l5" + sn, FIELD_NONE) != FIELD_NONE)
+                (e3 && _getProp("l3" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e4 && _getProp("l4" + sn, FIELD_NONE) != FIELD_NONE) ||
+                (e5 && _getProp("l5" + sn, FIELD_NONE) != FIELD_NONE)
             ) {
                 _rotateMaxPhase = p + 1;
                 break;
@@ -1112,7 +1093,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _line2ValueC
                 );
                 _drawFooter(dc, y + step * 6 + _fh + 32);
-                _drawScreenBadge(dc, y + step * 6 + _fh + 32 + _smallFh + 2);
             }
             return;
         }
@@ -1209,7 +1189,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
         }
         _drawFooter(dc, footerY + _fh + 32);
-        _drawScreenBadge(dc, footerY + _fh + 32 + _smallFh + 2);
 
         if (_haloActive()) {
             _compositeHalo(dc);
@@ -1496,34 +1475,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 GRAYS[3]
             );
         }
-    }
-
-    private function _drawScreenBadge(dc as Dc, y as Number) as Void {
-        if (!_showScreenBadge) {
-            return;
-        }
-        if (_screenBadgeScreen != _activeScreen) {
-            _screenBadgeScreen = _activeScreen;
-            _screenBadgeLabel = "[" + (_activeScreen + 1).toString() + "]";
-            _screenBadgeW = dc.getTextWidthInPixels(
-                _screenBadgeLabel,
-                _fontTiny
-            );
-            // Orange/Purple/Blue per screen so the active screen is distinguishable at a glance.
-            _screenBadgeColor = ColorUtils.colorFromIdx(
-                _activeScreen == 0 ? 4 : _activeScreen == 1 ? 9 : 6
-            );
-        }
-        var x = _screenW / 2 - _screenBadgeW / 2;
-        _glowText(
-            dc,
-            x,
-            y,
-            _fontTiny,
-            _screenBadgeLabel,
-            Graphics.TEXT_JUSTIFY_LEFT,
-            _screenBadgeColor
-        );
     }
 
     private function _drawBacklight(dc as Dc) as Void {
@@ -2345,17 +2296,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         pk as String,
         slotName as String
     ) as Number {
-        if (pk.equals("s1l3")) {
+        if (pk.equals("l3")) {
             if (slotName.equals("R1")) {
                 return FIELD_WX_FCST_TEMP;
             }
             if (slotName.equals("R2")) {
-                return FIELD_WX_HUMIDITY_PRECIP;
+                return FIELD_WX_COND_CLOUD;
             }
             if (slotName.equals("R3")) {
                 return FIELD_WX_UV_WIND;
             }
-        } else if (pk.equals("s1l4")) {
+            if (slotName.equals("R4")) {
+                return FIELD_WX_HUMIDITY_PRECIP;
+            }
+            if (slotName.equals("R5")) {
+                return FIELD_WX_FCST_DAILY;
+            }
+        } else if (pk.equals("l4")) {
             if (slotName.equals("R1")) {
                 return FIELD_STEPS;
             }
@@ -2365,7 +2322,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (slotName.equals("R3")) {
                 return FIELD_DISTANCE;
             }
-        } else if (pk.equals("s1l5")) {
+            if (slotName.equals("R4")) {
+                return FIELD_FLOORS;
+            }
+            if (slotName.equals("R5")) {
+                return FIELD_CLIMB_DESCEND_DAY;
+            }
+        } else if (pk.equals("l5")) {
             if (slotName.equals("R1")) {
                 return FIELD_HR;
             }
@@ -2375,49 +2338,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (slotName.equals("R3")) {
                 return FIELD_BODY_BAT;
             }
-        } else if (pk.equals("s2l3")) {
-            if (slotName.equals("R1")) {
-                return FIELD_WX_FCST_DAILY;
-            }
-            if (slotName.equals("R2")) {
-                return FIELD_WX_COND_CLOUD;
-            }
-            if (slotName.equals("R3")) {
-                return FIELD_WX_FCST_PRECIP;
-            }
-        } else if (pk.equals("s2l4")) {
-            if (slotName.equals("R1")) {
-                return FIELD_CLIMB_DESCEND_DAY;
-            }
-            if (slotName.equals("R2")) {
-                return FIELD_FLOORS;
-            }
-            if (slotName.equals("R3")) {
-                return FIELD_DISTANCE;
-            }
-        } else if (pk.equals("s2l5")) {
-            if (slotName.equals("R1")) {
-                return FIELD_CALORIES;
-            }
-            if (slotName.equals("R2")) {
-                return FIELD_INTENSITY_MIN;
-            }
-            if (slotName.equals("R3")) {
+            if (slotName.equals("R4")) {
                 return FIELD_ACTIVE_MIN_DAY;
+            }
+            if (slotName.equals("R5")) {
+                return FIELD_INTENSITY_MIN;
             }
         }
         return FIELD_NONE;
     }
 
-    // Label-color fallback per line (screen 3's real default is 8, matching the generic fallback).
     private function _lineLabelColorDefault(pk as String) as Number {
-        if (pk.equals("s1l3") || pk.equals("s2l3")) {
+        if (pk.equals("l3")) {
             return 6;
         }
-        if (pk.equals("s1l4") || pk.equals("s2l4")) {
+        if (pk.equals("l4")) {
             return 1;
         }
-        if (pk.equals("s1l5") || pk.equals("s2l5")) {
+        if (pk.equals("l5")) {
             return 5;
         }
         return 8;
@@ -2429,10 +2367,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         phase as Number
     ) as Void {
         // Label/value colors are per line (shared across rotation slots); only the field rotates.
-        var pk = SCREEN_PREFIXES[_activeScreen] + key;
+        var pk = key;
         var f = FIELD_NONE;
-        if (_screenMasterEnabled && _getBoolProp(pk + "En", true)) {
-            if (phase >= 1 && phase <= 5) {
+        if (_getBoolProp(pk + "En", true)) {
+            if (phase >= 1 && phase <= 8) {
                 var slotName = ROTATE_SLOT_NAMES[phase - 1];
                 f = _getProp(
                     pk + slotName,
@@ -8641,11 +8579,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             : HI.format("%.1f");
     }
 
-    private function _getPhase(nowSec as Number) as Number {
+    private function _phaseFromElapsed(elapsedSec as Number) as Number {
         var mainSec = _rotateMainMs / 1000;
         var altSec = _rotateAltMs / 1000;
         var cycle = mainSec + _rotateMaxPhase * altSec;
-        var pos = nowSec % cycle;
+        var pos = elapsedSec % cycle;
         if (pos < 0) {
             pos += cycle;
         }
@@ -8654,6 +8592,47 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         pos -= mainSec;
         return pos / altSec + 1;
+    }
+
+    private function _getPhase(nowSec as Number) as Number {
+        if (_rotationMode == ROTATION_MANUAL) {
+            return _manualPhase > _rotateMaxPhase
+                ? _rotateMaxPhase
+                : _manualPhase;
+        }
+        if (_phaseAnchorSec < 0) {
+            _phaseAnchorSec = nowSec;
+        }
+        return _phaseFromElapsed(nowSec - _phaseAnchorSec);
+    }
+
+    // Sets the anchor so _phaseFromElapsed evaluates to `target` with zero elapsed in its window.
+    private function _jumpToPhase(target as Number, nowSec as Number) as Void {
+        if (target <= 0) {
+            _phaseAnchorSec = nowSec;
+            return;
+        }
+        var mainSec = _rotateMainMs / 1000;
+        var altSec = _rotateAltMs / 1000;
+        _phaseAnchorSec = nowSec - (mainSec + (target - 1) * altSec);
+    }
+
+    // Called by the delegate's long-press.
+    public function advanceRotation() as Boolean {
+        if (_rotationMode == ROTATION_AUTOMATIC) {
+            return false;
+        }
+        var nowSec = Time.now().value();
+        if (_rotationMode == ROTATION_MANUAL) {
+            _manualPhase =
+                _manualPhase >= _rotateMaxPhase ? 0 : _manualPhase + 1;
+        } else {
+            var cur = _getPhase(nowSec);
+            var next = cur >= _rotateMaxPhase ? 0 : cur + 1;
+            _jumpToPhase(next, nowSec);
+        }
+        WatchUi.requestUpdate();
+        return true;
     }
 
     private function _getProp(key as String, defaultVal as Number) as Number {
@@ -8817,6 +8796,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     public function onExitSleep() as Void {
         _lowPower = false;
         _wakeFlicker = true;
+        _manualPhase = 0;
+        _jumpToPhase(0, Time.now().value());
         WatchUi.requestUpdate();
     }
 }

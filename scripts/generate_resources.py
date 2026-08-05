@@ -410,84 +410,37 @@ class LineSlot(NamedTuple):
 
 _fv = FIELD_VALUE
 
-# Screen 1 - "all day, every day": weather forecast / activity totals / vitals.
-# Line 3 (vitals) only has 2 curated rotations (Intensity Minutes moved to screen 2).
-SCREEN1_LINE_SLOTS = [
+# Single screen, 9 rotation slots per line, only the first 5 filled - ordered
+# most-glanced-at first since R1 is what shows on every wake.
+LINE_SLOTS = [
     LineSlot(3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
     LineSlot(4, "Primary", _fv["FieldSteps"], 1, 0),
     LineSlot(5, "Primary", _fv["FieldHR"], 5, 0),
-    LineSlot(3, "Secondary", _fv["FieldWxHumidityPrecip"], 6, 0),
+    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"], 6, 0),
     LineSlot(4, "Secondary", _fv["FieldElevation"], 1, 0),
     LineSlot(5, "Secondary", _fv["FieldStress"], 5, 0),
     LineSlot(3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
     LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
     LineSlot(5, "Tertiary", _fv["FieldBodyBat"], 5, 0),
-    LineSlot(3, "Quaternary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Quaternary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Quaternary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Quinary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Quinary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Quinary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Quaternary", _fv["FieldWxHumidityPrecip"], 6, 0),
+    LineSlot(4, "Quaternary", _fv["FieldFloors"], 1, 0),
+    LineSlot(5, "Quaternary", _fv["FieldActiveMinDay"], 5, 0),
+    LineSlot(3, "Quinary", _fv["FieldWxFcstDaily"], 6, 0),
+    LineSlot(4, "Quinary", _fv["FieldClimbDescendDay"], 1, 0),
+    LineSlot(5, "Quinary", _fv["FieldIntensityMin"], 5, 0),
     LineSlot(3, "Senary", _fv["FieldNone"], 6, 0),
     LineSlot(4, "Senary", _fv["FieldNone"], 1, 0),
     LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Septenary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Septenary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Septenary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Octonary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Octonary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Octonary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Nonary", _fv["FieldNone"], 6, 0),
+    LineSlot(4, "Nonary", _fv["FieldNone"], 1, 0),
+    LineSlot(5, "Nonary", _fv["FieldNone"], 5, 0),
 ]
-
-# Screen 2 - weather / GPS+outdoor / daily exertion, 3 rotations per line.
-SCREEN2_LINE_SLOTS = [
-    LineSlot(3, "Primary", _fv["FieldWxFcstDaily"], 6, 0),
-    LineSlot(4, "Primary", _fv["FieldClimbDescendDay"], 1, 0),
-    LineSlot(5, "Primary", _fv["FieldCalories"], 5, 0),
-    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"], 6, 0),
-    LineSlot(4, "Secondary", _fv["FieldFloors"], 1, 0),
-    LineSlot(5, "Secondary", _fv["FieldIntensityMin"], 5, 0),
-    LineSlot(3, "Tertiary", _fv["FieldWxFcstPrecip"], 6, 0),
-    LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
-    LineSlot(5, "Tertiary", _fv["FieldActiveMinDay"], 5, 0),
-    LineSlot(3, "Quaternary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Quaternary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Quaternary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Quinary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Quinary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Quinary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Senary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Senary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
-]
-
-# Screen 3 - disabled by default (see screen3Enabled below), all fields blank.
-SCREEN3_LINE_SLOTS = [
-    LineSlot(3, "Primary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Primary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Primary", _fv["FieldNone"], 8, 0),
-    LineSlot(3, "Secondary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Secondary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Secondary", _fv["FieldNone"], 8, 0),
-    LineSlot(3, "Tertiary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Tertiary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Tertiary", _fv["FieldNone"], 8, 0),
-    LineSlot(3, "Quaternary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Quaternary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Quaternary", _fv["FieldNone"], 8, 0),
-    LineSlot(3, "Quinary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Quinary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Quinary", _fv["FieldNone"], 8, 0),
-    LineSlot(3, "Senary", _fv["FieldNone"], 8, 0),
-    LineSlot(4, "Senary", _fv["FieldNone"], 8, 0),
-    LineSlot(5, "Senary", _fv["FieldNone"], 8, 0),
-]
-
-SCREEN_COUNT = 3
-
-_SCREEN_LINE_SLOTS = {
-    1: SCREEN1_LINE_SLOTS,
-    2: SCREEN2_LINE_SLOTS,
-    3: SCREEN3_LINE_SLOTS,
-}
-
-
-def screen_line_slots(screen_idx):
-    return _SCREEN_LINE_SLOTS[screen_idx]
 
 
 GRAPH_MODE_OPTIONS = [
@@ -585,6 +538,9 @@ ROT = {
     "Quaternary": "R4",
     "Quinary": "R5",
     "Senary": "R6",
+    "Septenary": "R7",
+    "Octonary": "R8",
+    "Nonary": "R9",
 }
 PFX = {
     "wxForecast": "wxf",
@@ -623,11 +579,9 @@ STANDALONE_KEYS = {
     "showYear": "shYr",
     "dateFormat": "dFmt",
     "watchCommandStyle": "cmdSty",
-    "screen2Enabled": "s2En",
-    "screen3Enabled": "s3En",
     "rotateInterval": "rotI",
     "rotateIntervalAlt": "rotA",
-    "activeScreen": "aScr",
+    "rotationMode": "rotMode",
     "line1LabelColor": "l1Lc",
     "line1ValueColor": "l1Vc",
     "line2LabelColor": "l2Lc",
@@ -769,13 +723,9 @@ def gen_properties():
     lines.append(prop(sk["showYear"], "boolean", "false"))
     lines.append(prop(sk["dateFormat"], "number", 0))
     lines.append(prop(sk["watchCommandStyle"], "number", 2))
-    if SCREEN_COUNT >= 2:
-        lines.append(prop(sk["screen2Enabled"], "boolean", "true"))
-    if SCREEN_COUNT >= 3:
-        lines.append(prop(sk["screen3Enabled"], "boolean", "false"))
-    lines.append(prop(sk["rotateInterval"], "number", 10))
-    lines.append(prop(sk["rotateIntervalAlt"], "number", 5))
-    lines.append(prop(sk["activeScreen"], "number", 0))
+    lines.append(prop(sk["rotateInterval"], "number", 5))
+    lines.append(prop(sk["rotateIntervalAlt"], "number", 0))
+    lines.append(prop(sk["rotationMode"], "number", 2))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop(sk["line1LabelColor"], "number", 8))
@@ -786,15 +736,14 @@ def gen_properties():
     lines.append(prop(sk["line2ValueColor"], "number", 0))
 
     # Label/value colors are per line, shared across that line's rotation slots.
-    for screen_idx in range(1, SCREEN_COUNT + 1):
-        for ln, slot, fd, lc, vc in screen_line_slots(screen_idx):
-            pk = f"s{screen_idx}l{ln}"
-            if slot == "Primary":
-                lines.append(f"\n  <!-- Screen {screen_idx} - Line {ln} -->")
-                lines.append(prop(f"{pk}{SUF['Enabled']}", "boolean", "true"))
-                lines.append(prop(f"{pk}{SUF['LabelColor']}", "number", lc))
-                lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", vc))
-            lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
+    for ln, slot, fd, lc, vc in LINE_SLOTS:
+        pk = f"l{ln}"
+        if slot == "Primary":
+            lines.append(f"\n  <!-- Line {ln} -->")
+            lines.append(prop(f"{pk}{SUF['Enabled']}", "boolean", "true"))
+            lines.append(prop(f"{pk}{SUF['LabelColor']}", "number", lc))
+            lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", vc))
+        lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
 
     for bf in BAR_FIELDS:
         pk = PFX.get(bf.key, bf.key)
@@ -919,17 +868,14 @@ def gen_strings():
     lines.append(s("Line2LabelColor", "Date: Label Color"))
     lines.append(s("Line2ValueColor", "Date: Value Color"))
 
-    lines.append("\n  <!-- Screens & Rotation -->")
-    lines.append(s("ScreenGroup", "Screens"))
-    lines.append(s("Screen2Enabled", "Screen 2: Enabled"))
-    lines.append(s("Screen3Enabled", "Screen 3: Enabled"))
+    lines.append("\n  <!-- Rotation -->")
     lines.append(s("RotationGroup", "Rotation"))
     lines.append(s("RotateInterval", "Rotation: Main Duration"))
     lines.append(s("RotateIntervalAlt", "Rotation: Alt Duration"))
-    lines.append(s("ActiveScreen", "Active Screen"))
-    lines.append(s("Screen1", "Screen 1"))
-    lines.append(s("Screen2", "Screen 2"))
-    lines.append(s("Screen3", "Screen 3"))
+    lines.append(s("RotationMode", "Rotation Mode"))
+    lines.append(s("RotationModeAutomatic", "Automatic"))
+    lines.append(s("RotationModeManual", "Manual (long-press only)"))
+    lines.append(s("RotationModeHybrid", "Hybrid (automatic + long-press)"))
 
     _slot_r = {
         "Primary": " (R1)",
@@ -938,17 +884,20 @@ def gen_strings():
         "Quaternary": " (R4)",
         "Quinary": " (R5)",
         "Senary": " (R6)",
+        "Septenary": " (R7)",
+        "Octonary": " (R8)",
+        "Nonary": " (R9)",
     }
     lines.append(
-        "\n  <!-- Screens: configurable lines (R1-R6 = rotation slots 1 to 6) -->"
+        "\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->"
     )
-    for screen_idx in range(1, SCREEN_COUNT + 1):
-        lines.append(
-            s(f"Screen{screen_idx}ConfigGroup", f"Screen {screen_idx} Configuration")
-        )
-        for ln, slot, *_ in screen_line_slots(screen_idx):
-            pk = f"Screen{screen_idx}Line{ln}"
-            ptitle = f"Screen {screen_idx} - Line {ln}"
+    for ln in (3, 4, 5):
+        pk = f"Line{ln}"
+        ptitle = f"Line {ln}"
+        lines.append(s(f"{pk}ConfigGroup", f"{ptitle} Configuration"))
+        for r_ln, slot, *_ in LINE_SLOTS:
+            if r_ln != ln:
+                continue
             if slot == "Primary":
                 lines.append(s(f"{pk}Enabled", f"{ptitle}: Enabled"))
                 lines.append(s(f"{pk}LabelColor", f"{ptitle}: Label Color"))
@@ -1360,19 +1309,6 @@ def gen_settings():
         )
     )
 
-    # Master on/off per alternate screen (2/3), separate from the per-line toggles below.
-    _screen_toggles = []
-    if SCREEN_COUNT >= 2:
-        _screen_toggles.append(
-            setting_bool(sk["screen2Enabled"], "Screen2Enabled", indent=2)
-        )
-    if SCREEN_COUNT >= 3:
-        _screen_toggles.append(
-            setting_bool(sk["screen3Enabled"], "Screen3Enabled", indent=2)
-        )
-    if _screen_toggles:
-        parts.append(group("screens", "ScreenGroup", *_screen_toggles))
-
     rotate_options = [
         (0, "Same as main"),
         (3, "3 seconds"),
@@ -1393,45 +1329,37 @@ def gen_settings():
                 sk["rotateIntervalAlt"], "RotateIntervalAlt", rotate_options, indent=2
             ),
             setting_list(
-                sk["activeScreen"],
-                "ActiveScreen",
+                sk["rotationMode"],
+                "RotationMode",
                 [
-                    (0, "@Strings.Screen1"),
-                    (1, "@Strings.Screen2"),
-                    (2, "@Strings.Screen3"),
+                    (0, "@Strings.RotationModeAutomatic"),
+                    (1, "@Strings.RotationModeManual"),
+                    (2, "@Strings.RotationModeHybrid"),
                 ],
                 indent=2,
             ),
         )
     )
 
-    # One group per screen (all 3 lines together) instead of one group per line.
-    for screen_idx in range(1, SCREEN_COUNT + 1):
-        line_blocks = []
-        for ln in (3, 4, 5):
-            rows = [r for r in screen_line_slots(screen_idx) if r.line_num == ln]
-            pk = f"s{screen_idx}l{ln}"
-            sk = f"Screen{screen_idx}Line{ln}"
-            line_blocks.append(
-                setting_bool(f"{pk}{SUF['Enabled']}", f"{sk}Enabled", indent=2)
-            )
-            line_blocks.append(
-                color_setting(
-                    f"{pk}{SUF['LabelColor']}", f"{sk}LabelColor", COLORS_TEXT, indent=2
-                )
-            )
-            line_blocks.append(
-                color_setting(
-                    f"{pk}{SUF['ValueColor']}", f"{sk}ValueColor", COLORS_TEXT, indent=2
-                )
-            )
-            line_blocks.extend(
-                field_setting(f"{pk}{ROT[r.slot]}", f"{sk}{r.slot}", indent=2)
-                for r in rows
-            )
-        parts.append(
-            group(f"screen{screen_idx}", f"Screen{screen_idx}ConfigGroup", *line_blocks)
+    # One group per line (3-5), each with all 9 of that line's rotation slots.
+    for ln in (3, 4, 5):
+        rows = [r for r in LINE_SLOTS if r.line_num == ln]
+        pk = f"l{ln}"
+        lsk = f"Line{ln}"
+        line_blocks = [
+            setting_bool(f"{pk}{SUF['Enabled']}", f"{lsk}Enabled", indent=2),
+            color_setting(
+                f"{pk}{SUF['LabelColor']}", f"{lsk}LabelColor", COLORS_TEXT, indent=2
+            ),
+            color_setting(
+                f"{pk}{SUF['ValueColor']}", f"{lsk}ValueColor", COLORS_TEXT, indent=2
+            ),
+        ]
+        line_blocks.extend(
+            field_setting(f"{pk}{ROT[r.slot]}", f"{lsk}{r.slot}", indent=2)
+            for r in rows
         )
+        parts.append(group(f"line{ln}", f"{lsk}ConfigGroup", *line_blocks))
 
     for bf in BAR_FIELDS:
         id_prefix = bf.key[0].upper() + bf.key[1:]
