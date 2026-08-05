@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.53.1";
+const APP_VERSION = "0.53.2";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -4769,7 +4769,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             [null, nowUnixMin] as [Array<Float>?, Number]
         );
 
-        var opts = { :period => periodMin };
+        // A plain Number means "last N entries" here, not minutes - only a Duration is a time span.
+        var opts = { :period => new Time.Duration(periodMin * SECS_PER_MIN) };
         if (field == FIELD_HR) {
             return _cacheResult(
                 cacheKey,
@@ -6009,7 +6010,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         range as Float,
         ghf as Float
     ) as Array<Number> {
-        var slot = n - 1 - i;
+        var slot = n - 1 - i; // index 0 draws rightmost - forecast callers rely on this to put "now" on the left.
         var bx = gx + (slot * gw) / n;
         var slotEnd = gx + ((slot + 1) * gw) / n;
         var bw = slotEnd - bx - (slot < n - 1 ? 1 : 0);
@@ -8295,6 +8296,20 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return false;
     }
 
+    // Same stale-first-sample class _readIter's badAgeStreak guards against, for single lookups.
+    private function _firstFreshSample(
+        iter as SensorHistory.SensorHistoryIterator,
+        field as Number
+    ) as SensorHistory.SensorSample? {
+        var s = iter.next();
+        var tries = 0;
+        while (s != null && !_sampleFresh(s, field) && tries < 4) {
+            s = iter.next();
+            tries++;
+        }
+        return s;
+    }
+
     private function _refreshPointSamples() as Void {
         if (
             _fieldNeeded(FIELD_BODY_BAT) ||
@@ -8302,7 +8317,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _fieldNeeded(FIELD_BODY_BAT_RECOVERY) ||
             _fieldNeeded(FIELD_BODY_BAT_REST_HR)
         ) {
-            var sample = SensorHistory.getBodyBatteryHistory({}).next();
+            var sample = _firstFreshSample(
+                SensorHistory.getBodyBatteryHistory({}),
+                FIELD_BODY_BAT
+            );
             if (_sampleFresh(sample, FIELD_BODY_BAT)) {
                 var d = sample.data;
                 _cachedBodyBat =
@@ -8314,7 +8332,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (_fieldNeeded(FIELD_WRIST_TEMP)) {
-            var sample = SensorHistory.getTemperatureHistory({}).next();
+            var sample = _firstFreshSample(
+                SensorHistory.getTemperatureHistory({}),
+                FIELD_WRIST_TEMP
+            );
             if (_sampleFresh(sample, FIELD_WRIST_TEMP)) {
                 var td = sample.data;
                 var tempC = _numToFloat(td as Numeric);
@@ -8324,8 +8345,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (_fieldNeeded(FIELD_PRESSURE)) {
-            var pIter = SensorHistory.getPressureHistory({ :period => 30 });
-            var s1 = pIter.next();
+            var pIter = SensorHistory.getPressureHistory({
+                :period => new Time.Duration(30 * SECS_PER_MIN),
+            });
+            var s1 = _firstFreshSample(pIter, FIELD_PRESSURE);
             if (_sampleFresh(s1, FIELD_PRESSURE)) {
                 var pd = s1.data;
                 var pa = _numToFloat(pd as Numeric);
@@ -8357,7 +8380,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (_fieldNeeded(FIELD_ELEVATION)) {
-            var sample = SensorHistory.getElevationHistory({}).next();
+            var sample = _firstFreshSample(
+                SensorHistory.getElevationHistory({}),
+                FIELD_ELEVATION
+            );
             if (_sampleFresh(sample, FIELD_ELEVATION)) {
                 var ed = sample.data;
                 var elev = _numToFloat(ed as Numeric);
@@ -8380,9 +8406,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     (amRef as ActivityMonitor.Info).stressScore as Number
                 ).toString();
             } else {
-                var ss = SensorHistory.getStressHistory({
-                    :period => 10,
-                }).next();
+                var ss = _firstFreshSample(
+                    SensorHistory.getStressHistory({
+                        :period => new Time.Duration(10 * SECS_PER_MIN),
+                    }),
+                    FIELD_STRESS
+                );
                 if (_sampleFresh(ss, FIELD_STRESS)) {
                     var sd = ss.data;
                     _cachedStress =
