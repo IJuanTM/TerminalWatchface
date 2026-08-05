@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.54.0";
+const APP_VERSION = "0.54.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -128,8 +128,8 @@ const TEMP_GRADS =
 const TRI_GRAD = [0x55ff77, 0xff9944, 0xff5555] as Array<Number>;
 
 const SCANLINE_SPACING = 3;
-// Black overlay alpha per intensity (0=off, 1=subtle, 2=medium, 3=strong).
-const SCANLINE_ALPHA = [0, 15, 35, 55] as Array<Number>;
+// White overlay alpha per intensity (0=off/1=subtle/2=medium/3=strong) - black has no headroom over this near-always-black display.
+const SCANLINE_ALPHA = [0, 15, 25, 35] as Array<Number>;
 const FLICKER_MAGNITUDE = 10;
 const FLICKER_CHANCE_PCT = 20;
 // PAD must exceed SHIFT_MAX so the flicker shift never clips.
@@ -139,7 +139,7 @@ const BG_BACKLIGHT_PAD = 22;
 // Exponential falloff width for the backlight glow - smaller = tighter peak.
 const BG_BACKLIGHT_SIGMA = 0.26;
 // Gray level multiplied over the bright gradient (BLEND_MODE_MULTIPLY) to dim it.
-const BG_BACKLIGHT_DIM_LEVEL = [0, 20, 50, 80] as Array<Number>;
+const BG_BACKLIGHT_DIM_LEVEL = [0, 25, 50, 75] as Array<Number>;
 
 // Halo blend fraction toward a shape's own color, per glowIntensity level (0=off).
 const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
@@ -605,10 +605,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var ra = _getProp("rotA", 0);
         _rotateAltMs = ra > 0 ? ra * 1000 : _rotateMainMs;
         var rm = _getProp("rotMode", ROTATION_HYBRID);
-        _rotationMode =
-            rm < ROTATION_AUTOMATIC || rm > ROTATION_HYBRID
-                ? ROTATION_AUTOMATIC
-                : rm;
+        if (rm < ROTATION_AUTOMATIC || rm > ROTATION_HYBRID) {
+            rm = ROTATION_AUTOMATIC;
+        }
+        if (rm != _rotationMode) {
+            _rotationMode = rm;
+            // Same "start fresh" treatment as a wake, so a mode switch never resumes from a stale anchor.
+            _manualPhase = 0;
+            _jumpToPhase(0, Time.now().value());
+        }
         _rotateMaxPhase = 0;
         var e3 = _getBoolProp("l3En", true);
         var e4 = _getBoolProp("l4En", true);
@@ -1052,10 +1057,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
 
-        if (!_lowPower && _scanlineIntensity > 0 && _scanlineIntensity < 4) {
-            _drawScanlines(dc, SCANLINE_ALPHA[_scanlineIntensity]);
-        }
-
         if (_haloActive()) {
             _clearHalo();
         }
@@ -1192,6 +1193,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         if (_haloActive()) {
             _compositeHalo(dc);
+        }
+
+        // Drawn last so it's a uniform overlay across the whole finished frame, not just the gaps.
+        if (_scanlineIntensity > 0 && _scanlineIntensity < 4) {
+            _drawScanlines(dc, SCANLINE_ALPHA[_scanlineIntensity]);
         }
 
         if (_deferredWorkPending) {
@@ -1581,6 +1587,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _drawScanlines(dc as Dc, alpha as Number) as Void {
+        // Black has no headroom over this display's near-always-black clear color; white does.
         dc.setStroke((alpha << 24) | 0xffffff);
         var y = 0;
         while (y < _screenH) {
@@ -2291,7 +2298,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _resolveLineGraph(2);
     }
 
-    // Rotation-slot field fallback (R4-R6/screen3 are really FIELD_NONE) - mirrors SCREEN1/2_LINE_SLOTS.
+    // Mirrors LINE_SLOTS in generate_resources.py - keep in sync if that table changes.
     private function _lineSlotDefaultField(
         pk as String,
         slotName as String

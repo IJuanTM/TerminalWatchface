@@ -67,6 +67,13 @@
   <string id="RotationModeAutomatic">Automatic</string>
   <string id="RotationModeManual">Manual (long-press only)</string>
   <string id="RotationModeHybrid">Hybrid (automatic + long-press)</string>
+  <string id="RotateSameAsMain">Same as main</string>
+  <string id="Rotate3s">3 seconds</string>
+  <string id="Rotate5s">5 seconds</string>
+  <string id="Rotate10s">10 seconds</string>
+  <string id="Rotate15s">15 seconds</string>
+  <string id="Rotate30s">30 seconds</string>
+  <string id="Rotate1min">1 minute</string>
 
   <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->
   <string id="Line3ConfigGroup">Line 3 Configuration</string>

@@ -876,6 +876,13 @@ def gen_strings():
     lines.append(s("RotationModeAutomatic", "Automatic"))
     lines.append(s("RotationModeManual", "Manual (long-press only)"))
     lines.append(s("RotationModeHybrid", "Hybrid (automatic + long-press)"))
+    lines.append(s("RotateSameAsMain", "Same as main"))
+    lines.append(s("Rotate3s", "3 seconds"))
+    lines.append(s("Rotate5s", "5 seconds"))
+    lines.append(s("Rotate10s", "10 seconds"))
+    lines.append(s("Rotate15s", "15 seconds"))
+    lines.append(s("Rotate30s", "30 seconds"))
+    lines.append(s("Rotate1min", "1 minute"))
 
     _slot_r = {
         "Primary": " (R1)",
@@ -888,9 +895,7 @@ def gen_strings():
         "Octonary": " (R8)",
         "Nonary": " (R9)",
     }
-    lines.append(
-        "\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->"
-    )
+    lines.append("\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
     for ln in (3, 4, 5):
         pk = f"Line{ln}"
         ptitle = f"Line {ln}"
@@ -1310,13 +1315,13 @@ def gen_settings():
     )
 
     rotate_options = [
-        (0, "Same as main"),
-        (3, "3 seconds"),
-        (5, "5 seconds"),
-        (10, "10 seconds"),
-        (15, "15 seconds"),
-        (30, "30 seconds"),
-        (60, "1 minute"),
+        (0, "@Strings.RotateSameAsMain"),
+        (3, "@Strings.Rotate3s"),
+        (5, "@Strings.Rotate5s"),
+        (10, "@Strings.Rotate10s"),
+        (15, "@Strings.Rotate15s"),
+        (30, "@Strings.Rotate30s"),
+        (60, "@Strings.Rotate1min"),
     ]
     parts.append(
         group(

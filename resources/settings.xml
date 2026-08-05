@@ -147,23 +147,23 @@
   <group id="rotation" title="@Strings.RotationGroup">
     <setting propertyKey="@Properties.rotI" title="@Strings.RotateInterval">
       <settingConfig type="list">
-        <listEntry value="3">3 seconds</listEntry>
-        <listEntry value="5">5 seconds</listEntry>
-        <listEntry value="10">10 seconds</listEntry>
-        <listEntry value="15">15 seconds</listEntry>
-        <listEntry value="30">30 seconds</listEntry>
-        <listEntry value="60">1 minute</listEntry>
+        <listEntry value="3">@Strings.Rotate3s</listEntry>
+        <listEntry value="5">@Strings.Rotate5s</listEntry>
+        <listEntry value="10">@Strings.Rotate10s</listEntry>
+        <listEntry value="15">@Strings.Rotate15s</listEntry>
+        <listEntry value="30">@Strings.Rotate30s</listEntry>
+        <listEntry value="60">@Strings.Rotate1min</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.rotA" title="@Strings.RotateIntervalAlt">
       <settingConfig type="list">
-        <listEntry value="0">Same as main</listEntry>
-        <listEntry value="3">3 seconds</listEntry>
-        <listEntry value="5">5 seconds</listEntry>
-        <listEntry value="10">10 seconds</listEntry>
-        <listEntry value="15">15 seconds</listEntry>
-        <listEntry value="30">30 seconds</listEntry>
-        <listEntry value="60">1 minute</listEntry>
+        <listEntry value="0">@Strings.RotateSameAsMain</listEntry>
+        <listEntry value="3">@Strings.Rotate3s</listEntry>
+        <listEntry value="5">@Strings.Rotate5s</listEntry>
+        <listEntry value="10">@Strings.Rotate10s</listEntry>
+        <listEntry value="15">@Strings.Rotate15s</listEntry>
+        <listEntry value="30">@Strings.Rotate30s</listEntry>
+        <listEntry value="60">@Strings.Rotate1min</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.rotMode" title="@Strings.RotationMode">
