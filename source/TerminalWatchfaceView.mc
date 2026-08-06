@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.54.2";
+const APP_VERSION = "0.55.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -634,7 +634,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     (:extendedCode)
     public function reloadFont() as Void {
         var choice = _getProp("font", 0);
-        if (choice < 0 || choice > 3) {
+        if (choice < 0 || choice > 2) {
             choice = 0;
         }
         if (choice == _lastFontChoice) {
@@ -645,19 +645,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var normalRes = [
             $.Rez.Fonts.JetBrainsMono_NORMAL,
             $.Rez.Fonts.SpaceMono_NORMAL,
-            $.Rez.Fonts.FiraCode_NORMAL,
             $.Rez.Fonts.NBArchitekt_NORMAL,
         ];
         var smallRes = [
             $.Rez.Fonts.JetBrainsMono_SMALL,
             $.Rez.Fonts.SpaceMono_SMALL,
-            $.Rez.Fonts.FiraCode_SMALL,
             $.Rez.Fonts.NBArchitekt_SMALL,
         ];
         var tinyRes = [
             $.Rez.Fonts.JetBrainsMono_TINY,
             $.Rez.Fonts.SpaceMono_TINY,
-            $.Rez.Fonts.FiraCode_TINY,
             $.Rez.Fonts.NBArchitekt_TINY,
         ];
         _font =

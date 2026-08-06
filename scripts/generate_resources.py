@@ -815,7 +815,6 @@ def gen_strings():
     lines.append(s("FontChoice", "Font"))
     lines.append(s("FontJetBrainsMono", "JetBrains Mono"))
     lines.append(s("FontSpaceMono", "Space Mono"))
-    lines.append(s("FontFiraCodeMono", "Fira Code Mono"))
     lines.append(s("NBArchitekt", "NB Architekt"))
     lines.append(s("ColorTheme", "Color Theme"))
     lines.append(s("ColorThemeCustom", "Custom (per-field colors)"))
@@ -1196,8 +1195,7 @@ def gen_settings():
                 [
                     (0, "@Strings.FontJetBrainsMono"),
                     (1, "@Strings.FontSpaceMono"),
-                    (2, "@Strings.FontFiraCodeMono"),
-                    (3, "@Strings.NBArchitekt"),
+                    (2, "@Strings.NBArchitekt"),
                 ],
                 indent=2,
             ),

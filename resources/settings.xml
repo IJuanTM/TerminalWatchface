@@ -4,8 +4,7 @@
       <settingConfig type="list">
         <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
         <listEntry value="1">@Strings.FontSpaceMono</listEntry>
-        <listEntry value="2">@Strings.FontFiraCodeMono</listEntry>
-        <listEntry value="3">@Strings.NBArchitekt</listEntry>
+        <listEntry value="2">@Strings.NBArchitekt</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.theme" title="@Strings.ColorTheme">

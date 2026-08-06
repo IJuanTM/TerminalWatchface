@@ -22,8 +22,8 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Battery footer with bolt icon while charging, percentage, and estimated days remaining
 - Notification count badge in the header (also available as a data row)
 - CRT visual effects: scanlines, glow/halo, backlight wash, and flicker (each independently configurable)
-- **4 font families** with independent line heights
-- **3 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
+- **3 font families** with independent line heights
+- **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
 - Show seconds, optional year in date, 6 date formats, and 12/24-hour display
 - 3 command styles (Windows, Linux, Bare) with optional version number in the header
 - Metric and imperial unit support
@@ -59,7 +59,7 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 
 | Setting                     | Options                                                             |
 | --------------------------- | ------------------------------------------------------------------- |
-| Font                        | JetBrains Mono, Space Mono, Fira Code Mono, NB Architekt            |
+| Font                        | JetBrains Mono, Space Mono, NB Architekt                            |
 | Color Theme                 | Custom (per-field colors), Amber CRT, Green Phosphor, Blue Terminal |
 | Scanlines                   | Off, Subtle, Medium, Strong                                         |
 | Glow Intensity              | Off, Subtle, Medium, Strong                                         |
@@ -83,10 +83,10 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 
 ### Rotation
 
-| Setting          | Options                                                                                                                                       |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                          |
-| Rotate Alt Every | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                     |
+| Setting          | Options                                                                                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                                                           |
+| Rotate Alt Every | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                                                      |
 | Rotation Mode    | Automatic (time-based, current behavior), Manual (advances only on long-press, no timer), Hybrid (time-based, plus long-press to jump ahead and reset that slot's dwell time) |
 
 Regardless of mode, rotation always resets to the first slot whenever the screen wakes (wrist raise), so every glance starts predictable instead of landing mid-cycle.
