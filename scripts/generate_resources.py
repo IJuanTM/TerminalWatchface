@@ -268,16 +268,18 @@ class GraphField(NamedTuple):
     graph_color: int
     sec_color: int
     value_mode: int
+    # Caps the TimeFrame option list to the field's real on-device SensorHistory buffer (minutes); None = no cap.
+    max_time_frame: Optional[int] = None
 
 
 GRAPH_FIELDS = [
-    GraphField("hr", "HR", 3, 0, 2, 60, 5, 0, 0),
+    GraphField("hr", "HR", 3, 0, 2, 60, 5, 0, 0, 360),
     GraphField("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
     GraphField("bodyBat", "BodyBat", 6, 0, 3, 240, 11, 0, 0),
     GraphField("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
-    GraphField("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1),
-    GraphField("elevation", "Elevation", 6, 0, 6, 480, 1, 0, 0),
-    GraphField("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1),
+    GraphField("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1, 360),
+    GraphField("elevation", "Elevation", 6, 0, 6, 360, 1, 0, 0, 360),
+    GraphField("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1, 360),
 ]
 
 
@@ -355,6 +357,7 @@ GRAPH_TIME_FRAMES = [
     (60, "TimeFrame1h"),
     (120, "TimeFrame2h"),
     (240, "TimeFrame4h"),
+    (360, "TimeFrame6h"),
     (480, "TimeFrame8h"),
     (720, "TimeFrame12h"),
     (1440, "TimeFrame24h"),
@@ -976,6 +979,7 @@ def gen_strings():
     lines.append(s("TimeFrame1h", "1 hour"))
     lines.append(s("TimeFrame2h", "2 hours"))
     lines.append(s("TimeFrame4h", "4 hours"))
+    lines.append(s("TimeFrame6h", "6 hours"))
     lines.append(s("TimeFrame8h", "8 hours"))
     lines.append(s("TimeFrame12h", "12 hours"))
     lines.append(s("TimeFrame24h", "24 hours"))
@@ -1092,11 +1096,16 @@ def graph_section(gf, indent=1):
             indent,
         )
     )
+    tf_entries = [
+        (v, f"@Strings.{s}")
+        for v, s in GRAPH_TIME_FRAMES
+        if gf.max_time_frame is None or v <= gf.max_time_frame
+    ]
     blocks.append(
         setting_list(
             f"{pk}{SUF['TimeFrame']}",
             f"{skey}TimeFrame",
-            [(v, f"@Strings.{s}") for v, s in GRAPH_TIME_FRAMES],
+            tf_entries,
             indent,
         )
     )

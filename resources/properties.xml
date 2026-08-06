@@ -177,7 +177,7 @@
   <property id="elevGvm" type="number">0</property>
   <property id="elevSt" type="number">0</property>
   <property id="elevSf" type="number">6</property>
-  <property id="elevTf" type="number">480</property>
+  <property id="elevTf" type="number">360</property>
   <property id="elevGc" type="number">1</property>
   <property id="elevSe" type="number">0</property>
   <property id="elevGw" type="number">10</property>

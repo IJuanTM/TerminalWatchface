@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.55.0";
+const APP_VERSION = "0.55.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -4502,7 +4502,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return [3, 60, 16, 1, 0];
         }
         if (field == FIELD_ELEVATION) {
-            return [6, 480, 1, 0, 6];
+            return [6, 360, 1, 0, 6];
         }
         return [3, 120, 2, 1, 5];
     }
@@ -4620,17 +4620,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     private function _fieldUpdateMin(field as Number) as Number {
+        // SpO2's real device sample interval is ~60min (confirmed via each target device's SDK simulator.json), far sparser than the other batched fields below.
+        if (field == FIELD_SPO2) {
+            return 60;
+        }
         if (field == FIELD_STRESS || field == FIELD_WRIST_TEMP) {
             return 3;
         }
-        if (field == FIELD_BODY_BAT || field == FIELD_SPO2) {
+        if (
+            field == FIELD_BODY_BAT ||
+            field == FIELD_ELEVATION ||
+            field == FIELD_PRESSURE
+        ) {
             return 5;
         }
         return 1;
     }
 
+    // x6 (not x3) since real devices batch these fields' samples more irregularly than _fieldUpdateMin assumes.
     private function _pointStaleSec(field as Number) as Number {
-        return _fieldUpdateMin(field) * SECS_PER_MIN * 3;
+        return _fieldUpdateMin(field) * SECS_PER_MIN * 6;
     }
 
     private function _sampleFresh(

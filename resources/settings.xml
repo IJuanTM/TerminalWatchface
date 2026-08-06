@@ -3233,9 +3233,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="720">@Strings.TimeFrame12h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.hrGc" title="@Strings.HRGraphColor">
@@ -3357,6 +3355,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
         <listEntry value="480">@Strings.TimeFrame8h</listEntry>
         <listEntry value="720">@Strings.TimeFrame12h</listEntry>
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
@@ -3481,6 +3480,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
         <listEntry value="480">@Strings.TimeFrame8h</listEntry>
         <listEntry value="720">@Strings.TimeFrame12h</listEntry>
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
@@ -3605,6 +3605,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
         <listEntry value="480">@Strings.TimeFrame8h</listEntry>
         <listEntry value="720">@Strings.TimeFrame12h</listEntry>
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
@@ -3729,9 +3730,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="720">@Strings.TimeFrame12h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.twGc" title="@Strings.TempWristGraphColor">
@@ -3853,9 +3852,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="720">@Strings.TimeFrame12h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.elevGc" title="@Strings.ElevationGraphColor">
@@ -3977,9 +3974,7 @@
         <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
-        <listEntry value="480">@Strings.TimeFrame8h</listEntry>
-        <listEntry value="720">@Strings.TimeFrame12h</listEntry>
-        <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
+        <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.presGc" title="@Strings.PressureGraphColor">
