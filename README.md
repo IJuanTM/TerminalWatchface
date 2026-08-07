@@ -266,7 +266,7 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 | Setting                  | Options                                                             |
 | ------------------------ | ------------------------------------------------------------------- |
 | Graph Mode               | Value, Line, Line+Value, Bar, Bar+Value, Area, Area+Value           |
-| Time Frame               | 15m, 30m, 1h, 2h, 4h, 8h, 12h, 24h                                  |
+| Time Frame               | 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 24h                              |
 | Graph Color              | Any of the 20 available colors                                      |
 | Graph Width              | Width in character units (6, 8, 10, 12, 14, or 16)                  |
 | Value Display            | Current, Average, Max/Min, Midpoint                                 |
@@ -275,6 +275,8 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 | Secondary Type           | None, Line, Bar                                                     |
 | Secondary Field          | HR, Blood O2, Body Battery, Stress, Wrist Temp, Elevation, Pressure |
 | Secondary Color          | Any of the 20 available colors                                      |
+
+Heart Rate, Wrist Temp, Elevation, and Barometric Pressure cap out at 6h (their on-device SensorHistory buffer doesn't hold enough for longer windows); Blood Oxygen, Body Battery, and Stress offer the full range up to 24h.
 
 **Dual Graph** overlays a secondary sensor history on the same chart. Primary min/max labels appear on the left; secondary on the right. A short field name is shown below the right edge.
 
