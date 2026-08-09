@@ -48,7 +48,7 @@ module Formatters {
     function periodLabel(periodMin as Number) as String {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
-            : "-" + (periodMin / 60).toString() + "h";
+            : "-" + ((periodMin + 30) / 60).toString() + "h";
     }
 
     function barDurationLabel(barMin as Number) as String {
@@ -57,7 +57,7 @@ module Formatters {
         }
         return barMin < 60
             ? barMin.toString() + "m"
-            : (barMin / 60).toString() + "h";
+            : ((barMin + 30) / 60).toString() + "h";
     }
 
     function formatAge(ageSec as Number) as String {

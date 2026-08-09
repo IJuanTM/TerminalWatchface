@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.55.3";
+const APP_VERSION = "0.55.4";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -1047,7 +1047,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
 
         if (_wakeFlicker) {
             _wakeFlicker = false;
-            dc.setColor(0x224422, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Graphics.COLOR_TRANSPARENT, 0x224422);
         } else {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         }
@@ -2786,8 +2786,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 if (info.distance != null) {
                     distCm = info.distance as Number;
                     current = _metric
-                        ? (distCm / 100000.0 + 0.5).toNumber()
-                        : (distCm / 160934.0 + 0.5).toNumber();
+                        ? Math.round(distCm / 100000.0).toNumber()
+                        : Math.round(distCm / 160934.0).toNumber();
                 }
             }
             if (vm == 1 || vm == 2) {
@@ -3382,6 +3382,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
             if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
                 goal = info.floorsClimbedGoal as Number;
+            }
+            if (goal <= 0) {
+                goal = 10;
             }
         }
         if (climbed >= goal) {
@@ -4862,7 +4865,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_WX_FCST_UV) {
             return v.format("%.1f");
         }
-        return v.toNumber().toString();
+        return Math.round(v).toNumber().toString();
     }
 
     private function _graphFieldUnit(field as Number) as String {
@@ -5527,7 +5530,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         range as Float,
         ghf as Float
     ) as Number {
-        return y + gh - (((v - minV) * ghf) / range).toNumber();
+        return y + gh - Math.round(((v - minV) * ghf) / range).toNumber();
     }
 
     // DebugGraphGaps setting only: marks a normally-skipped gap in GRAYS[2] instead of leaving it blank.
@@ -5732,7 +5735,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return null;
         }
         var mean = sum / cnt.toFloat();
-        var meanH = (((mean - minV) * gh.toFloat()) / range).toNumber();
+        var meanH = Math.round(
+            ((mean - minV) * gh.toFloat()) / range
+        ).toNumber();
         if (meanH < 0) {
             meanH = 0;
         }
@@ -5988,7 +5993,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (bw < 1) {
             bw = 1;
         }
-        var barH = (((v - minV) * ghf) / range).toNumber();
+        var barH = Math.round(((v - minV) * ghf) / range).toNumber();
         if (barH < 1) {
             barH = 1;
         }
@@ -6074,7 +6079,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             slotW = 2;
         }
         var hw = slotW / 2;
-        var barH = (((v - minV) * ghf) / range).toNumber();
+        var barH = Math.round(((v - minV) * ghf) / range).toNumber();
         if (barH < 1) {
             barH = 1;
         }
@@ -6342,7 +6347,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (zv <= minV || zv >= minV + range) {
                 continue;
             }
-            var zy = y + gh - (((zv - minV) * gh.toFloat()) / range).toNumber();
+            var zy = _linePointY(y, gh, zv, minV, range, gh.toFloat());
             var zFrac = zSpan > 0.0 ? (zv - zLo) / zSpan : 0.0;
             _drawDashedH(
                 dc,
@@ -6422,7 +6427,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var v = data[i] as Float;
             var x = gx + ((n1 - i) * gw) / n1;
-            var py = bottom - (((v - minV) * ghf) / range).toNumber();
+            var py = _linePointY(y, gh, v, minV, range, ghf);
             if (py < y) {
                 py = y;
             }
@@ -6505,7 +6510,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             var v = data[i] as Float;
             var x = gx + ((n1 - i) * gw) / n1;
-            var py = bottom - (((v - minV) * ghf) / range).toNumber();
+            var py = _linePointY(y, gh, v, minV, range, ghf);
             if (py < y) {
                 py = y;
             }
@@ -6726,8 +6731,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (bw < 1) {
             bw = 1;
         }
-        var hiY = bottom - (((hiV - allMin) * ghf) / range).toNumber();
-        var loY = bottom - (((loV - allMin) * ghf) / range).toNumber();
+        var hiY =
+            bottom - Math.round(((hiV - allMin) * ghf) / range).toNumber();
+        var loY =
+            bottom - Math.round(((loV - allMin) * ghf) / range).toNumber();
         if (hiY < y) {
             hiY = y;
         }
@@ -8606,7 +8613,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var secPerDist = _metric
             ? 1000.0 / speedMps
             : METERS_PER_MILE / speedMps;
-        var totalSec = secPerDist.toNumber();
+        var totalSec = Math.round(secPerDist).toNumber();
         return (
             (totalSec / SECS_PER_MIN).format("%d") +
             ":" +
