@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.55.4";
+const APP_VERSION = "0.55.5";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -314,7 +314,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _showSeconds as Boolean = false;
     private var _lowPower as Boolean = false;
     private var _alwaysOn as Boolean = false;
-    private var _wakeFlicker as Boolean = true;
+    private var _justWoke as Boolean = true;
     private var _deferThisFrame as Boolean = false;
     private var _deferredWorkPending as Boolean = false;
     private var _leftPad as Number = 4;
@@ -698,9 +698,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onUpdate(dc as Dc) as Void {
-        // Captured before _wakeFlicker's own clear-color use resets it, so callees later in
-        // this same frame can still tell they're on the frame that must not block wake-up.
-        _deferThisFrame = _wakeFlicker;
+        // Callees later in this same frame use _deferThisFrame to tell they're on the
+        // frame that must not block wake-up.
+        _deferThisFrame = _justWoke;
+        _justWoke = false;
         _deferredWorkPending = false;
         // Guards the retry below plus the phase-change/per-minute blocks against double-refreshing this call.
         var compHandledThisFrame = false;
@@ -1045,12 +1046,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _refreshWeather(nowMin);
         }
 
-        if (_wakeFlicker) {
-            _wakeFlicker = false;
-            dc.setColor(Graphics.COLOR_TRANSPARENT, 0x224422);
-        } else {
-            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-        }
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
         if (!_lowPower && _bgBacklight > 0 && _bgBacklight < 4) {
@@ -8868,7 +8864,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
     public function onExitSleep() as Void {
         _lowPower = false;
-        _wakeFlicker = true;
+        _justWoke = true;
         _manualPhase = 0;
         _jumpToPhase(0, Time.now().value());
         WatchUi.requestUpdate();
