@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.55.5";
+const APP_VERSION = "0.55.6";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -5637,24 +5637,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (alpha != null) {
-            dc.setColor(
-                ColorUtils.dim(color, alpha),
-                Graphics.COLOR_TRANSPARENT
-            );
+            dc.setStroke(ColorUtils.withAlpha(color, alpha));
         }
         if (w <= 3) {
             _dashSeg(dc, x1, y, x2 - 1, y, color, alpha);
             return;
         }
-        // Dashes/gaps are 2px; for odd w the last dash absorbs the extra 1px so gaps stay exact.
+        // Dashes/gaps are 2px; the last dash absorbs any leftover width so gaps stay exact.
         var wEven = w - (w % 2);
-        var n = (wEven + 5) / 4;
+        var n = (wEven + 2) / 4;
         if (n < 2) {
             n = 2;
         }
-        var f = (wEven + 6 - 4 * n) / 2;
-        if (f < 1) {
-            f = 1;
+        var slack = wEven - (4 * n - 2);
+        var f = 2;
+        if (slack < 0) {
+            f = 2 + slack;
+            if (f < 1) {
+                f = 1;
+            }
+            slack = 0;
         }
         _dashSeg(dc, x1, y, x1 + f - 1, y, color, alpha);
         var x = x1 + f + 2;
@@ -5662,7 +5664,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _dashSeg(dc, x, y, x + 1, y, color, alpha);
             x += 4;
         }
-        var fLast = f + (w - wEven);
+        var fLast = f + slack + (w - wEven);
         _dashSeg(dc, x2 - fLast, y, x2 - 1, y, color, alpha);
     }
 
@@ -5679,23 +5681,25 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (alpha != null) {
-            dc.setColor(
-                ColorUtils.dim(color, alpha),
-                Graphics.COLOR_TRANSPARENT
-            );
+            dc.setStroke(ColorUtils.withAlpha(color, alpha));
         }
         if (h <= 3) {
             _dashSeg(dc, x, y1, x, y2 - 1, color, alpha);
             return;
         }
         var hEven = h - (h % 2);
-        var n = (hEven + 5) / 4;
+        var n = (hEven + 2) / 4;
         if (n < 2) {
             n = 2;
         }
-        var f = (hEven + 6 - 4 * n) / 2;
-        if (f < 1) {
-            f = 1;
+        var slack = hEven - (4 * n - 2);
+        var f = 2;
+        if (slack < 0) {
+            f = 2 + slack;
+            if (f < 1) {
+                f = 1;
+            }
+            slack = 0;
         }
         _dashSeg(dc, x, y1, x, y1 + f - 1, color, alpha);
         var yp = y1 + f + 2;
@@ -5703,7 +5707,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _dashSeg(dc, x, yp, x, yp + 1, color, alpha);
             yp += 4;
         }
-        var fLast = f + (h - hEven);
+        var fLast = f + slack + (h - hEven);
         _dashSeg(dc, x, y2 - fLast, x, y2 - 1, color, alpha);
     }
 
@@ -8367,7 +8371,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     var ps = pIter.next();
                     var deadline = System.getTimer() + 100;
                     while (ps != null && System.getTimer() < deadline) {
-                        oldest = ps;
+                        if (ps.data != null) {
+                            oldest = ps;
+                        }
                         ps = pIter.next();
                     }
                     if (oldest != s1 && oldest.data != null) {

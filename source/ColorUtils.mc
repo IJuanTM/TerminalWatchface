@@ -38,14 +38,6 @@ module ColorUtils {
         return (alpha << 24) | (color & 0xffffff);
     }
 
-    // Flattens an alpha blend against a black background into a plain opaque color.
-    function dim(color as Number, alpha as Number) as Number {
-        var r = (((color >> 16) & 0xff) * alpha) / 255;
-        var g = (((color >> 8) & 0xff) * alpha) / 255;
-        var b = ((color & 0xff) * alpha) / 255;
-        return (r << 16) | (g << 8) | b;
-    }
-
     function gradColor(colorIdx as Number, fraction as Float) as Number {
         switch (colorIdx) {
             case COLOR_GRAD_TRI:
