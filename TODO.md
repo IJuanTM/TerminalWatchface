@@ -1,1 +1,0 @@
-[ ] Try and add back the area graph glow. Four different offset strategies (diagonal, vertical-down, vertical-up, symmetric, asymmetric-into-fill) have all looked wrong against the area fill's hard top edge - needs a genuinely different geometric idea, not another offset guess. See project_context.md memory for the full history.

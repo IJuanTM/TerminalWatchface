@@ -48,16 +48,18 @@ module Formatters {
     function periodLabel(periodMin as Number) as String {
         return periodMin < 60
             ? "-" + periodMin.toString() + "m"
-            : "-" + ((periodMin + 30) / 60).toString() + "h";
+            : "-" + _hourLabel(periodMin);
     }
 
     function barDurationLabel(barMin as Number) as String {
         if (barMin < 1) {
             barMin = 1;
         }
-        return barMin < 60
-            ? barMin.toString() + "m"
-            : ((barMin + 30) / 60).toString() + "h";
+        return barMin < 60 ? barMin.toString() + "m" : _hourLabel(barMin);
+    }
+
+    function _hourLabel(min as Number) as String {
+        return ((min + 30) / 60).toString() + "h";
     }
 
     function formatAge(ageSec as Number) as String {

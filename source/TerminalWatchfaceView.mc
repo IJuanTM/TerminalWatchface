@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.55.6";
+const APP_VERSION = "0.55.7";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -49,7 +49,7 @@ const COLOR_GRAD_TEMP_INFERNO_REV = 19;
 const ROTATE_SLOT_NAMES =
     ["R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9"] as Array<String>;
 
-// Indices into this array are used as the SecondaryField property value
+// Indices into this array are used as the SecondaryField property value - order must match GRAPH_SEC_FIELDS in generate_resources.py.
 const GRAPH_SEC_FIELDS =
     [
         FIELD_HR,
@@ -156,12 +156,12 @@ const DASH_ALPHA = 0x80;
 // Forecast graphs are one entry per hour; bridge a single missing hour, not more.
 const FORECAST_GAP_HOURS = 2;
 
-// 0=shadow, 1=bar bg, 2=unused, 3=separators/no-data/axes/progress-bar-border
+// 0=shadow, 1=bar bg, 2=DebugGraphGaps marker, 3=separators/no-data/axes/progress-bar-border
 const GRAYS =
     [
         0x111111, // 0  shadow
         0x333333, // 1  unfilled Move Bar blocks
-        0x555555, // 2  unused - dashed lines/mean line now use a dimmed color instead
+        0x555555, // 2  DebugGraphGaps gap marker only
         0x777777, // 3  text separators, no-data text, graph axes, progress bar border
     ] as Array<Number>;
 
@@ -201,8 +201,7 @@ const MIN_SPEED_MPS = 0.05;
 const SECS_PER_HOUR = 3600;
 const SECS_PER_MIN = 60;
 
-// Minutes between retrying a previously-failed bitmap draw, instead of
-// assuming a one-time failure (e.g. a transient low-memory moment) is permanent.
+// Minutes between retrying a previously-failed bitmap draw, instead of assuming a transient failure is permanent.
 const BITMAP_DRAW_RETRY_MIN = 10;
 
 const ICON_ARROW_UP = 0;
@@ -288,20 +287,21 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _glowGlyphIdx as Number = 0;
     // Offscreen surface every halo is drawn onto, then additively composited.
     private var _haloBmp as Graphics.BufferedBitmap? = null;
-    // Null until first drawBitmap attempt; caches whether it worked. Retried
-    // every BITMAP_DRAW_RETRY_MIN via _tryDrawBitmapRetry, not latched forever.
+    // -1 = no failed create attempt pending retry; see _createBitmapRetry.
+    private var _haloBmpFailMin as Number = -1;
+    // Null until first drawBitmap attempt; caches whether it worked, retried every BITMAP_DRAW_RETRY_MIN via _tryDrawBitmapRetry, not latched forever.
     private var _haloDrawOk as Boolean? = null;
     private var _haloDrawOkMin as Number = -1;
     // True while rendering a graph bitmap offscreen (halo coords would be bitmap-local, not screen-space).
     private var _haloSuppressed as Boolean = false;
-    // Non-null while baking a graph's cached glow bitmap - redirects every _glow*Shape
-    // call's target dc here instead of the shared per-frame _haloBmp, bypassing
-    // _haloSuppressed/_haloActive() (bake is a rare cache-miss event, not a per-frame cost).
+    // Non-null while baking a graph's cached glow bitmap - redirects every _glow*Shape call's target dc here instead of the shared per-frame _haloBmp (bake is a rare cache-miss event, not a per-frame cost).
     private var _haloBakeDc as Dc? = null;
     private var _bgBacklightBmp as Graphics.BufferedBitmap? = null;
+    private var _bgBacklightBmpFailMin as Number = -1;
     private var _bgBacklightDrawOk as Boolean? = null;
     private var _bgBacklightDrawOkMin as Number = -1;
     private var _bgBacklightDimBmp as Graphics.BufferedBitmap? = null;
+    private var _bgBacklightDimBmpFailMin as Number = -1;
     private var _bgBacklightDimGray as Number = -1;
     private var _bgBacklightDimDrawOk as Boolean? = null;
     private var _bgBacklightDimDrawOkMin as Number = -1;
@@ -698,8 +698,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     }
 
     public function onUpdate(dc as Dc) as Void {
-        // Callees later in this same frame use _deferThisFrame to tell they're on the
-        // frame that must not block wake-up.
+        // Callees later in this same frame use _deferThisFrame to tell they're on the frame that must not block wake-up.
         _deferThisFrame = _justWoke;
         _justWoke = false;
         _deferredWorkPending = false;
@@ -1507,7 +1506,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _bgBacklightDrawOkMin = r[1];
         }
         if (_bgBacklightDimBmp == null) {
-            _bgBacklightDimBmp = _createBitmap(_screenW, _screenH);
+            var created = _createBitmapRetry(
+                _screenW,
+                _screenH,
+                _bgBacklightDimBmpFailMin
+            );
+            _bgBacklightDimBmp = created[0];
+            _bgBacklightDimBmpFailMin = created[1];
         }
         if (_bgBacklightDimBmp != null) {
             var dimBmp = _bgBacklightDimBmp as Graphics.BufferedBitmap;
@@ -1516,8 +1521,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 System.getClockTime().sec + 500,
                 FLICKER_MAGNITUDE
             );
-            // gray is a pure function of the current clock second, so a same-second
-            // redraw (rotation, wake) would otherwise refill this full-screen bitmap for nothing.
+            // gray is a pure function of the clock second, so a same-second redraw would otherwise refill this bitmap for nothing.
             if (gray != _bgBacklightDimGray) {
                 _bgBacklightDimGray = gray;
                 var dimBdc = dimBmp.getDc();
@@ -1545,7 +1549,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     // Full bright range, taller than the screen so a flicker shift has room.
     private function _renderBacklightBitmap() as Void {
         var bmpH = _screenH + BG_BACKLIGHT_PAD * 2;
-        var bmp = _createBitmap(_screenW, bmpH);
+        var created = _createBitmapRetry(
+            _screenW,
+            bmpH,
+            _bgBacklightBmpFailMin
+        );
+        var bmp = created[0];
+        _bgBacklightBmpFailMin = created[1];
         if (bmp == null) {
             return;
         }
@@ -1612,8 +1622,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Shared by every *DrawOk flag. Returns [ok, lastCheckedMin] for the
-    // caller to store back into its own instance vars.
+    // Shared by every *DrawOk flag. Returns [ok, lastCheckedMin] for the caller to store back into its own instance vars.
     private function _tryDrawBitmapRetry(
         dc as Dc,
         x as Number,
@@ -1636,6 +1645,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         return [lastOk, lastMin];
+    }
+
+    // Backs off failed bitmap creation the same way _tryDrawBitmapRetry backs off failed draws.
+    private function _createBitmapRetry(
+        w as Number,
+        h as Number,
+        lastFailMin as Number
+    ) as [Graphics.BufferedBitmap?, Number] {
+        if (
+            lastFailMin >= 0 &&
+            _nowUnixMin >= lastFailMin &&
+            _nowUnixMin - lastFailMin < BITMAP_DRAW_RETRY_MIN
+        ) {
+            return [null, lastFailMin];
+        }
+        var bmp = _createBitmap(w, h);
+        return bmp != null ? [bmp, -1] : [null, _nowUnixMin];
     }
 
     private function _drawCachedGraphBitmap(
@@ -1712,13 +1738,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return false;
         }
         if (_deferThisFrame) {
-            // Glow triples every draw call it touches - skip it on the wake frame itself and
-            // let it bloom in on the immediate follow-up frame instead of blocking wake-up.
+            // Glow triples every draw call it touches - skip it on the wake frame and let it bloom in the frame after.
             _deferredWorkPending = true;
             return false;
         }
         if (_haloBmp == null) {
-            _haloBmp = _createBitmap(_screenW, _screenH);
+            var r = _createBitmapRetry(_screenW, _screenH, _haloBmpFailMin);
+            _haloBmp = r[0];
+            _haloBmpFailMin = r[1];
         }
         return _haloBmp != null;
     }
@@ -1755,9 +1782,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     :height => h,
                     :colorDepth => depths[i],
                 });
-                var bmp =
-                    (ref as Graphics.BufferedBitmapReference).get() as
-                    Graphics.BufferedBitmap?;
+                var bmp = _resolveBmpRef(
+                    ref as Graphics.BufferedBitmapReference?
+                );
                 if (bmp != null) {
                     return bmp;
                 }
@@ -1769,9 +1796,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 :width => w,
                 :height => h,
             });
-            return (
-                (fallbackRef as Graphics.BufferedBitmapReference).get() as
-                Graphics.BufferedBitmap?
+            return _resolveBmpRef(
+                fallbackRef as Graphics.BufferedBitmapReference?
             );
         } catch (e instanceof Lang.Exception) {
             return null;
@@ -2035,8 +2061,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // One glow rect per bar, drawn live at the real screen position
-    // (matches _drawBars/_drawGradBars via the shared _barRect helper).
+    // One glow rect per bar, drawn live at the real screen position (matches _drawBars/_drawGradBars via _barRect).
     private function _glowBarsShape(
         dc as Dc,
         data as Array<Float>,
@@ -2150,8 +2175,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Mirrors _drawOneGraph's dispatch so call sites only need one call after
-    // the crisp bitmap-or-fallback render, at the row's real screen position.
+    // Mirrors _drawOneGraph's dispatch so call sites only need one call after the crisp bitmap-or-fallback render.
     private function _glowOneGraph(
         dc as Dc,
         graphType as Number,
@@ -2182,8 +2206,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 gradRange
             );
         } else if (graphType == GRAPH_AREA) {
-            // Intentionally off - every offset tried read as wrong against
-            // the fill's hard top edge. Revisit with a new geometric idea.
+            // Intentionally off - every offset tried read as wrong against the fill's hard top edge (see TODO.md).
         } else {
             _glowLineShape(
                 dc,
@@ -2221,21 +2244,27 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.drawCircle(x, y, r);
     }
 
+    // Shared by _flickerAlpha/_flickerShift; null means no flicker this tick (disabled or chance-miss).
+    private function _flickerRoll(sec as Number) as Number? {
+        if (!_flickerEnabled) {
+            return null;
+        }
+        var n = (sec * 374761393 + 907633515) & 0x7fffffff;
+        n = ((n ^ (n >> 13)) * 1274126177) & 0x7fffffff;
+        return n % 100 >= FLICKER_CHANCE_PCT ? null : n;
+    }
+
     // Base most seconds; occasionally spikes for one tick then reverts.
     private function _flickerAlpha(
         base as Number,
         sec as Number,
         magnitude as Number
     ) as Number {
-        if (!_flickerEnabled) {
+        var n = _flickerRoll(sec);
+        if (n == null) {
             return base;
         }
-        var n = (sec * 374761393 + 907633515) & 0x7fffffff;
-        n = ((n ^ (n >> 13)) * 1274126177) & 0x7fffffff;
-        if (n % 100 >= FLICKER_CHANCE_PCT) {
-            return base;
-        }
-        var delta = (n % (magnitude * 2 + 1)) - magnitude;
+        var delta = ((n as Number) % (magnitude * 2 + 1)) - magnitude;
         return _clampByte(base + delta);
     }
 
@@ -2244,15 +2273,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         sec as Number,
         maxShift as Number
     ) as Number {
-        if (!_flickerEnabled) {
+        var n = _flickerRoll(sec);
+        if (n == null) {
             return 0;
         }
-        var n = (sec * 374761393 + 907633515) & 0x7fffffff;
-        n = ((n ^ (n >> 13)) * 1274126177) & 0x7fffffff;
-        if (n % 100 >= FLICKER_CHANCE_PCT) {
-            return 0;
-        }
-        return (n % (maxShift * 2 + 1)) - maxShift;
+        return ((n as Number) % (maxShift * 2 + 1)) - maxShift;
     }
 
     private function _drawPromptLine(
@@ -2593,6 +2618,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
     }
 
+    private function _drawGoalTag(dc as Dc, cx as Number, y as Number) as Void {
+        _glowText(
+            dc,
+            cx + _splitPad + dc.getTextWidthInPixels(_rowBuf[1], _font),
+            y,
+            _font,
+            " [GOAL]",
+            Graphics.TEXT_JUSTIFY_LEFT,
+            ColorUtils.colorFromIdx(1)
+        );
+    }
+
     private function _drawLineRowFitness(
         dc as Dc,
         cx as Number,
@@ -2646,17 +2683,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 );
                 _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
                 if (steps >= goal) {
-                    _glowText(
-                        dc,
-                        cx +
-                            _splitPad +
-                            dc.getTextWidthInPixels(_rowBuf[1], _font),
-                        y,
-                        _font,
-                        " [GOAL]",
-                        Graphics.TEXT_JUSTIFY_LEFT,
-                        ColorUtils.colorFromIdx(1)
-                    );
+                    _drawGoalTag(dc, cx, y);
                 }
             }
             return true;
@@ -2720,17 +2747,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         ? info.activeMinutesWeekGoal as Number
                         : 150;
                 if (total >= goal) {
-                    _glowText(
-                        dc,
-                        cx +
-                            _splitPad +
-                            dc.getTextWidthInPixels(_rowBuf[1], _font),
-                        y,
-                        _font,
-                        " [GOAL]",
-                        Graphics.TEXT_JUSTIFY_LEFT,
-                        ColorUtils.colorFromIdx(1)
-                    );
+                    _drawGoalTag(dc, cx, y);
                 }
             }
             return true;
@@ -2761,15 +2778,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = current.toString() + " kcal";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             if (current >= _lineGoal[li]) {
-                _glowText(
-                    dc,
-                    cx + _splitPad + dc.getTextWidthInPixels(_rowBuf[1], _font),
-                    y,
-                    _font,
-                    " [GOAL]",
-                    Graphics.TEXT_JUSTIFY_LEFT,
-                    ColorUtils.colorFromIdx(1)
-                );
+                _drawGoalTag(dc, cx, y);
             }
             return true;
         }
@@ -2807,15 +2816,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 : (distCm / 160934.0).format("%.2f") + "mi";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             if (current >= _lineGoal[li]) {
-                _glowText(
-                    dc,
-                    cx + _splitPad + dc.getTextWidthInPixels(_rowBuf[1], _font),
-                    y,
-                    _font,
-                    " [GOAL]",
-                    Graphics.TEXT_JUSTIFY_LEFT,
-                    ColorUtils.colorFromIdx(1)
-                );
+                _drawGoalTag(dc, cx, y);
             }
             return true;
         }
@@ -2849,15 +2850,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _rowBuf[1] = current.toString();
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             if (current >= _lineGoal[li]) {
-                _glowText(
-                    dc,
-                    cx + _splitPad + dc.getTextWidthInPixels(_rowBuf[1], _font),
-                    y,
-                    _font,
-                    " [GOAL]",
-                    Graphics.TEXT_JUSTIFY_LEFT,
-                    ColorUtils.colorFromIdx(1)
-                );
+                _drawGoalTag(dc, cx, y);
             }
             return true;
         }
@@ -3331,6 +3324,23 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
+    private function _floorsClimbedAndGoal() as [Number, Number] {
+        var climbed = 0;
+        var goal = 10;
+        var info = _amInfo;
+        if (info != null) {
+            climbed =
+                info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
+            if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
+                goal = info.floorsClimbedGoal as Number;
+            }
+            if (goal <= 0) {
+                goal = 10;
+            }
+        }
+        return [climbed, goal];
+    }
+
     private function _drawFloorsRow(
         dc as Dc,
         cx as Number,
@@ -3372,17 +3382,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawIcon(dc, x, ay, ICON_ARROW_DN, valIdx);
         x += _bmpArrowW + ARROW_PAD;
         _glowText(dc, x, y, _font, dn, Graphics.TEXT_JUSTIFY_LEFT, valColor);
-        var goal = 10;
-        if (info != null) {
-            climbed =
-                info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
-            if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
-                goal = info.floorsClimbedGoal as Number;
-            }
-            if (goal <= 0) {
-                goal = 10;
-            }
-        }
+        var fg = _floorsClimbedAndGoal();
+        climbed = fg[0];
+        var goal = fg[1];
         if (climbed >= goal) {
             x += dc.getTextWidthInPixels(dn, _font);
             _glowText(
@@ -3406,19 +3408,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         showValue as Boolean,
         barColor as Number
     ) as Void {
-        var climbed = 0;
-        var goal = 10;
-        if (_amInfo != null) {
-            var info = _amInfo as ActivityMonitor.Info;
-            climbed =
-                info.floorsClimbed != null ? info.floorsClimbed as Number : 0;
-            if (info has :floorsClimbedGoal && info.floorsClimbedGoal != null) {
-                goal = info.floorsClimbedGoal as Number;
-            }
-            if (goal <= 0) {
-                goal = 10;
-            }
-        }
+        var fg = _floorsClimbedAndGoal();
+        var climbed = fg[0];
+        var goal = fg[1];
         _drawGoalBarRow(
             dc,
             cx,
@@ -4231,6 +4223,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var dualBmps = _renderDualGraphToBitmap(
             dualCacheKey,
             field,
+            fieldSecondary,
             graphType,
             secType,
             lineColor,
@@ -4327,6 +4320,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                         dualMaxGap
                     );
                 }
+            }
+            if (field == FIELD_HR) {
+                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
+            } else if (fieldSecondary == FIELD_HR && data2 != null) {
+                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV2, range2);
             }
         }
 
@@ -4510,11 +4508,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (field == FIELD_ELEVATION) {
             return [6, 360, 1, 0, 6];
         }
-        return [3, 120, 2, 1, 5];
+        if (field == FIELD_PRESSURE) {
+            return [3, 120, 2, 1, 5];
+        }
+        // Unreached unless a field was added to GRAPH_FIELDS without a branch here - mode 0 (no graph) makes the gap visible instead of silently wrong.
+        return [0, 60, 0, 0, 0];
     }
 
-    // Buckets sensor history into gw time slots (0=most recent). skipZero
-    // discards 0 samples - use for HR, where 0bpm means off-wrist.
+    // Buckets sensor history into gw time slots (0=most recent). skipZero discards 0 samples - use for HR (0bpm means off-wrist).
     (:extendedCode)
     private function _readIter(
         iter as SensorHistory.SensorHistoryIterator,
@@ -4617,8 +4618,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 prevV = result[i] as Float;
             }
         }
-        // Only report the effective (shorter) period when re-slotting occurred.
-        // Reuses didStretch rather than a fresh maxAge>0 check, which can disagree due to integer truncation.
+        // Only report the effective (shorter) period when re-slotting occurred; reuses didStretch since a fresh maxAge>0 check can disagree due to integer truncation.
         _pendingEffPeriod = didStretch ? effectiveMin : periodMin;
         return result;
     }
@@ -4714,8 +4714,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         ) {
             return entry[0];
         }
-        // Reuse the stale entry on the wake frame so the sensor-history scan below can't
-        // delay the screen turning on; a real refresh runs on the very next frame instead.
+        // Reuse the stale entry on the wake frame so the scan below can't delay the screen turning on; a real refresh runs next frame.
         if (_deferThisFrame && entry != null) {
             _deferredWorkPending = true;
             return entry[0];
@@ -5004,9 +5003,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return r;
     }
 
-    // Cache entries are [crispRef, glowRef?] pairs so both bitmaps share one
-    // invalidation lifecycle - removing the dict entry (data refresh, settings
-    // change) drops both together instead of needing a second parallel purge.
+    // Cache entries are [crispRef, glowRef?] pairs so both bitmaps share one invalidation lifecycle - removing the dict entry drops both together.
     private function _bmpPairGet(
         cache as Dictionary,
         cacheKey as Number
@@ -5015,9 +5012,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return pair != null ? pair : [null, null] as Array;
     }
 
-    // Renders to cached bitmaps at (0,0)/(GLOW_SPREAD,GLOW_SPREAD) origin; caller
-    // blits crisp at (gx, y) and glow at (gx - GLOW_SPREAD, y - GLOW_SPREAD).
-    // Glow is only built (and only kept) while glow is actually enabled - see _renderGraphGlow.
+    // Renders to cached bitmaps at (0,0)/(GLOW_SPREAD,GLOW_SPREAD) origin; caller blits crisp at (gx, y) and glow at (gx - GLOW_SPREAD, y - GLOW_SPREAD).
     private function _renderGraphToBitmap(
         cacheKey as Number,
         field as Number,
@@ -5141,6 +5136,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private function _renderDualGraphToBitmap(
         cacheKey as Number,
         field as Number,
+        fieldSecondary as Number,
         graphType as Number,
         secType as Number,
         lineColor as Number,
@@ -5248,6 +5244,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 }
                 if (field == FIELD_HR) {
                     _drawHrZones(bmpDc, 0, gw, 0, gh, minV, range);
+                } else if (fieldSecondary == FIELD_HR && data2 != null) {
+                    _drawHrZones(bmpDc, 0, gw, 0, gh, minV2, range2);
                 }
             } finally {
                 _haloSuppressed = false;
@@ -5507,8 +5505,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _drawGraphAxes(dc, _graphX, _graphW, y);
     }
 
-    // Shared by the line-draw functions and _glowLineShape so the glow
-    // traces exactly the same points as the crisp line.
+    // Shared by the line-draw functions and _glowLineShape so the glow traces exactly the same points as the crisp line.
     private function _linePointX(
         gx as Number,
         gw as Number,
@@ -5790,9 +5787,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
     }
 
-    // Restores the mean line's glow on the cache-hit path, as a continuous
-    // band rather than dashed - the crisp dashes on top already read as dashed.
-    // No-op for the translucent (non-gradient) mean line, which has no halo layer.
+    // Draws the mean line's glow as a continuous band (crisp dashes on top already read as dashed); no-op for the non-gradient mean line, which has no halo.
     private function _glowMeanLine(
         dc as Dc,
         data as Array<Float>,
@@ -5884,8 +5879,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // agg: 0=mean, 1=max, 2=last (most recent non-null in the group; index 0
-    // is "now", per _readIter's age->slot mapping).
+    // agg: 0=mean, 1=max, 2=last (most recent non-null in the group; index 0 is "now", per _readIter's age->slot mapping).
     private function _groupBarData(
         data as Array<Float>,
         barCount as Number,
@@ -5941,8 +5935,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return out;
     }
 
-    // Regroups only when _graphCache shows the history actually refreshed,
-    // not every frame - settings changes wipe this via invalidateSettings.
+    // Regroups only when _graphCache shows the history actually refreshed, not every frame - settings changes wipe this via invalidateSettings.
     private function _groupBarDataCached(
         cacheKey as Number,
         data as Array<Float>,
@@ -5972,8 +5965,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return grouped;
     }
 
-    // Shared by the bar-draw functions and _glowBarsShape so the glow lands
-    // on exactly the same rects as the crisp bars. Returns [bx, by, bw, bh].
+    // Shared by the bar-draw functions and _glowBarsShape so glow matches the crisp bars exactly - returns [bx, by, bw, bh].
     private function _barRect(
         gx as Number,
         gw as Number,
@@ -6056,8 +6048,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Shared by _drawDualBars and _glowDualBarsShape - a slot is split in
-    // half, first series on the left half, second on the right.
+    // Shared by _drawDualBars and _glowDualBarsShape - a slot is split in half, first series left, second right.
     private function _dualBarRect(
         gx as Number,
         gw as Number,
@@ -6165,20 +6156,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    private function _drawForecastTempRow(
+    // Shared forecast-row core; returns null (after drawing the "no data" fallback) if fewer than 2 real samples are in range.
+    private function _drawForecastGraphCore(
         dc as Dc,
         cx as Number,
         y as Number,
         hours as Number,
-        viewMode as Number,
-        valueMode as Number,
         labelColor as Number,
         valueColor as Number,
         lineColor as Number,
-        graphType as Number
-    ) as Void {
+        graphType as Number,
+        label as String,
+        fieldConst as Number,
+        all as Array<Float>?,
+        minRange as Float
+    ) as [Array<Float>, Float, Float]? {
         _graphX = _graphBaseX;
-        var all = _wxForecastData;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
         var data = new Array<Float>[n];
         var realCount = 0;
@@ -6190,39 +6183,34 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         if (realCount < 2) {
-            _rowBuf[0] = "Temp Fcst";
+            _rowBuf[0] = label;
             _rowBuf[1] = "";
             _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
             _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
-            return;
+            return null;
         }
-
-        var fcstTempCacheKey = _packGraphKey(
-            _graphW,
-            FIELD_WX_FCST_TEMP,
-            hours
-        );
-        _calcMinMaxCached(fcstTempCacheKey, all as Array<Float>, data);
+        var fcstCacheKey = _packGraphKey(_graphW, fieldConst, hours);
+        _calcMinMaxCached(fcstCacheKey, all as Array<Float>, data);
         var minV = _dataMin;
         var maxV = _dataMax;
         var range = maxV - minV;
-        if (range < 1.0) {
-            range = 1.0;
+        if (range < minRange) {
+            range = minRange;
         }
-        _setGraphX(FIELD_WX_FCST_TEMP, minV, maxV);
-        var gr = _calcGradRange(FIELD_WX_FCST_TEMP, lineColor, minV, range);
+        _setGraphX(fieldConst, minV, maxV);
+        var gr = _calcGradRange(fieldConst, lineColor, minV, range);
         var gradMinV = gr[0];
         var gradRange = gr[1];
         var maxFrac = _fracClamp(maxV, gradMinV, gradRange);
         var minFrac = _fracClamp(minV, gradMinV, gradRange);
 
-        _rowBuf[0] = "Temp Fcst";
+        _rowBuf[0] = label;
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
         var fcstMaxGap = FORECAST_GAP_HOURS;
-        var fcstTempBmps = _renderGraphToBitmap(
-            fcstTempCacheKey,
-            FIELD_WX_FCST_TEMP,
+        var fcstBmps = _renderGraphToBitmap(
+            fcstCacheKey,
+            fieldConst,
             graphType,
             lineColor,
             data,
@@ -6236,8 +6224,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         );
         _drawGraphRowGlow(
             dc,
-            fcstTempBmps,
-            fcstTempCacheKey,
+            fcstBmps,
+            fcstCacheKey,
             _graphBmpDrawOk,
             graphType,
             lineColor,
@@ -6247,12 +6235,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            fcstMaxGap
+            fcstMaxGap,
+            fieldConst
         );
         _drawRowAxes(dc, y);
         _drawSingleGraphLabels(
             dc,
-            FIELD_WX_FCST_TEMP,
+            fieldConst,
             _graphX,
             _graphW,
             y,
@@ -6265,6 +6254,41 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             minFrac,
             -1
         );
+        return [data, minV, maxV];
+    }
+
+    private function _drawForecastTempRow(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        hours as Number,
+        viewMode as Number,
+        valueMode as Number,
+        labelColor as Number,
+        valueColor as Number,
+        lineColor as Number,
+        graphType as Number
+    ) as Void {
+        var core = _drawForecastGraphCore(
+            dc,
+            cx,
+            y,
+            hours,
+            labelColor,
+            valueColor,
+            lineColor,
+            graphType,
+            "Temp Fcst",
+            FIELD_WX_FCST_TEMP,
+            _wxForecastData,
+            1.0
+        );
+        if (core == null) {
+            return;
+        }
+        var data = core[0];
+        var minV = core[1];
+        var maxV = core[2];
         if (viewMode == VIEW_GRAPH_VALUE) {
             var vx = _graphX + _graphW + _charW;
             var vy = y + (_fh - _smallFh) / 2 - 1;
@@ -6599,87 +6623,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fieldConst as Number,
         minRange as Float
     ) as Void {
-        _graphX = _graphBaseX;
-        var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
-        var data = new Array<Float>[n];
-        var realCount = 0;
-        for (var i = 0; i < n; i++) {
-            var v = (all as Array<Float>)[n - 1 - i];
-            data[i] = v;
-            if (v != null) {
-                realCount++;
-            }
-        }
-        if (realCount < 2) {
-            _rowBuf[0] = label;
-            _rowBuf[1] = "";
-            _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-            _drawGraphNoData(dc, _graphX, _graphW, y, _graphH);
+        var core = _drawForecastGraphCore(
+            dc,
+            cx,
+            y,
+            hours,
+            labelColor,
+            valueColor,
+            lineColor,
+            graphType,
+            label,
+            fieldConst,
+            all,
+            minRange
+        );
+        if (core == null) {
             return;
         }
-        var fcstCacheKey = _packGraphKey(_graphW, fieldConst, hours);
-        _calcMinMaxCached(fcstCacheKey, all as Array<Float>, data);
-        var minV = _dataMin;
-        var maxV = _dataMax;
-        var range = maxV - minV;
-        if (range < minRange) {
-            range = minRange;
-        }
-        _setGraphX(fieldConst, minV, maxV);
-        var gr = _calcGradRange(fieldConst, lineColor, minV, range);
-        var gradMinV = gr[0];
-        var gradRange = gr[1];
-        var maxFrac = _fracClamp(maxV, gradMinV, gradRange);
-        var minFrac = _fracClamp(minV, gradMinV, gradRange);
-        _rowBuf[0] = label;
-        _rowBuf[1] = "";
-        _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-        var fcstMaxGap = FORECAST_GAP_HOURS;
-        var fcstBmps = _renderGraphToBitmap(
-            fcstCacheKey,
-            fieldConst,
-            graphType,
-            lineColor,
-            data,
-            _graphW,
-            _graphH,
-            minV,
-            range,
-            gradMinV,
-            gradRange,
-            fcstMaxGap
-        );
-        _drawGraphRowGlow(
-            dc,
-            fcstBmps,
-            fcstCacheKey,
-            _graphBmpDrawOk,
-            graphType,
-            lineColor,
-            data,
-            y,
-            minV,
-            range,
-            gradMinV,
-            gradRange,
-            fcstMaxGap
-        );
-        _drawRowAxes(dc, y);
-        _drawSingleGraphLabels(
-            dc,
-            fieldConst,
-            _graphX,
-            _graphW,
-            y,
-            _graphH,
-            minV,
-            maxV,
-            "+" + hours.toString() + "h",
-            lineColor,
-            maxFrac,
-            minFrac,
-            -1
-        );
+        var data = core[0];
+        var minV = core[1];
+        var maxV = core[2];
         if (viewMode == VIEW_GRAPH_VALUE) {
             var vx = _graphX + _graphW + _charW;
             var vy = y + (_fh - _smallFh) / 2 - 1;
@@ -6709,8 +6672,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Shared by _drawDailyBars and _glowDailyBarsShape. Returns
-    // [slotX, hiY, bw, barH] for the day's high/low range bar.
+    // Shared by _drawDailyBars and _glowDailyBarsShape - returns [slotX, hiY, bw, barH] for the day's high/low range bar.
     private function _dailyBarRect(
         gx as Number,
         y as Number,
@@ -6806,9 +6768,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // One glow shape per day-bar, matching _drawDailyBars' rects via
-    // _dailyBarRect, drawn live at the row's real screen position (the
-    // crisp render below is suppressed the same way sensor/dual graphs are).
+    // One glow shape per day-bar, matching _drawDailyBars' rects via _dailyBarRect, drawn live at the row's real screen position.
     private function _glowDailyBarsShape(
         dc as Dc,
         gx as Number,
@@ -7187,8 +7147,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
     }
 
-    // Returns whether the bitmap was drawn - false means the fallback
-    // already drew crisp+glow directly, so skip a separate glow restore.
+    // Returns whether the bitmap was drawn - false means the fallback already drew crisp+glow directly, so skip a separate glow restore.
     private function _drawGraphOrFallback(
         dc as Dc,
         bmp as Graphics.BufferedBitmap?,
@@ -7202,7 +7161,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         range as Float,
         gradMinV as Float,
         gradRange as Float,
-        maxGap as Number
+        maxGap as Number,
+        field as Number
     ) as Boolean {
         if (
             bmp == null ||
@@ -7236,14 +7196,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 gradRange,
                 maxGap
             );
+            if (field == FIELD_HR) {
+                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
+            }
             return false;
         }
         return true;
     }
 
-    // Shared by every single-series graph row: draws the crisp graph (bitmap-cached
-    // or live fallback), then on a cache hit blits the graph's own cached glow bitmap
-    // instead of re-walking data through _glowMeanLine/_glowOneGraph every frame.
+    // Shared by every single-series graph row: draws the crisp graph, then on a cache hit blits the cached glow bitmap instead of re-walking data.
     private function _drawGraphRowGlow(
         dc as Dc,
         bmps as [Graphics.BufferedBitmap?, Graphics.BufferedBitmap?],
@@ -7257,7 +7218,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         range as Float,
         gradMinV as Float,
         gradRange as Float,
-        maxGap as Number
+        maxGap as Number,
+        field as Number
     ) as Void {
         var cacheHit = _drawGraphOrFallback(
             dc,
@@ -7272,7 +7234,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            maxGap
+            maxGap,
+            field
         );
         var glowBmp = bmps[1] as Graphics.BufferedBitmap?;
         if (!cacheHit || glowBmp == null) {
@@ -7539,7 +7502,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            maxGap
+            maxGap,
+            field
         );
         _drawRowAxes(dc, y);
         var eff = _resolveEffPeriod(cacheKey, periodMin);
@@ -8153,8 +8117,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return false;
     }
 
-    // FIELD_WX_FCST_TEMP/PRECIP/DAILY/WIND/HUMIDITY/UV/CLOUD are handled entirely by
-    // _drawLineRowWeatherForecast (every view mode) - they never reach this function.
+    // FIELD_WX_FCST_TEMP/PRECIP/DAILY/WIND/HUMIDITY/UV/CLOUD are handled entirely by _drawLineRowWeatherForecast - they never reach this function.
     private function _getWeatherForecastFieldParts(field as Number) as Boolean {
         if (field == FIELD_WX_COND_FCST_1D) {
             _rowBuf[0] = "Cond/+1d";
@@ -8362,8 +8325,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _cachedPressure = _metric
                     ? (pa / 100.0).format("%.1f") + "hPa"
                     : (pa / PA_PER_INHG).format("%.2f") + "inHg";
-                // The trend scan below can walk up to 30 min of samples; skip it on the wake
-                // frame and keep the last-known trend so it can't delay the screen turning on.
+                // The trend scan below can walk up to 30 min of samples; skip it on the wake frame and keep the last-known trend.
                 if (_deferThisFrame) {
                     _deferredWorkPending = true;
                 } else {
@@ -8444,8 +8406,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             return;
         }
         if (_deferThisFrame && _wxCurrentFetched) {
-            // Same one-frame defer as complications - reuse stale weather data on the
-            // wake frame and let the follow-up requestUpdate() do the real refresh.
+            // Same one-frame defer as complications - reuse stale weather data on wake, refresh on the follow-up requestUpdate().
             _deferredWorkPending = true;
             return;
         }
@@ -8534,8 +8495,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             );
         }
         if (_needsForecast) {
-            // Mark attempted even if the APIs return null so the phase-change
-            // force-refresh in onUpdate fires at most once per need transition.
+            // Mark attempted even if the APIs return null so onUpdate's phase-change force-refresh fires at most once per need transition.
             _forecastFetched = true;
             var forecast = Weather.getHourlyForecast();
             if (forecast != null && forecast.size() > 0) {
@@ -8729,8 +8689,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         return defaultVal;
     }
 
-    // Redraws only the seconds digits and cursor blink, via their own clips,
-    // instead of repainting the whole screen every second.
+    // Redraws only the seconds digits and cursor blink, via their own clips, instead of repainting the whole screen every second.
     public function onPartialUpdate(dc as Dc) as Void {
         var now = System.getTimer();
         var phase = _getPhase(Time.now().value());
@@ -8798,8 +8757,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         dc.clearClip();
     }
 
-    // Redraws just the ":SS" portion of the time row value in its own clip
-    // region instead of forcing a full-screen redraw every second.
+    // Redraws just the ":SS" portion of the time row value in its own clip region instead of forcing a full-screen redraw every second.
     private function _drawSecondsPartial(dc as Dc) as Void {
         var sec = System.getClockTime().sec;
         var secStr = _secStrs[sec];

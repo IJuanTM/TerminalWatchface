@@ -886,17 +886,7 @@ def gen_strings():
     lines.append(s("Rotate30s", "30 seconds"))
     lines.append(s("Rotate1min", "1 minute"))
 
-    _slot_r = {
-        "Primary": " (R1)",
-        "Secondary": " (R2)",
-        "Tertiary": " (R3)",
-        "Quaternary": " (R4)",
-        "Quinary": " (R5)",
-        "Senary": " (R6)",
-        "Septenary": " (R7)",
-        "Octonary": " (R8)",
-        "Nonary": " (R9)",
-    }
+    _slot_r = {slot: f" ({abbrev})" for slot, abbrev in ROT.items()}
     lines.append("\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
     for ln in (3, 4, 5):
         pk = f"Line{ln}"
