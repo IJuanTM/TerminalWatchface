@@ -143,6 +143,43 @@
       </settingConfig>
     </setting>
   </group>
+  <group id="units" title="@Strings.UnitsGroup">
+    <setting propertyKey="@Properties.uDst" title="@Strings.UnitDistance">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.UnitWatch</listEntry>
+        <listEntry value="1">@Strings.UnitKilometers</listEntry>
+        <listEntry value="2">@Strings.UnitMiles</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.uTmp" title="@Strings.UnitTemperature">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.UnitWatch</listEntry>
+        <listEntry value="1">@Strings.UnitCelsius</listEntry>
+        <listEntry value="2">@Strings.UnitFahrenheit</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.uElv" title="@Strings.UnitElevation">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.UnitWatch</listEntry>
+        <listEntry value="1">@Strings.UnitMeters</listEntry>
+        <listEntry value="2">@Strings.UnitFeet</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.uPac" title="@Strings.UnitPace">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.UnitWatch</listEntry>
+        <listEntry value="1">@Strings.UnitPaceKm</listEntry>
+        <listEntry value="2">@Strings.UnitPaceMi</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.uPrs" title="@Strings.UnitPressure">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.UnitPressureAuto</listEntry>
+        <listEntry value="1">@Strings.UnitHpa</listEntry>
+        <listEntry value="2">@Strings.UnitInhg</listEntry>
+      </settingConfig>
+    </setting>
+  </group>
   <group id="rotation" title="@Strings.RotationGroup">
     <setting propertyKey="@Properties.rotI" title="@Strings.RotateInterval">
       <settingConfig type="list">
@@ -3350,9 +3387,6 @@
     </setting>
     <setting propertyKey="@Properties.spo2Tf" title="@Strings.SpO2TimeFrame">
       <settingConfig type="list">
-        <listEntry value="15">@Strings.TimeFrame15m</listEntry>
-        <listEntry value="30">@Strings.TimeFrame30m</listEntry>
-        <listEntry value="60">@Strings.TimeFrame1h</listEntry>
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
         <listEntry value="360">@Strings.TimeFrame6h</listEntry>

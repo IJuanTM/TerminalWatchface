@@ -21,6 +21,13 @@
   <property id="rotA" type="number">0</property>
   <property id="rotMode" type="number">2</property>
 
+  <!-- Units -->
+  <property id="uDst" type="number">0</property>
+  <property id="uTmp" type="number">0</property>
+  <property id="uElv" type="number">0</property>
+  <property id="uPac" type="number">0</property>
+  <property id="uPrs" type="number">0</property>
+
   <!-- Time row (always visible) -->
   <property id="l1Lc" type="number">8</property>
   <property id="l1Vc" type="number">0</property>
@@ -129,7 +136,7 @@
   <property id="spo2Gvm" type="number">2</property>
   <property id="spo2St" type="number">0</property>
   <property id="spo2Sf" type="number">0</property>
-  <property id="spo2Tf" type="number">60</property>
+  <property id="spo2Tf" type="number">240</property>
   <property id="spo2Gc" type="number">6</property>
   <property id="spo2Se" type="number">0</property>
   <property id="spo2Gw" type="number">10</property>

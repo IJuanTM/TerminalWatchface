@@ -23,10 +23,10 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Notification count badge in the header (also available as a data row)
 - CRT visual effects: scanlines, glow/halo, backlight wash, and flicker (each independently configurable)
 - **3 font families** with independent line heights
-- **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per line
+- **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** for graphs (including 10 value-mapped gradients) and 10 solid colors for independent label and value styling per line
 - Show seconds, optional year in date, 6 date formats, and 12/24-hour display
 - 3 command styles (Windows, Linux, Bare) with optional version number in the header
-- Metric and imperial unit support
+- Per-unit settings for distance/speed, temperature, elevation, pace and pressure, each defaulting to the watch's own unit setting
 
 ---
 
@@ -40,7 +40,7 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 Time  : 14:32:08
 Date  : Thu, 12 Jun
 
-Heart : 72 bpm                            <- line 3 (rotates between up to 6 fields)
+Heart : 72 bpm                            <- line 3 (rotates between up to 9 fields)
 Steps : [========  ] 7823                 <- line 4 (steps bar + value)
 Temp  : 18.5° [↓12] [↑24]                <- line 5
 
@@ -81,12 +81,24 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 | Show App Version _(Debug group)_ | On / Off — appends the app version to the command _(watch@x.y.z)_                                                          |
 | Show Graph Gaps _(Debug group)_  | On / Off — marks graph gaps with a dashed grey line/fill instead of leaving them blank, for diagnosing missing sensor data |
 
+### Units
+
+Each unit defaults to **Watch setting**, following the watch's own unit settings, and can be overridden individually:
+
+| Setting                 | Options                                                          |
+| ----------------------- | ---------------------------------------------------------------- |
+| Units: Distance & Speed | Watch setting, Kilometers (km, km/h), Miles (mi, mph) — also wind and visibility |
+| Units: Temperature      | Watch setting, Celsius, Fahrenheit                               |
+| Units: Elevation        | Watch setting, Meters, Feet                                      |
+| Units: Pace             | Watch setting, Minutes per km, Minutes per mile                  |
+| Units: Pressure         | Match distance unit (hPa for km, inHg for miles), hPa, inHg      |
+
 ### Rotation
 
 | Setting          | Options                                                                                                                                                                       |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Rotate Every     | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                                                           |
-| Rotate Alt Every | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                                                      |
+| Rotation: Main Duration | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                                                           |
+| Rotation: Alt Duration | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                                                      |
 | Rotation Mode    | Automatic (time-based, current behavior), Manual (advances only on long-press, no timer), Hybrid (time-based, plus long-press to jump ahead and reset that slot's dwell time) |
 
 Regardless of mode, rotation always resets to the first slot whenever the screen wakes (wrist raise), so every glance starts predictable instead of landing mid-cycle.
@@ -139,7 +151,7 @@ Fields that only populate during an actively recorded workout (elapsed time, in-
 | Recovery Time         | `18h`           |
 | Wrist Temperature     | `36.5°C`        |
 | VO2 Max               | `52`            |
-| Training Status       | `PRODUCTIVE`    |
+| Training Status       | `[PRODUCTIVE]`  |
 | Sleep Score           | `78`            |
 | Resting HR            | `52 bpm`        |
 | Avg Resting HR        | `54 bpm`        |
@@ -151,7 +163,7 @@ Fields that only populate during an actively recorded workout (elapsed time, in-
 | Body Bat + Resting HR | `74% \| 52`     |
 | Stress + Recovery     | `32 \| 18h`     |
 | Sleep + Recovery      | `78 \| 18h`     |
-| VO2 + Training Status | `52 PRODUCTIVE` |
+| VO2 + Training Status | `52 [PRODUCTIVE]` |
 
 ### Environment
 
@@ -276,11 +288,11 @@ Seven sensor fields and seven forecast types can be displayed as **inline charts
 | Secondary Field          | HR, Blood O2, Body Battery, Stress, Wrist Temp, Elevation, Pressure |
 | Secondary Color          | Any of the 20 available colors                                      |
 
-Heart Rate, Wrist Temp, Elevation, and Barometric Pressure cap out at 6h (their on-device SensorHistory buffer doesn't hold enough for longer windows); Blood Oxygen, Body Battery, and Stress offer the full range up to 24h.
+Heart Rate, Wrist Temp, Elevation, and Barometric Pressure cap out at 6h (their on-device SensorHistory buffer doesn't hold enough for longer windows); Body Battery and Stress offer the full range up to 24h; Blood Oxygen offers 2h to 24h, since it's only sampled about once an hour.
 
 **Dual Graph** overlays a secondary sensor history on the same chart. Primary min/max labels appear on the left; secondary on the right. A short field name is shown below the right edge.
 
-**Bar Grouping** reduces the number of bars drawn at wide time frames for readability — density is qualitative (Tight/Normal/Loose), not a fixed count, and scales automatically with Graph Width and the field's real sensor update cadence so it never fabricates more bars than genuine samples exist. A live period suffix (e.g. `-2m`) is appended to the graph's timeframe label showing the actual resulting bar duration.
+**Bar Grouping** reduces the number of bars drawn at wide time frames for readability — density is qualitative (Tight/Normal/Loose), not a fixed count, and scales automatically with Graph Width and the field's real sensor update cadence so it never fabricates more bars than genuine samples exist. The actual resulting bar duration is appended to the graph's timeframe label (e.g. `-6h/2m`).
 
 The graph caches rendered bitmaps and only re-renders when fresh sensor data arrives (not every minute), which keeps the update cost — and battery impact — low.
 
@@ -334,7 +346,7 @@ Days remaining is shown when the device can estimate it. The bolt icon is always
 
 ## Colors
 
-20 colors are available for label, value, and graph styling:
+20 colors are available for graph styling; label, value and bar colors use the 10 solid colors (0–9):
 
 | #   | Name                             |
 | --- | -------------------------------- |
@@ -359,7 +371,7 @@ Days remaining is shown when the device can estimate it. The bolt icon is always
 | 18  | Temperature: Inferno (cold→hot)  |
 | 19  | Temperature: Inferno (hot→cold)  |
 
-Gradient colors (10–19) map the displayed value to a position along a color spectrum. For sensor graphs they use field-specific ranges (e.g. HR maps 40–200 bpm across the spectrum). For temperature gradients the range is −20 °C to +40 °C. These are most useful on graphs and for value coloring on fields like heart rate, stress, or temperature.
+Gradient colors (10–19) map the displayed value to a position along a color spectrum. For sensor graphs they use field-specific ranges (e.g. HR maps 40–200 bpm across the spectrum). For temperature gradients the range is −20 °C to +40 °C. They apply to graph lines, bars and areas.
 
 ---
 
