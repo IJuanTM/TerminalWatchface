@@ -58,6 +58,26 @@
   <string id="Line2LabelColor">Date: Label Color</string>
   <string id="Line2ValueColor">Date: Value Color</string>
 
+  <!-- Units -->
+  <string id="UnitsGroup">Units</string>
+  <string id="UnitWatch">Watch setting</string>
+  <string id="UnitDistance">Units: Distance &amp; Speed</string>
+  <string id="UnitKilometers">Kilometers (km, km/h)</string>
+  <string id="UnitMiles">Miles (mi, mph)</string>
+  <string id="UnitTemperature">Units: Temperature</string>
+  <string id="UnitCelsius">Celsius</string>
+  <string id="UnitFahrenheit">Fahrenheit</string>
+  <string id="UnitElevation">Units: Elevation</string>
+  <string id="UnitMeters">Meters</string>
+  <string id="UnitFeet">Feet</string>
+  <string id="UnitPace">Units: Pace</string>
+  <string id="UnitPaceKm">Minutes per km</string>
+  <string id="UnitPaceMi">Minutes per mile</string>
+  <string id="UnitPressure">Units: Pressure</string>
+  <string id="UnitPressureAuto">Match distance unit</string>
+  <string id="UnitHpa">hPa</string>
+  <string id="UnitInhg">inHg</string>
+
   <!-- Rotation -->
   <string id="RotationGroup">Rotation</string>
   <string id="RotateInterval">Rotation: Main Duration</string>
@@ -126,16 +146,16 @@
   <string id="ColorPurple">Purple</string>
   <string id="ColorMagenta">Magenta</string>
   <string id="ColorLightGrey">Light Grey</string>
-  <string id="GradTriColor">Tri-color (low->high)</string>
-  <string id="GradTriColorRev">Tri-color (high->low)</string>
-  <string id="GradTempCustom">Temp: Custom (cold->hot)</string>
-  <string id="GradTempCustomRev">Temp: Custom (hot->cold)</string>
-  <string id="GradTempSpectral">Temp: Spectral (cold->hot)</string>
-  <string id="GradTempSpectralRev">Temp: Spectral (hot->cold)</string>
-  <string id="GradTempTurbo">Temp: Turbo (cold->hot)</string>
-  <string id="GradTempTurboRev">Temp: Turbo (hot->cold)</string>
-  <string id="GradTempInferno">Temp: Inferno (cold->hot)</string>
-  <string id="GradTempInfernoRev">Temp: Inferno (hot->cold)</string>
+  <string id="GradTriColor">Tri-color (low-&gt;high)</string>
+  <string id="GradTriColorRev">Tri-color (high-&gt;low)</string>
+  <string id="GradTempCustom">Temp: Custom (cold-&gt;hot)</string>
+  <string id="GradTempCustomRev">Temp: Custom (hot-&gt;cold)</string>
+  <string id="GradTempSpectral">Temp: Spectral (cold-&gt;hot)</string>
+  <string id="GradTempSpectralRev">Temp: Spectral (hot-&gt;cold)</string>
+  <string id="GradTempTurbo">Temp: Turbo (cold-&gt;hot)</string>
+  <string id="GradTempTurboRev">Temp: Turbo (hot-&gt;cold)</string>
+  <string id="GradTempInferno">Temp: Inferno (cold-&gt;hot)</string>
+  <string id="GradTempInfernoRev">Temp: Inferno (hot-&gt;cold)</string>
 
   <!-- Shared: field options -->
   <string id="FieldNone">None (hidden)</string>
@@ -299,7 +319,7 @@
   <string id="DistanceShowBarValue">Distance: Show Value in Bar</string>
   <string id="DistanceBarColor">Distance: Bar Color</string>
   <string id="DistanceBarWidth">Distance: Bar Width</string>
-  <string id="DistanceBarGoal">Distance: Daily Goal (km or mi - matches your device's distance unit)</string>
+  <string id="DistanceBarGoal">Distance: Daily Goal (km or mi - follows the Distance &amp; Speed unit)</string>
 
   <!-- Active Minutes (Daily) -->
   <string id="ActiveMinDayGroup">Bar Config - Active Minutes (Daily)</string>

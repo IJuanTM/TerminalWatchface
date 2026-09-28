@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+from xml.sax.saxutils import escape
 from typing import NamedTuple, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -258,11 +259,13 @@ class GraphField(NamedTuple):
     value_mode: int
     # Caps the TimeFrame option list to the field's real on-device SensorHistory buffer (minutes); None = no cap.
     max_time_frame: Optional[int] = None
+    # Hides frames too short to hold 2+ samples at the field's sample interval.
+    min_time_frame: Optional[int] = None
 
 
 GRAPH_FIELDS = [
     GraphField("hr", "HR", "Heart Rate", 3, 0, 2, 60, 5, 0, 0, 360),
-    GraphField("spo2", "SpO2", "Blood O2", 6, 0, 0, 60, 6, 0, 2),
+    GraphField("spo2", "SpO2", "Blood O2", 6, 0, 0, 240, 6, 0, 2, None, 120),
     GraphField("bodyBat", "BodyBat", "Body Battery", 6, 0, 3, 240, 11, 0, 0),
     GraphField("stress", "Stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
     GraphField("tempWrist", "TempWrist", "Wrist Temp", 3, 0, 0, 60, 16, 0, 1, 360),
@@ -301,7 +304,7 @@ BAR_FIELDS = [
         5,
         1,
         200,
-        " (km or mi - matches your device's distance unit)",
+        " (km or mi - follows the Distance & Speed unit)",
     ),
     BarField(
         "activeMinDay",
@@ -503,6 +506,55 @@ HOURLY_FORECASTS = [
 ]
 
 
+_UNIT_WATCH = (0, "UnitWatch", "Watch setting")
+
+# 0 means "follow the watch's own unit setting"; the watch has no pressure unit, so pressure follows distance instead.
+UNIT_SETTINGS = [
+    (
+        "unitDistance",
+        "UnitDistance",
+        "Units: Distance & Speed",
+        [
+            _UNIT_WATCH,
+            (1, "UnitKilometers", "Kilometers (km, km/h)"),
+            (2, "UnitMiles", "Miles (mi, mph)"),
+        ],
+    ),
+    (
+        "unitTemperature",
+        "UnitTemperature",
+        "Units: Temperature",
+        [_UNIT_WATCH, (1, "UnitCelsius", "Celsius"), (2, "UnitFahrenheit", "Fahrenheit")],
+    ),
+    (
+        "unitElevation",
+        "UnitElevation",
+        "Units: Elevation",
+        [_UNIT_WATCH, (1, "UnitMeters", "Meters"), (2, "UnitFeet", "Feet")],
+    ),
+    (
+        "unitPace",
+        "UnitPace",
+        "Units: Pace",
+        [
+            _UNIT_WATCH,
+            (1, "UnitPaceKm", "Minutes per km"),
+            (2, "UnitPaceMi", "Minutes per mile"),
+        ],
+    ),
+    (
+        "unitPressure",
+        "UnitPressure",
+        "Units: Pressure",
+        [
+            (0, "UnitPressureAuto", "Match distance unit"),
+            (1, "UnitHpa", "hPa"),
+            (2, "UnitInhg", "inHg"),
+        ],
+    ),
+]
+
+
 def ind(n):
     return "  " * n
 
@@ -587,6 +639,11 @@ STANDALONE_KEYS = {
     "line2ValueColor": "l2Vc",
     "showVersion": "shVer",
     "debugGraphGaps": "dbgGG",
+    "unitDistance": "uDst",
+    "unitTemperature": "uTmp",
+    "unitElevation": "uElv",
+    "unitPace": "uPac",
+    "unitPressure": "uPrs",
 }
 
 
@@ -595,7 +652,7 @@ def prop(pid, ptype, default):
 
 
 def string(sid, text):
-    return f'  <string id="{sid}">{text}</string>'
+    return f'  <string id="{sid}">{escape(text)}</string>'
 
 
 def setting_bool(prop_key, title_key, indent=1):
@@ -700,6 +757,10 @@ def gen_properties():
     lines.append(prop(sk["rotateInterval"], "number", 5))
     lines.append(prop(sk["rotateIntervalAlt"], "number", 0))
     lines.append(prop(sk["rotationMode"], "number", 2))
+
+    lines.append("\n  <!-- Units -->")
+    for key, *_ in UNIT_SETTINGS:
+        lines.append(prop(sk[key], "number", 0))
 
     lines.append("\n  <!-- Time row (always visible) -->")
     lines.append(prop(sk["line1LabelColor"], "number", 8))
@@ -834,6 +895,13 @@ def gen_strings():
     lines.append(s("Line2LabelColor", "Date: Label Color"))
     lines.append(s("Line2ValueColor", "Date: Value Color"))
 
+    lines.append("\n  <!-- Units -->")
+    lines.append(s("UnitsGroup", "Units"))
+    lines.append(s(*_UNIT_WATCH[1:]))
+    for _key, sid, title, options in UNIT_SETTINGS:
+        lines.append(s(sid, title))
+        lines.extend(option_strings(o for o in options if o is not _UNIT_WATCH))
+
     lines.append("\n  <!-- Rotation -->")
     lines.append(s("RotationGroup", "Rotation"))
     lines.append(s("RotateInterval", "Rotation: Main Duration"))
@@ -896,8 +964,12 @@ def gen_strings():
         lines.append(s(f"{id_prefix}BarColor", f"{label}: Bar Color"))
         lines.append(s(f"{id_prefix}BarWidth", f"{label}: Bar Width"))
         if bf.goal_default is not None:
-            suffix = bf.goal_label_suffix or ""
-            lines.append(s(f"{id_prefix}BarGoal", f"{label}: Daily Goal{suffix}"))
+            lines.append(
+                s(
+                    f"{id_prefix}BarGoal",
+                    f"{label}: Daily Goal{bf.goal_label_suffix or ''}",
+                )
+            )
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
     lines.extend(option_strings(SEC_TYPE_OPTIONS))
@@ -1009,7 +1081,8 @@ def graph_section(gf, indent=1):
             entries(
                 o
                 for o in GRAPH_TIME_FRAMES
-                if gf.max_time_frame is None or o[0] <= gf.max_time_frame
+                if (gf.max_time_frame is None or o[0] <= gf.max_time_frame)
+                and (gf.min_time_frame is None or o[0] >= gf.min_time_frame)
             ),
             indent,
         )
@@ -1217,6 +1290,17 @@ def gen_settings():
             ),
             color_setting(
                 sk["line2ValueColor"], "Line2ValueColor", COLORS_TEXT, indent=2
+            ),
+        )
+    )
+
+    parts.append(
+        group(
+            "units",
+            "UnitsGroup",
+            *(
+                setting_list(sk[key], sid, entries(options), indent=2)
+                for key, sid, _title, options in UNIT_SETTINGS
             ),
         )
     )
