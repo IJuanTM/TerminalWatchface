@@ -23,7 +23,7 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 - Notification count badge in the header (also available as a data row)
 - CRT visual effects: scanlines, glow/halo, backlight wash, and flicker (each independently configurable)
 - **3 font families** with independent line heights
-- **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per slot
+- **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** including 10 value-mapped gradients for independent label and value styling per line
 - Show seconds, optional year in date, 6 date formats, and 12/24-hour display
 - 3 command styles (Windows, Linux, Bare) with optional version number in the header
 - Metric and imperial unit support
@@ -97,7 +97,7 @@ Label and value color can be set independently for the Time and Date rows.
 
 ### Lines 3–5 (Configurable)
 
-Each line has **9 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, **Senary**, **Septenary**, **Octonary**, and **Nonary**. The active slot cycles on the rotate interval (or on long-press, per Rotation Mode above); slots set to _None_ are skipped. Each slot has its own field, label color, and value color.
+Each line has **9 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, **Senary**, **Septenary**, **Octonary**, and **Nonary**. The active slot cycles on the rotate interval (or on long-press, per Rotation Mode above), up to the highest slot any line has set; a line whose slot for that phase is _None_ shows its Primary field instead. Each slot sets its own field, while label and value colors are set once per line.
 
 ### Always-On Display
 
@@ -334,7 +334,7 @@ Days remaining is shown when the device can estimate it. The bolt icon is always
 
 ## Colors
 
-20 colors are available for label, value, and graph styling on each slot:
+20 colors are available for label, value, and graph styling:
 
 | #   | Name                             |
 | --- | -------------------------------- |

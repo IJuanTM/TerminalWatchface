@@ -1,10 +1,5 @@
-// GENERATED FILE - DO NOT EDIT.
-// Run `python scripts/generate_resources.py` to regenerate from
-// FIELD_CATEGORIES in scripts/generate_resources.py.
+// GENERATED FILE - DO NOT EDIT. Regenerate with `python scripts/generate_resources.py`.
 
-// Graph cache key bit layout, used by _packGraphKey/_graphKeyHi/
-// _graphKeyLo. The high slot and low slot each get 10 bits (0-1023),
-// periodMin gets the low 11 bits (0-2047). Field IDs currently span 1-650.
 const CACHE_KEY_HI_SHIFT = 21;
 const CACHE_KEY_LO_SHIFT = 11;
 const CACHE_KEY_MASK = 0x3ff;

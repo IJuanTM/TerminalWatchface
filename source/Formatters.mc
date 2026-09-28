@@ -59,7 +59,10 @@ module Formatters {
     }
 
     function _hourLabel(min as Number) as String {
-        return ((min + 30) / 60).toString() + "h";
+        var rem = min % 60;
+        return (
+            (min / 60).toString() + "h" + (rem != 0 ? rem.format("%02d") : "")
+        );
     }
 
     function formatAge(ageSec as Number) as String {

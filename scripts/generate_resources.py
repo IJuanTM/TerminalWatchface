@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-"""
-Generates resources/properties.xml, resources/strings/strings.xml,
-resources/settings.xml, and source/FieldIds.mc from a single source of truth.
-
-Run from the project root:
-    python scripts/generate_resources.py
-"""
-
 import os
 from typing import NamedTuple, Optional
 
@@ -16,10 +8,8 @@ OUT_STRINGS = os.path.join(ROOT, "resources", "strings", "strings.xml")
 OUT_SETTINGS = os.path.join(ROOT, "resources", "settings.xml")
 OUT_FIELD_IDS = os.path.join(ROOT, "source", "FieldIds.mc")
 
-# --- Shared data definitions ---
-
-# (value, StringId, display text); solid colors (0-9) are in hue-wheel order.
-COLORS_FULL = [  # includes gradient options, used for graph lines
+# Solid colors (0-9) are listed in hue-wheel order, not value order.
+COLORS_FULL = [
     (0, "ColorWhite", "White"),
     (5, "ColorRed", "Red"),
     (4, "ColorOrange", "Orange"),
@@ -42,12 +32,10 @@ COLORS_FULL = [  # includes gradient options, used for graph lines
     (19, "GradTempInfernoRev", "Temp: Inferno (hot->cold)"),
 ]
 
-COLORS_TEXT = COLORS_FULL[:10]  # used for text labels/values
+COLORS_TEXT = COLORS_FULL[:10]
 
-# Each category gets a reserved 50-wide numeric block (category 0 -> 1-50, etc).
 FIELD_CATEGORY_WIDTH = 50
 
-# Graph cache key bit layout - generated into FieldIds.mc's _packGraphKey.
 CACHE_KEY_LO_SHIFT = 11
 CACHE_KEY_HI_SHIFT = 21
 CACHE_KEY_MASK = (1 << (CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT)) - 1
@@ -227,7 +215,6 @@ FIELD_CATEGORIES = [
 ]
 
 
-# FIELDS_ALL: every (value, StringId, display) incl. FieldNone; FIELD_VALUE: StringId -> value.
 def _build_fields():
     total_span = FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)
     if total_span >= CACHE_KEY_FIELD_BUDGET:
@@ -260,7 +247,8 @@ FIELDS_ALL, FIELD_VALUE = _build_fields()
 
 class GraphField(NamedTuple):
     key: str
-    skey: str  # StringPrefix
+    skey: str
+    display: str
     mode: int  # 0=value 1=line 2=bar 3=line+cur 4=bar+cur 5=area 6=area+cur
     sec_type: int
     sec_field: int  # indexes GRAPH_SEC_FIELDS
@@ -273,18 +261,18 @@ class GraphField(NamedTuple):
 
 
 GRAPH_FIELDS = [
-    GraphField("hr", "HR", 3, 0, 2, 60, 5, 0, 0, 360),
-    GraphField("spo2", "SpO2", 6, 0, 0, 60, 6, 0, 2),
-    GraphField("bodyBat", "BodyBat", 6, 0, 3, 240, 11, 0, 0),
-    GraphField("stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
-    GraphField("tempWrist", "TempWrist", 3, 0, 0, 60, 16, 0, 1, 360),
-    GraphField("elevation", "Elevation", 6, 0, 6, 360, 1, 0, 0, 360),
-    GraphField("pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1, 360),
+    GraphField("hr", "HR", "Heart Rate", 3, 0, 2, 60, 5, 0, 0, 360),
+    GraphField("spo2", "SpO2", "Blood O2", 6, 0, 0, 60, 6, 0, 2),
+    GraphField("bodyBat", "BodyBat", "Body Battery", 6, 0, 3, 240, 11, 0, 0),
+    GraphField("stress", "Stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
+    GraphField("tempWrist", "TempWrist", "Wrist Temp", 3, 0, 0, 60, 16, 0, 1, 360),
+    GraphField("elevation", "Elevation", "Elevation", 6, 0, 6, 360, 1, 0, 0, 360),
+    GraphField("pressure", "Pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1, 360),
 ]
 
 
 class BarField(NamedTuple):
-    key: str  # camelKey
+    key: str
     group_title: str
     label: str
     show_bar_default: bool
@@ -341,40 +329,53 @@ BAR_FIELDS = [
     ),
 ]
 
+# Positional: the index is the SecondaryField property value, mirrored by the view's GRAPH_SEC_FIELDS.
 GRAPH_SEC_FIELDS = [
-    (0, "FieldHR"),
-    (1, "FieldSpO2"),
-    (2, "FieldBodyBat"),
-    (3, "FieldStress"),
-    (4, "FieldWristTemp"),
-    (5, "FieldElevation"),
-    (6, "FieldPressure"),
+    "FieldHR",
+    "FieldSpO2",
+    "FieldBodyBat",
+    "FieldStress",
+    "FieldWristTemp",
+    "FieldElevation",
+    "FieldPressure",
 ]
 
 GRAPH_TIME_FRAMES = [
-    (15, "TimeFrame15m"),
-    (30, "TimeFrame30m"),
-    (60, "TimeFrame1h"),
-    (120, "TimeFrame2h"),
-    (240, "TimeFrame4h"),
-    (360, "TimeFrame6h"),
-    (480, "TimeFrame8h"),
-    (720, "TimeFrame12h"),
-    (1440, "TimeFrame24h"),
+    (15, "TimeFrame15m", "15 minutes"),
+    (30, "TimeFrame30m", "30 minutes"),
+    (60, "TimeFrame1h", "1 hour"),
+    (120, "TimeFrame2h", "2 hours"),
+    (240, "TimeFrame4h", "4 hours"),
+    (360, "TimeFrame6h", "6 hours"),
+    (480, "TimeFrame8h", "8 hours"),
+    (720, "TimeFrame12h", "12 hours"),
+    (1440, "TimeFrame24h", "24 hours"),
 ]
 
 FORECAST_TIME_FRAMES = [
-    (3, "TimeFrameForecast3h"),
-    (6, "TimeFrameForecast6h"),
-    (12, "TimeFrameForecast12h"),
-    (24, "TimeFrameForecast24h"),
+    (3, "TimeFrameForecast3h", "3 hours ahead"),
+    (6, "TimeFrameForecast6h", "6 hours ahead"),
+    (12, "TimeFrameForecast12h", "12 hours ahead"),
+    (24, "TimeFrameForecast24h", "24 hours ahead"),
 ]
 
-# _packGraphKey ORs periodMin in unmasked, so a value reaching
-# CACHE_KEY_PERIOD_BUDGET would bleed into the adjacent field bits.
-_max_period_min = max(
-    [m for m, _ in GRAPH_TIME_FRAMES] + [h for h, _ in FORECAST_TIME_FRAMES]
-)
+FORECAST_DAY_OPTIONS = [
+    (3, "TimeFrameForecastDays3", "3 days"),
+    (5, "TimeFrameForecastDays5", "5 days"),
+    (7, "TimeFrameForecastDays7", "7 days"),
+]
+
+GRAPH_WIDTH_OPTIONS = [
+    (6, "GraphWidth6", "6 chars"),
+    (8, "GraphWidth8", "8 chars"),
+    (10, "GraphWidth10", "10 chars (default)"),
+    (12, "GraphWidth12", "12 chars"),
+    (14, "GraphWidth14", "14 chars"),
+    (16, "GraphWidth16", "16 chars"),
+]
+
+# _packGraphKey masks periodMin to this budget, so a longer frame would alias to a shorter one's cache key.
+_max_period_min = max(m for m, *_ in GRAPH_TIME_FRAMES + FORECAST_TIME_FRAMES)
 if _max_period_min >= CACHE_KEY_PERIOD_BUDGET:
     raise ValueError(
         f"GRAPH_TIME_FRAMES/FORECAST_TIME_FRAMES has a value of "
@@ -382,119 +383,118 @@ if _max_period_min >= CACHE_KEY_PERIOD_BUDGET:
         "cache key period budget (CACHE_KEY_PERIOD_BUDGET) - _packGraphKey's "
         "periodMin bits need widening before adding a longer time frame"
     )
-
-GRAPH_WIDTH_OPTIONS = [
-    (6, "GraphWidth6"),
-    (8, "GraphWidth8"),
-    (10, "GraphWidth10"),
-    (12, "GraphWidth12"),
-    (14, "GraphWidth14"),
-    (16, "GraphWidth16"),
-]
-
-GRAPH_DISPLAY_NAMES = {
-    "hr": "Heart Rate",
-    "bodyBat": "Body Battery",
-    "stress": "Stress",
-    "spo2": "Blood O2",
-    "tempWrist": "Wrist Temp",
-    "elevation": "Elevation",
-    "pressure": "Pressure",
-}
+if any(m % 15 for m, *_ in GRAPH_TIME_FRAMES) or [
+    w for w, *_ in GRAPH_WIDTH_OPTIONS
+] != list(range(6, 18, 2)):
+    raise ValueError(
+        "_drawDualGraphRow's dual cache key packs (periodMin / 15) * 6 + "
+        "(width - 6) / 2 into one slot, so every GRAPH_TIME_FRAMES value must be "
+        "a multiple of 15 and GRAPH_WIDTH_OPTIONS must be exactly 6-16 in steps "
+        "of 2 - update that key before changing either list"
+    )
 
 
 class LineSlot(NamedTuple):
     line_num: int
     slot: str
     field_default: int
-    label_color_default: int
-    value_color_default: int
 
 
 _fv = FIELD_VALUE
 
-# Single screen, 9 rotation slots per line, only the first 5 filled - ordered
-# most-glanced-at first since R1 is what shows on every wake.
+# Ordered most-glanced-at first, since R1 is what shows on every wake.
 LINE_SLOTS = [
-    LineSlot(3, "Primary", _fv["FieldWxFcstTemp"], 6, 0),
-    LineSlot(4, "Primary", _fv["FieldSteps"], 1, 0),
-    LineSlot(5, "Primary", _fv["FieldHR"], 5, 0),
-    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"], 6, 0),
-    LineSlot(4, "Secondary", _fv["FieldElevation"], 1, 0),
-    LineSlot(5, "Secondary", _fv["FieldStress"], 5, 0),
-    LineSlot(3, "Tertiary", _fv["FieldWxUVWind"], 6, 0),
-    LineSlot(4, "Tertiary", _fv["FieldDistance"], 1, 0),
-    LineSlot(5, "Tertiary", _fv["FieldBodyBat"], 5, 0),
-    LineSlot(3, "Quaternary", _fv["FieldWxHumidityPrecip"], 6, 0),
-    LineSlot(4, "Quaternary", _fv["FieldFloors"], 1, 0),
-    LineSlot(5, "Quaternary", _fv["FieldActiveMinDay"], 5, 0),
-    LineSlot(3, "Quinary", _fv["FieldWxFcstDaily"], 6, 0),
-    LineSlot(4, "Quinary", _fv["FieldClimbDescendDay"], 1, 0),
-    LineSlot(5, "Quinary", _fv["FieldIntensityMin"], 5, 0),
-    LineSlot(3, "Senary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Senary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Senary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Septenary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Septenary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Septenary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Octonary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Octonary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Octonary", _fv["FieldNone"], 5, 0),
-    LineSlot(3, "Nonary", _fv["FieldNone"], 6, 0),
-    LineSlot(4, "Nonary", _fv["FieldNone"], 1, 0),
-    LineSlot(5, "Nonary", _fv["FieldNone"], 5, 0),
+    LineSlot(3, "Primary", _fv["FieldWxFcstTemp"]),
+    LineSlot(4, "Primary", _fv["FieldSteps"]),
+    LineSlot(5, "Primary", _fv["FieldHR"]),
+    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"]),
+    LineSlot(4, "Secondary", _fv["FieldElevation"]),
+    LineSlot(5, "Secondary", _fv["FieldStress"]),
+    LineSlot(3, "Tertiary", _fv["FieldWxUVWind"]),
+    LineSlot(4, "Tertiary", _fv["FieldDistance"]),
+    LineSlot(5, "Tertiary", _fv["FieldBodyBat"]),
+    LineSlot(3, "Quaternary", _fv["FieldWxHumidityPrecip"]),
+    LineSlot(4, "Quaternary", _fv["FieldFloors"]),
+    LineSlot(5, "Quaternary", _fv["FieldActiveMinDay"]),
+    LineSlot(3, "Quinary", _fv["FieldWxFcstDaily"]),
+    LineSlot(4, "Quinary", _fv["FieldClimbDescendDay"]),
+    LineSlot(5, "Quinary", _fv["FieldIntensityMin"]),
+    LineSlot(3, "Senary", _fv["FieldNone"]),
+    LineSlot(4, "Senary", _fv["FieldNone"]),
+    LineSlot(5, "Senary", _fv["FieldNone"]),
+    LineSlot(3, "Septenary", _fv["FieldNone"]),
+    LineSlot(4, "Septenary", _fv["FieldNone"]),
+    LineSlot(5, "Septenary", _fv["FieldNone"]),
+    LineSlot(3, "Octonary", _fv["FieldNone"]),
+    LineSlot(4, "Octonary", _fv["FieldNone"]),
+    LineSlot(5, "Octonary", _fv["FieldNone"]),
+    LineSlot(3, "Nonary", _fv["FieldNone"]),
+    LineSlot(4, "Nonary", _fv["FieldNone"]),
+    LineSlot(5, "Nonary", _fv["FieldNone"]),
 ]
+
+LINE_LABEL_COLOR_DEFAULTS = {3: 6, 4: 1, 5: 5}
+
+
+def line_slots(ln):
+    return [r for r in LINE_SLOTS if r.line_num == ln]
 
 
 GRAPH_MODE_OPTIONS = [
-    (0, "@Strings.GraphModeValue"),
-    (1, "@Strings.GraphModeLineGraph"),
-    (3, "@Strings.GraphModeLineCurrent"),
-    (2, "@Strings.GraphModeBarGraph"),
-    (4, "@Strings.GraphModeBarCurrent"),
-    (5, "@Strings.GraphModeAreaGraph"),
-    (6, "@Strings.GraphModeAreaCurrent"),
+    (0, "GraphModeValue", "Value only"),
+    (1, "GraphModeLineGraph", "Line graph"),
+    (3, "GraphModeLineCurrent", "Line + value"),
+    (2, "GraphModeBarGraph", "Bar graph"),
+    (4, "GraphModeBarCurrent", "Bar + value"),
+    (5, "GraphModeAreaGraph", "Area graph"),
+    (6, "GraphModeAreaCurrent", "Area + value"),
 ]
 
 GRAPH_VALUE_MODE_OPTIONS = [
-    (0, "@Strings.GraphValueCurrent"),
-    (1, "@Strings.GraphValueAvg"),
-    (2, "@Strings.GraphValueMaxMin"),
-    (3, "@Strings.GraphValueMean"),
+    (0, "GraphValueCurrent", "Current value"),
+    (1, "GraphValueAvg", "Average"),
+    (2, "GraphValueMaxMin", "Max / Min"),
+    (3, "GraphValueMean", "Midpoint"),
 ]
 
 # Forecasts always draw a graph, so this drops GRAPH_MODE_OPTIONS' "value only".
 FORECAST_GRAPH_MODE_OPTIONS = GRAPH_MODE_OPTIONS[1:]
 
 FORECAST_VIEW_MODE_OPTIONS = [
-    (1, "@Strings.ViewModeGraph"),
-    (2, "@Strings.ViewModeGraphCurrent"),
+    (1, "ViewModeGraph", "Graph"),
+    (2, "ViewModeGraphCurrent", "Graph + Value"),
 ]
 
-# Qualitative bar density (see _resolveBarCount) - 1=Tight, 2=Normal, 3=Loose.
 BAR_GROUP_OPTIONS = [
-    (0, "@Strings.BarGroupOff"),
-    (1, "@Strings.BarGroupTight"),
-    (2, "@Strings.BarGroupNormal"),
-    (3, "@Strings.BarGroupLoose"),
+    (0, "BarGroupOff", "Off (full detail)"),
+    (1, "BarGroupTight", "Tight"),
+    (2, "BarGroupNormal", "Normal"),
+    (3, "BarGroupLoose", "Loose"),
 ]
 
 BAR_GROUP_AGG_OPTIONS = [
-    (0, "@Strings.BarGroupAggMean"),
-    (1, "@Strings.BarGroupAggMax"),
-    (2, "@Strings.BarGroupAggLast"),
+    (0, "BarGroupAggMean", "Mean"),
+    (1, "BarGroupAggMax", "Max"),
+    (2, "BarGroupAggLast", "Last value"),
+]
+
+SEC_TYPE_OPTIONS = [
+    (0, "SecTypeNone", "None (hidden)"),
+    (1, "SecTypeLine", "Line"),
+    (2, "SecTypeBar", "Bar"),
 ]
 
 
 class HourlyForecast(NamedTuple):
-    key: str  # camelKey
-    skey: str  # StringPrefix
+    key: str
+    skey: str
     display: str
     value_mode_default: int
     graph_color_default: int
 
 
 HOURLY_FORECASTS = [
+    HourlyForecast("wxForecast", "WxForecast", "Temp Hourly", 0, 16),
     HourlyForecast("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
     HourlyForecast("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
     HourlyForecast("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
@@ -502,15 +502,12 @@ HOURLY_FORECASTS = [
     HourlyForecast("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
 ]
 
-# --- XML helpers ---
-
 
 def ind(n):
     return "  " * n
 
 
-# Abbreviated to keep properties.xml under Connect IQ's size ceiling; mirrored
-# by hand in TerminalWatchfaceView.mc/Delegate.mc wherever a key is built.
+# Abbreviated to keep properties.xml under Connect IQ's size ceiling; mirrored by hand in TerminalWatchfaceView.mc.
 SUF = {
     "GraphMode": "Gm",
     "GraphValueMode": "Gvm",
@@ -566,7 +563,6 @@ PFX = {
     "pressure": "pres",
 }
 
-# One-off properties not composed from a prefix/suffix pair.
 STANDALONE_KEYS = {
     "fontChoice": "font",
     "colorTheme": "theme",
@@ -633,31 +629,20 @@ def setting_list(prop_key, title_key, entries, indent=1):
     return "\n".join(lines)
 
 
-def color_entries(colors):
-    return [(v, f"@Strings.{s}") for v, s, *_ in colors]
+def entries(options):
+    return [(v, f"@Strings.{s}") for v, s, *_ in options]
 
 
-def field_entries(fields):
-    return [(v, f"@Strings.{s}") for v, s, *_ in fields]
-
-
-def width_entries():
-    return [(v, f"@Strings.{s}") for v, s in GRAPH_WIDTH_OPTIONS]
+def option_strings(options):
+    return [string(sid, text) for _v, sid, text in options]
 
 
 def color_setting(prop_key, title_key, colors=COLORS_FULL, indent=1):
-    return setting_list(prop_key, title_key, color_entries(colors), indent)
+    return setting_list(prop_key, title_key, entries(colors), indent)
 
 
 def field_setting(prop_key, title_key, fields=FIELDS_ALL, indent=1):
-    return setting_list(prop_key, title_key, field_entries(fields), indent)
-
-
-def section(title, *blocks):
-    parts = [f"\n  <!-- {title} -->"]
-    for b in blocks:
-        parts.append(b)
-    return "\n".join(parts)
+    return setting_list(prop_key, title_key, entries(fields), indent)
 
 
 def group(gid, title_key, *blocks):
@@ -669,21 +654,10 @@ def group(gid, title_key, *blocks):
     return "\n".join(lines)
 
 
-# --- source/FieldIds.mc ---
-
-
 def gen_field_ids():
     lines = [
-        "// GENERATED FILE - DO NOT EDIT.",
-        "// Run `python scripts/generate_resources.py` to regenerate from",
-        "// FIELD_CATEGORIES in scripts/generate_resources.py.",
+        "// GENERATED FILE - DO NOT EDIT. Regenerate with `python scripts/generate_resources.py`.",
         "",
-        "// Graph cache key bit layout, used by _packGraphKey/_graphKeyHi/",
-        f"// _graphKeyLo. The high slot and low slot each get "
-        f"{CACHE_KEY_HI_SHIFT - CACHE_KEY_LO_SHIFT} bits (0-{CACHE_KEY_MASK}),",
-        f"// periodMin gets the low {CACHE_KEY_LO_SHIFT} bits (0-"
-        f"{CACHE_KEY_PERIOD_BUDGET - 1}). Field IDs currently span 1-"
-        f"{FIELD_CATEGORY_WIDTH * len(FIELD_CATEGORIES)}.",
         f"const CACHE_KEY_HI_SHIFT = {CACHE_KEY_HI_SHIFT};",
         f"const CACHE_KEY_LO_SHIFT = {CACHE_KEY_LO_SHIFT};",
         f"const CACHE_KEY_MASK = 0x{CACHE_KEY_MASK:x};",
@@ -700,9 +674,6 @@ def gen_field_ids():
         for suffix, string_id, _display in cat_fields:
             lines.append(f"const FIELD_{suffix} = {FIELD_VALUE[string_id]};")
     return "\n".join(lines) + "\n"
-
-
-# --- properties.xml ---
 
 
 def gen_properties():
@@ -738,14 +709,17 @@ def gen_properties():
     lines.append(prop(sk["line2LabelColor"], "number", 8))
     lines.append(prop(sk["line2ValueColor"], "number", 0))
 
-    # Label/value colors are per line, shared across that line's rotation slots.
-    for ln, slot, fd, lc, vc in LINE_SLOTS:
+    for ln, slot, fd in LINE_SLOTS:
         pk = f"l{ln}"
         if slot == "Primary":
             lines.append(f"\n  <!-- Line {ln} -->")
             lines.append(prop(f"{pk}{SUF['Enabled']}", "boolean", "true"))
-            lines.append(prop(f"{pk}{SUF['LabelColor']}", "number", lc))
-            lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", vc))
+            lines.append(
+                prop(
+                    f"{pk}{SUF['LabelColor']}", "number", LINE_LABEL_COLOR_DEFAULTS[ln]
+                )
+            )
+            lines.append(prop(f"{pk}{SUF['ValueColor']}", "number", 0))
         lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
 
     for bf in BAR_FIELDS:
@@ -779,13 +753,6 @@ def gen_properties():
         lines.append(prop(f"{pk}{SUF['BarGroup']}", "number", 0))
         lines.append(prop(f"{pk}{SUF['BarGroupAgg']}", "number", 0))
 
-    lines.append("\n  <!-- Weather Forecast -->")
-    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphMode']}", "number", 4))
-    lines.append(prop(f"{PFX['wxForecast']}{SUF['ValueMode']}", "number", 0))
-    lines.append(prop(f"{PFX['wxForecast']}{SUF['TimeFrame']}", "number", 12))
-    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphColor']}", "number", 16))
-    lines.append(prop(f"{PFX['wxForecast']}{SUF['GraphWidth']}", "number", 10))
-
     for hf in HOURLY_FORECASTS:
         lines.append(hourly_forecast_props(hf))
 
@@ -802,9 +769,6 @@ def gen_properties():
 
     lines.append("\n</properties>")
     return "\n".join(lines) + "\n"
-
-
-# --- strings.xml ---
 
 
 def gen_strings():
@@ -886,20 +850,17 @@ def gen_strings():
     lines.append(s("Rotate30s", "30 seconds"))
     lines.append(s("Rotate1min", "1 minute"))
 
-    _slot_r = {slot: f" ({abbrev})" for slot, abbrev in ROT.items()}
     lines.append("\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
     for ln in (3, 4, 5):
         pk = f"Line{ln}"
         ptitle = f"Line {ln}"
         lines.append(s(f"{pk}ConfigGroup", f"{ptitle} Configuration"))
-        for r_ln, slot, *_ in LINE_SLOTS:
-            if r_ln != ln:
-                continue
+        for _ln, slot, _fd in line_slots(ln):
             if slot == "Primary":
                 lines.append(s(f"{pk}Enabled", f"{ptitle}: Enabled"))
                 lines.append(s(f"{pk}LabelColor", f"{ptitle}: Label Color"))
                 lines.append(s(f"{pk}ValueColor", f"{ptitle}: Value Color"))
-            lines.append(s(f"{pk}{slot}", f"{ptitle}: Field{_slot_r[slot]}"))
+            lines.append(s(f"{pk}{slot}", f"{ptitle}: Field ({ROT[slot]})"))
 
     lines.append("\n  <!-- Shared: color options -->")
     for _v, sid, text in COLORS_FULL:
@@ -910,40 +871,20 @@ def gen_strings():
         lines.append(s(sid, text))
 
     lines.append("\n  <!-- Shared: graph mode options (sensor graphs) -->")
-    lines.append(s("GraphModeValue", "Value only"))
-    lines.append(s("GraphModeLineGraph", "Line graph"))
-    lines.append(s("GraphModeLineCurrent", "Line + value"))
-    lines.append(s("GraphModeBarGraph", "Bar graph"))
-    lines.append(s("GraphModeBarCurrent", "Bar + value"))
-    lines.append(s("GraphModeAreaGraph", "Area graph"))
-    lines.append(s("GraphModeAreaCurrent", "Area + value"))
+    lines.extend(option_strings(GRAPH_MODE_OPTIONS))
 
     lines.append("\n  <!-- Shared: graph value mode options -->")
-    lines.append(s("GraphValueCurrent", "Current value"))
-    lines.append(s("GraphValueAvg", "Average"))
-    lines.append(s("GraphValueMaxMin", "Max / Min"))
-    lines.append(s("GraphValueMean", "Midpoint"))
+    lines.extend(option_strings(GRAPH_VALUE_MODE_OPTIONS))
 
     lines.append("\n  <!-- Shared: forecast view mode options (daily) -->")
-    lines.append(s("ViewModeGraph", "Graph"))
-    lines.append(s("ViewModeGraphCurrent", "Graph + Value"))
+    lines.extend(option_strings(FORECAST_VIEW_MODE_OPTIONS))
 
     lines.append("\n  <!-- Shared: graph width options -->")
-    lines.append(s("GraphWidth6", "6 chars"))
-    lines.append(s("GraphWidth8", "8 chars"))
-    lines.append(s("GraphWidth10", "10 chars (default)"))
-    lines.append(s("GraphWidth12", "12 chars"))
-    lines.append(s("GraphWidth14", "14 chars"))
-    lines.append(s("GraphWidth16", "16 chars"))
+    lines.extend(option_strings(GRAPH_WIDTH_OPTIONS))
 
     lines.append("\n  <!-- Shared: bar grouping options -->")
-    lines.append(s("BarGroupOff", "Off (full detail)"))
-    lines.append(s("BarGroupTight", "Tight"))
-    lines.append(s("BarGroupNormal", "Normal"))
-    lines.append(s("BarGroupLoose", "Loose"))
-    lines.append(s("BarGroupAggMean", "Mean"))
-    lines.append(s("BarGroupAggMax", "Max"))
-    lines.append(s("BarGroupAggLast", "Last value"))
+    lines.extend(option_strings(BAR_GROUP_OPTIONS))
+    lines.extend(option_strings(BAR_GROUP_AGG_OPTIONS))
 
     for bf in BAR_FIELDS:
         id_prefix = bf.key[0].upper() + bf.key[1:]
@@ -955,27 +896,17 @@ def gen_strings():
         lines.append(s(f"{id_prefix}BarColor", f"{label}: Bar Color"))
         lines.append(s(f"{id_prefix}BarWidth", f"{label}: Bar Width"))
         if bf.goal_default is not None:
-            suffix = bf.goal_label_suffix if bf.goal_label_suffix else ""
+            suffix = bf.goal_label_suffix or ""
             lines.append(s(f"{id_prefix}BarGoal", f"{label}: Daily Goal{suffix}"))
 
     lines.append("\n  <!-- Shared: secondary graph type options -->")
-    lines.append(s("SecTypeNone", "None (hidden)"))
-    lines.append(s("SecTypeLine", "Line"))
-    lines.append(s("SecTypeBar", "Bar"))
+    lines.extend(option_strings(SEC_TYPE_OPTIONS))
 
     lines.append("\n  <!-- Shared: graph time frame options -->")
-    lines.append(s("TimeFrame15m", "15 minutes"))
-    lines.append(s("TimeFrame30m", "30 minutes"))
-    lines.append(s("TimeFrame1h", "1 hour"))
-    lines.append(s("TimeFrame2h", "2 hours"))
-    lines.append(s("TimeFrame4h", "4 hours"))
-    lines.append(s("TimeFrame6h", "6 hours"))
-    lines.append(s("TimeFrame8h", "8 hours"))
-    lines.append(s("TimeFrame12h", "12 hours"))
-    lines.append(s("TimeFrame24h", "24 hours"))
+    lines.extend(option_strings(GRAPH_TIME_FRAMES))
 
     for gf in GRAPH_FIELDS:
-        display = GRAPH_DISPLAY_NAMES[gf.key]
+        display = gf.display
         skey = gf.skey
         lines.append(f"\n  <!-- Graph settings: {display} -->")
         lines.append(s(f"{skey}GraphGroup", f"{GRAPH_CONFIG_PREFIX}{display}"))
@@ -990,17 +921,8 @@ def gen_strings():
         lines.append(s(f"{skey}SecondaryColor", f"{display}: 2nd Graph Color"))
         lines.append(s(f"{skey}GraphWidth", f"{display}: Graph Width"))
 
-    lines.append("\n  <!-- Graph settings: Temp Hourly Forecast -->")
-    lines.append(s("WxForecastGroup", GRAPH_CONFIG_PREFIX + "Temp Hourly Forecast"))
-    lines.append(s("WxForecastGraphMode", "Temp Hourly: Graph Mode"))
-    lines.append(s("WxForecastValueMode", "Temp Hourly: Value Mode"))
-    lines.append(s("WxForecastTimeFrame", "Temp Hourly: Time Frame"))
-    lines.append(s("WxForecastGraphColor", "Temp Hourly: Graph Color"))
-    lines.append(s("WxForecastGraphWidth", "Temp Hourly: Graph Width"))
-    lines.append(s("TimeFrameForecast3h", "3 hours ahead"))
-    lines.append(s("TimeFrameForecast6h", "6 hours ahead"))
-    lines.append(s("TimeFrameForecast12h", "12 hours ahead"))
-    lines.append(s("TimeFrameForecast24h", "24 hours ahead"))
+    lines.append("\n  <!-- Shared: forecast time frame options -->")
+    lines.extend(option_strings(FORECAST_TIME_FRAMES))
 
     for hf in HOURLY_FORECASTS:
         lines.append(hourly_forecast_strings(hf))
@@ -1012,9 +934,7 @@ def gen_strings():
     lines.append(s("WxForecastDailyDays", "Temp Daily: Days"))
     lines.append(s("WxForecastDailyGraphColor", "Temp Daily: Graph Color"))
     lines.append(s("WxForecastDailyGraphWidth", "Temp Daily: Graph Width"))
-    lines.append(s("TimeFrameForecastDays3", "3 days"))
-    lines.append(s("TimeFrameForecastDays5", "5 days"))
-    lines.append(s("TimeFrameForecastDays7", "7 days"))
+    lines.extend(option_strings(FORECAST_DAY_OPTIONS))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
@@ -1025,11 +945,8 @@ def gen_strings():
     return "\n".join(lines) + "\n"
 
 
-# --- settings.xml ---
-
-
 def width_setting(prop_key, title_key, indent=1):
-    return setting_list(prop_key, title_key, width_entries(), indent)
+    return setting_list(prop_key, title_key, entries(GRAPH_WIDTH_OPTIONS), indent)
 
 
 def graph_section(gf, indent=1):
@@ -1039,14 +956,17 @@ def graph_section(gf, indent=1):
 
     blocks.append(
         setting_list(
-            f"{pk}{SUF['GraphMode']}", f"{skey}GraphMode", GRAPH_MODE_OPTIONS, indent
+            f"{pk}{SUF['GraphMode']}",
+            f"{skey}GraphMode",
+            entries(GRAPH_MODE_OPTIONS),
+            indent,
         )
     )
     blocks.append(
         setting_list(
             f"{pk}{SUF['GraphValueMode']}",
             f"{skey}GraphValueMode",
-            GRAPH_VALUE_MODE_OPTIONS,
+            entries(GRAPH_VALUE_MODE_OPTIONS),
             indent,
         )
     )
@@ -1054,7 +974,7 @@ def graph_section(gf, indent=1):
         setting_list(
             f"{pk}{SUF['BarGroup']}",
             f"{skey}BarGroup",
-            BAR_GROUP_OPTIONS,
+            entries(BAR_GROUP_OPTIONS),
             indent,
         )
     )
@@ -1062,7 +982,7 @@ def graph_section(gf, indent=1):
         setting_list(
             f"{pk}{SUF['BarGroupAgg']}",
             f"{skey}BarGroupAgg",
-            BAR_GROUP_AGG_OPTIONS,
+            entries(BAR_GROUP_AGG_OPTIONS),
             indent,
         )
     )
@@ -1070,11 +990,7 @@ def graph_section(gf, indent=1):
         setting_list(
             f"{pk}{SUF['SecondaryType']}",
             f"{skey}SecondaryType",
-            [
-                (0, "@Strings.SecTypeNone"),
-                (1, "@Strings.SecTypeLine"),
-                (2, "@Strings.SecTypeBar"),
-            ],
+            entries(SEC_TYPE_OPTIONS),
             indent,
         )
     )
@@ -1082,20 +998,19 @@ def graph_section(gf, indent=1):
         setting_list(
             f"{pk}{SUF['SecondaryField']}",
             f"{skey}SecondaryField",
-            [(v, f"@Strings.{s}") for v, s in GRAPH_SEC_FIELDS],
+            [(i, f"@Strings.{sid}") for i, sid in enumerate(GRAPH_SEC_FIELDS)],
             indent,
         )
     )
-    tf_entries = [
-        (v, f"@Strings.{s}")
-        for v, s in GRAPH_TIME_FRAMES
-        if gf.max_time_frame is None or v <= gf.max_time_frame
-    ]
     blocks.append(
         setting_list(
             f"{pk}{SUF['TimeFrame']}",
             f"{skey}TimeFrame",
-            tf_entries,
+            entries(
+                o
+                for o in GRAPH_TIME_FRAMES
+                if gf.max_time_frame is None or o[0] <= gf.max_time_frame
+            ),
             indent,
         )
     )
@@ -1114,11 +1029,6 @@ def graph_section(gf, indent=1):
     return "\n".join(blocks)
 
 
-def forecast_tf_entries():
-    return [(v, f"@Strings.{sid}") for v, sid in FORECAST_TIME_FRAMES]
-
-
-# Shared block builders for the shape-identical HOURLY_FORECASTS entries.
 def hourly_forecast_props(hf):
     pk = PFX.get(hf.key, hf.key)
     return "\n".join(
@@ -1157,19 +1067,19 @@ def hourly_forecast_settings(hf, indent=1):
             setting_list(
                 f"{pk}{SUF['GraphMode']}",
                 f"{skey}GraphMode",
-                FORECAST_GRAPH_MODE_OPTIONS,
+                entries(FORECAST_GRAPH_MODE_OPTIONS),
                 indent,
             ),
             setting_list(
                 f"{pk}{SUF['ValueMode']}",
                 f"{skey}ValueMode",
-                GRAPH_VALUE_MODE_OPTIONS,
+                entries(GRAPH_VALUE_MODE_OPTIONS),
                 indent,
             ),
             setting_list(
                 f"{pk}{SUF['TimeFrame']}",
                 f"{skey}TimeFrame",
-                forecast_tf_entries(),
+                entries(FORECAST_TIME_FRAMES),
                 indent,
             ),
             color_setting(
@@ -1343,9 +1253,7 @@ def gen_settings():
         )
     )
 
-    # One group per line (3-5), each with all 9 of that line's rotation slots.
     for ln in (3, 4, 5):
-        rows = [r for r in LINE_SLOTS if r.line_num == ln]
         pk = f"l{ln}"
         lsk = f"Line{ln}"
         line_blocks = [
@@ -1359,7 +1267,7 @@ def gen_settings():
         ]
         line_blocks.extend(
             field_setting(f"{pk}{ROT[r.slot]}", f"{lsk}{r.slot}", indent=2)
-            for r in rows
+            for r in line_slots(ln)
         )
         parts.append(group(f"line{ln}", f"{lsk}ConfigGroup", *line_blocks))
 
@@ -1395,41 +1303,6 @@ def gen_settings():
             )
         )
 
-    parts.append(
-        group(
-            "wxForecast",
-            "WxForecastGroup",
-            setting_list(
-                f"{PFX['wxForecast']}{SUF['GraphMode']}",
-                "WxForecastGraphMode",
-                FORECAST_GRAPH_MODE_OPTIONS,
-                indent=2,
-            ),
-            setting_list(
-                f"{PFX['wxForecast']}{SUF['ValueMode']}",
-                "WxForecastValueMode",
-                GRAPH_VALUE_MODE_OPTIONS,
-                indent=2,
-            ),
-            setting_list(
-                f"{PFX['wxForecast']}{SUF['TimeFrame']}",
-                "WxForecastTimeFrame",
-                forecast_tf_entries(),
-                indent=2,
-            ),
-            color_setting(
-                f"{PFX['wxForecast']}{SUF['GraphColor']}",
-                "WxForecastGraphColor",
-                indent=2,
-            ),
-            width_setting(
-                f"{PFX['wxForecast']}{SUF['GraphWidth']}",
-                "WxForecastGraphWidth",
-                indent=2,
-            ),
-        )
-    )
-
     for hf in HOURLY_FORECASTS:
         parts.append(
             group(hf.key, f"{hf.skey}Group", hourly_forecast_settings(hf, indent=2))
@@ -1442,23 +1315,19 @@ def gen_settings():
             setting_list(
                 f"{PFX['wxForecastDaily']}{SUF['ViewMode']}",
                 "WxForecastDailyViewMode",
-                FORECAST_VIEW_MODE_OPTIONS,
+                entries(FORECAST_VIEW_MODE_OPTIONS),
                 indent=2,
             ),
             setting_list(
                 f"{PFX['wxForecastDaily']}{SUF['ValueMode']}",
                 "WxForecastDailyValueMode",
-                GRAPH_VALUE_MODE_OPTIONS,
+                entries(GRAPH_VALUE_MODE_OPTIONS),
                 indent=2,
             ),
             setting_list(
                 f"{PFX['wxForecastDaily']}{SUF['Days']}",
                 "WxForecastDailyDays",
-                [
-                    (3, "@Strings.TimeFrameForecastDays3"),
-                    (5, "@Strings.TimeFrameForecastDays5"),
-                    (7, "@Strings.TimeFrameForecastDays7"),
-                ],
+                entries(FORECAST_DAY_OPTIONS),
                 indent=2,
             ),
             color_setting(
@@ -1487,14 +1356,10 @@ def gen_settings():
     return "\n".join(parts) + "\n"
 
 
-# --- Write output ---
-
-
 def write(path, content):
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
-    rel = os.path.relpath(path, ROOT)
-    print(f"  wrote {rel}")
+    print(f"  wrote {os.path.relpath(path, ROOT)}")
 
 
 if __name__ == "__main__":

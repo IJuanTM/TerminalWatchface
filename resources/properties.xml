@@ -196,7 +196,7 @@
   <property id="presBn" type="number">0</property>
   <property id="presBa" type="number">0</property>
 
-  <!-- Weather Forecast -->
+  <!-- Temp Hourly Forecast -->
   <property id="wxfGm" type="number">4</property>
   <property id="wxfVm" type="number">0</property>
   <property id="wxfTf" type="number">12</property>

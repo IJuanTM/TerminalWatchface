@@ -423,17 +423,19 @@
   <string id="PressureSecondaryColor">Pressure: 2nd Graph Color</string>
   <string id="PressureGraphWidth">Pressure: Graph Width</string>
 
-  <!-- Graph settings: Temp Hourly Forecast -->
-  <string id="WxForecastGroup">Graph Config - Temp Hourly Forecast</string>
-  <string id="WxForecastGraphMode">Temp Hourly: Graph Mode</string>
-  <string id="WxForecastValueMode">Temp Hourly: Value Mode</string>
-  <string id="WxForecastTimeFrame">Temp Hourly: Time Frame</string>
-  <string id="WxForecastGraphColor">Temp Hourly: Graph Color</string>
-  <string id="WxForecastGraphWidth">Temp Hourly: Graph Width</string>
+  <!-- Shared: forecast time frame options -->
   <string id="TimeFrameForecast3h">3 hours ahead</string>
   <string id="TimeFrameForecast6h">6 hours ahead</string>
   <string id="TimeFrameForecast12h">12 hours ahead</string>
   <string id="TimeFrameForecast24h">24 hours ahead</string>
+
+  <!-- Graph settings: Temp Hourly Forecast -->
+  <string id="WxForecastGroup">Graph Config - Temp Hourly Forecast</string>
+  <string id="WxForecastGraphMode">Temp Hourly: Graph Mode</string>
+  <string id="WxForecastValueMode">Temp Hourly: Value Mode</string>
+  <string id="WxForecastTimeFrame">Temp Hourly: Hours Ahead</string>
+  <string id="WxForecastGraphColor">Temp Hourly: Graph Color</string>
+  <string id="WxForecastGraphWidth">Temp Hourly: Graph Width</string>
 
   <!-- Graph settings: Rain Hourly Forecast -->
   <string id="WxForecastPrecipGroup">Graph Config - Rain Hourly Forecast</string>
