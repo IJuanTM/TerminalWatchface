@@ -13,7 +13,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.57.0";
+const APP_VERSION = "0.57.1";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -1263,12 +1263,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (label == null) {
             return;
         }
-        var color =
-            mode == 0
-                ? ColorUtils.colorFromIdx(1)
-                : mode == 1
-                  ? ColorUtils.colorFromIdx(5)
-                  : ColorUtils.colorFromIdx(6);
         _glowText(
             dc,
             rightX + _charW / 2,
@@ -1276,7 +1270,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _fontTiny,
             label,
             Graphics.TEXT_JUSTIFY_LEFT,
-            color
+            ColorUtils.colorFromIdx(mode == 0 ? 1 : mode == 1 ? 5 : 6)
         );
     }
 
