@@ -244,6 +244,7 @@
   <string id="FieldWxFcstUv">Forecast: UV (Hourly)</string>
   <string id="FieldWxFcstCloud">Forecast: Cloud (Hourly)</string>
   <string id="FieldWxFcstHumidity">Forecast: Humidity (Hourly)</string>
+  <string id="FieldWxNowcast">Forecast: Rain Nowcast (2h)</string>
   <string id="FieldWxFcstCond1d">Forecast: Condition (+1 day)</string>
   <string id="FieldWxFcstCond2d">Forecast: Condition (+2 days)</string>
   <string id="FieldWxFcstCond3d">Forecast: Condition (+3 days)</string>
@@ -507,6 +508,21 @@
   <string id="TimeFrameForecastDays3">3 days</string>
   <string id="TimeFrameForecastDays5">5 days</string>
   <string id="TimeFrameForecastDays7">7 days</string>
+
+  <!-- Graph settings: Rain Nowcast -->
+  <string id="WxNowcastGroup">Graph Config - Rain Nowcast</string>
+  <string id="WxNowcastGraphMode">Rain Nowcast: Graph Mode</string>
+  <string id="WxNowcastValueMode">Rain Nowcast: Value Mode</string>
+  <string id="WxNowcastTimeFrame">Rain Nowcast: Minutes Ahead</string>
+  <string id="WxNowcastGraphColor">Rain Nowcast: Graph Color</string>
+  <string id="WxNowcastGraphWidth">Rain Nowcast: Graph Width</string>
+  <string id="TimeFrameNowcast30m">30 minutes ahead</string>
+  <string id="TimeFrameNowcast60m">1 hour ahead</string>
+  <string id="TimeFrameNowcast90m">90 minutes ahead</string>
+  <string id="TimeFrameNowcast120m">2 hours ahead</string>
+  <string id="NowcastValueNext">Next change</string>
+  <string id="NowcastValueCurrent">Current rate</string>
+  <string id="NowcastValueMax">Max rate</string>
 
   <!-- Debug -->
   <string id="DebugGroup">Debug</string>

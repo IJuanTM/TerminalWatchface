@@ -330,6 +330,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -430,6 +431,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -530,6 +532,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -630,6 +633,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -730,6 +734,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -830,6 +835,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -930,6 +936,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1030,6 +1037,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1130,6 +1138,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1263,6 +1272,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1363,6 +1373,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1463,6 +1474,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1563,6 +1575,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1663,6 +1676,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1763,6 +1777,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1863,6 +1878,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -1963,6 +1979,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2063,6 +2080,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2196,6 +2214,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2296,6 +2315,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2396,6 +2416,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2496,6 +2517,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2596,6 +2618,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2696,6 +2719,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2796,6 +2820,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2896,6 +2921,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -2996,6 +3022,7 @@
         <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
         <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
         <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
+        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
         <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
         <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
         <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
@@ -4489,6 +4516,67 @@
       </settingConfig>
     </setting>
     <setting propertyKey="@Properties.wxfdGw" title="@Strings.WxForecastDailyGraphWidth">
+      <settingConfig type="list">
+        <listEntry value="6">@Strings.GraphWidth6</listEntry>
+        <listEntry value="8">@Strings.GraphWidth8</listEntry>
+        <listEntry value="10">@Strings.GraphWidth10</listEntry>
+        <listEntry value="12">@Strings.GraphWidth12</listEntry>
+        <listEntry value="14">@Strings.GraphWidth14</listEntry>
+        <listEntry value="16">@Strings.GraphWidth16</listEntry>
+      </settingConfig>
+    </setting>
+  </group>
+  <group id="wxNowcast" title="@Strings.WxNowcastGroup">
+    <setting propertyKey="@Properties.wxnGm" title="@Strings.WxNowcastGraphMode">
+      <settingConfig type="list">
+        <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
+        <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
+        <listEntry value="2">@Strings.GraphModeBarGraph</listEntry>
+        <listEntry value="4">@Strings.GraphModeBarCurrent</listEntry>
+        <listEntry value="5">@Strings.GraphModeAreaGraph</listEntry>
+        <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.wxnVm" title="@Strings.WxNowcastValueMode">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.NowcastValueNext</listEntry>
+        <listEntry value="1">@Strings.NowcastValueCurrent</listEntry>
+        <listEntry value="2">@Strings.NowcastValueMax</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.wxnTf" title="@Strings.WxNowcastTimeFrame">
+      <settingConfig type="list">
+        <listEntry value="30">@Strings.TimeFrameNowcast30m</listEntry>
+        <listEntry value="60">@Strings.TimeFrameNowcast60m</listEntry>
+        <listEntry value="90">@Strings.TimeFrameNowcast90m</listEntry>
+        <listEntry value="120">@Strings.TimeFrameNowcast120m</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.wxnGc" title="@Strings.WxNowcastGraphColor">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.ColorWhite</listEntry>
+        <listEntry value="5">@Strings.ColorRed</listEntry>
+        <listEntry value="4">@Strings.ColorOrange</listEntry>
+        <listEntry value="3">@Strings.ColorYellow</listEntry>
+        <listEntry value="1">@Strings.ColorGreen</listEntry>
+        <listEntry value="2">@Strings.ColorCyan</listEntry>
+        <listEntry value="6">@Strings.ColorBlue</listEntry>
+        <listEntry value="9">@Strings.ColorPurple</listEntry>
+        <listEntry value="7">@Strings.ColorMagenta</listEntry>
+        <listEntry value="8">@Strings.ColorLightGrey</listEntry>
+        <listEntry value="10">@Strings.GradTriColor</listEntry>
+        <listEntry value="11">@Strings.GradTriColorRev</listEntry>
+        <listEntry value="12">@Strings.GradTempCustom</listEntry>
+        <listEntry value="13">@Strings.GradTempCustomRev</listEntry>
+        <listEntry value="14">@Strings.GradTempSpectral</listEntry>
+        <listEntry value="15">@Strings.GradTempSpectralRev</listEntry>
+        <listEntry value="16">@Strings.GradTempTurbo</listEntry>
+        <listEntry value="17">@Strings.GradTempTurboRev</listEntry>
+        <listEntry value="18">@Strings.GradTempInferno</listEntry>
+        <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.wxnGw" title="@Strings.WxNowcastGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>

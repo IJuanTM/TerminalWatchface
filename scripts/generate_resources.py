@@ -170,9 +170,11 @@ FIELD_CATEGORIES = [
             # UV stays first - _drawUvRow always renders it first regardless of naming.
             ("WX_UV_PRECIP", "FieldWxUVPrecip", "Weather: UV + Rain"),
             ("WX_CLOUD_PRECIP", "FieldWxCloudPrecip", "Weather: Rain + Cloud"),
-            ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip", "Weather: Rain + Humidity"),
+            ("WX_HUMIDITY_PRECIP", "FieldWxHumidityPrecip",
+             "Weather: Rain + Humidity"),
             ("WX_UV_WIND", "FieldWxUVWind", "Weather: UV + Wind"),
-            ("WX_HUMIDITY_DEW", "FieldWxHumidityDew", "Weather: Humidity + Dew Point"),
+            ("WX_HUMIDITY_DEW", "FieldWxHumidityDew",
+             "Weather: Humidity + Dew Point"),
             ("WX_COND_CLOUD", "FieldWxCondCloud", "Weather: Condition + Cloud"),
         ],
     ),
@@ -185,17 +187,24 @@ FIELD_CATEGORIES = [
             ("WX_FCST_WIND", "FieldWxFcstWind", "Forecast: Wind (Hourly)"),
             ("WX_FCST_UV", "FieldWxFcstUv", "Forecast: UV (Hourly)"),
             ("WX_FCST_CLOUD", "FieldWxFcstCloud", "Forecast: Cloud (Hourly)"),
-            ("WX_FCST_HUMIDITY", "FieldWxFcstHumidity", "Forecast: Humidity (Hourly)"),
+            ("WX_FCST_HUMIDITY", "FieldWxFcstHumidity",
+             "Forecast: Humidity (Hourly)"),
+            ("WX_NOWCAST", "FieldWxNowcast", "Forecast: Rain Nowcast (2h)"),
         ],
     ),
     (
         "Weather: forecast conditions",
         [
-            ("WX_FCST_COND_1D", "FieldWxFcstCond1d", "Forecast: Condition (+1 day)"),
-            ("WX_FCST_COND_2D", "FieldWxFcstCond2d", "Forecast: Condition (+2 days)"),
-            ("WX_FCST_COND_3D", "FieldWxFcstCond3d", "Forecast: Condition (+3 days)"),
-            ("WX_COND_FCST_1D", "FieldWxCondFcst1d", "Weather: Condition + Tomorrow"),
-            ("WX_FCST_COND_12D", "FieldWxFcstCond12d", "Forecast: +1d + +2d Condition"),
+            ("WX_FCST_COND_1D", "FieldWxFcstCond1d",
+             "Forecast: Condition (+1 day)"),
+            ("WX_FCST_COND_2D", "FieldWxFcstCond2d",
+             "Forecast: Condition (+2 days)"),
+            ("WX_FCST_COND_3D", "FieldWxFcstCond3d",
+             "Forecast: Condition (+3 days)"),
+            ("WX_COND_FCST_1D", "FieldWxCondFcst1d",
+             "Weather: Condition + Tomorrow"),
+            ("WX_FCST_COND_12D", "FieldWxFcstCond12d",
+             "Forecast: +1d + +2d Condition"),
         ],
     ),
     (
@@ -268,8 +277,10 @@ GRAPH_FIELDS = [
     GraphField("spo2", "SpO2", "Blood O2", 6, 0, 0, 240, 6, 0, 2, None, 120),
     GraphField("bodyBat", "BodyBat", "Body Battery", 6, 0, 3, 240, 11, 0, 0),
     GraphField("stress", "Stress", "Stress", 3, 0, 0, 120, 10, 0, 1),
-    GraphField("tempWrist", "TempWrist", "Wrist Temp", 3, 0, 0, 60, 16, 0, 1, 360),
-    GraphField("elevation", "Elevation", "Elevation", 6, 0, 6, 360, 1, 0, 0, 360),
+    GraphField("tempWrist", "TempWrist", "Wrist Temp",
+               3, 0, 0, 60, 16, 0, 1, 360),
+    GraphField("elevation", "Elevation", "Elevation",
+               6, 0, 6, 360, 1, 0, 0, 360),
     GraphField("pressure", "Pressure", "Pressure", 3, 0, 5, 120, 2, 0, 1, 360),
 ]
 
@@ -290,7 +301,8 @@ class BarField(NamedTuple):
 
 BAR_FIELDS = [
     BarField("steps", "Steps", "Steps", True, 1, 10, None, None, None, None),
-    BarField("floors", "Floors", "Floors", False, 5, 8, None, None, None, None),
+    BarField("floors", "Floors", "Floors", False,
+             5, 8, None, None, None, None),
     BarField(
         "calories", "Calories (Daily)", "Calories", False, 4, 10, 2000, 500, 9000, None
     ),
@@ -362,6 +374,19 @@ FORECAST_TIME_FRAMES = [
     (24, "TimeFrameForecast24h", "24 hours ahead"),
 ]
 
+NOWCAST_TIME_FRAMES = [
+    (30, "TimeFrameNowcast30m", "30 minutes ahead"),
+    (60, "TimeFrameNowcast60m", "1 hour ahead"),
+    (90, "TimeFrameNowcast90m", "90 minutes ahead"),
+    (120, "TimeFrameNowcast120m", "2 hours ahead"),
+]
+
+NOWCAST_VALUE_MODE_OPTIONS = [
+    (0, "NowcastValueNext", "Next change"),
+    (1, "NowcastValueCurrent", "Current rate"),
+    (2, "NowcastValueMax", "Max rate"),
+]
+
 FORECAST_DAY_OPTIONS = [
     (3, "TimeFrameForecastDays3", "3 days"),
     (5, "TimeFrameForecastDays5", "5 days"),
@@ -410,13 +435,13 @@ LINE_SLOTS = [
     LineSlot(3, "Primary", _fv["FieldWxFcstTemp"]),
     LineSlot(4, "Primary", _fv["FieldSteps"]),
     LineSlot(5, "Primary", _fv["FieldHR"]),
-    LineSlot(3, "Secondary", _fv["FieldWxCondCloud"]),
+    LineSlot(3, "Secondary", _fv["FieldWxNowcast"]),
     LineSlot(4, "Secondary", _fv["FieldElevation"]),
     LineSlot(5, "Secondary", _fv["FieldStress"]),
-    LineSlot(3, "Tertiary", _fv["FieldWxUVWind"]),
+    LineSlot(3, "Tertiary", _fv["FieldWxCondCloud"]),
     LineSlot(4, "Tertiary", _fv["FieldDistance"]),
     LineSlot(5, "Tertiary", _fv["FieldBodyBat"]),
-    LineSlot(3, "Quaternary", _fv["FieldWxHumidityPrecip"]),
+    LineSlot(3, "Quaternary", _fv["FieldWxUVWind"]),
     LineSlot(4, "Quaternary", _fv["FieldFloors"]),
     LineSlot(5, "Quaternary", _fv["FieldActiveMinDay"]),
     LineSlot(3, "Quinary", _fv["FieldWxFcstDaily"]),
@@ -494,16 +519,38 @@ class HourlyForecast(NamedTuple):
     display: str
     value_mode_default: int
     graph_color_default: int
+    graph_mode_default: int = 4
+    time_frame_default: int = 12
+    time_frames: list = FORECAST_TIME_FRAMES
+    value_modes: list = GRAPH_VALUE_MODE_OPTIONS
+    time_frame_label: str = "Hours Ahead"
+    title_suffix: str = " Forecast"
 
 
 HOURLY_FORECASTS = [
     HourlyForecast("wxForecast", "WxForecast", "Temp Hourly", 0, 16),
-    HourlyForecast("wxForecastPrecip", "WxForecastPrecip", "Rain Hourly", 1, 6),
+    HourlyForecast("wxForecastPrecip", "WxForecastPrecip",
+                   "Rain Hourly", 1, 6),
     HourlyForecast("wxForecastWind", "WxForecastWind", "Wind Hourly", 1, 6),
     HourlyForecast("wxForecastUv", "WxForecastUv", "UV Hourly", 2, 3),
     HourlyForecast("wxForecastCloud", "WxForecastCloud", "Cloud Hourly", 1, 8),
-    HourlyForecast("wxForecastHumidity", "WxForecastHumidity", "Humidity Hourly", 1, 2),
+    HourlyForecast("wxForecastHumidity", "WxForecastHumidity",
+                   "Humidity Hourly", 1, 2),
 ]
+
+NOWCAST = HourlyForecast(
+    "wxNowcast",
+    "WxNowcast",
+    "Rain Nowcast",
+    0,
+    6,
+    graph_mode_default=6,
+    time_frame_default=120,
+    time_frames=NOWCAST_TIME_FRAMES,
+    value_modes=NOWCAST_VALUE_MODE_OPTIONS,
+    time_frame_label="Minutes Ahead",
+    title_suffix="",
+)
 
 
 _UNIT_WATCH = (0, "UnitWatch", "Watch setting")
@@ -524,7 +571,8 @@ UNIT_SETTINGS = [
         "unitTemperature",
         "UnitTemperature",
         "Units: Temperature",
-        [_UNIT_WATCH, (1, "UnitCelsius", "Celsius"), (2, "UnitFahrenheit", "Fahrenheit")],
+        [_UNIT_WATCH, (1, "UnitCelsius", "Celsius"),
+         (2, "UnitFahrenheit", "Fahrenheit")],
     ),
     (
         "unitElevation",
@@ -602,6 +650,7 @@ PFX = {
     "wxForecastCloud": "wxfc",
     "wxForecastHumidity": "wxfh",
     "wxForecastDaily": "wxfd",
+    "wxNowcast": "wxn",
     "bodyBat": "bb",
     "tempWrist": "tw",
     "activeMinDay": "aMin",
@@ -794,22 +843,30 @@ def gen_properties():
             )
         )
         lines.append(prop(f"{pk}{SUF['ShowBarValue']}", "boolean", "true"))
-        lines.append(prop(f"{pk}{SUF['BarColor']}", "number", bf.color_default))
-        lines.append(prop(f"{pk}{SUF['BarWidth']}", "number", bf.width_default))
+        lines.append(prop(f"{pk}{SUF['BarColor']}",
+                     "number", bf.color_default))
+        lines.append(prop(f"{pk}{SUF['BarWidth']}",
+                     "number", bf.width_default))
         if bf.goal_default is not None:
-            lines.append(prop(f"{pk}{SUF['BarGoal']}", "number", bf.goal_default))
+            lines.append(
+                prop(f"{pk}{SUF['BarGoal']}", "number", bf.goal_default))
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for gf in GRAPH_FIELDS:
         pk = PFX.get(gf.key, gf.key)
         lines.append(f"\n  <!-- {gf.skey} -->")
         lines.append(prop(f"{pk}{SUF['GraphMode']}", "number", gf.mode))
-        lines.append(prop(f"{pk}{SUF['GraphValueMode']}", "number", gf.value_mode))
-        lines.append(prop(f"{pk}{SUF['SecondaryType']}", "number", gf.sec_type))
-        lines.append(prop(f"{pk}{SUF['SecondaryField']}", "number", gf.sec_field))
+        lines.append(
+            prop(f"{pk}{SUF['GraphValueMode']}", "number", gf.value_mode))
+        lines.append(
+            prop(f"{pk}{SUF['SecondaryType']}", "number", gf.sec_type))
+        lines.append(
+            prop(f"{pk}{SUF['SecondaryField']}", "number", gf.sec_field))
         lines.append(prop(f"{pk}{SUF['TimeFrame']}", "number", gf.time_frame))
-        lines.append(prop(f"{pk}{SUF['GraphColor']}", "number", gf.graph_color))
-        lines.append(prop(f"{pk}{SUF['SecondaryColor']}", "number", gf.sec_color))
+        lines.append(
+            prop(f"{pk}{SUF['GraphColor']}", "number", gf.graph_color))
+        lines.append(
+            prop(f"{pk}{SUF['SecondaryColor']}", "number", gf.sec_color))
         lines.append(prop(f"{pk}{SUF['GraphWidth']}", "number", 10))
         lines.append(prop(f"{pk}{SUF['BarGroup']}", "number", 0))
         lines.append(prop(f"{pk}{SUF['BarGroupAgg']}", "number", 0))
@@ -818,11 +875,17 @@ def gen_properties():
         lines.append(hourly_forecast_props(hf))
 
     lines.append("\n  <!-- Day Forecast -->")
-    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['ViewMode']}", "number", 2))
-    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['ValueMode']}", "number", 2))
+    lines.append(
+        prop(f"{PFX['wxForecastDaily']}{SUF['ViewMode']}", "number", 2))
+    lines.append(
+        prop(f"{PFX['wxForecastDaily']}{SUF['ValueMode']}", "number", 2))
     lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['Days']}", "number", 5))
-    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['GraphColor']}", "number", 16))
-    lines.append(prop(f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}", "number", 8))
+    lines.append(
+        prop(f"{PFX['wxForecastDaily']}{SUF['GraphColor']}", "number", 16))
+    lines.append(
+        prop(f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}", "number", 8))
+
+    lines.append(hourly_forecast_props(NOWCAST))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop(sk["showVersion"], "boolean", "false"))
@@ -900,7 +963,8 @@ def gen_strings():
     lines.append(s(*_UNIT_WATCH[1:]))
     for _key, sid, title, options in UNIT_SETTINGS:
         lines.append(s(sid, title))
-        lines.extend(option_strings(o for o in options if o is not _UNIT_WATCH))
+        lines.extend(option_strings(
+            o for o in options if o is not _UNIT_WATCH))
 
     lines.append("\n  <!-- Rotation -->")
     lines.append(s("RotationGroup", "Rotation"))
@@ -918,7 +982,8 @@ def gen_strings():
     lines.append(s("Rotate30s", "30 seconds"))
     lines.append(s("Rotate1min", "1 minute"))
 
-    lines.append("\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
+    lines.append(
+        "\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
     for ln in (3, 4, 5):
         pk = f"Line{ln}"
         ptitle = f"Line {ln}"
@@ -958,9 +1023,11 @@ def gen_strings():
         id_prefix = bf.key[0].upper() + bf.key[1:]
         label = bf.label
         lines.append(f"\n  <!-- {bf.group_title} -->")
-        lines.append(s(f"{id_prefix}Group", BAR_CONFIG_PREFIX + bf.group_title))
+        lines.append(
+            s(f"{id_prefix}Group", BAR_CONFIG_PREFIX + bf.group_title))
         lines.append(s(f"{id_prefix}ShowBar", f"{label}: Show Progress Bar"))
-        lines.append(s(f"{id_prefix}ShowBarValue", f"{label}: Show Value in Bar"))
+        lines.append(s(f"{id_prefix}ShowBarValue",
+                     f"{label}: Show Value in Bar"))
         lines.append(s(f"{id_prefix}BarColor", f"{label}: Bar Color"))
         lines.append(s(f"{id_prefix}BarWidth", f"{label}: Bar Width"))
         if bf.goal_default is not None:
@@ -983,9 +1050,11 @@ def gen_strings():
         lines.append(f"\n  <!-- Graph settings: {display} -->")
         lines.append(s(f"{skey}GraphGroup", f"{GRAPH_CONFIG_PREFIX}{display}"))
         lines.append(s(f"{skey}GraphMode", f"{display}: Graph Mode"))
-        lines.append(s(f"{skey}GraphValueMode", f"{display}: Graph Value Mode"))
+        lines.append(s(f"{skey}GraphValueMode",
+                     f"{display}: Graph Value Mode"))
         lines.append(s(f"{skey}BarGroup", f"{display}: Bar Grouping"))
-        lines.append(s(f"{skey}BarGroupAgg", f"{display}: Bar Grouping Aggregation"))
+        lines.append(
+            s(f"{skey}BarGroupAgg", f"{display}: Bar Grouping Aggregation"))
         lines.append(s(f"{skey}SecondaryType", f"{display}: 2nd Graph Type"))
         lines.append(s(f"{skey}SecondaryField", f"{display}: 2nd Graph Field"))
         lines.append(s(f"{skey}TimeFrame", f"{display}: Time Frame"))
@@ -1000,13 +1069,18 @@ def gen_strings():
         lines.append(hourly_forecast_strings(hf))
 
     lines.append("\n  <!-- Graph settings: Temp Daily Forecast -->")
-    lines.append(s("WxForecastDailyGroup", GRAPH_CONFIG_PREFIX + "Temp Daily Forecast"))
+    lines.append(s("WxForecastDailyGroup",
+                 GRAPH_CONFIG_PREFIX + "Temp Daily Forecast"))
     lines.append(s("WxForecastDailyViewMode", "Temp Daily: View Mode"))
     lines.append(s("WxForecastDailyValueMode", "Temp Daily: Value Mode"))
     lines.append(s("WxForecastDailyDays", "Temp Daily: Days"))
     lines.append(s("WxForecastDailyGraphColor", "Temp Daily: Graph Color"))
     lines.append(s("WxForecastDailyGraphWidth", "Temp Daily: Graph Width"))
     lines.extend(option_strings(FORECAST_DAY_OPTIONS))
+
+    lines.append(hourly_forecast_strings(NOWCAST))
+    lines.extend(option_strings(NOWCAST_TIME_FRAMES))
+    lines.extend(option_strings(NOWCAST_VALUE_MODE_OPTIONS))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
@@ -1088,7 +1162,8 @@ def graph_section(gf, indent=1):
         )
     )
     blocks.append(
-        color_setting(f"{pk}{SUF['GraphColor']}", f"{skey}GraphColor", indent=indent)
+        color_setting(f"{pk}{SUF['GraphColor']}",
+                      f"{skey}GraphColor", indent=indent)
     )
     blocks.append(
         color_setting(
@@ -1106,10 +1181,10 @@ def hourly_forecast_props(hf):
     pk = PFX.get(hf.key, hf.key)
     return "\n".join(
         [
-            f"\n  <!-- {hf.display} Forecast -->",
-            prop(f"{pk}{SUF['GraphMode']}", "number", 4),
+            f"\n  <!-- {hf.display}{hf.title_suffix} -->",
+            prop(f"{pk}{SUF['GraphMode']}", "number", hf.graph_mode_default),
             prop(f"{pk}{SUF['ValueMode']}", "number", hf.value_mode_default),
-            prop(f"{pk}{SUF['TimeFrame']}", "number", 12),
+            prop(f"{pk}{SUF['TimeFrame']}", "number", hf.time_frame_default),
             prop(f"{pk}{SUF['GraphColor']}", "number", hf.graph_color_default),
             prop(f"{pk}{SUF['GraphWidth']}", "number", 10),
         ]
@@ -1121,11 +1196,12 @@ def hourly_forecast_strings(hf):
     skey = hf.skey
     return "\n".join(
         [
-            f"\n  <!-- Graph settings: {display} Forecast -->",
-            string(f"{skey}Group", f"{GRAPH_CONFIG_PREFIX}{display} Forecast"),
+            f"\n  <!-- Graph settings: {display}{hf.title_suffix} -->",
+            string(f"{skey}Group",
+                   f"{GRAPH_CONFIG_PREFIX}{display}{hf.title_suffix}"),
             string(f"{skey}GraphMode", f"{display}: Graph Mode"),
             string(f"{skey}ValueMode", f"{display}: Value Mode"),
-            string(f"{skey}TimeFrame", f"{display}: Hours Ahead"),
+            string(f"{skey}TimeFrame", f"{display}: {hf.time_frame_label}"),
             string(f"{skey}GraphColor", f"{display}: Graph Color"),
             string(f"{skey}GraphWidth", f"{display}: Graph Width"),
         ]
@@ -1146,19 +1222,20 @@ def hourly_forecast_settings(hf, indent=1):
             setting_list(
                 f"{pk}{SUF['ValueMode']}",
                 f"{skey}ValueMode",
-                entries(GRAPH_VALUE_MODE_OPTIONS),
+                entries(hf.value_modes),
                 indent,
             ),
             setting_list(
                 f"{pk}{SUF['TimeFrame']}",
                 f"{skey}TimeFrame",
-                entries(FORECAST_TIME_FRAMES),
+                entries(hf.time_frames),
                 indent,
             ),
             color_setting(
                 f"{pk}{SUF['GraphColor']}", f"{skey}GraphColor", indent=indent
             ),
-            width_setting(f"{pk}{SUF['GraphWidth']}", f"{skey}GraphWidth", indent),
+            width_setting(f"{pk}{SUF['GraphWidth']}",
+                          f"{skey}GraphWidth", indent),
         ]
     )
 
@@ -1359,14 +1436,16 @@ def gen_settings():
         id_prefix = bf.key[0].upper() + bf.key[1:]
         pk = PFX.get(bf.key, bf.key)
         blocks = [
-            setting_bool(f"{pk}{SUF['ShowBar']}", f"{id_prefix}ShowBar", indent=2),
+            setting_bool(f"{pk}{SUF['ShowBar']}",
+                         f"{id_prefix}ShowBar", indent=2),
             setting_bool(
                 f"{pk}{SUF['ShowBarValue']}", f"{id_prefix}ShowBarValue", indent=2
             ),
             color_setting(
                 f"{pk}{SUF['BarColor']}", f"{id_prefix}BarColor", COLORS_TEXT, indent=2
             ),
-            width_setting(f"{pk}{SUF['BarWidth']}", f"{id_prefix}BarWidth", indent=2),
+            width_setting(f"{pk}{SUF['BarWidth']}",
+                          f"{id_prefix}BarWidth", indent=2),
         ]
         if bf.goal_default is not None:
             blocks.append(
@@ -1383,13 +1462,15 @@ def gen_settings():
     for gf in GRAPH_FIELDS:
         parts.append(
             group(
-                f"graph_{gf.key}", f"{gf.skey}GraphGroup", graph_section(gf, indent=2)
+                f"graph_{gf.key}", f"{gf.skey}GraphGroup", graph_section(
+                    gf, indent=2)
             )
         )
 
     for hf in HOURLY_FORECASTS:
         parts.append(
-            group(hf.key, f"{hf.skey}Group", hourly_forecast_settings(hf, indent=2))
+            group(hf.key, f"{hf.skey}Group",
+                  hourly_forecast_settings(hf, indent=2))
         )
 
     parts.append(
@@ -1429,10 +1510,20 @@ def gen_settings():
 
     parts.append(
         group(
+            NOWCAST.key,
+            f"{NOWCAST.skey}Group",
+            hourly_forecast_settings(NOWCAST, indent=2),
+        )
+    )
+
+    parts.append(
+        group(
             "debug",
             "DebugGroup",
-            setting_bool(STANDALONE_KEYS["showVersion"], "ShowVersion", indent=2),
-            setting_bool(STANDALONE_KEYS["debugGraphGaps"], "DebugGraphGaps", indent=2),
+            setting_bool(
+                STANDALONE_KEYS["showVersion"], "ShowVersion", indent=2),
+            setting_bool(
+                STANDALONE_KEYS["debugGraphGaps"], "DebugGraphGaps", indent=2),
         )
     )
 

@@ -53,13 +53,13 @@
   <property id="l5Lc" type="number">5</property>
   <property id="l5Vc" type="number">0</property>
   <property id="l5R1" type="number">4</property>
-  <property id="l3R2" type="number">414</property>
+  <property id="l3R2" type="number">458</property>
   <property id="l4R2" type="number">102</property>
   <property id="l5R2" type="number">8</property>
-  <property id="l3R3" type="number">412</property>
+  <property id="l3R3" type="number">414</property>
   <property id="l4R3" type="number">52</property>
   <property id="l5R3" type="number">7</property>
-  <property id="l3R4" type="number">411</property>
+  <property id="l3R4" type="number">412</property>
   <property id="l4R4" type="number">2</property>
   <property id="l5R4" type="number">53</property>
   <property id="l3R5" type="number">452</property>
@@ -251,6 +251,13 @@
   <property id="wxfdDy" type="number">5</property>
   <property id="wxfdGc" type="number">16</property>
   <property id="wxfdGw" type="number">8</property>
+
+  <!-- Rain Nowcast -->
+  <property id="wxnGm" type="number">6</property>
+  <property id="wxnVm" type="number">0</property>
+  <property id="wxnTf" type="number">120</property>
+  <property id="wxnGc" type="number">6</property>
+  <property id="wxnGw" type="number">10</property>
 
   <!-- Debug -->
   <property id="shVer" type="boolean">false</property>

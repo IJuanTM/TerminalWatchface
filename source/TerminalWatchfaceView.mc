@@ -1,9 +1,12 @@
 import Toybox.Activity;
 import Toybox.ActivityMonitor;
 import Toybox.Application.Properties;
+import Toybox.Application.Storage;
+import Toybox.Background;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
+import Toybox.Position;
 import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
@@ -13,7 +16,7 @@ import Toybox.SensorHistory;
 import Toybox.UserProfile;
 import Toybox.Complications;
 
-const APP_VERSION = "0.57.1";
+const APP_VERSION = "0.58.0";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -137,6 +140,7 @@ const DASH_ALPHA = 0x80;
 
 // Forecast graphs are one entry per hour; bridge a single missing hour, not more.
 const FORECAST_GAP_HOURS = 2;
+const NOWCAST_RAIN_MMH = 0.1;
 
 const GRAYS =
     [
@@ -174,6 +178,7 @@ const ARROW_PAD = 2;
 const FEET_PER_METER = 3.28084;
 const METERS_PER_MILE = 1609.344;
 const PA_PER_INHG = 3386.39;
+const MM_PER_INCH = 25.4;
 const KMH_PER_MPS = 3.6;
 const MPH_PER_MPS = 2.23694;
 
@@ -404,6 +409,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _wxForecastUvData as Array<Float>? = null;
     private var _wxForecastCloudData as Array<Float>? = null;
     private var _cachedPressureTrend as Number = 0;
+    private var _needsNowcast as Boolean = false;
+    private var _nowcastMin as Number = -1;
+    private var _nowcastLoc as String = "";
+    private var _nowcastRaw as Array<Storage.ValueType>? = null;
+    // Slot index into _nowcastRaw that _nowcastData starts at; -2 forces a rebuild.
+    private var _nowcastIdx as Number = -2;
+    private var _nowcastStartSec as Number = 0;
+    private var _nowcastData as Array<Float>? = null;
 
     public function initialize() {
         WatchFace.initialize();
@@ -415,6 +428,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         reloadFont();
         _applyColorTheme(_getProp("theme", 0));
         _computeRotateMaxPhase();
+        reloadNowcast();
     }
 
     // Pre-renders here so first-frame cost doesn't share onUpdate's budget.
@@ -540,6 +554,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _wxFetchedMin = -1;
         _fcstFetchedMin = -1;
         _interactiveMin = -1;
+        _nowcastMin = -1;
+        _nowcastIdx = -2;
+        // Re-registered on the next field resolve if a slot still shows the nowcast.
+        Background.deleteTemporalEvent();
         _applyColorTheme(_getProp("theme", 0));
         _computeRotateMaxPhase();
     }
@@ -721,8 +739,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var needsWxCurrent = false;
             var needsComp = false;
             var needsAm = false;
+            var needsNowcast = false;
             for (var i = 0; i < 3; i++) {
                 var f = _resolvedFields[i];
+                if (f == FIELD_WX_NOWCAST) {
+                    needsNowcast = true;
+                }
                 if (
                     f == FIELD_HR ||
                     f == FIELD_SPO2 ||
@@ -851,6 +873,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             _needsAm = needsAm;
             _needsForecast = needsForecast;
+            _needsNowcast = needsNowcast;
+            // Left registered when a rotation phase without the field shows, so rotating never resets the 5-minute timer.
+            if (needsNowcast) {
+                _scheduleNowcast();
+            }
             if (!interactiveDue) {
                 for (var i = 0; i < 3; i++) {
                     if (prevFields.indexOf(_resolvedFields[i]) < 0) {
@@ -870,7 +897,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
             _needsComplications = needsComp;
             // Forecast fields fall back to current-conditions strings too, so they need this refresh too.
-            _needsWeatherCurrent = needsWxCurrent || needsForecast;
+            _needsWeatherCurrent =
+                needsWxCurrent || needsForecast || needsNowcast;
             if (
                 (_needsForecast && _fcstFetchedMin != _nowUnixMin) ||
                 (_needsWeatherCurrent && _wxFetchedMin != _nowUnixMin)
@@ -1022,6 +1050,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (!_lowPower) {
             _refreshWeather(_nowUnixMin);
+            if (_needsNowcast) {
+                _refreshNowcast();
+            }
         }
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
@@ -1259,10 +1290,22 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         y as Number,
         mode as Number
     ) as Void {
-        var label = mode == 0 ? "c" : mode == 1 ? "a" : mode == 3 ? "m" : null;
-        if (label == null) {
-            return;
+        if (mode == 0) {
+            _drawValueTag(dc, rightX, y, "c", 1);
+        } else if (mode == 1) {
+            _drawValueTag(dc, rightX, y, "a", 5);
+        } else if (mode == 3) {
+            _drawValueTag(dc, rightX, y, "m", 6);
         }
+    }
+
+    private function _drawValueTag(
+        dc as Dc,
+        rightX as Number,
+        y as Number,
+        label as String,
+        colorIdx as Number
+    ) as Void {
         _glowText(
             dc,
             rightX + _charW / 2,
@@ -1270,7 +1313,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _fontTiny,
             label,
             Graphics.TEXT_JUSTIFY_LEFT,
-            ColorUtils.colorFromIdx(mode == 0 ? 1 : mode == 1 ? 5 : 6)
+            ColorUtils.colorFromIdx(colorIdx)
         );
     }
 
@@ -2133,7 +2176,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 gradRange
             );
         } else if (graphType == GRAPH_AREA) {
-            // Intentionally off - every offset tried read as wrong against the fill's hard top edge (see TODO.md).
+            // Intentionally off, every offset tried read as wrong against the fill's hard top edge.
         } else {
             _glowLineShape(
                 data,
@@ -2268,13 +2311,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 return FIELD_WX_FCST_TEMP;
             }
             if (slotName.equals("R2")) {
-                return FIELD_WX_COND_CLOUD;
+                return FIELD_WX_NOWCAST;
             }
             if (slotName.equals("R3")) {
-                return FIELD_WX_UV_WIND;
+                return FIELD_WX_COND_CLOUD;
             }
             if (slotName.equals("R4")) {
-                return FIELD_WX_HUMIDITY_PRECIP;
+                return FIELD_WX_UV_WIND;
             }
             if (slotName.equals("R5")) {
                 return FIELD_WX_FCST_DAILY;
@@ -2465,6 +2508,12 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_WX_FCST_CLOUD) {
             _resolveForecastGraph(li, "wxfc", 8, 1);
+            return;
+        }
+        if (field == FIELD_WX_NOWCAST) {
+            _resolveForecastGraph(li, "wxn", 6, 0);
+            _applyGraphMode(li, _getProp("wxnGm", 6));
+            _linePeriodMin[li] = _getProp("wxnTf", 120);
             return;
         }
         var gk = _fieldGraphKey(field);
@@ -3079,6 +3128,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         valueColor as Number,
         li as Number
     ) as Boolean {
+        if (field == FIELD_WX_NOWCAST) {
+            _drawNowcastRow(dc, cx, y, li, labelColor, valueColor);
+            return true;
+        }
         if (field == FIELD_WX_FCST_TEMP) {
             _drawForecastTempRow(
                 dc,
@@ -3910,6 +3963,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             } else if (field == FIELD_WX_FCST_UV) {
                 gMin = 0.0;
                 gMax = 11.0;
+            } else if (field == FIELD_WX_NOWCAST) {
+                gMin = 0.0;
+                gMax = 10.0;
             } else if (field == FIELD_SPO2) {
                 gMin = 85.0;
                 gMax = 100.0;
@@ -4708,6 +4764,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 ? (v * KMH_PER_MPS).format("%.0f")
                 : (v * MPH_PER_MPS).format("%.0f");
         }
+        if (field == FIELD_WX_NOWCAST) {
+            return _distMetric
+                ? v.format("%.1f")
+                : (v / MM_PER_INCH).format("%.2f");
+        }
         if (field == FIELD_WX_FCST_UV) {
             return v.format("%.1f");
         }
@@ -4726,6 +4787,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         if (field == FIELD_ELEVATION) {
             return _elevMetric ? "m" : "ft";
+        }
+        if (field == FIELD_WX_NOWCAST) {
+            return _distMetric ? "mm/h" : "in/h";
         }
         if (field == FIELD_PRESSURE) {
             return _pressMetric ? "hPa" : "inHg";
@@ -6016,7 +6080,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         label as String,
         fieldConst as Number,
         all as Array<Float>?,
-        minRange as Float
+        minRange as Float,
+        stepMin as Number
     ) as [Array<Float>, Float, Float]? {
         _graphX = _graphBaseX;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
@@ -6038,7 +6103,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         }
         var fcstCacheKey = _packGraphKey(_graphW, fieldConst, hours);
         _calcMinMaxCached(fcstCacheKey, all as Array<Float>, data);
-        var minV = _dataMin;
+        // Rain amounts read wrong against a floating baseline: 0.5 vs 0.6 mm/h would look like dry vs pouring.
+        var minV = fieldConst == FIELD_WX_NOWCAST ? 0.0 : _dataMin;
         var maxV = _dataMax;
         var range = maxV - minV;
         if (range < minRange) {
@@ -6054,7 +6120,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _rowBuf[0] = label;
         _rowBuf[1] = "";
         _drawRow(dc, cx, y, _rowBuf, labelColor, valueColor);
-        var fcstMaxGap = FORECAST_GAP_HOURS;
         var fcstBmps = _renderGraphToBitmap(
             fcstCacheKey,
             fieldConst,
@@ -6067,7 +6132,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            fcstMaxGap,
+            FORECAST_GAP_HOURS,
             0
         );
         _drawGraphRowGlow(
@@ -6083,7 +6148,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             range,
             gradMinV,
             gradRange,
-            fcstMaxGap,
+            FORECAST_GAP_HOURS,
             fieldConst
         );
         _drawRowAxes(dc, y);
@@ -6096,7 +6161,9 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             _graphH,
             minV,
             maxV,
-            "+" + n.toString() + "h",
+            (n * stepMin) % 60 == 0
+                ? "+" + ((n * stepMin) / 60).toString() + "h"
+                : "+" + (n * stepMin).toString() + "m",
             lineColor,
             maxFrac,
             minFrac,
@@ -6129,7 +6196,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             "Temp Fcst",
             FIELD_WX_FCST_TEMP,
             _wxForecastData,
-            1.0
+            1.0,
+            60
         );
         if (core == null) {
             return;
@@ -6382,36 +6450,106 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             label,
             fieldConst,
             all,
-            minRange
+            minRange,
+            60
         );
         if (core == null) {
             return;
         }
         if (viewMode == VIEW_GRAPH_VALUE) {
-            var vx = _graphX + _graphW + _charW;
-            var vy = y + (_fh - _smallFh) / 2 - 1;
-            var valStr = _graphValueStr(
-                fieldConst,
-                core[0],
-                valueMode,
-                fallbackValue
-            );
-            _glowText(
+            var endX = _drawGraphValueLabel(
                 dc,
-                vx,
-                vy,
-                _fontSmall,
-                valStr,
-                Graphics.TEXT_JUSTIFY_LEFT,
+                _graphX + _graphW + _charW,
+                y + (_fh - _smallFh) / 2 - 1,
+                fieldConst,
+                _graphValueStr(fieldConst, core[0], valueMode, fallbackValue),
                 ColorUtils.colorFromIdx(valueColor)
             );
-            _drawValueModeLabel(
-                dc,
-                vx + dc.getTextWidthInPixels(valStr, _fontSmall),
-                y,
-                valueMode
-            );
+            _drawValueModeLabel(dc, endX, y, valueMode);
         }
+    }
+
+    private function _drawNowcastRow(
+        dc as Dc,
+        cx as Number,
+        y as Number,
+        li as Number,
+        labelColor as Number,
+        valueColor as Number
+    ) as Void {
+        var stepMin = NOWCAST_STEP_SEC / SECS_PER_MIN;
+        var core = _drawForecastGraphCore(
+            dc,
+            cx,
+            y,
+            _linePeriodMin[li] / stepMin,
+            labelColor,
+            valueColor,
+            _lineGraphColor[li],
+            _lineGraphType[li],
+            "Rain Amount",
+            FIELD_WX_NOWCAST,
+            _nowcastData,
+            1.0,
+            stepMin
+        );
+        if (core == null || _lineViewMode[li] != VIEW_GRAPH_VALUE) {
+            return;
+        }
+        var valueMode = _lineValueMode[li];
+        var all = _nowcastData as Array<Float>;
+        var unit = _graphFieldUnit(FIELD_WX_NOWCAST);
+        var valStr = "-";
+        if (valueMode == 1) {
+            if (all[0] != null) {
+                valStr =
+                    _formatGraphLabel(FIELD_WX_NOWCAST, all[0] as Float) + unit;
+            }
+        } else if (valueMode == 2) {
+            valStr = _formatGraphLabel(FIELD_WX_NOWCAST, core[2]) + unit;
+        } else {
+            valStr = _nowcastNextChange(all, core[0].size());
+        }
+        var endX = _drawGraphValueLabel(
+            dc,
+            _graphX + _graphW + _charW,
+            y + (_fh - _smallFh) / 2 - 1,
+            FIELD_WX_NOWCAST,
+            valStr,
+            ColorUtils.colorFromIdx(valueColor)
+        );
+        if (valueMode == 1) {
+            _drawValueModeLabel(dc, endX, y, 0);
+        } else if (valueMode == 2) {
+            // "m" already means Midpoint, so the max tag is "x".
+            _drawValueTag(dc, endX, y, "x", 4);
+        }
+    }
+
+    private function _nowcastNextChange(
+        all as Array<Float>,
+        n as Number
+    ) as String {
+        if (all[0] == null) {
+            return "-";
+        }
+        var raining = (all[0] as Float) >= NOWCAST_RAIN_MMH;
+        for (var i = 1; i < n; i++) {
+            var v = all[i];
+            if (v != null && v >= NOWCAST_RAIN_MMH != raining) {
+                var mins =
+                    (_nowcastStartSec +
+                        i * NOWCAST_STEP_SEC -
+                        Time.now().value()) /
+                    SECS_PER_MIN;
+                return (
+                    (raining ? "stop " : "rain ") +
+                    (mins < 0 ? 0 : mins).toString() +
+                    "m"
+                );
+            }
+        }
+        return raining ? "rain" : "dry";
     }
 
     // Shared by the bars and the day labels so labels stay centred under their bars.
@@ -8024,6 +8162,18 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (c == null) {
             return;
         }
+        if (_needsNowcast && c.observationLocationPosition != null) {
+            var deg = (
+                c.observationLocationPosition as Position.Location
+            ).toDegrees();
+            var lat = deg[0].toFloat();
+            var lon = deg[1].toFloat();
+            var key = lat.format("%.2f") + lon.format("%.2f");
+            if (!key.equals(_nowcastLoc)) {
+                _nowcastLoc = key;
+                Storage.setValue("rnLoc", [lat, lon]);
+            }
+        }
         _wxHumidityNum = -1;
         _wxUvNum = -1;
         _wxTemp = _optTempStr(c.temperature);
@@ -8116,6 +8266,85 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             }
         }
         return true;
+    }
+
+    public function reloadNowcast() as Void {
+        var raw = Storage.getValue("rnData");
+        _nowcastRaw = raw instanceof Array ? raw : null;
+        _nowcastIdx = -2;
+        _sliceNowcast();
+        if (_needsNowcast) {
+            _scheduleNowcast();
+        }
+    }
+
+    // Without data, a one-shot Moment fetches as soon as the platform's 5-minute spacing allows;
+    // with data, the repeating Duration takes over, counted from that fetch.
+    private function _scheduleNowcast() as Void {
+        var reg = Background.getTemporalEventRegisteredTime();
+        if (_nowcastData != null) {
+            if (!(reg instanceof Time.Duration)) {
+                Background.registerForTemporalEvent(
+                    new Time.Duration(NOWCAST_STEP_SEC)
+                );
+            }
+            return;
+        }
+        var now = Time.now();
+        if (
+            reg instanceof Time.Moment &&
+            (reg as Time.Moment).value() > now.value() - SECS_PER_MIN
+        ) {
+            return;
+        }
+        var last = Background.getLastTemporalEventTime();
+        Background.registerForTemporalEvent(
+            last != null ? last.add(new Time.Duration(NOWCAST_STEP_SEC)) : now
+        );
+    }
+
+    private function _refreshNowcast() as Void {
+        if (_nowcastMin == _nowUnixMin) {
+            return;
+        }
+        // Only deferred while data is on screen, so the wake frame never shows an empty graph.
+        if (_deferThisFrame && _nowcastData != null) {
+            _deferredWorkPending = true;
+            return;
+        }
+        _nowcastMin = _nowUnixMin;
+        _sliceNowcast();
+        _scheduleNowcast();
+    }
+
+    // Rebuilt only when the current slot moves, so the identity-keyed graph caches survive between steps.
+    private function _sliceNowcast() as Void {
+        var raw = _nowcastRaw;
+        var idx = -1;
+        if (raw != null && raw.size() > 1) {
+            idx = (Time.now().value() - (raw[0] as Number)) / NOWCAST_STEP_SEC;
+            if (idx < 0) {
+                idx = 0;
+            }
+            if (idx >= raw.size() - 1) {
+                idx = -1;
+            }
+        }
+        if (idx == _nowcastIdx) {
+            return;
+        }
+        _nowcastIdx = idx;
+        _nowcastData = null;
+        if (raw != null && idx >= 0) {
+            _nowcastStartSec = (raw[0] as Number) + idx * NOWCAST_STEP_SEC;
+            var n = raw.size() - 1 - idx;
+            var arr = new Array<Float>[n];
+            for (var i = 0; i < n; i++) {
+                arr[i] = raw[1 + idx + i] as Float?;
+            }
+            _nowcastData = arr;
+        }
+        _invalidateFieldGraphCache(FIELD_WX_NOWCAST);
     }
 
     (:extendedCode)

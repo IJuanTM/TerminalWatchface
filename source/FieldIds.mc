@@ -111,6 +111,7 @@ const FIELD_WX_FCST_WIND = 454;
 const FIELD_WX_FCST_UV = 455;
 const FIELD_WX_FCST_CLOUD = 456;
 const FIELD_WX_FCST_HUMIDITY = 457;
+const FIELD_WX_NOWCAST = 458;
 
 // --- Weather: forecast conditions (501-550) ---
 const FIELD_WX_FCST_COND_1D = 501;
