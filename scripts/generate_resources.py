@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import re
 from xml.sax.saxutils import escape
 from typing import NamedTuple, Optional
 
@@ -234,7 +235,7 @@ def _build_fields():
             "(CACHE_KEY_FIELD_BUDGET). The hi/lo/periodMin slots already use "
             "all 31 usable bits of a signed 32-bit Number, so there are no "
             "spare bits to widen into - shrink another category first, or "
-            "redesign _packGraphKey's key scheme before adding more categories"
+            "redesign GraphUtils.packKey's key scheme before adding more categories"
         )
     fields_all = [(0, "FieldNone", "None (hidden)")]
     field_value = {"FieldNone": 0}
@@ -254,6 +255,71 @@ def _build_fields():
 
 FIELDS_ALL, FIELD_VALUE = _build_fields()
 
+# Data sources per field, generated into FieldTables.needs(); a field missing here never refreshes its data.
+FIELD_SOURCES = {
+    "NOWCAST": ["WX_NOWCAST"],
+    "LIVE_ACTIVITY": ["HR", "SPO2", "ALTITUDE", "HR_SPO2", "RESP_SPO2"],
+    "AM": [
+        "STEPS", "FLOORS", "CALORIES", "DISTANCE", "ACTIVE_MIN_DAY",
+        "INTENSITY_MIN", "MOVE_BAR", "CLIMB_DESCEND_DAY", "CLIMB_DAY",
+        "DESCENT_DAY", "RESP", "RECOVERY", "BODY_BAT_RECOVERY", "STRESS",
+        "BODY_BAT_STRESS", "STRESS_RECOVERY", "RESP_SPO2", "SLEEP_RECOVERY",
+    ],
+    "FORECAST": [
+        "WX_FCST_TEMP", "WX_FCST_PRECIP", "WX_FCST_DAILY", "WX_FCST_WIND",
+        "WX_FCST_HUMIDITY", "WX_FCST_UV", "WX_FCST_CLOUD",
+    ],
+    "WX_CURRENT": [
+        "WX_PRECIP", "WX_WIND", "WX_UV", "WX_COND", "WX_COND_PRECIP",
+        "WX_WIND_PRECIP", "WX_TEMP", "WX_FEELS", "WX_TEMP_COND",
+        "WX_TEMP_WIND", "WX_TEMP_UV", "WX_UV_PRECIP", "WX_UV_WIND",
+        "WX_TEMP_HIGH_LOW", "WX_HUMIDITY", "WX_DEW_POINT", "WX_VISIBILITY",
+        "WX_CLOUD", "WX_HIGH_LOW", "WX_HUMIDITY_DEW", "WX_HEAT_INDEX",
+        "WX_TEMP_HUMIDITY", "WX_TEMP_PRECIP", "WX_HUMIDITY_PRECIP",
+        "WX_CLOUD_PRECIP", "WX_COND_CLOUD", "WX_OBS_TIME", "WX_COND_FCST_1D",
+    ],
+}
+
+# Complications.COMPLICATION_TYPE_* suffixes each field reads; ComplicationData subscribes to exactly these.
+FIELD_COMPLICATIONS = {
+    "WEEKLY_RUN": ["WEEKLY_RUN_DISTANCE"],
+    "WEEKLY_BIKE": ["WEEKLY_BIKE_DISTANCE"],
+    "WEEKLY_DISTANCES": ["WEEKLY_RUN_DISTANCE", "WEEKLY_BIKE_DISTANCE"],
+    "SOLAR": ["SOLAR_INPUT"],
+    "SOLAR_BATTERY": ["SOLAR_INPUT"],
+    "SLEEP": ["SLEEP_SCORE"],
+    "SLEEP_RECOVERY": ["SLEEP_SCORE"],
+    "TRAINING_STATUS": ["TRAINING_STATUS"],
+    "VO2_TRAINING": ["TRAINING_STATUS"],
+    "SUNRISE": ["SUNRISE"],
+    "SUNSET": ["SUNSET"],
+    "SUNRISE_SUNSET": ["SUNRISE", "SUNSET"],
+    "CALENDAR": ["CALENDAR_EVENTS"],
+    "NOTIFICATIONS": ["NOTIFICATION_COUNT"],
+    "RACE_5K": ["RACE_PREDICTOR_5K"],
+    "RACE_10K": ["RACE_PREDICTOR_10K"],
+    "RACE_HALF": ["RACE_PREDICTOR_HALF_MARATHON"],
+    "RACE_MARATHON": ["RACE_PREDICTOR_MARATHON"],
+    "RACE_PACE_5K": ["RACE_PACE_PREDICTOR_5K"],
+    "RACE_PACE_10K": ["RACE_PACE_PREDICTOR_10K"],
+    "RACE_PACE_HALF": ["RACE_PACE_PREDICTOR_HALF_MARATHON"],
+    "RACE_PACE_MARATHON": ["RACE_PACE_PREDICTOR_MARATHON"],
+    "WX_SEA_PRESS": ["SEA_LEVEL_PRESSURE"],
+    "WX_COND_FCST_1D": ["FORECAST_WEATHER_1DAY"],
+    "WX_FCST_COND_12D": ["FORECAST_WEATHER_1DAY", "FORECAST_WEATHER_2DAY"],
+    "WX_FCST_COND_1D": ["FORECAST_WEATHER_1DAY"],
+    "WX_FCST_COND_2D": ["FORECAST_WEATHER_2DAY"],
+    "WX_FCST_COND_3D": ["FORECAST_WEATHER_3DAY"],
+}
+
+_FIELD_SUFFIXES = {sfx for _c, fs in FIELD_CATEGORIES for sfx, *_ in fs}
+for _sfx in [f for fs in FIELD_SOURCES.values() for f in fs] + list(
+    FIELD_COMPLICATIONS
+):
+    if _sfx not in _FIELD_SUFFIXES:
+        raise ValueError(
+            f"FIELD_SOURCES/FIELD_COMPLICATIONS: unknown field {_sfx}")
+
 
 class GraphField(NamedTuple):
     key: str
@@ -271,6 +337,17 @@ class GraphField(NamedTuple):
     # Hides frames too short to hold 2+ samples at the field's sample interval.
     min_time_frame: Optional[int] = None
 
+
+# Field each GRAPH_FIELDS key graphs, for the generated FieldTables.graphDefaults().
+GRAPH_FIELD_IDS = {
+    "hr": "HR",
+    "spo2": "SPO2",
+    "bodyBat": "BODY_BAT",
+    "stress": "STRESS",
+    "tempWrist": "WRIST_TEMP",
+    "elevation": "ELEVATION",
+    "pressure": "PRESSURE",
+}
 
 GRAPH_FIELDS = [
     GraphField("hr", "HR", "Heart Rate", 3, 0, 2, 60, 5, 0, 0, 360),
@@ -344,7 +421,7 @@ BAR_FIELDS = [
     ),
 ]
 
-# Positional: the index is the SecondaryField property value, mirrored by the view's GRAPH_SEC_FIELDS.
+# Positional: the index is the SecondaryField property value, generated into FieldIds.mc GRAPH_SEC_FIELDS.
 GRAPH_SEC_FIELDS = [
     "FieldHR",
     "FieldSpO2",
@@ -387,6 +464,18 @@ NOWCAST_VALUE_MODE_OPTIONS = [
     (2, "NowcastValueMax", "Max rate"),
 ]
 
+NOWCAST_FETCH_MODE_OPTIONS = [
+    (0, "NowcastFetchOnWake", "On screen wake (default)"),
+    (1, "NowcastFetchPeriodic", "Periodic, also with screen off"),
+]
+
+# The platform allows at most one background fetch per 5 minutes.
+NOWCAST_FETCH_INTERVAL_OPTIONS = [
+    (5, "NowcastFetch5m", "5 minutes (default)"),
+    (15, "NowcastFetch15m", "15 minutes"),
+    (30, "NowcastFetch30m", "30 minutes"),
+]
+
 FORECAST_DAY_OPTIONS = [
     (3, "TimeFrameForecastDays3", "3 days"),
     (5, "TimeFrameForecastDays5", "5 days"),
@@ -402,13 +491,13 @@ GRAPH_WIDTH_OPTIONS = [
     (16, "GraphWidth16", "16 chars"),
 ]
 
-# _packGraphKey masks periodMin to this budget, so a longer frame would alias to a shorter one's cache key.
+# GraphUtils.packKey masks periodMin to this budget, so a longer frame would alias to a shorter one's cache key.
 _max_period_min = max(m for m, *_ in GRAPH_TIME_FRAMES + FORECAST_TIME_FRAMES)
 if _max_period_min >= CACHE_KEY_PERIOD_BUDGET:
     raise ValueError(
         f"GRAPH_TIME_FRAMES/FORECAST_TIME_FRAMES has a value of "
         f"{_max_period_min} minutes, exceeds the {CACHE_KEY_PERIOD_BUDGET}-value "
-        "cache key period budget (CACHE_KEY_PERIOD_BUDGET) - _packGraphKey's "
+        "cache key period budget (CACHE_KEY_PERIOD_BUDGET) - GraphUtils.packKey's "
         "periodMin bits need widening before adding a longer time frame"
     )
 if any(m % 15 for m, *_ in GRAPH_TIME_FRAMES) or [
@@ -447,18 +536,6 @@ LINE_SLOTS = [
     LineSlot(3, "Quinary", _fv["FieldWxFcstDaily"]),
     LineSlot(4, "Quinary", _fv["FieldClimbDescendDay"]),
     LineSlot(5, "Quinary", _fv["FieldIntensityMin"]),
-    LineSlot(3, "Senary", _fv["FieldNone"]),
-    LineSlot(4, "Senary", _fv["FieldNone"]),
-    LineSlot(5, "Senary", _fv["FieldNone"]),
-    LineSlot(3, "Septenary", _fv["FieldNone"]),
-    LineSlot(4, "Septenary", _fv["FieldNone"]),
-    LineSlot(5, "Septenary", _fv["FieldNone"]),
-    LineSlot(3, "Octonary", _fv["FieldNone"]),
-    LineSlot(4, "Octonary", _fv["FieldNone"]),
-    LineSlot(5, "Octonary", _fv["FieldNone"]),
-    LineSlot(3, "Nonary", _fv["FieldNone"]),
-    LineSlot(4, "Nonary", _fv["FieldNone"]),
-    LineSlot(5, "Nonary", _fv["FieldNone"]),
 ]
 
 LINE_LABEL_COLOR_DEFAULTS = {3: 6, 4: 1, 5: 5}
@@ -607,93 +684,142 @@ def ind(n):
     return "  " * n
 
 
-# Abbreviated to keep properties.xml under Connect IQ's size ceiling; mirrored by hand in TerminalWatchfaceView.mc.
+# Property keys are 1-2 chars: the simulator corrupts its settings store once the keys get too long.
+# Standalone keys are 1 char (or l/v + digit), composed keys are PFX char + SUF char, so the two never collide.
+# The source reads them through the P_/PP_/PS_ constants generated into FieldIds.mc, never as literals.
 SUF = {
-    "GraphMode": "Gm",
-    "GraphValueMode": "Gvm",
-    "ValueMode": "Vm",
-    "SecondaryType": "St",
-    "SecondaryField": "Sf",
-    "SecondaryColor": "Se",
-    "TimeFrame": "Tf",
-    "GraphColor": "Gc",
-    "GraphWidth": "Gw",
-    "ShowBar": "Sb",
-    "ShowBarValue": "Sv",
-    "BarColor": "Bc",
-    "BarWidth": "Bw",
-    "BarGoal": "Bg",
-    "Enabled": "En",
-    "LabelColor": "Lc",
-    "ValueColor": "Vc",
-    "ViewMode": "Vw",
-    "Days": "Dy",
-    "BarGroup": "Bn",
-    "BarGroupAgg": "Ba",
+    "GraphMode": "m",
+    "GraphValueMode": "g",
+    "ValueMode": "v",
+    "SecondaryType": "t",
+    "SecondaryField": "f",
+    "SecondaryColor": "e",
+    "TimeFrame": "j",
+    "GraphColor": "c",
+    "GraphWidth": "w",
+    "ShowBar": "h",
+    "ShowBarValue": "b",
+    "BarColor": "k",
+    "BarWidth": "x",
+    "BarGoal": "q",
+    "Enabled": "n",
+    "LabelColor": "l",
+    "ValueColor": "a",
+    "ViewMode": "y",
+    "Days": "d",
+    "BarGroup": "u",
+    "BarGroupAgg": "z",
+    "FetchMode": "p",
+    "FetchInterval": "i",
 }
 ROT = {
-    "Primary": "R1",
-    "Secondary": "R2",
-    "Tertiary": "R3",
-    "Quaternary": "R4",
-    "Quinary": "R5",
-    "Senary": "R6",
-    "Septenary": "R7",
-    "Octonary": "R8",
-    "Nonary": "R9",
+    "Primary": "1",
+    "Secondary": "2",
+    "Tertiary": "3",
+    "Quaternary": "4",
+    "Quinary": "5",
 }
 PFX = {
-    "wxForecast": "wxf",
-    "wxForecastPrecip": "wxfp",
-    "wxForecastWind": "wxfw",
-    "wxForecastUv": "wxfu",
-    "wxForecastCloud": "wxfc",
-    "wxForecastHumidity": "wxfh",
-    "wxForecastDaily": "wxfd",
-    "wxNowcast": "wxn",
-    "bodyBat": "bb",
-    "tempWrist": "tw",
-    "activeMinDay": "aMin",
-    "intensityMin": "iMin",
-    "steps": "stp",
-    "floors": "flr",
-    "calories": "cal",
-    "distance": "dist",
-    "stress": "str",
-    "elevation": "elev",
-    "pressure": "pres",
+    "l3": "x",
+    "l4": "y",
+    "l5": "z",
+    "steps": "s",
+    "floors": "f",
+    "calories": "c",
+    "distance": "d",
+    "activeMinDay": "a",
+    "intensityMin": "i",
+    "hr": "h",
+    "spo2": "o",
+    "bodyBat": "b",
+    "stress": "t",
+    "tempWrist": "w",
+    "elevation": "e",
+    "pressure": "p",
+    "wxForecast": "k",
+    "wxForecastPrecip": "r",
+    "wxForecastWind": "n",
+    "wxForecastUv": "u",
+    "wxForecastCloud": "g",
+    "wxForecastHumidity": "m",
+    "wxForecastDaily": "j",
+    "wxNowcast": "q",
 }
 
 STANDALONE_KEYS = {
-    "fontChoice": "font",
-    "colorTheme": "theme",
-    "scanlines": "scan",
-    "glowIntensity": "glow",
-    "bgBacklight": "bgLt",
-    "flickerEnabled": "flick",
-    "leftPadding": "lPad",
-    "areaOpacity": "aOpac",
-    "areaShowLine": "aLine",
-    "showBatteryDays": "batD",
-    "showSeconds": "shSec",
-    "showYear": "shYr",
-    "dateFormat": "dFmt",
-    "watchCommandStyle": "cmdSty",
-    "rotateInterval": "rotI",
-    "rotateIntervalAlt": "rotA",
-    "rotationMode": "rotMode",
-    "line1LabelColor": "l1Lc",
-    "line1ValueColor": "l1Vc",
-    "line2LabelColor": "l2Lc",
-    "line2ValueColor": "l2Vc",
-    "showVersion": "shVer",
-    "debugGraphGaps": "dbgGG",
-    "unitDistance": "uDst",
-    "unitTemperature": "uTmp",
-    "unitElevation": "uElv",
-    "unitPace": "uPac",
-    "unitPressure": "uPrs",
+    "fontChoice": "f",
+    "colorTheme": "t",
+    "scanlines": "s",
+    "glowIntensity": "g",
+    "bgBacklight": "b",
+    "flickerEnabled": "k",
+    "leftPadding": "p",
+    "areaOpacity": "o",
+    "areaShowLine": "a",
+    "showBatteryDays": "y",
+    "showSeconds": "c",
+    "showYear": "r",
+    "dateFormat": "d",
+    "watchCommandStyle": "w",
+    "rotateInterval": "i",
+    "rotateIntervalAlt": "j",
+    "rotationMode": "m",
+    "line1LabelColor": "l1",
+    "line1ValueColor": "v1",
+    "line2LabelColor": "l2",
+    "line2ValueColor": "v2",
+    "showVersion": "v",
+    "debugGraphGaps": "x",
+    "unitDistance": "u",
+    "unitTemperature": "e",
+    "unitElevation": "h",
+    "unitPace": "n",
+    "unitPressure": "q",
 }
+
+# Lowercase only, so the keys stay unique even if some layer folds case.
+for _name, _d in (("SUF", SUF), ("ROT", ROT), ("PFX", PFX)):
+    _v = list(_d.values())
+    if len(set(_v)) != len(_v) or any(len(x) != 1 for x in _v):
+        raise ValueError(f"{_name}: codes must be unique single chars")
+if set(SUF.values()) & set(ROT.values()):
+    raise ValueError("SUF and ROT codes overlap")
+_v = list(STANDALONE_KEYS.values())
+if len(set(_v)) != len(_v) or any(
+    len(x) == 2 and x[0] in PFX.values() for x in _v
+):
+    raise ValueError(
+        "STANDALONE_KEYS: duplicate code or collides with a PFX code")
+
+_MONKEYC_KEYWORDS = {"as", "do", "if", "me", "or"}
+
+
+def check_property_ids(xml):
+    ids = re.findall(r'<property id="([^"]+)"', xml)
+    for i in ids:
+        if i != i.lower() or not i[0].isalpha() or i in _MONKEYC_KEYWORDS:
+            raise ValueError(f"bad property id {i}")
+    if len(set(ids)) != len(ids):
+        dup = sorted({i for i in ids if ids.count(i) > 1})
+        raise ValueError(f"duplicate property ids {dup}")
+
+
+def _upper_snake(name):
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", name).upper()
+
+
+def gen_key_consts():
+    lines = ["", "// Property keys; see the key comment in generate_resources.py."]
+    for name, code in STANDALONE_KEYS.items():
+        lines.append(f'const P_{_upper_snake(name)} = "{code}";')
+    lines.append("")
+    for name, code in PFX.items():
+        lines.append(f'const PP_{_upper_snake(name)} = "{code}";')
+    lines.append("")
+    for name, code in SUF.items():
+        lines.append(f'const PS_{_upper_snake(name)} = "{code}";')
+    lines.append(f'const PS_PRIMARY = "{ROT["Primary"]}";')
+    return lines
 
 
 def prop(pid, ptype, default):
@@ -760,9 +886,119 @@ def group(gid, title_key, *blocks):
     return "\n".join(lines)
 
 
+def _field_const(string_id):
+    for _c, fs in FIELD_CATEGORIES:
+        for sfx, sid, _d in fs:
+            if sid == string_id:
+                return f"FIELD_{sfx}"
+    raise ValueError(f"unknown field string id {string_id}")
+
+
+def _field_const_by_value(value):
+    return _field_const(next(sid for v, sid, _d in FIELDS_ALL if v == value))
+
+
+# cases: (case constants, return expression) pairs, grouped under one switch.
+def _switch(var, cases, default, indent):
+    i = "    " * indent
+    out = [f"{i}switch ({var}) {{"]
+    for consts, expr in cases:
+        for c in consts:
+            out.append(f"{i}    case {c}:")
+        out.append(f"{i}        return {expr};")
+    out.append(f"{i}    default:")
+    out.append(f"{i}        return {default};")
+    out.append(f"{i}}}")
+    return out
+
+
+def gen_field_tables():
+    lines = ["", "module FieldTables {"]
+    lines.append("    function lineSlotDefaultField(")
+    lines.append("        pk as String,")
+    lines.append("        slotName as String")
+    lines.append("    ) as Number {")
+    for ln in sorted({r.line_num for r in LINE_SLOTS}):
+        lines.append(f'        if (pk.equals("{PFX[f"l{ln}"]}")) {{')
+        for r in line_slots(ln):
+            if r.field_default == 0:
+                continue
+            lines.append(
+                f'            if (slotName.equals("{ROT[r.slot]}")) {{')
+            lines.append(
+                f"                return {_field_const_by_value(r.field_default)};")
+            lines.append("            }")
+        lines.append("        }")
+    lines.append("        return FIELD_NONE;")
+    lines.append("    }")
+    lines.append("")
+    lines.append(
+        "    function lineLabelColorDefault(pk as String) as Number {")
+    for ln, color in sorted(LINE_LABEL_COLOR_DEFAULTS.items()):
+        lines.append(f'        if (pk.equals("{PFX[f"l{ln}"]}")) {{')
+        lines.append(f"            return {color};")
+        lines.append("        }")
+    lines.append("        return 8;")
+    lines.append("    }")
+    lines.append("")
+    lines.append(
+        "    // [mode, timeFrameMin, graphColor, valueMode, secField]")
+    lines.append("    function graphDefaults(")
+    lines.append("        field as Number")
+    lines.append("    ) as [Number, Number, Number, Number, Number] {")
+    lines += _switch(
+        "field",
+        [
+            (
+                [f"FIELD_{GRAPH_FIELD_IDS[g.key]}"],
+                f"[{g.mode}, {g.time_frame}, {g.graph_color}, {g.value_mode}, {g.sec_field}]",
+            )
+            for g in GRAPH_FIELDS
+        ],
+        "[0, 60, 0, 0, 0]",
+        2,
+    )
+    lines.append("    }")
+    lines.append("")
+    lines.append("    function needs(field as Number) as Number {")
+    masks = {}
+    for src, fields in FIELD_SOURCES.items():
+        for f in fields:
+            masks.setdefault(f, []).append(f"NEED_{src}")
+    groups = {}
+    for f, flags in masks.items():
+        groups.setdefault(" | ".join(flags), []).append(f"FIELD_{f}")
+    lines += _switch("field", [(fs, m) for m, fs in groups.items()], "0", 2)
+    lines.append("    }")
+    lines.append("")
+    lines.append("    function compTypes(")
+    lines.append("        field as Number")
+    lines.append("    ) as Array<Complications.Type>? {")
+    groups = {}
+    for f, types in FIELD_COMPLICATIONS.items():
+        expr = "".join(
+            f"\n{ind(10)}Complications.COMPLICATION_TYPE_{t}," for t in types)
+        groups.setdefault(expr, []).append(f"FIELD_{f}")
+    lines += _switch(
+        "field",
+        [
+            (fs, f"[{e}\n{ind(8)}] as Array<Complications.Type>")
+            for e, fs in groups.items()
+        ],
+        "null",
+        2,
+    )
+    lines.append("    }")
+    lines.append("}")
+    return lines
+
+
 def gen_field_ids():
     lines = [
         "// GENERATED FILE - DO NOT EDIT. Regenerate with `python scripts/generate_resources.py`.",
+        "",
+        "import Toybox.Complications;",
+        "import Toybox.Lang;",
         "",
         f"const CACHE_KEY_HI_SHIFT = {CACHE_KEY_HI_SHIFT};",
         f"const CACHE_KEY_LO_SHIFT = {CACHE_KEY_LO_SHIFT};",
@@ -779,6 +1015,20 @@ def gen_field_ids():
         )
         for suffix, string_id, _display in cat_fields:
             lines.append(f"const FIELD_{suffix} = {FIELD_VALUE[string_id]};")
+    lines.append("")
+    lines.append(
+        "// Rotation phase p (1..size) reads slot ROTATE_SLOT_NAMES[p - 1]; phase 0 is PS_PRIMARY.")
+    lines.append("const ROTATE_SLOT_NAMES =")
+    lines.append(
+        "    [" + ", ".join(f'"{v}"' for v in list(ROT.values())[1:]) + "] as Array<String>;")
+    lines.append("")
+    lines.append("// Index is the SecondaryField property value.")
+    lines.append("const GRAPH_SEC_FIELDS = [")
+    for f in GRAPH_SEC_FIELDS:
+        lines.append(f"    {_field_const(f)},")
+    lines.append("] as Array<Number>;")
+    lines += gen_key_consts()
+    lines += gen_field_tables()
     return "\n".join(lines) + "\n"
 
 
@@ -820,7 +1070,7 @@ def gen_properties():
     lines.append(prop(sk["line2ValueColor"], "number", 0))
 
     for ln, slot, fd in LINE_SLOTS:
-        pk = f"l{ln}"
+        pk = PFX[f"l{ln}"]
         if slot == "Primary":
             lines.append(f"\n  <!-- Line {ln} -->")
             lines.append(prop(f"{pk}{SUF['Enabled']}", "boolean", "true"))
@@ -833,7 +1083,7 @@ def gen_properties():
         lines.append(prop(f"{pk}{ROT[slot]}", "number", fd))
 
     for bf in BAR_FIELDS:
-        pk = PFX.get(bf.key, bf.key)
+        pk = PFX[bf.key]
         lines.append(f"\n  <!-- {bf.group_title} -->")
         lines.append(
             prop(
@@ -853,7 +1103,7 @@ def gen_properties():
 
     lines.append("\n  <!-- Graph settings per supported field type -->")
     for gf in GRAPH_FIELDS:
-        pk = PFX.get(gf.key, gf.key)
+        pk = PFX[gf.key]
         lines.append(f"\n  <!-- {gf.skey} -->")
         lines.append(prop(f"{pk}{SUF['GraphMode']}", "number", gf.mode))
         lines.append(
@@ -886,6 +1136,9 @@ def gen_properties():
         prop(f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}", "number", 8))
 
     lines.append(hourly_forecast_props(NOWCAST))
+    lines.append(prop(f"{PFX[NOWCAST.key]}{SUF['FetchMode']}", "number", 0))
+    lines.append(
+        prop(f"{PFX[NOWCAST.key]}{SUF['FetchInterval']}", "number", 5))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(prop(sk["showVersion"], "boolean", "false"))
@@ -983,7 +1236,7 @@ def gen_strings():
     lines.append(s("Rotate1min", "1 minute"))
 
     lines.append(
-        "\n  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->")
+        f"\n  <!-- Lines 3-5: configurable, R1-R{len(ROT)} = rotation slots 1 to {len(ROT)} -->")
     for ln in (3, 4, 5):
         pk = f"Line{ln}"
         ptitle = f"Line {ln}"
@@ -1081,6 +1334,11 @@ def gen_strings():
     lines.append(hourly_forecast_strings(NOWCAST))
     lines.extend(option_strings(NOWCAST_TIME_FRAMES))
     lines.extend(option_strings(NOWCAST_VALUE_MODE_OPTIONS))
+    lines.append(s("WxNowcastFetchMode", "Rain Nowcast: Update"))
+    lines.append(
+        s("WxNowcastFetchInterval", "Rain Nowcast: Min. Time Between Updates"))
+    lines.extend(option_strings(NOWCAST_FETCH_MODE_OPTIONS))
+    lines.extend(option_strings(NOWCAST_FETCH_INTERVAL_OPTIONS))
 
     lines.append("\n  <!-- Debug -->")
     lines.append(s("DebugGroup", "Debug"))
@@ -1096,7 +1354,7 @@ def width_setting(prop_key, title_key, indent=1):
 
 
 def graph_section(gf, indent=1):
-    pk = PFX.get(gf.key, gf.key)
+    pk = PFX[gf.key]
     skey = gf.skey
     blocks = []
 
@@ -1178,7 +1436,7 @@ def graph_section(gf, indent=1):
 
 
 def hourly_forecast_props(hf):
-    pk = PFX.get(hf.key, hf.key)
+    pk = PFX[hf.key]
     return "\n".join(
         [
             f"\n  <!-- {hf.display}{hf.title_suffix} -->",
@@ -1209,7 +1467,7 @@ def hourly_forecast_strings(hf):
 
 
 def hourly_forecast_settings(hf, indent=1):
-    pk = PFX.get(hf.key, hf.key)
+    pk = PFX[hf.key]
     skey = hf.skey
     return "\n".join(
         [
@@ -1415,7 +1673,7 @@ def gen_settings():
     )
 
     for ln in (3, 4, 5):
-        pk = f"l{ln}"
+        pk = PFX[f"l{ln}"]
         lsk = f"Line{ln}"
         line_blocks = [
             setting_bool(f"{pk}{SUF['Enabled']}", f"{lsk}Enabled", indent=2),
@@ -1434,7 +1692,7 @@ def gen_settings():
 
     for bf in BAR_FIELDS:
         id_prefix = bf.key[0].upper() + bf.key[1:]
-        pk = PFX.get(bf.key, bf.key)
+        pk = PFX[bf.key]
         blocks = [
             setting_bool(f"{pk}{SUF['ShowBar']}",
                          f"{id_prefix}ShowBar", indent=2),
@@ -1513,6 +1771,18 @@ def gen_settings():
             NOWCAST.key,
             f"{NOWCAST.skey}Group",
             hourly_forecast_settings(NOWCAST, indent=2),
+            setting_list(
+                f"{PFX[NOWCAST.key]}{SUF['FetchMode']}",
+                "WxNowcastFetchMode",
+                entries(NOWCAST_FETCH_MODE_OPTIONS),
+                indent=2,
+            ),
+            setting_list(
+                f"{PFX[NOWCAST.key]}{SUF['FetchInterval']}",
+                "WxNowcastFetchInterval",
+                entries(NOWCAST_FETCH_INTERVAL_OPTIONS),
+                indent=2,
+            ),
         )
     )
 
@@ -1540,7 +1810,9 @@ def write(path, content):
 if __name__ == "__main__":
     print("Generating resources...")
     write(OUT_FIELD_IDS, gen_field_ids())
-    write(OUT_PROPERTIES, gen_properties())
+    props = gen_properties()
+    check_property_ids(props)
+    write(OUT_PROPERTIES, props)
     write(OUT_STRINGS, gen_strings())
     write(OUT_SETTINGS, gen_settings())
     print("Done.")

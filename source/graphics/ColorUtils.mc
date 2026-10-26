@@ -1,4 +1,5 @@
 import Toybox.Lang;
+import Toybox.Math;
 
 module ColorUtils {
     function colorFromIdx(idx as Number) as Number {
@@ -75,5 +76,27 @@ module ColorUtils {
             default:
                 return colorFromIdx(colorIdx);
         }
+    }
+
+    function quantizeBits(v as Float, bits as Number) as Number {
+        var step = 1 << (8 - bits);
+        var maxQ = (1 << bits) - 1;
+        var q = Math.round(v / step).toNumber();
+        if (q < 0) {
+            q = 0;
+        } else if (q > maxQ) {
+            q = maxQ;
+        }
+        return q * step;
+    }
+
+    function clampByte(v as Number) as Number {
+        if (v < 0) {
+            return 0;
+        }
+        if (v > 255) {
+            return 255;
+        }
+        return v;
     }
 }

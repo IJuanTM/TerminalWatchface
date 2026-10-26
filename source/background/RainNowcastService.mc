@@ -21,7 +21,7 @@ class RainNowcastService extends System.ServiceDelegate {
 
     public function onTemporalEvent() as Void {
         var loc = Storage.getValue("rnLoc");
-        if (!(loc instanceof Array) || loc.size() != 2) {
+        if (!(loc instanceof Lang.Array) || loc.size() != 2) {
             Background.exit(null);
             return;
         }
@@ -51,7 +51,7 @@ class RainNowcastService extends System.ServiceDelegate {
         code as Number,
         data as Communications.ContentType?
     ) as Void {
-        if (code == 200 && data instanceof String) {
+        if (code == 200 && data instanceof Lang.String) {
             var out = _parseBuienradar(data);
             if (out != null) {
                 Background.exit(out);
@@ -65,20 +65,20 @@ class RainNowcastService extends System.ServiceDelegate {
         code as Number,
         data as Communications.ContentType?
     ) as Void {
-        if (code != 200 || !(data instanceof Dictionary)) {
+        if (code != 200 || !(data instanceof Lang.Dictionary)) {
             Background.exit(code);
             return;
         }
         var m = data["minutely_15"];
-        if (!(m instanceof Dictionary)) {
+        if (!(m instanceof Lang.Dictionary)) {
             Background.exit(code);
             return;
         }
         var times = m["time"];
         var precip = m["precipitation"];
         if (
-            !(times instanceof Array) ||
-            !(precip instanceof Array) ||
+            !(times instanceof Lang.Array) ||
+            !(precip instanceof Lang.Array) ||
             times.size() == 0 ||
             precip.size() != times.size()
         ) {

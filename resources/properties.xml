@@ -1,266 +1,256 @@
 <properties>
 
   <!-- Appearance -->
-  <property id="font" type="number">0</property>
-  <property id="theme" type="number">0</property>
-  <property id="scan" type="number">2</property>
-  <property id="glow" type="number">2</property>
-  <property id="bgLt" type="number">0</property>
-  <property id="flick" type="boolean">true</property>
+  <property id="f" type="number">0</property>
+  <property id="t" type="number">0</property>
+  <property id="s" type="number">2</property>
+  <property id="g" type="number">2</property>
+  <property id="b" type="number">0</property>
+  <property id="k" type="boolean">true</property>
 
   <!-- Display options -->
-  <property id="lPad" type="number">4</property>
-  <property id="aOpac" type="number">64</property>
-  <property id="aLine" type="boolean">true</property>
-  <property id="batD" type="boolean">true</property>
-  <property id="shSec" type="boolean">false</property>
-  <property id="shYr" type="boolean">false</property>
-  <property id="dFmt" type="number">0</property>
-  <property id="cmdSty" type="number">2</property>
-  <property id="rotI" type="number">5</property>
-  <property id="rotA" type="number">0</property>
-  <property id="rotMode" type="number">2</property>
+  <property id="p" type="number">4</property>
+  <property id="o" type="number">64</property>
+  <property id="a" type="boolean">true</property>
+  <property id="y" type="boolean">true</property>
+  <property id="c" type="boolean">false</property>
+  <property id="r" type="boolean">false</property>
+  <property id="d" type="number">0</property>
+  <property id="w" type="number">2</property>
+  <property id="i" type="number">5</property>
+  <property id="j" type="number">0</property>
+  <property id="m" type="number">2</property>
 
   <!-- Units -->
-  <property id="uDst" type="number">0</property>
-  <property id="uTmp" type="number">0</property>
-  <property id="uElv" type="number">0</property>
-  <property id="uPac" type="number">0</property>
-  <property id="uPrs" type="number">0</property>
+  <property id="u" type="number">0</property>
+  <property id="e" type="number">0</property>
+  <property id="h" type="number">0</property>
+  <property id="n" type="number">0</property>
+  <property id="q" type="number">0</property>
 
   <!-- Time row (always visible) -->
-  <property id="l1Lc" type="number">8</property>
-  <property id="l1Vc" type="number">0</property>
+  <property id="l1" type="number">8</property>
+  <property id="v1" type="number">0</property>
 
   <!-- Date row (always visible) -->
-  <property id="l2Lc" type="number">8</property>
-  <property id="l2Vc" type="number">0</property>
+  <property id="l2" type="number">8</property>
+  <property id="v2" type="number">0</property>
 
   <!-- Line 3 -->
-  <property id="l3En" type="boolean">true</property>
-  <property id="l3Lc" type="number">6</property>
-  <property id="l3Vc" type="number">0</property>
-  <property id="l3R1" type="number">451</property>
+  <property id="xn" type="boolean">true</property>
+  <property id="xl" type="number">6</property>
+  <property id="xa" type="number">0</property>
+  <property id="x1" type="number">451</property>
 
   <!-- Line 4 -->
-  <property id="l4En" type="boolean">true</property>
-  <property id="l4Lc" type="number">1</property>
-  <property id="l4Vc" type="number">0</property>
-  <property id="l4R1" type="number">1</property>
+  <property id="yn" type="boolean">true</property>
+  <property id="yl" type="number">1</property>
+  <property id="ya" type="number">0</property>
+  <property id="y1" type="number">1</property>
 
   <!-- Line 5 -->
-  <property id="l5En" type="boolean">true</property>
-  <property id="l5Lc" type="number">5</property>
-  <property id="l5Vc" type="number">0</property>
-  <property id="l5R1" type="number">4</property>
-  <property id="l3R2" type="number">458</property>
-  <property id="l4R2" type="number">102</property>
-  <property id="l5R2" type="number">8</property>
-  <property id="l3R3" type="number">414</property>
-  <property id="l4R3" type="number">52</property>
-  <property id="l5R3" type="number">7</property>
-  <property id="l3R4" type="number">412</property>
-  <property id="l4R4" type="number">2</property>
-  <property id="l5R4" type="number">53</property>
-  <property id="l3R5" type="number">452</property>
-  <property id="l4R5" type="number">203</property>
-  <property id="l5R5" type="number">54</property>
-  <property id="l3R6" type="number">0</property>
-  <property id="l4R6" type="number">0</property>
-  <property id="l5R6" type="number">0</property>
-  <property id="l3R7" type="number">0</property>
-  <property id="l4R7" type="number">0</property>
-  <property id="l5R7" type="number">0</property>
-  <property id="l3R8" type="number">0</property>
-  <property id="l4R8" type="number">0</property>
-  <property id="l5R8" type="number">0</property>
-  <property id="l3R9" type="number">0</property>
-  <property id="l4R9" type="number">0</property>
-  <property id="l5R9" type="number">0</property>
+  <property id="zn" type="boolean">true</property>
+  <property id="zl" type="number">5</property>
+  <property id="za" type="number">0</property>
+  <property id="z1" type="number">4</property>
+  <property id="x2" type="number">458</property>
+  <property id="y2" type="number">102</property>
+  <property id="z2" type="number">8</property>
+  <property id="x3" type="number">414</property>
+  <property id="y3" type="number">52</property>
+  <property id="z3" type="number">7</property>
+  <property id="x4" type="number">412</property>
+  <property id="y4" type="number">2</property>
+  <property id="z4" type="number">53</property>
+  <property id="x5" type="number">452</property>
+  <property id="y5" type="number">203</property>
+  <property id="z5" type="number">54</property>
 
   <!-- Steps -->
-  <property id="stpSb" type="boolean">true</property>
-  <property id="stpSv" type="boolean">true</property>
-  <property id="stpBc" type="number">1</property>
-  <property id="stpBw" type="number">10</property>
+  <property id="sh" type="boolean">true</property>
+  <property id="sb" type="boolean">true</property>
+  <property id="sk" type="number">1</property>
+  <property id="sx" type="number">10</property>
 
   <!-- Floors -->
-  <property id="flrSb" type="boolean">false</property>
-  <property id="flrSv" type="boolean">true</property>
-  <property id="flrBc" type="number">5</property>
-  <property id="flrBw" type="number">8</property>
+  <property id="fh" type="boolean">false</property>
+  <property id="fb" type="boolean">true</property>
+  <property id="fk" type="number">5</property>
+  <property id="fx" type="number">8</property>
 
   <!-- Calories (Daily) -->
-  <property id="calSb" type="boolean">false</property>
-  <property id="calSv" type="boolean">true</property>
-  <property id="calBc" type="number">4</property>
-  <property id="calBw" type="number">10</property>
-  <property id="calBg" type="number">2000</property>
+  <property id="ch" type="boolean">false</property>
+  <property id="cb" type="boolean">true</property>
+  <property id="ck" type="number">4</property>
+  <property id="cx" type="number">10</property>
+  <property id="cq" type="number">2000</property>
 
   <!-- Distance (Daily) -->
-  <property id="distSb" type="boolean">false</property>
-  <property id="distSv" type="boolean">true</property>
-  <property id="distBc" type="number">6</property>
-  <property id="distBw" type="number">10</property>
-  <property id="distBg" type="number">5</property>
+  <property id="dh" type="boolean">false</property>
+  <property id="db" type="boolean">true</property>
+  <property id="dk" type="number">6</property>
+  <property id="dx" type="number">10</property>
+  <property id="dq" type="number">5</property>
 
   <!-- Active Minutes (Daily) -->
-  <property id="aMinSb" type="boolean">false</property>
-  <property id="aMinSv" type="boolean">true</property>
-  <property id="aMinBc" type="number">9</property>
-  <property id="aMinBw" type="number">10</property>
-  <property id="aMinBg" type="number">30</property>
+  <property id="ah" type="boolean">false</property>
+  <property id="ab" type="boolean">true</property>
+  <property id="ak" type="number">9</property>
+  <property id="ax" type="number">10</property>
+  <property id="aq" type="number">30</property>
 
   <!-- Intensity Minutes (Weekly) -->
-  <property id="iMinSb" type="boolean">true</property>
-  <property id="iMinSv" type="boolean">true</property>
-  <property id="iMinBc" type="number">5</property>
-  <property id="iMinBw" type="number">8</property>
+  <property id="ih" type="boolean">true</property>
+  <property id="ib" type="boolean">true</property>
+  <property id="ik" type="number">5</property>
+  <property id="ix" type="number">8</property>
 
   <!-- Graph settings per supported field type -->
 
   <!-- HR -->
-  <property id="hrGm" type="number">3</property>
-  <property id="hrGvm" type="number">0</property>
-  <property id="hrSt" type="number">0</property>
-  <property id="hrSf" type="number">2</property>
-  <property id="hrTf" type="number">60</property>
-  <property id="hrGc" type="number">5</property>
-  <property id="hrSe" type="number">0</property>
-  <property id="hrGw" type="number">10</property>
-  <property id="hrBn" type="number">0</property>
-  <property id="hrBa" type="number">0</property>
+  <property id="hm" type="number">3</property>
+  <property id="hg" type="number">0</property>
+  <property id="ht" type="number">0</property>
+  <property id="hf" type="number">2</property>
+  <property id="hj" type="number">60</property>
+  <property id="hc" type="number">5</property>
+  <property id="he" type="number">0</property>
+  <property id="hw" type="number">10</property>
+  <property id="hu" type="number">0</property>
+  <property id="hz" type="number">0</property>
 
   <!-- SpO2 -->
-  <property id="spo2Gm" type="number">6</property>
-  <property id="spo2Gvm" type="number">2</property>
-  <property id="spo2St" type="number">0</property>
-  <property id="spo2Sf" type="number">0</property>
-  <property id="spo2Tf" type="number">240</property>
-  <property id="spo2Gc" type="number">6</property>
-  <property id="spo2Se" type="number">0</property>
-  <property id="spo2Gw" type="number">10</property>
-  <property id="spo2Bn" type="number">0</property>
-  <property id="spo2Ba" type="number">0</property>
+  <property id="om" type="number">6</property>
+  <property id="og" type="number">2</property>
+  <property id="ot" type="number">0</property>
+  <property id="of" type="number">0</property>
+  <property id="oj" type="number">240</property>
+  <property id="oc" type="number">6</property>
+  <property id="oe" type="number">0</property>
+  <property id="ow" type="number">10</property>
+  <property id="ou" type="number">0</property>
+  <property id="oz" type="number">0</property>
 
   <!-- BodyBat -->
-  <property id="bbGm" type="number">6</property>
-  <property id="bbGvm" type="number">0</property>
-  <property id="bbSt" type="number">0</property>
-  <property id="bbSf" type="number">3</property>
-  <property id="bbTf" type="number">240</property>
-  <property id="bbGc" type="number">11</property>
-  <property id="bbSe" type="number">0</property>
-  <property id="bbGw" type="number">10</property>
-  <property id="bbBn" type="number">0</property>
-  <property id="bbBa" type="number">0</property>
+  <property id="bm" type="number">6</property>
+  <property id="bg" type="number">0</property>
+  <property id="bt" type="number">0</property>
+  <property id="bf" type="number">3</property>
+  <property id="bj" type="number">240</property>
+  <property id="bc" type="number">11</property>
+  <property id="be" type="number">0</property>
+  <property id="bw" type="number">10</property>
+  <property id="bu" type="number">0</property>
+  <property id="bz" type="number">0</property>
 
   <!-- Stress -->
-  <property id="strGm" type="number">3</property>
-  <property id="strGvm" type="number">1</property>
-  <property id="strSt" type="number">0</property>
-  <property id="strSf" type="number">0</property>
-  <property id="strTf" type="number">120</property>
-  <property id="strGc" type="number">10</property>
-  <property id="strSe" type="number">0</property>
-  <property id="strGw" type="number">10</property>
-  <property id="strBn" type="number">0</property>
-  <property id="strBa" type="number">0</property>
+  <property id="tm" type="number">3</property>
+  <property id="tg" type="number">1</property>
+  <property id="tt" type="number">0</property>
+  <property id="tf" type="number">0</property>
+  <property id="tj" type="number">120</property>
+  <property id="tc" type="number">10</property>
+  <property id="te" type="number">0</property>
+  <property id="tw" type="number">10</property>
+  <property id="tu" type="number">0</property>
+  <property id="tz" type="number">0</property>
 
   <!-- TempWrist -->
-  <property id="twGm" type="number">3</property>
-  <property id="twGvm" type="number">1</property>
-  <property id="twSt" type="number">0</property>
-  <property id="twSf" type="number">0</property>
-  <property id="twTf" type="number">60</property>
-  <property id="twGc" type="number">16</property>
-  <property id="twSe" type="number">0</property>
-  <property id="twGw" type="number">10</property>
-  <property id="twBn" type="number">0</property>
-  <property id="twBa" type="number">0</property>
+  <property id="wm" type="number">3</property>
+  <property id="wg" type="number">1</property>
+  <property id="wt" type="number">0</property>
+  <property id="wf" type="number">0</property>
+  <property id="wj" type="number">60</property>
+  <property id="wc" type="number">16</property>
+  <property id="we" type="number">0</property>
+  <property id="ww" type="number">10</property>
+  <property id="wu" type="number">0</property>
+  <property id="wz" type="number">0</property>
 
   <!-- Elevation -->
-  <property id="elevGm" type="number">6</property>
-  <property id="elevGvm" type="number">0</property>
-  <property id="elevSt" type="number">0</property>
-  <property id="elevSf" type="number">6</property>
-  <property id="elevTf" type="number">360</property>
-  <property id="elevGc" type="number">1</property>
-  <property id="elevSe" type="number">0</property>
-  <property id="elevGw" type="number">10</property>
-  <property id="elevBn" type="number">0</property>
-  <property id="elevBa" type="number">0</property>
+  <property id="em" type="number">6</property>
+  <property id="eg" type="number">0</property>
+  <property id="et" type="number">0</property>
+  <property id="ef" type="number">6</property>
+  <property id="ej" type="number">360</property>
+  <property id="ec" type="number">1</property>
+  <property id="ee" type="number">0</property>
+  <property id="ew" type="number">10</property>
+  <property id="eu" type="number">0</property>
+  <property id="ez" type="number">0</property>
 
   <!-- Pressure -->
-  <property id="presGm" type="number">3</property>
-  <property id="presGvm" type="number">1</property>
-  <property id="presSt" type="number">0</property>
-  <property id="presSf" type="number">5</property>
-  <property id="presTf" type="number">120</property>
-  <property id="presGc" type="number">2</property>
-  <property id="presSe" type="number">0</property>
-  <property id="presGw" type="number">10</property>
-  <property id="presBn" type="number">0</property>
-  <property id="presBa" type="number">0</property>
+  <property id="pm" type="number">3</property>
+  <property id="pg" type="number">1</property>
+  <property id="pt" type="number">0</property>
+  <property id="pf" type="number">5</property>
+  <property id="pj" type="number">120</property>
+  <property id="pc" type="number">2</property>
+  <property id="pe" type="number">0</property>
+  <property id="pw" type="number">10</property>
+  <property id="pu" type="number">0</property>
+  <property id="pz" type="number">0</property>
 
   <!-- Temp Hourly Forecast -->
-  <property id="wxfGm" type="number">4</property>
-  <property id="wxfVm" type="number">0</property>
-  <property id="wxfTf" type="number">12</property>
-  <property id="wxfGc" type="number">16</property>
-  <property id="wxfGw" type="number">10</property>
+  <property id="km" type="number">4</property>
+  <property id="kv" type="number">0</property>
+  <property id="kj" type="number">12</property>
+  <property id="kc" type="number">16</property>
+  <property id="kw" type="number">10</property>
 
   <!-- Rain Hourly Forecast -->
-  <property id="wxfpGm" type="number">4</property>
-  <property id="wxfpVm" type="number">1</property>
-  <property id="wxfpTf" type="number">12</property>
-  <property id="wxfpGc" type="number">6</property>
-  <property id="wxfpGw" type="number">10</property>
+  <property id="rm" type="number">4</property>
+  <property id="rv" type="number">1</property>
+  <property id="rj" type="number">12</property>
+  <property id="rc" type="number">6</property>
+  <property id="rw" type="number">10</property>
 
   <!-- Wind Hourly Forecast -->
-  <property id="wxfwGm" type="number">4</property>
-  <property id="wxfwVm" type="number">1</property>
-  <property id="wxfwTf" type="number">12</property>
-  <property id="wxfwGc" type="number">6</property>
-  <property id="wxfwGw" type="number">10</property>
+  <property id="nm" type="number">4</property>
+  <property id="nv" type="number">1</property>
+  <property id="nj" type="number">12</property>
+  <property id="nc" type="number">6</property>
+  <property id="nw" type="number">10</property>
 
   <!-- UV Hourly Forecast -->
-  <property id="wxfuGm" type="number">4</property>
-  <property id="wxfuVm" type="number">2</property>
-  <property id="wxfuTf" type="number">12</property>
-  <property id="wxfuGc" type="number">3</property>
-  <property id="wxfuGw" type="number">10</property>
+  <property id="um" type="number">4</property>
+  <property id="uv" type="number">2</property>
+  <property id="uj" type="number">12</property>
+  <property id="uc" type="number">3</property>
+  <property id="uw" type="number">10</property>
 
   <!-- Cloud Hourly Forecast -->
-  <property id="wxfcGm" type="number">4</property>
-  <property id="wxfcVm" type="number">1</property>
-  <property id="wxfcTf" type="number">12</property>
-  <property id="wxfcGc" type="number">8</property>
-  <property id="wxfcGw" type="number">10</property>
+  <property id="gm" type="number">4</property>
+  <property id="gv" type="number">1</property>
+  <property id="gj" type="number">12</property>
+  <property id="gc" type="number">8</property>
+  <property id="gw" type="number">10</property>
 
   <!-- Humidity Hourly Forecast -->
-  <property id="wxfhGm" type="number">4</property>
-  <property id="wxfhVm" type="number">1</property>
-  <property id="wxfhTf" type="number">12</property>
-  <property id="wxfhGc" type="number">2</property>
-  <property id="wxfhGw" type="number">10</property>
+  <property id="mm" type="number">4</property>
+  <property id="mv" type="number">1</property>
+  <property id="mj" type="number">12</property>
+  <property id="mc" type="number">2</property>
+  <property id="mw" type="number">10</property>
 
   <!-- Day Forecast -->
-  <property id="wxfdVw" type="number">2</property>
-  <property id="wxfdVm" type="number">2</property>
-  <property id="wxfdDy" type="number">5</property>
-  <property id="wxfdGc" type="number">16</property>
-  <property id="wxfdGw" type="number">8</property>
+  <property id="jy" type="number">2</property>
+  <property id="jv" type="number">2</property>
+  <property id="jd" type="number">5</property>
+  <property id="jc" type="number">16</property>
+  <property id="jw" type="number">8</property>
 
   <!-- Rain Nowcast -->
-  <property id="wxnGm" type="number">6</property>
-  <property id="wxnVm" type="number">0</property>
-  <property id="wxnTf" type="number">120</property>
-  <property id="wxnGc" type="number">6</property>
-  <property id="wxnGw" type="number">10</property>
+  <property id="qm" type="number">6</property>
+  <property id="qv" type="number">0</property>
+  <property id="qj" type="number">120</property>
+  <property id="qc" type="number">6</property>
+  <property id="qw" type="number">10</property>
+  <property id="qp" type="number">0</property>
+  <property id="qi" type="number">5</property>
 
   <!-- Debug -->
-  <property id="shVer" type="boolean">false</property>
-  <property id="dbgGG" type="boolean">false</property>
+  <property id="v" type="boolean">false</property>
+  <property id="x" type="boolean">false</property>
 
 </properties>

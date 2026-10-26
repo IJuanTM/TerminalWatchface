@@ -1,13 +1,13 @@
 <settings>
   <group id="appearance" title="@Strings.AppearanceGroup">
-    <setting propertyKey="@Properties.font" title="@Strings.FontChoice">
+    <setting propertyKey="@Properties.f" title="@Strings.FontChoice">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FontJetBrainsMono</listEntry>
         <listEntry value="1">@Strings.FontSpaceMono</listEntry>
         <listEntry value="2">@Strings.NBArchitekt</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.theme" title="@Strings.ColorTheme">
+    <setting propertyKey="@Properties.t" title="@Strings.ColorTheme">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorThemeCustom</listEntry>
         <listEntry value="1">@Strings.ColorThemeAmber</listEntry>
@@ -15,7 +15,7 @@
         <listEntry value="3">@Strings.ColorThemeBlue</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.scan" title="@Strings.Scanlines">
+    <setting propertyKey="@Properties.s" title="@Strings.Scanlines">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ScanlinesOff</listEntry>
         <listEntry value="1">@Strings.ScanlinesSubtle</listEntry>
@@ -23,7 +23,7 @@
         <listEntry value="3">@Strings.ScanlinesStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.glow" title="@Strings.GlowIntensity">
+    <setting propertyKey="@Properties.g" title="@Strings.GlowIntensity">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GlowIntensityOff</listEntry>
         <listEntry value="1">@Strings.GlowIntensitySubtle</listEntry>
@@ -31,7 +31,7 @@
         <listEntry value="3">@Strings.GlowIntensityStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bgLt" title="@Strings.BgBacklight">
+    <setting propertyKey="@Properties.b" title="@Strings.BgBacklight">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BgBacklightOff</listEntry>
         <listEntry value="1">@Strings.BgBacklightSubtle</listEntry>
@@ -39,13 +39,13 @@
         <listEntry value="3">@Strings.BgBacklightStrong</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.flick" title="@Strings.FlickerEnabled">
+    <setting propertyKey="@Properties.k" title="@Strings.FlickerEnabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.lPad" title="@Strings.LeftPadding">
+    <setting propertyKey="@Properties.p" title="@Strings.LeftPadding">
       <settingConfig type="numeric" min="0" max="8" />
     </setting>
-    <setting propertyKey="@Properties.aOpac" title="@Strings.AreaOpacity">
+    <setting propertyKey="@Properties.o" title="@Strings.AreaOpacity">
       <settingConfig type="list">
         <listEntry value="64">@Strings.AreaOpacity25</listEntry>
         <listEntry value="128">@Strings.AreaOpacity50</listEntry>
@@ -53,13 +53,13 @@
         <listEntry value="255">@Strings.AreaOpacity100</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.aLine" title="@Strings.AreaShowLine">
+    <setting propertyKey="@Properties.a" title="@Strings.AreaShowLine">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.batD" title="@Strings.ShowBatteryDays">
+    <setting propertyKey="@Properties.y" title="@Strings.ShowBatteryDays">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.cmdSty" title="@Strings.WatchCommandStyle">
+    <setting propertyKey="@Properties.w" title="@Strings.WatchCommandStyle">
       <settingConfig type="list">
         <listEntry value="0">@Strings.WatchCommandWindows</listEntry>
         <listEntry value="1">@Strings.WatchCommandLinux</listEntry>
@@ -68,10 +68,10 @@
     </setting>
   </group>
   <group id="timeRow" title="@Strings.TimeRowGroup">
-    <setting propertyKey="@Properties.shSec" title="@Strings.ShowSeconds">
+    <setting propertyKey="@Properties.c" title="@Strings.ShowSeconds">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.l1Lc" title="@Strings.Line1LabelColor">
+    <setting propertyKey="@Properties.l1" title="@Strings.Line1LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -85,7 +85,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l1Vc" title="@Strings.Line1ValueColor">
+    <setting propertyKey="@Properties.v1" title="@Strings.Line1ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -101,10 +101,10 @@
     </setting>
   </group>
   <group id="dateRow" title="@Strings.DateRowGroup">
-    <setting propertyKey="@Properties.shYr" title="@Strings.ShowYear">
+    <setting propertyKey="@Properties.r" title="@Strings.ShowYear">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.dFmt" title="@Strings.DateFormat">
+    <setting propertyKey="@Properties.d" title="@Strings.DateFormat">
       <settingConfig type="list">
         <listEntry value="0">@Strings.DateFormatDayMon</listEntry>
         <listEntry value="1">@Strings.DateFormatYMD</listEntry>
@@ -114,7 +114,7 @@
         <listEntry value="5">@Strings.DateFormatDMon</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l2Lc" title="@Strings.Line2LabelColor">
+    <setting propertyKey="@Properties.l2" title="@Strings.Line2LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -128,7 +128,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l2Vc" title="@Strings.Line2ValueColor">
+    <setting propertyKey="@Properties.v2" title="@Strings.Line2ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -144,35 +144,35 @@
     </setting>
   </group>
   <group id="units" title="@Strings.UnitsGroup">
-    <setting propertyKey="@Properties.uDst" title="@Strings.UnitDistance">
+    <setting propertyKey="@Properties.u" title="@Strings.UnitDistance">
       <settingConfig type="list">
         <listEntry value="0">@Strings.UnitWatch</listEntry>
         <listEntry value="1">@Strings.UnitKilometers</listEntry>
         <listEntry value="2">@Strings.UnitMiles</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.uTmp" title="@Strings.UnitTemperature">
+    <setting propertyKey="@Properties.e" title="@Strings.UnitTemperature">
       <settingConfig type="list">
         <listEntry value="0">@Strings.UnitWatch</listEntry>
         <listEntry value="1">@Strings.UnitCelsius</listEntry>
         <listEntry value="2">@Strings.UnitFahrenheit</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.uElv" title="@Strings.UnitElevation">
+    <setting propertyKey="@Properties.h" title="@Strings.UnitElevation">
       <settingConfig type="list">
         <listEntry value="0">@Strings.UnitWatch</listEntry>
         <listEntry value="1">@Strings.UnitMeters</listEntry>
         <listEntry value="2">@Strings.UnitFeet</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.uPac" title="@Strings.UnitPace">
+    <setting propertyKey="@Properties.n" title="@Strings.UnitPace">
       <settingConfig type="list">
         <listEntry value="0">@Strings.UnitWatch</listEntry>
         <listEntry value="1">@Strings.UnitPaceKm</listEntry>
         <listEntry value="2">@Strings.UnitPaceMi</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.uPrs" title="@Strings.UnitPressure">
+    <setting propertyKey="@Properties.q" title="@Strings.UnitPressure">
       <settingConfig type="list">
         <listEntry value="0">@Strings.UnitPressureAuto</listEntry>
         <listEntry value="1">@Strings.UnitHpa</listEntry>
@@ -181,7 +181,7 @@
     </setting>
   </group>
   <group id="rotation" title="@Strings.RotationGroup">
-    <setting propertyKey="@Properties.rotI" title="@Strings.RotateInterval">
+    <setting propertyKey="@Properties.i" title="@Strings.RotateInterval">
       <settingConfig type="list">
         <listEntry value="3">@Strings.Rotate3s</listEntry>
         <listEntry value="5">@Strings.Rotate5s</listEntry>
@@ -191,7 +191,7 @@
         <listEntry value="60">@Strings.Rotate1min</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.rotA" title="@Strings.RotateIntervalAlt">
+    <setting propertyKey="@Properties.j" title="@Strings.RotateIntervalAlt">
       <settingConfig type="list">
         <listEntry value="0">@Strings.RotateSameAsMain</listEntry>
         <listEntry value="3">@Strings.Rotate3s</listEntry>
@@ -202,7 +202,7 @@
         <listEntry value="60">@Strings.Rotate1min</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.rotMode" title="@Strings.RotationMode">
+    <setting propertyKey="@Properties.m" title="@Strings.RotationMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.RotationModeAutomatic</listEntry>
         <listEntry value="1">@Strings.RotationModeManual</listEntry>
@@ -211,10 +211,10 @@
     </setting>
   </group>
   <group id="line3" title="@Strings.Line3ConfigGroup">
-    <setting propertyKey="@Properties.l3En" title="@Strings.Line3Enabled">
+    <setting propertyKey="@Properties.xn" title="@Strings.Line3Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.l3Lc" title="@Strings.Line3LabelColor">
+    <setting propertyKey="@Properties.xl" title="@Strings.Line3LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -228,7 +228,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3Vc" title="@Strings.Line3ValueColor">
+    <setting propertyKey="@Properties.xa" title="@Strings.Line3ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -242,7 +242,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3R1" title="@Strings.Line3Primary">
+    <setting propertyKey="@Properties.x1" title="@Strings.Line3Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -343,7 +343,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3R2" title="@Strings.Line3Secondary">
+    <setting propertyKey="@Properties.x2" title="@Strings.Line3Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -444,7 +444,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3R3" title="@Strings.Line3Tertiary">
+    <setting propertyKey="@Properties.x3" title="@Strings.Line3Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -545,7 +545,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3R4" title="@Strings.Line3Quaternary">
+    <setting propertyKey="@Properties.x4" title="@Strings.Line3Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -646,411 +646,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l3R5" title="@Strings.Line3Quinary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l3R6" title="@Strings.Line3Senary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l3R7" title="@Strings.Line3Septenary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l3R8" title="@Strings.Line3Octonary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l3R9" title="@Strings.Line3Nonary">
+    <setting propertyKey="@Properties.x5" title="@Strings.Line3Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1153,10 +749,10 @@
     </setting>
   </group>
   <group id="line4" title="@Strings.Line4ConfigGroup">
-    <setting propertyKey="@Properties.l4En" title="@Strings.Line4Enabled">
+    <setting propertyKey="@Properties.yn" title="@Strings.Line4Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.l4Lc" title="@Strings.Line4LabelColor">
+    <setting propertyKey="@Properties.yl" title="@Strings.Line4LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -1170,7 +766,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4Vc" title="@Strings.Line4ValueColor">
+    <setting propertyKey="@Properties.ya" title="@Strings.Line4ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -1184,7 +780,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4R1" title="@Strings.Line4Primary">
+    <setting propertyKey="@Properties.y1" title="@Strings.Line4Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1285,7 +881,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4R2" title="@Strings.Line4Secondary">
+    <setting propertyKey="@Properties.y2" title="@Strings.Line4Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1386,7 +982,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4R3" title="@Strings.Line4Tertiary">
+    <setting propertyKey="@Properties.y3" title="@Strings.Line4Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1487,7 +1083,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4R4" title="@Strings.Line4Quaternary">
+    <setting propertyKey="@Properties.y4" title="@Strings.Line4Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -1588,411 +1184,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l4R5" title="@Strings.Line4Quinary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l4R6" title="@Strings.Line4Senary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l4R7" title="@Strings.Line4Septenary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l4R8" title="@Strings.Line4Octonary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l4R9" title="@Strings.Line4Nonary">
+    <setting propertyKey="@Properties.y5" title="@Strings.Line4Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2095,10 +1287,10 @@
     </setting>
   </group>
   <group id="line5" title="@Strings.Line5ConfigGroup">
-    <setting propertyKey="@Properties.l5En" title="@Strings.Line5Enabled">
+    <setting propertyKey="@Properties.zn" title="@Strings.Line5Enabled">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.l5Lc" title="@Strings.Line5LabelColor">
+    <setting propertyKey="@Properties.zl" title="@Strings.Line5LabelColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2112,7 +1304,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5Vc" title="@Strings.Line5ValueColor">
+    <setting propertyKey="@Properties.za" title="@Strings.Line5ValueColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -2126,7 +1318,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5R1" title="@Strings.Line5Primary">
+    <setting propertyKey="@Properties.z1" title="@Strings.Line5Primary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2227,7 +1419,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5R2" title="@Strings.Line5Secondary">
+    <setting propertyKey="@Properties.z2" title="@Strings.Line5Secondary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2328,7 +1520,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5R3" title="@Strings.Line5Tertiary">
+    <setting propertyKey="@Properties.z3" title="@Strings.Line5Tertiary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2429,7 +1621,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5R4" title="@Strings.Line5Quaternary">
+    <setting propertyKey="@Properties.z4" title="@Strings.Line5Quaternary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -2530,411 +1722,7 @@
         <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.l5R5" title="@Strings.Line5Quinary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l5R6" title="@Strings.Line5Senary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l5R7" title="@Strings.Line5Septenary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l5R8" title="@Strings.Line5Octonary">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.FieldNone</listEntry>
-        <listEntry value="1">@Strings.FieldSteps</listEntry>
-        <listEntry value="2">@Strings.FieldFloors</listEntry>
-        <listEntry value="3">@Strings.FieldMoveBar</listEntry>
-        <listEntry value="4">@Strings.FieldHR</listEntry>
-        <listEntry value="5">@Strings.FieldSpO2</listEntry>
-        <listEntry value="6">@Strings.FieldResp</listEntry>
-        <listEntry value="7">@Strings.FieldBodyBat</listEntry>
-        <listEntry value="8">@Strings.FieldStress</listEntry>
-        <listEntry value="9">@Strings.FieldRecovery</listEntry>
-        <listEntry value="10">@Strings.FieldSleep</listEntry>
-        <listEntry value="11">@Strings.FieldVo2Max</listEntry>
-        <listEntry value="12">@Strings.FieldTrainingStatus</listEntry>
-        <listEntry value="13">@Strings.FieldWristTemp</listEntry>
-        <listEntry value="14">@Strings.FieldHrResting</listEntry>
-        <listEntry value="15">@Strings.FieldHrRestingAvg</listEntry>
-        <listEntry value="16">@Strings.FieldHrRestingBoth</listEntry>
-        <listEntry value="17">@Strings.FieldHrSpo2</listEntry>
-        <listEntry value="18">@Strings.FieldRespSpo2</listEntry>
-        <listEntry value="19">@Strings.FieldBodyBatStress</listEntry>
-        <listEntry value="20">@Strings.FieldBodyBatRecovery</listEntry>
-        <listEntry value="21">@Strings.FieldStressRecovery</listEntry>
-        <listEntry value="22">@Strings.FieldVo2Training</listEntry>
-        <listEntry value="23">@Strings.FieldBodyBatRestHR</listEntry>
-        <listEntry value="24">@Strings.FieldSleepRecovery</listEntry>
-        <listEntry value="51">@Strings.FieldCalories</listEntry>
-        <listEntry value="52">@Strings.FieldDistance</listEntry>
-        <listEntry value="53">@Strings.FieldActiveMinDay</listEntry>
-        <listEntry value="54">@Strings.FieldIntensityMin</listEntry>
-        <listEntry value="101">@Strings.FieldAltitude</listEntry>
-        <listEntry value="102">@Strings.FieldElevation</listEntry>
-        <listEntry value="103">@Strings.FieldPressure</listEntry>
-        <listEntry value="151">@Strings.FieldRace5k</listEntry>
-        <listEntry value="152">@Strings.FieldRace10k</listEntry>
-        <listEntry value="153">@Strings.FieldRaceHalf</listEntry>
-        <listEntry value="154">@Strings.FieldRaceMarathon</listEntry>
-        <listEntry value="155">@Strings.FieldRacePace5k</listEntry>
-        <listEntry value="156">@Strings.FieldRacePace10k</listEntry>
-        <listEntry value="157">@Strings.FieldRacePaceHalf</listEntry>
-        <listEntry value="158">@Strings.FieldRacePaceMarathon</listEntry>
-        <listEntry value="201">@Strings.FieldClimbDay</listEntry>
-        <listEntry value="202">@Strings.FieldDescentDay</listEntry>
-        <listEntry value="203">@Strings.FieldClimbDescendDay</listEntry>
-        <listEntry value="251">@Strings.FieldWeeklyRun</listEntry>
-        <listEntry value="252">@Strings.FieldWeeklyBike</listEntry>
-        <listEntry value="253">@Strings.FieldWeeklyDistances</listEntry>
-        <listEntry value="301">@Strings.FieldSunrise</listEntry>
-        <listEntry value="302">@Strings.FieldSunset</listEntry>
-        <listEntry value="303">@Strings.FieldSunriseSunset</listEntry>
-        <listEntry value="304">@Strings.FieldCalendar</listEntry>
-        <listEntry value="305">@Strings.FieldSleepTime</listEntry>
-        <listEntry value="306">@Strings.FieldWakeTime</listEntry>
-        <listEntry value="307">@Strings.FieldSleepSchedule</listEntry>
-        <listEntry value="351">@Strings.FieldWxTemp</listEntry>
-        <listEntry value="352">@Strings.FieldWxFeels</listEntry>
-        <listEntry value="353">@Strings.FieldWxCond</listEntry>
-        <listEntry value="354">@Strings.FieldWxPrecip</listEntry>
-        <listEntry value="355">@Strings.FieldWxWind</listEntry>
-        <listEntry value="356">@Strings.FieldWxUV</listEntry>
-        <listEntry value="357">@Strings.FieldWxCloud</listEntry>
-        <listEntry value="358">@Strings.FieldWxHumidity</listEntry>
-        <listEntry value="359">@Strings.FieldWxDewPoint</listEntry>
-        <listEntry value="360">@Strings.FieldWxVisibility</listEntry>
-        <listEntry value="361">@Strings.FieldWxHeatIndex</listEntry>
-        <listEntry value="362">@Strings.FieldWxHighLow</listEntry>
-        <listEntry value="401">@Strings.FieldWxTempCond</listEntry>
-        <listEntry value="402">@Strings.FieldWxTempPrecip</listEntry>
-        <listEntry value="403">@Strings.FieldWxTempWind</listEntry>
-        <listEntry value="404">@Strings.FieldWxTempUV</listEntry>
-        <listEntry value="405">@Strings.FieldWxTempHumidity</listEntry>
-        <listEntry value="406">@Strings.FieldWxTempHighLow</listEntry>
-        <listEntry value="407">@Strings.FieldWxCondPrecip</listEntry>
-        <listEntry value="408">@Strings.FieldWxWindPrecip</listEntry>
-        <listEntry value="409">@Strings.FieldWxUVPrecip</listEntry>
-        <listEntry value="410">@Strings.FieldWxCloudPrecip</listEntry>
-        <listEntry value="411">@Strings.FieldWxHumidityPrecip</listEntry>
-        <listEntry value="412">@Strings.FieldWxUVWind</listEntry>
-        <listEntry value="413">@Strings.FieldWxHumidityDew</listEntry>
-        <listEntry value="414">@Strings.FieldWxCondCloud</listEntry>
-        <listEntry value="451">@Strings.FieldWxFcstTemp</listEntry>
-        <listEntry value="452">@Strings.FieldWxFcstDaily</listEntry>
-        <listEntry value="453">@Strings.FieldWxFcstPrecip</listEntry>
-        <listEntry value="454">@Strings.FieldWxFcstWind</listEntry>
-        <listEntry value="455">@Strings.FieldWxFcstUv</listEntry>
-        <listEntry value="456">@Strings.FieldWxFcstCloud</listEntry>
-        <listEntry value="457">@Strings.FieldWxFcstHumidity</listEntry>
-        <listEntry value="458">@Strings.FieldWxNowcast</listEntry>
-        <listEntry value="501">@Strings.FieldWxFcstCond1d</listEntry>
-        <listEntry value="502">@Strings.FieldWxFcstCond2d</listEntry>
-        <listEntry value="503">@Strings.FieldWxFcstCond3d</listEntry>
-        <listEntry value="504">@Strings.FieldWxCondFcst1d</listEntry>
-        <listEntry value="505">@Strings.FieldWxFcstCond12d</listEntry>
-        <listEntry value="551">@Strings.FieldWxSeaPress</listEntry>
-        <listEntry value="552">@Strings.FieldWxObsTime</listEntry>
-        <listEntry value="601">@Strings.FieldNotifications</listEntry>
-        <listEntry value="602">@Strings.FieldSolar</listEntry>
-        <listEntry value="603">@Strings.FieldSolarBattery</listEntry>
-      </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.l5R9" title="@Strings.Line5Nonary">
+    <setting propertyKey="@Properties.z5" title="@Strings.Line5Quinary">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldNone</listEntry>
         <listEntry value="1">@Strings.FieldSteps</listEntry>
@@ -3037,13 +1825,13 @@
     </setting>
   </group>
   <group id="steps" title="@Strings.StepsGroup">
-    <setting propertyKey="@Properties.stpSb" title="@Strings.StepsShowBar">
+    <setting propertyKey="@Properties.sh" title="@Strings.StepsShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.stpSv" title="@Strings.StepsShowBarValue">
+    <setting propertyKey="@Properties.sb" title="@Strings.StepsShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.stpBc" title="@Strings.StepsBarColor">
+    <setting propertyKey="@Properties.sk" title="@Strings.StepsBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3057,7 +1845,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.stpBw" title="@Strings.StepsBarWidth">
+    <setting propertyKey="@Properties.sx" title="@Strings.StepsBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3069,13 +1857,13 @@
     </setting>
   </group>
   <group id="floors" title="@Strings.FloorsGroup">
-    <setting propertyKey="@Properties.flrSb" title="@Strings.FloorsShowBar">
+    <setting propertyKey="@Properties.fh" title="@Strings.FloorsShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.flrSv" title="@Strings.FloorsShowBarValue">
+    <setting propertyKey="@Properties.fb" title="@Strings.FloorsShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.flrBc" title="@Strings.FloorsBarColor">
+    <setting propertyKey="@Properties.fk" title="@Strings.FloorsBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3089,7 +1877,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.flrBw" title="@Strings.FloorsBarWidth">
+    <setting propertyKey="@Properties.fx" title="@Strings.FloorsBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3101,13 +1889,13 @@
     </setting>
   </group>
   <group id="calories" title="@Strings.CaloriesGroup">
-    <setting propertyKey="@Properties.calSb" title="@Strings.CaloriesShowBar">
+    <setting propertyKey="@Properties.ch" title="@Strings.CaloriesShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.calSv" title="@Strings.CaloriesShowBarValue">
+    <setting propertyKey="@Properties.cb" title="@Strings.CaloriesShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.calBc" title="@Strings.CaloriesBarColor">
+    <setting propertyKey="@Properties.ck" title="@Strings.CaloriesBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3121,7 +1909,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.calBw" title="@Strings.CaloriesBarWidth">
+    <setting propertyKey="@Properties.cx" title="@Strings.CaloriesBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3131,18 +1919,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.calBg" title="@Strings.CaloriesBarGoal">
+    <setting propertyKey="@Properties.cq" title="@Strings.CaloriesBarGoal">
       <settingConfig type="numeric" min="500" max="9000" />
     </setting>
   </group>
   <group id="distance" title="@Strings.DistanceGroup">
-    <setting propertyKey="@Properties.distSb" title="@Strings.DistanceShowBar">
+    <setting propertyKey="@Properties.dh" title="@Strings.DistanceShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.distSv" title="@Strings.DistanceShowBarValue">
+    <setting propertyKey="@Properties.db" title="@Strings.DistanceShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.distBc" title="@Strings.DistanceBarColor">
+    <setting propertyKey="@Properties.dk" title="@Strings.DistanceBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3156,7 +1944,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.distBw" title="@Strings.DistanceBarWidth">
+    <setting propertyKey="@Properties.dx" title="@Strings.DistanceBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3166,18 +1954,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.distBg" title="@Strings.DistanceBarGoal">
+    <setting propertyKey="@Properties.dq" title="@Strings.DistanceBarGoal">
       <settingConfig type="numeric" min="1" max="200" />
     </setting>
   </group>
   <group id="activeMinDay" title="@Strings.ActiveMinDayGroup">
-    <setting propertyKey="@Properties.aMinSb" title="@Strings.ActiveMinDayShowBar">
+    <setting propertyKey="@Properties.ah" title="@Strings.ActiveMinDayShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.aMinSv" title="@Strings.ActiveMinDayShowBarValue">
+    <setting propertyKey="@Properties.ab" title="@Strings.ActiveMinDayShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.aMinBc" title="@Strings.ActiveMinDayBarColor">
+    <setting propertyKey="@Properties.ak" title="@Strings.ActiveMinDayBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3191,7 +1979,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.aMinBw" title="@Strings.ActiveMinDayBarWidth">
+    <setting propertyKey="@Properties.ax" title="@Strings.ActiveMinDayBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3201,18 +1989,18 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.aMinBg" title="@Strings.ActiveMinDayBarGoal">
+    <setting propertyKey="@Properties.aq" title="@Strings.ActiveMinDayBarGoal">
       <settingConfig type="numeric" min="5" max="480" />
     </setting>
   </group>
   <group id="intensityMin" title="@Strings.IntensityMinGroup">
-    <setting propertyKey="@Properties.iMinSb" title="@Strings.IntensityMinShowBar">
+    <setting propertyKey="@Properties.ih" title="@Strings.IntensityMinShowBar">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.iMinSv" title="@Strings.IntensityMinShowBarValue">
+    <setting propertyKey="@Properties.ib" title="@Strings.IntensityMinShowBarValue">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.iMinBc" title="@Strings.IntensityMinBarColor">
+    <setting propertyKey="@Properties.ik" title="@Strings.IntensityMinBarColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3226,7 +2014,7 @@
         <listEntry value="8">@Strings.ColorLightGrey</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.iMinBw" title="@Strings.IntensityMinBarWidth">
+    <setting propertyKey="@Properties.ix" title="@Strings.IntensityMinBarWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3238,7 +2026,7 @@
     </setting>
   </group>
   <group id="graph_hr" title="@Strings.HRGraphGroup">
-    <setting propertyKey="@Properties.hrGm" title="@Strings.HRGraphMode">
+    <setting propertyKey="@Properties.hm" title="@Strings.HRGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3249,7 +2037,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGvm" title="@Strings.HRGraphValueMode">
+    <setting propertyKey="@Properties.hg" title="@Strings.HRGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3257,7 +2045,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrBn" title="@Strings.HRBarGroup">
+    <setting propertyKey="@Properties.hu" title="@Strings.HRBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3265,21 +2053,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrBa" title="@Strings.HRBarGroupAgg">
+    <setting propertyKey="@Properties.hz" title="@Strings.HRBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSt" title="@Strings.HRSecondaryType">
+    <setting propertyKey="@Properties.ht" title="@Strings.HRSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSf" title="@Strings.HRSecondaryField">
+    <setting propertyKey="@Properties.hf" title="@Strings.HRSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3290,7 +2078,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrTf" title="@Strings.HRTimeFrame">
+    <setting propertyKey="@Properties.hj" title="@Strings.HRTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -3300,7 +2088,7 @@
         <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGc" title="@Strings.HRGraphColor">
+    <setting propertyKey="@Properties.hc" title="@Strings.HRGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3324,7 +2112,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrSe" title="@Strings.HRSecondaryColor">
+    <setting propertyKey="@Properties.he" title="@Strings.HRSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3348,7 +2136,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.hrGw" title="@Strings.HRGraphWidth">
+    <setting propertyKey="@Properties.hw" title="@Strings.HRGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3360,7 +2148,7 @@
     </setting>
   </group>
   <group id="graph_spo2" title="@Strings.SpO2GraphGroup">
-    <setting propertyKey="@Properties.spo2Gm" title="@Strings.SpO2GraphMode">
+    <setting propertyKey="@Properties.om" title="@Strings.SpO2GraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3371,7 +2159,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Gvm" title="@Strings.SpO2GraphValueMode">
+    <setting propertyKey="@Properties.og" title="@Strings.SpO2GraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3379,7 +2167,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Bn" title="@Strings.SpO2BarGroup">
+    <setting propertyKey="@Properties.ou" title="@Strings.SpO2BarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3387,21 +2175,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Ba" title="@Strings.SpO2BarGroupAgg">
+    <setting propertyKey="@Properties.oz" title="@Strings.SpO2BarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2St" title="@Strings.SpO2SecondaryType">
+    <setting propertyKey="@Properties.ot" title="@Strings.SpO2SecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Sf" title="@Strings.SpO2SecondaryField">
+    <setting propertyKey="@Properties.of" title="@Strings.SpO2SecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3412,7 +2200,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Tf" title="@Strings.SpO2TimeFrame">
+    <setting propertyKey="@Properties.oj" title="@Strings.SpO2TimeFrame">
       <settingConfig type="list">
         <listEntry value="120">@Strings.TimeFrame2h</listEntry>
         <listEntry value="240">@Strings.TimeFrame4h</listEntry>
@@ -3422,7 +2210,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Gc" title="@Strings.SpO2GraphColor">
+    <setting propertyKey="@Properties.oc" title="@Strings.SpO2GraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3446,7 +2234,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Se" title="@Strings.SpO2SecondaryColor">
+    <setting propertyKey="@Properties.oe" title="@Strings.SpO2SecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3470,7 +2258,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.spo2Gw" title="@Strings.SpO2GraphWidth">
+    <setting propertyKey="@Properties.ow" title="@Strings.SpO2GraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3482,7 +2270,7 @@
     </setting>
   </group>
   <group id="graph_bodyBat" title="@Strings.BodyBatGraphGroup">
-    <setting propertyKey="@Properties.bbGm" title="@Strings.BodyBatGraphMode">
+    <setting propertyKey="@Properties.bm" title="@Strings.BodyBatGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3493,7 +2281,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbGvm" title="@Strings.BodyBatGraphValueMode">
+    <setting propertyKey="@Properties.bg" title="@Strings.BodyBatGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3501,7 +2289,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbBn" title="@Strings.BodyBatBarGroup">
+    <setting propertyKey="@Properties.bu" title="@Strings.BodyBatBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3509,21 +2297,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbBa" title="@Strings.BodyBatBarGroupAgg">
+    <setting propertyKey="@Properties.bz" title="@Strings.BodyBatBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbSt" title="@Strings.BodyBatSecondaryType">
+    <setting propertyKey="@Properties.bt" title="@Strings.BodyBatSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbSf" title="@Strings.BodyBatSecondaryField">
+    <setting propertyKey="@Properties.bf" title="@Strings.BodyBatSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3534,7 +2322,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbTf" title="@Strings.BodyBatTimeFrame">
+    <setting propertyKey="@Properties.bj" title="@Strings.BodyBatTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -3547,7 +2335,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbGc" title="@Strings.BodyBatGraphColor">
+    <setting propertyKey="@Properties.bc" title="@Strings.BodyBatGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3571,7 +2359,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbSe" title="@Strings.BodyBatSecondaryColor">
+    <setting propertyKey="@Properties.be" title="@Strings.BodyBatSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3595,7 +2383,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.bbGw" title="@Strings.BodyBatGraphWidth">
+    <setting propertyKey="@Properties.bw" title="@Strings.BodyBatGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3607,7 +2395,7 @@
     </setting>
   </group>
   <group id="graph_stress" title="@Strings.StressGraphGroup">
-    <setting propertyKey="@Properties.strGm" title="@Strings.StressGraphMode">
+    <setting propertyKey="@Properties.tm" title="@Strings.StressGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3618,7 +2406,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strGvm" title="@Strings.StressGraphValueMode">
+    <setting propertyKey="@Properties.tg" title="@Strings.StressGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3626,7 +2414,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strBn" title="@Strings.StressBarGroup">
+    <setting propertyKey="@Properties.tu" title="@Strings.StressBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3634,21 +2422,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strBa" title="@Strings.StressBarGroupAgg">
+    <setting propertyKey="@Properties.tz" title="@Strings.StressBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strSt" title="@Strings.StressSecondaryType">
+    <setting propertyKey="@Properties.tt" title="@Strings.StressSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strSf" title="@Strings.StressSecondaryField">
+    <setting propertyKey="@Properties.tf" title="@Strings.StressSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3659,7 +2447,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strTf" title="@Strings.StressTimeFrame">
+    <setting propertyKey="@Properties.tj" title="@Strings.StressTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -3672,7 +2460,7 @@
         <listEntry value="1440">@Strings.TimeFrame24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strGc" title="@Strings.StressGraphColor">
+    <setting propertyKey="@Properties.tc" title="@Strings.StressGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3696,7 +2484,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strSe" title="@Strings.StressSecondaryColor">
+    <setting propertyKey="@Properties.te" title="@Strings.StressSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3720,7 +2508,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.strGw" title="@Strings.StressGraphWidth">
+    <setting propertyKey="@Properties.tw" title="@Strings.StressGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3732,7 +2520,7 @@
     </setting>
   </group>
   <group id="graph_tempWrist" title="@Strings.TempWristGraphGroup">
-    <setting propertyKey="@Properties.twGm" title="@Strings.TempWristGraphMode">
+    <setting propertyKey="@Properties.wm" title="@Strings.TempWristGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3743,7 +2531,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twGvm" title="@Strings.TempWristGraphValueMode">
+    <setting propertyKey="@Properties.wg" title="@Strings.TempWristGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3751,7 +2539,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twBn" title="@Strings.TempWristBarGroup">
+    <setting propertyKey="@Properties.wu" title="@Strings.TempWristBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3759,21 +2547,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twBa" title="@Strings.TempWristBarGroupAgg">
+    <setting propertyKey="@Properties.wz" title="@Strings.TempWristBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twSt" title="@Strings.TempWristSecondaryType">
+    <setting propertyKey="@Properties.wt" title="@Strings.TempWristSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twSf" title="@Strings.TempWristSecondaryField">
+    <setting propertyKey="@Properties.wf" title="@Strings.TempWristSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3784,7 +2572,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twTf" title="@Strings.TempWristTimeFrame">
+    <setting propertyKey="@Properties.wj" title="@Strings.TempWristTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -3794,7 +2582,7 @@
         <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twGc" title="@Strings.TempWristGraphColor">
+    <setting propertyKey="@Properties.wc" title="@Strings.TempWristGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3818,7 +2606,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twSe" title="@Strings.TempWristSecondaryColor">
+    <setting propertyKey="@Properties.we" title="@Strings.TempWristSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3842,7 +2630,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.twGw" title="@Strings.TempWristGraphWidth">
+    <setting propertyKey="@Properties.ww" title="@Strings.TempWristGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3854,7 +2642,7 @@
     </setting>
   </group>
   <group id="graph_elevation" title="@Strings.ElevationGraphGroup">
-    <setting propertyKey="@Properties.elevGm" title="@Strings.ElevationGraphMode">
+    <setting propertyKey="@Properties.em" title="@Strings.ElevationGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3865,7 +2653,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevGvm" title="@Strings.ElevationGraphValueMode">
+    <setting propertyKey="@Properties.eg" title="@Strings.ElevationGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3873,7 +2661,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevBn" title="@Strings.ElevationBarGroup">
+    <setting propertyKey="@Properties.eu" title="@Strings.ElevationBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -3881,21 +2669,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevBa" title="@Strings.ElevationBarGroupAgg">
+    <setting propertyKey="@Properties.ez" title="@Strings.ElevationBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevSt" title="@Strings.ElevationSecondaryType">
+    <setting propertyKey="@Properties.et" title="@Strings.ElevationSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevSf" title="@Strings.ElevationSecondaryField">
+    <setting propertyKey="@Properties.ef" title="@Strings.ElevationSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -3906,7 +2694,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevTf" title="@Strings.ElevationTimeFrame">
+    <setting propertyKey="@Properties.ej" title="@Strings.ElevationTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -3916,7 +2704,7 @@
         <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevGc" title="@Strings.ElevationGraphColor">
+    <setting propertyKey="@Properties.ec" title="@Strings.ElevationGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3940,7 +2728,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevSe" title="@Strings.ElevationSecondaryColor">
+    <setting propertyKey="@Properties.ee" title="@Strings.ElevationSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -3964,7 +2752,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.elevGw" title="@Strings.ElevationGraphWidth">
+    <setting propertyKey="@Properties.ew" title="@Strings.ElevationGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -3976,7 +2764,7 @@
     </setting>
   </group>
   <group id="graph_pressure" title="@Strings.PressureGraphGroup">
-    <setting propertyKey="@Properties.presGm" title="@Strings.PressureGraphMode">
+    <setting propertyKey="@Properties.pm" title="@Strings.PressureGraphMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphModeValue</listEntry>
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
@@ -3987,7 +2775,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presGvm" title="@Strings.PressureGraphValueMode">
+    <setting propertyKey="@Properties.pg" title="@Strings.PressureGraphValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -3995,7 +2783,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presBn" title="@Strings.PressureBarGroup">
+    <setting propertyKey="@Properties.pu" title="@Strings.PressureBarGroup">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupOff</listEntry>
         <listEntry value="1">@Strings.BarGroupTight</listEntry>
@@ -4003,21 +2791,21 @@
         <listEntry value="3">@Strings.BarGroupLoose</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presBa" title="@Strings.PressureBarGroupAgg">
+    <setting propertyKey="@Properties.pz" title="@Strings.PressureBarGroupAgg">
       <settingConfig type="list">
         <listEntry value="0">@Strings.BarGroupAggMean</listEntry>
         <listEntry value="1">@Strings.BarGroupAggMax</listEntry>
         <listEntry value="2">@Strings.BarGroupAggLast</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presSt" title="@Strings.PressureSecondaryType">
+    <setting propertyKey="@Properties.pt" title="@Strings.PressureSecondaryType">
       <settingConfig type="list">
         <listEntry value="0">@Strings.SecTypeNone</listEntry>
         <listEntry value="1">@Strings.SecTypeLine</listEntry>
         <listEntry value="2">@Strings.SecTypeBar</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presSf" title="@Strings.PressureSecondaryField">
+    <setting propertyKey="@Properties.pf" title="@Strings.PressureSecondaryField">
       <settingConfig type="list">
         <listEntry value="0">@Strings.FieldHR</listEntry>
         <listEntry value="1">@Strings.FieldSpO2</listEntry>
@@ -4028,7 +2816,7 @@
         <listEntry value="6">@Strings.FieldPressure</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presTf" title="@Strings.PressureTimeFrame">
+    <setting propertyKey="@Properties.pj" title="@Strings.PressureTimeFrame">
       <settingConfig type="list">
         <listEntry value="15">@Strings.TimeFrame15m</listEntry>
         <listEntry value="30">@Strings.TimeFrame30m</listEntry>
@@ -4038,7 +2826,7 @@
         <listEntry value="360">@Strings.TimeFrame6h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presGc" title="@Strings.PressureGraphColor">
+    <setting propertyKey="@Properties.pc" title="@Strings.PressureGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4062,7 +2850,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presSe" title="@Strings.PressureSecondaryColor">
+    <setting propertyKey="@Properties.pe" title="@Strings.PressureSecondaryColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4086,7 +2874,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.presGw" title="@Strings.PressureGraphWidth">
+    <setting propertyKey="@Properties.pw" title="@Strings.PressureGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4098,7 +2886,7 @@
     </setting>
   </group>
   <group id="wxForecast" title="@Strings.WxForecastGroup">
-    <setting propertyKey="@Properties.wxfGm" title="@Strings.WxForecastGraphMode">
+    <setting propertyKey="@Properties.km" title="@Strings.WxForecastGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4108,7 +2896,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfVm" title="@Strings.WxForecastValueMode">
+    <setting propertyKey="@Properties.kv" title="@Strings.WxForecastValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4116,7 +2904,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfTf" title="@Strings.WxForecastTimeFrame">
+    <setting propertyKey="@Properties.kj" title="@Strings.WxForecastTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4124,7 +2912,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfGc" title="@Strings.WxForecastGraphColor">
+    <setting propertyKey="@Properties.kc" title="@Strings.WxForecastGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4148,7 +2936,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfGw" title="@Strings.WxForecastGraphWidth">
+    <setting propertyKey="@Properties.kw" title="@Strings.WxForecastGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4160,7 +2948,7 @@
     </setting>
   </group>
   <group id="wxForecastPrecip" title="@Strings.WxForecastPrecipGroup">
-    <setting propertyKey="@Properties.wxfpGm" title="@Strings.WxForecastPrecipGraphMode">
+    <setting propertyKey="@Properties.rm" title="@Strings.WxForecastPrecipGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4170,7 +2958,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfpVm" title="@Strings.WxForecastPrecipValueMode">
+    <setting propertyKey="@Properties.rv" title="@Strings.WxForecastPrecipValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4178,7 +2966,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfpTf" title="@Strings.WxForecastPrecipTimeFrame">
+    <setting propertyKey="@Properties.rj" title="@Strings.WxForecastPrecipTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4186,7 +2974,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfpGc" title="@Strings.WxForecastPrecipGraphColor">
+    <setting propertyKey="@Properties.rc" title="@Strings.WxForecastPrecipGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4210,7 +2998,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfpGw" title="@Strings.WxForecastPrecipGraphWidth">
+    <setting propertyKey="@Properties.rw" title="@Strings.WxForecastPrecipGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4222,7 +3010,7 @@
     </setting>
   </group>
   <group id="wxForecastWind" title="@Strings.WxForecastWindGroup">
-    <setting propertyKey="@Properties.wxfwGm" title="@Strings.WxForecastWindGraphMode">
+    <setting propertyKey="@Properties.nm" title="@Strings.WxForecastWindGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4232,7 +3020,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfwVm" title="@Strings.WxForecastWindValueMode">
+    <setting propertyKey="@Properties.nv" title="@Strings.WxForecastWindValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4240,7 +3028,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfwTf" title="@Strings.WxForecastWindTimeFrame">
+    <setting propertyKey="@Properties.nj" title="@Strings.WxForecastWindTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4248,7 +3036,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfwGc" title="@Strings.WxForecastWindGraphColor">
+    <setting propertyKey="@Properties.nc" title="@Strings.WxForecastWindGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4272,7 +3060,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfwGw" title="@Strings.WxForecastWindGraphWidth">
+    <setting propertyKey="@Properties.nw" title="@Strings.WxForecastWindGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4284,7 +3072,7 @@
     </setting>
   </group>
   <group id="wxForecastUv" title="@Strings.WxForecastUvGroup">
-    <setting propertyKey="@Properties.wxfuGm" title="@Strings.WxForecastUvGraphMode">
+    <setting propertyKey="@Properties.um" title="@Strings.WxForecastUvGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4294,7 +3082,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfuVm" title="@Strings.WxForecastUvValueMode">
+    <setting propertyKey="@Properties.uv" title="@Strings.WxForecastUvValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4302,7 +3090,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfuTf" title="@Strings.WxForecastUvTimeFrame">
+    <setting propertyKey="@Properties.uj" title="@Strings.WxForecastUvTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4310,7 +3098,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfuGc" title="@Strings.WxForecastUvGraphColor">
+    <setting propertyKey="@Properties.uc" title="@Strings.WxForecastUvGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4334,7 +3122,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfuGw" title="@Strings.WxForecastUvGraphWidth">
+    <setting propertyKey="@Properties.uw" title="@Strings.WxForecastUvGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4346,7 +3134,7 @@
     </setting>
   </group>
   <group id="wxForecastCloud" title="@Strings.WxForecastCloudGroup">
-    <setting propertyKey="@Properties.wxfcGm" title="@Strings.WxForecastCloudGraphMode">
+    <setting propertyKey="@Properties.gm" title="@Strings.WxForecastCloudGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4356,7 +3144,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfcVm" title="@Strings.WxForecastCloudValueMode">
+    <setting propertyKey="@Properties.gv" title="@Strings.WxForecastCloudValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4364,7 +3152,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfcTf" title="@Strings.WxForecastCloudTimeFrame">
+    <setting propertyKey="@Properties.gj" title="@Strings.WxForecastCloudTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4372,7 +3160,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfcGc" title="@Strings.WxForecastCloudGraphColor">
+    <setting propertyKey="@Properties.gc" title="@Strings.WxForecastCloudGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4396,7 +3184,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfcGw" title="@Strings.WxForecastCloudGraphWidth">
+    <setting propertyKey="@Properties.gw" title="@Strings.WxForecastCloudGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4408,7 +3196,7 @@
     </setting>
   </group>
   <group id="wxForecastHumidity" title="@Strings.WxForecastHumidityGroup">
-    <setting propertyKey="@Properties.wxfhGm" title="@Strings.WxForecastHumidityGraphMode">
+    <setting propertyKey="@Properties.mm" title="@Strings.WxForecastHumidityGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4418,7 +3206,7 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfhVm" title="@Strings.WxForecastHumidityValueMode">
+    <setting propertyKey="@Properties.mv" title="@Strings.WxForecastHumidityValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4426,7 +3214,7 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfhTf" title="@Strings.WxForecastHumidityTimeFrame">
+    <setting propertyKey="@Properties.mj" title="@Strings.WxForecastHumidityTimeFrame">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecast3h</listEntry>
         <listEntry value="6">@Strings.TimeFrameForecast6h</listEntry>
@@ -4434,7 +3222,7 @@
         <listEntry value="24">@Strings.TimeFrameForecast24h</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfhGc" title="@Strings.WxForecastHumidityGraphColor">
+    <setting propertyKey="@Properties.mc" title="@Strings.WxForecastHumidityGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4458,7 +3246,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfhGw" title="@Strings.WxForecastHumidityGraphWidth">
+    <setting propertyKey="@Properties.mw" title="@Strings.WxForecastHumidityGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4470,13 +3258,13 @@
     </setting>
   </group>
   <group id="wxForecastDaily" title="@Strings.WxForecastDailyGroup">
-    <setting propertyKey="@Properties.wxfdVw" title="@Strings.WxForecastDailyViewMode">
+    <setting propertyKey="@Properties.jy" title="@Strings.WxForecastDailyViewMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.ViewModeGraph</listEntry>
         <listEntry value="2">@Strings.ViewModeGraphCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfdVm" title="@Strings.WxForecastDailyValueMode">
+    <setting propertyKey="@Properties.jv" title="@Strings.WxForecastDailyValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.GraphValueCurrent</listEntry>
         <listEntry value="1">@Strings.GraphValueAvg</listEntry>
@@ -4484,14 +3272,14 @@
         <listEntry value="3">@Strings.GraphValueMean</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfdDy" title="@Strings.WxForecastDailyDays">
+    <setting propertyKey="@Properties.jd" title="@Strings.WxForecastDailyDays">
       <settingConfig type="list">
         <listEntry value="3">@Strings.TimeFrameForecastDays3</listEntry>
         <listEntry value="5">@Strings.TimeFrameForecastDays5</listEntry>
         <listEntry value="7">@Strings.TimeFrameForecastDays7</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfdGc" title="@Strings.WxForecastDailyGraphColor">
+    <setting propertyKey="@Properties.jc" title="@Strings.WxForecastDailyGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4515,7 +3303,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxfdGw" title="@Strings.WxForecastDailyGraphWidth">
+    <setting propertyKey="@Properties.jw" title="@Strings.WxForecastDailyGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4527,7 +3315,7 @@
     </setting>
   </group>
   <group id="wxNowcast" title="@Strings.WxNowcastGroup">
-    <setting propertyKey="@Properties.wxnGm" title="@Strings.WxNowcastGraphMode">
+    <setting propertyKey="@Properties.qm" title="@Strings.WxNowcastGraphMode">
       <settingConfig type="list">
         <listEntry value="1">@Strings.GraphModeLineGraph</listEntry>
         <listEntry value="3">@Strings.GraphModeLineCurrent</listEntry>
@@ -4537,14 +3325,14 @@
         <listEntry value="6">@Strings.GraphModeAreaCurrent</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxnVm" title="@Strings.WxNowcastValueMode">
+    <setting propertyKey="@Properties.qv" title="@Strings.WxNowcastValueMode">
       <settingConfig type="list">
         <listEntry value="0">@Strings.NowcastValueNext</listEntry>
         <listEntry value="1">@Strings.NowcastValueCurrent</listEntry>
         <listEntry value="2">@Strings.NowcastValueMax</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxnTf" title="@Strings.WxNowcastTimeFrame">
+    <setting propertyKey="@Properties.qj" title="@Strings.WxNowcastTimeFrame">
       <settingConfig type="list">
         <listEntry value="30">@Strings.TimeFrameNowcast30m</listEntry>
         <listEntry value="60">@Strings.TimeFrameNowcast60m</listEntry>
@@ -4552,7 +3340,7 @@
         <listEntry value="120">@Strings.TimeFrameNowcast120m</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxnGc" title="@Strings.WxNowcastGraphColor">
+    <setting propertyKey="@Properties.qc" title="@Strings.WxNowcastGraphColor">
       <settingConfig type="list">
         <listEntry value="0">@Strings.ColorWhite</listEntry>
         <listEntry value="5">@Strings.ColorRed</listEntry>
@@ -4576,7 +3364,7 @@
         <listEntry value="19">@Strings.GradTempInfernoRev</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.wxnGw" title="@Strings.WxNowcastGraphWidth">
+    <setting propertyKey="@Properties.qw" title="@Strings.WxNowcastGraphWidth">
       <settingConfig type="list">
         <listEntry value="6">@Strings.GraphWidth6</listEntry>
         <listEntry value="8">@Strings.GraphWidth8</listEntry>
@@ -4586,12 +3374,25 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.qp" title="@Strings.WxNowcastFetchMode">
+      <settingConfig type="list">
+        <listEntry value="0">@Strings.NowcastFetchOnWake</listEntry>
+        <listEntry value="1">@Strings.NowcastFetchPeriodic</listEntry>
+      </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.qi" title="@Strings.WxNowcastFetchInterval">
+      <settingConfig type="list">
+        <listEntry value="5">@Strings.NowcastFetch5m</listEntry>
+        <listEntry value="15">@Strings.NowcastFetch15m</listEntry>
+        <listEntry value="30">@Strings.NowcastFetch30m</listEntry>
+      </settingConfig>
+    </setting>
   </group>
   <group id="debug" title="@Strings.DebugGroup">
-    <setting propertyKey="@Properties.shVer" title="@Strings.ShowVersion">
+    <setting propertyKey="@Properties.v" title="@Strings.ShowVersion">
       <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.dbgGG" title="@Strings.DebugGraphGaps">
+    <setting propertyKey="@Properties.x" title="@Strings.DebugGraphGaps">
       <settingConfig type="boolean" />
     </setting>
   </group>

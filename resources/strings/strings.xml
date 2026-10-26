@@ -94,46 +94,34 @@
   <string id="Rotate30s">30 seconds</string>
   <string id="Rotate1min">1 minute</string>
 
-  <!-- Lines 3-5: configurable, R1-R9 = rotation slots 1 to 9 -->
+  <!-- Lines 3-5: configurable, R1-R5 = rotation slots 1 to 5 -->
   <string id="Line3ConfigGroup">Line 3 Configuration</string>
   <string id="Line3Enabled">Line 3: Enabled</string>
   <string id="Line3LabelColor">Line 3: Label Color</string>
   <string id="Line3ValueColor">Line 3: Value Color</string>
-  <string id="Line3Primary">Line 3: Field (R1)</string>
-  <string id="Line3Secondary">Line 3: Field (R2)</string>
-  <string id="Line3Tertiary">Line 3: Field (R3)</string>
-  <string id="Line3Quaternary">Line 3: Field (R4)</string>
-  <string id="Line3Quinary">Line 3: Field (R5)</string>
-  <string id="Line3Senary">Line 3: Field (R6)</string>
-  <string id="Line3Septenary">Line 3: Field (R7)</string>
-  <string id="Line3Octonary">Line 3: Field (R8)</string>
-  <string id="Line3Nonary">Line 3: Field (R9)</string>
+  <string id="Line3Primary">Line 3: Field (1)</string>
+  <string id="Line3Secondary">Line 3: Field (2)</string>
+  <string id="Line3Tertiary">Line 3: Field (3)</string>
+  <string id="Line3Quaternary">Line 3: Field (4)</string>
+  <string id="Line3Quinary">Line 3: Field (5)</string>
   <string id="Line4ConfigGroup">Line 4 Configuration</string>
   <string id="Line4Enabled">Line 4: Enabled</string>
   <string id="Line4LabelColor">Line 4: Label Color</string>
   <string id="Line4ValueColor">Line 4: Value Color</string>
-  <string id="Line4Primary">Line 4: Field (R1)</string>
-  <string id="Line4Secondary">Line 4: Field (R2)</string>
-  <string id="Line4Tertiary">Line 4: Field (R3)</string>
-  <string id="Line4Quaternary">Line 4: Field (R4)</string>
-  <string id="Line4Quinary">Line 4: Field (R5)</string>
-  <string id="Line4Senary">Line 4: Field (R6)</string>
-  <string id="Line4Septenary">Line 4: Field (R7)</string>
-  <string id="Line4Octonary">Line 4: Field (R8)</string>
-  <string id="Line4Nonary">Line 4: Field (R9)</string>
+  <string id="Line4Primary">Line 4: Field (1)</string>
+  <string id="Line4Secondary">Line 4: Field (2)</string>
+  <string id="Line4Tertiary">Line 4: Field (3)</string>
+  <string id="Line4Quaternary">Line 4: Field (4)</string>
+  <string id="Line4Quinary">Line 4: Field (5)</string>
   <string id="Line5ConfigGroup">Line 5 Configuration</string>
   <string id="Line5Enabled">Line 5: Enabled</string>
   <string id="Line5LabelColor">Line 5: Label Color</string>
   <string id="Line5ValueColor">Line 5: Value Color</string>
-  <string id="Line5Primary">Line 5: Field (R1)</string>
-  <string id="Line5Secondary">Line 5: Field (R2)</string>
-  <string id="Line5Tertiary">Line 5: Field (R3)</string>
-  <string id="Line5Quaternary">Line 5: Field (R4)</string>
-  <string id="Line5Quinary">Line 5: Field (R5)</string>
-  <string id="Line5Senary">Line 5: Field (R6)</string>
-  <string id="Line5Septenary">Line 5: Field (R7)</string>
-  <string id="Line5Octonary">Line 5: Field (R8)</string>
-  <string id="Line5Nonary">Line 5: Field (R9)</string>
+  <string id="Line5Primary">Line 5: Field (1)</string>
+  <string id="Line5Secondary">Line 5: Field (2)</string>
+  <string id="Line5Tertiary">Line 5: Field (3)</string>
+  <string id="Line5Quaternary">Line 5: Field (4)</string>
+  <string id="Line5Quinary">Line 5: Field (5)</string>
 
   <!-- Shared: color options -->
   <string id="ColorWhite">White</string>
@@ -523,6 +511,13 @@
   <string id="NowcastValueNext">Next change</string>
   <string id="NowcastValueCurrent">Current rate</string>
   <string id="NowcastValueMax">Max rate</string>
+  <string id="WxNowcastFetchMode">Rain Nowcast: Update</string>
+  <string id="WxNowcastFetchInterval">Rain Nowcast: Min. Time Between Updates</string>
+  <string id="NowcastFetchOnWake">On screen wake (default)</string>
+  <string id="NowcastFetchPeriodic">Periodic, also with screen off</string>
+  <string id="NowcastFetch5m">5 minutes (default)</string>
+  <string id="NowcastFetch15m">15 minutes</string>
+  <string id="NowcastFetch30m">30 minutes</string>
 
   <!-- Debug -->
   <string id="DebugGroup">Debug</string>

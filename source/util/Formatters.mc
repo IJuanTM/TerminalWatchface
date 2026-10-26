@@ -183,4 +183,12 @@ module Formatters {
                 return "[?]";
         }
     }
+
+    function optTime(secs as Number?) as String {
+        return secs != null ? secsToTime(secs) : "-";
+    }
+
+    function optCond(cond as Number?) as String {
+        return cond != null ? condStr(cond) : "-";
+    }
 }

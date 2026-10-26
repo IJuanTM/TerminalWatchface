@@ -29,7 +29,7 @@ class TerminalWatchfaceApp extends Application.AppBase {
     public function onBackgroundData(
         data as Application.PersistableType
     ) as Void {
-        if (!(data instanceof Array)) {
+        if (!(data instanceof Lang.Array)) {
             return;
         }
         Storage.setValue("rnData", data);
