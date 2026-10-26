@@ -9,18 +9,19 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 ## Features
 
 - Monospace terminal layout with shell prompt and blinking cursor
-- **Fixed rows** for time and date; **3 configurable data rows** (lines 3–5)
-- Each configurable line has **9 rotation slots** (Primary + 8 alternates) that cycle automatically
-- Two independent rotation intervals — one for the primary slot, one for alternates
+- **Fixed rows** for time and date; **3 configurable data rows** (lines 3–5), each of which can be switched off
+- Each configurable line has **5 rotation slots** that cycle automatically
+- Two independent rotation intervals — one for the first slot, one for the others
 - **3 rotation modes** — Automatic (time-based), Manual (long-press only), and Hybrid (time-based, with long-press to jump ahead and reset that slot's dwell time); every wake resets rotation back to the first slot
-- **95 data fields** across activity, health, weather, and lifestyle categories
+- **96 data fields** across activity, health, weather, and lifestyle categories
 - **Inline sensor graphs** — line, bar, or area charts with configurable timeframe, color, and width
 - **Dual-overlay graphs** — two sensor histories on the same chart, each with its own color and min/max labels
-- **7 forecast graph types** — hourly temp, rain, wind, UV, cloud cover, humidity, and multi-day daily temp
+- **Heart-rate zone lines** — dashed lines at your HR zone boundaries on any graph showing heart rate
+- **8 forecast graph types** — hourly temp, rain, wind, UV, cloud cover, humidity, multi-day daily temp, and a 2-hour rain nowcast (mm/h)
 - Progress bars for Steps, Floors, Calories, Distance, Active Minutes, and Intensity Minutes, each with optional value overlay
 - Always-On Display support — a dimmed time/date view during low-power mode if your device's Always-On setting is enabled
 - Battery footer with bolt icon while charging, percentage, and estimated days remaining
-- Notification count badge in the header (also available as a data row)
+- Header status tags: unread notification count (also available as a data row), `[DND]` while Do Not Disturb is on, and `[OFFLINE]` when the phone is disconnected
 - CRT visual effects: scanlines, glow/halo, backlight wash, and flicker (each independently configurable)
 - **3 font families** with independent line heights
 - **4 color themes** (Custom per-field, Amber CRT, Green Phosphor, Blue Terminal) plus **20 color options** for graphs (including 10 value-mapped gradients) and 10 solid colors for independent label and value styling per line
@@ -33,14 +34,16 @@ A retro terminal-style watchface for Garmin AMOLED devices. All data is rendered
 ## Layout
 
 ```text
-           [2]                             <- notification count (hidden when 0)
+          [DND]                            <- Do Not Disturb (hidden when off)
+       [2 UNREAD]                          <- notification count (hidden when 0)
+       [OFFLINE]                           <- phone disconnected (hidden when connected)
 
 ~ > .\watch.bat
 
 Time  : 14:32:08
 Date  : Thu, 12 Jun
 
-Heart : 72 bpm                            <- line 3 (rotates between up to 9 fields)
+Heart : 72 bpm                            <- line 3 (rotates between up to 5 fields)
 Steps : [========  ] 7823                 <- line 4 (steps bar + value)
 Temp  : 18.5° [↓12] [↑24]                <- line 5
 
@@ -71,15 +74,29 @@ Settings are grouped into submenus in the Garmin Connect IQ app. Groups prefixed
 | Area Graph: Show Line       | On / Off — draw the line curve on top of the area fill              |
 | Show Battery Days Remaining | On / Off                                                            |
 
-### Display
+### Time Row
 
-| Setting                          | Options                                                                                                                    |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Show Seconds                     | On / Off                                                                                                                   |
-| Show Year                        | On / Off — appends year to compatible date formats                                                                         |
-| Date Format                      | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_            |
-| Show App Version _(Debug group)_ | On / Off — appends the app version to the command _(watch@x.y.z)_                                                          |
-| Show Graph Gaps _(Debug group)_  | On / Off — marks graph gaps with a dashed grey line/fill instead of leaving them blank, for diagnosing missing sensor data |
+| Setting           | Options                       |
+| ----------------- | ----------------------------- |
+| Show Seconds      | On / Off                      |
+| Time: Label Color | Any of the 10 solid colors    |
+| Time: Value Color | Any of the 10 solid colors    |
+
+### Date Row
+
+| Setting           | Options                                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- |
+| Show Year in Date | On / Off — appends year to compatible date formats                                                              |
+| Date Format       | Day Month _(Thu, 1 Jan)_, ISO _(2025-06-12)_, DD-MM-YYYY, MM-DD-YYYY, Day+Num _(Thu 14)_, Date+Month _(14 Jun)_ |
+| Date: Label Color | Any of the 10 solid colors                                                                                      |
+| Date: Value Color | Any of the 10 solid colors                                                                                      |
+
+### Debug
+
+| Setting          | Options                                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Show App Version | On / Off — appends the app version to the command _(watch@x.y.z)_                                                          |
+| Show Graph Gaps  | On / Off — marks graph gaps with a dashed grey line/fill instead of leaving them blank, for diagnosing missing sensor data |
 
 ### Units
 
@@ -97,19 +114,15 @@ Each unit defaults to **Watch setting**, following the watch's own unit settings
 
 | Setting          | Options                                                                                                                                                                       |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Rotation: Main Duration | Primary slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                                                           |
-| Rotation: Alt Duration | Alternate slot interval (Secondary–Nonary); defaults to primary if unset                                                                                                      |
+| Rotation: Main Duration | First slot interval: 3s, 5s, 10s, 15s, 30s, 1 min                                                                                                                             |
+| Rotation: Alt Duration | Interval for slots 2–5: Same as main, or any of the main duration options                                                                                                     |
 | Rotation Mode    | Automatic (time-based, current behavior), Manual (advances only on long-press, no timer), Hybrid (time-based, plus long-press to jump ahead and reset that slot's dwell time) |
 
 Regardless of mode, rotation always resets to the first slot whenever the screen wakes (wrist raise), so every glance starts predictable instead of landing mid-cycle.
 
-### Colors (Time and Date rows)
-
-Label and value color can be set independently for the Time and Date rows.
-
 ### Lines 3–5 (Configurable)
 
-Each line has **9 rotation slots** — **Primary**, **Secondary**, **Tertiary**, **Quaternary**, **Quinary**, **Senary**, **Septenary**, **Octonary**, and **Nonary**. The active slot cycles on the rotate interval (or on long-press, per Rotation Mode above), up to the highest slot any line has set; a line whose slot for that phase is _None_ shows its Primary field instead. Each slot sets its own field, while label and value colors are set once per line.
+Each line has an **Enabled** toggle and **5 rotation slots**, _Field (1)_ to _Field (5)_. The active slot cycles on the rotate interval (or on long-press, per Rotation Mode above), up to the highest slot any enabled line has set; a line whose slot for that phase is _None_ shows its first field instead. Each slot sets its own field, while label and value colors are set once per line. A disabled line stays empty.
 
 ### Always-On Display
 
@@ -254,12 +267,13 @@ UV Index is shown with a color-coded level tag: `[LOW]` (green), `[AVG]` (yellow
 | Cloud Forecast    | Hourly cloud cover    |
 | Humidity Forecast | Hourly humidity       |
 | Daily Forecast    | Multi-day temperature |
+| Rain Nowcast (2h) | Rain amount in mm/h (in/h with miles), 5-minute steps |
 
 ---
 
 ## Graphs
 
-Seven sensor fields and seven forecast types can be displayed as **inline charts** instead of (or alongside) a plain value. The chart fills the value area of the row for the configured timeframe.
+Seven sensor fields and eight forecast types can be displayed as **inline charts** instead of (or alongside) a plain value. The chart fills the value area of the row for the configured timeframe.
 
 ### Sensor graph fields
 
@@ -292,6 +306,8 @@ Heart Rate, Wrist Temp, Elevation, and Barometric Pressure cap out at 6h (their 
 
 **Dual Graph** overlays a secondary sensor history on the same chart. Primary min/max labels appear on the left; secondary on the right. A short field name is shown below the right edge.
 
+Whenever Heart Rate is on a graph, as primary or secondary, dashed lines mark your heart-rate zone boundaries from your user profile, colored green to red from the lowest to the highest zone.
+
 **Bar Grouping** reduces the number of bars drawn at wide time frames for readability — density is qualitative (Tight/Normal/Loose), not a fixed count, and scales automatically with Graph Width and the field's real sensor update cadence so it never fabricates more bars than genuine samples exist. The actual resulting bar duration is appended to the graph's timeframe label (e.g. `-6h/2m`).
 
 The graph caches rendered bitmaps and only re-renders when fresh sensor data arrives (not every minute), which keeps the update cost — and battery impact — low.
@@ -317,6 +333,20 @@ Structurally different from the hourly forecasts above: it always renders as a b
 | Graph Color   | Any of the 20 available colors      |
 | Graph Width   | Width in character units            |
 | Value Display | Current, Average, Max/Min, Midpoint |
+
+### Rain nowcast settings ("Graph Config - Rain Nowcast" group)
+
+A short-range rain forecast fetched in the background through the phone: Buienradar radar data in the Netherlands and Belgium, Open-Meteo elsewhere (and as fallback). The location comes from the watch's weather observation, so the watch needs a phone connection and current weather data.
+
+| Setting                    | Options                                                                                      |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| Graph Mode                 | Line, Line+Value, Bar, Bar+Value, Area, Area+Value                                           |
+| Value Mode                 | Next change _(`rain 25m`, `stop 40m`, `dry`)_, Current rate, Max rate                        |
+| Minutes Ahead              | 30, 60, 90, or 120 minutes                                                                   |
+| Graph Color                | Any of the 20 available colors                                                               |
+| Graph Width                | Width in character units                                                                     |
+| Update                     | On screen wake (default), or Periodic, also with screen off                                  |
+| Min. Time Between Updates  | 5 (default), 15, or 30 minutes; 5 minutes is the platform's floor for background fetches     |
 
 ### Progress bars (in their own "Bar Config -" groups)
 
@@ -377,10 +407,8 @@ Gradient colors (10–19) map the displayed value to a position along a color sp
 
 ## Devices
 
-Supported devices share a 454×454 AMOLED display and Connect IQ API level 6.0.2+:
+Requires Connect IQ API level 6.0.3+. The only build target is:
 
-- Garmin fēnix 8 47mm / 51mm / tactix 8 / quatix 8 (`fenix847mm`)
-- Garmin fēnix 8 Pro 47mm / 51mm / MicroLED / quatix 8 Pro (`fenix8pro47mm`)
-- Garmin Forerunner 570 47mm (`fr57047mm`)
-- Garmin Forerunner 970 (`fr970`)
-- Garmin Venu 4 45mm / D2 Air X15 (`venu445mm`)
+- Garmin fēnix 8 47mm / 51mm / tactix 8 / quatix 8 (`fenix847mm`, 454×454 AMOLED)
+
+Permissions: Background and Communications (rain nowcast fetch), Positioning (nowcast location), ComplicationSubscriber, SensorHistory, and UserProfile.
