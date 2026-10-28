@@ -128,6 +128,9 @@ class RainNowcastService extends System.ServiceDelegate {
                 break;
             }
             if (out.size() == 1) {
+                if (rest.length() < bar + 6) {
+                    return null;
+                }
                 var hh = rest.substring(bar + 1, bar + 3).toNumberWithBase(10);
                 var mm = rest.substring(bar + 4, bar + 6).toNumberWithBase(10);
                 if (hh == null || mm == null) {

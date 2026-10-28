@@ -131,7 +131,14 @@ class NowcastData {
         }
         var last = Background.getLastTemporalEventTime();
         if (last == null) {
-            Background.registerForTemporalEvent(now);
+            // Null doesn't prove no event ran recently, and the platform still enforces its 5-minute spacing.
+            try {
+                Background.registerForTemporalEvent(now);
+            } catch (e instanceof Background.InvalidBackgroundTimeException) {
+                Background.registerForTemporalEvent(
+                    now.add(new Time.Duration(NOWCAST_STEP_SEC))
+                );
+            }
             return;
         }
         var next = last.add(new Time.Duration(gapSec));
