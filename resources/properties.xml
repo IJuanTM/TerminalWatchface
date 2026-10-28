@@ -246,7 +246,6 @@
   <property id="qj" type="number">120</property>
   <property id="qc" type="number">6</property>
   <property id="qw" type="number">10</property>
-  <property id="qp" type="number">0</property>
   <property id="qi" type="number">5</property>
 
   <!-- Debug -->

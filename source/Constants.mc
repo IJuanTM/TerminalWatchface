@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-const APP_VERSION = "0.59.2";
+const APP_VERSION = "0.59.3";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 

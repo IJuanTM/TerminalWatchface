@@ -3279,44 +3279,10 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _graphs.bmpDualDrawOk
             );
         if (!cacheHit) {
-            _drawMeanLine(
-                dc,
-                data,
-                _graphX,
-                _graphW,
-                y,
-                _graphH,
-                minV,
-                range,
-                lineColor,
-                gradMinV1,
-                gradRange1
-            );
-            if (graphType == GRAPH_BAR && secType == SEC_BAR && data2 != null) {
-                _drawDualBars(
+            _haloSuppressed = true;
+            try {
+                _drawMeanLine(
                     dc,
-                    data,
-                    data2 as Array<Float>,
-                    _graphX,
-                    _graphW,
-                    y,
-                    _graphH + 1,
-                    minV,
-                    range,
-                    minV2,
-                    range2,
-                    lineColor,
-                    lineColor2,
-                    gradMinV1,
-                    gradRange1,
-                    gradMinV2,
-                    gradRange2
-                );
-            } else {
-                _drawOneGraph(
-                    dc,
-                    graphType,
-                    lineColor,
                     data,
                     _graphX,
                     _graphW,
@@ -3324,32 +3290,83 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     _graphH,
                     minV,
                     range,
+                    lineColor,
                     gradMinV1,
-                    gradRange1,
-                    dualMaxGap
+                    gradRange1
                 );
-                if (data2 != null) {
+                if (
+                    graphType == GRAPH_BAR &&
+                    secType == SEC_BAR &&
+                    data2 != null
+                ) {
+                    _drawDualBars(
+                        dc,
+                        data,
+                        data2 as Array<Float>,
+                        _graphX,
+                        _graphW,
+                        y,
+                        _graphH + 1,
+                        minV,
+                        range,
+                        minV2,
+                        range2,
+                        lineColor,
+                        lineColor2,
+                        gradMinV1,
+                        gradRange1,
+                        gradMinV2,
+                        gradRange2
+                    );
+                } else {
                     _drawOneGraph(
                         dc,
-                        secType == SEC_BAR ? GRAPH_BAR : GRAPH_LINE,
-                        lineColor2,
-                        data2 as Array<Float>,
+                        graphType,
+                        lineColor,
+                        data,
+                        _graphX,
+                        _graphW,
+                        y,
+                        _graphH,
+                        minV,
+                        range,
+                        gradMinV1,
+                        gradRange1,
+                        dualMaxGap
+                    );
+                    if (data2 != null) {
+                        _drawOneGraph(
+                            dc,
+                            secType == SEC_BAR ? GRAPH_BAR : GRAPH_LINE,
+                            lineColor2,
+                            data2 as Array<Float>,
+                            _graphX,
+                            _graphW,
+                            y,
+                            _graphH,
+                            minV2,
+                            range2,
+                            gradMinV2,
+                            gradRange2,
+                            dualMaxGap
+                        );
+                    }
+                }
+                if (field == FIELD_HR) {
+                    _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
+                } else if (fieldSecondary == FIELD_HR && data2 != null) {
+                    _drawHrZones(
+                        dc,
                         _graphX,
                         _graphW,
                         y,
                         _graphH,
                         minV2,
-                        range2,
-                        gradMinV2,
-                        gradRange2,
-                        dualMaxGap
+                        range2
                     );
                 }
-            }
-            if (field == FIELD_HR) {
-                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
-            } else if (fieldSecondary == FIELD_HR && data2 != null) {
-                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV2, range2);
+            } finally {
+                _haloSuppressed = false;
             }
         }
 
@@ -4808,7 +4825,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         fieldConst as Number,
         all as Array<Float>?,
         minRange as Float,
-        stepMin as Number
+        stepMin as Number,
+        ageSec as Number
     ) as [Array<Float>, Float, Float]? {
         _graphX = _graphBaseX;
         var n = all != null ? (hours < all.size() ? hours : all.size()) : 0;
@@ -4894,7 +4912,7 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             lineColor,
             maxFrac,
             minFrac,
-            -1
+            ageSec
         );
         return [data, minV, maxV];
     }
@@ -4924,7 +4942,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             FIELD_WX_FCST_TEMP,
             _wx.fcstTemp,
             1.0,
-            60
+            60,
+            -1
         );
         if (core == null) {
             return;
@@ -5190,7 +5209,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             fieldConst,
             all,
             minRange,
-            60
+            60,
+            -1
         );
         if (core == null) {
             return;
@@ -5230,7 +5250,8 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             FIELD_WX_NOWCAST,
             _nowcast.data,
             1.0,
-            stepMin
+            stepMin,
+            _nowcast.ageSec()
         );
         if (core == null || _lineViewMode[li] != VIEW_GRAPH_VALUE) {
             return;
@@ -5626,21 +5647,26 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                 _graphs.bmpDrawOk
             );
         if (!cacheHit) {
-            _drawDailyBars(
-                dc,
-                _graphX,
-                y,
-                _graphW,
-                _graphH,
-                n,
-                highsArr,
-                lowsArr,
-                allMin,
-                range,
-                colorIdx,
-                gradMinV,
-                gradRange
-            );
+            _haloSuppressed = true;
+            try {
+                _drawDailyBars(
+                    dc,
+                    _graphX,
+                    y,
+                    _graphW,
+                    _graphH,
+                    n,
+                    highsArr,
+                    lowsArr,
+                    allMin,
+                    range,
+                    colorIdx,
+                    gradMinV,
+                    gradRange
+                );
+            } finally {
+                _haloSuppressed = false;
+            }
         } else {
             var dailyGlowBmp = dailyBmps[1] as Graphics.BufferedBitmap?;
             if (dailyGlowBmp != null) {
@@ -5797,36 +5823,42 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             bmp == null ||
             !_drawCachedGraphBitmap(dc, _graphX, y, bmp, cacheKey, drawOkCache)
         ) {
-            _drawMeanLine(
-                dc,
-                data,
-                _graphX,
-                _graphW,
-                y,
-                _graphH,
-                minV,
-                range,
-                lineColor,
-                gradMinV,
-                gradRange
-            );
-            _drawOneGraph(
-                dc,
-                graphType,
-                lineColor,
-                data,
-                _graphX,
-                _graphW,
-                y,
-                _graphH,
-                minV,
-                range,
-                gradMinV,
-                gradRange,
-                maxGap
-            );
-            if (field == FIELD_HR) {
-                _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
+            // Per-point glow on a live draw trips the watchdog on device; this path only runs while the bitmap pool is failing.
+            _haloSuppressed = true;
+            try {
+                _drawMeanLine(
+                    dc,
+                    data,
+                    _graphX,
+                    _graphW,
+                    y,
+                    _graphH,
+                    minV,
+                    range,
+                    lineColor,
+                    gradMinV,
+                    gradRange
+                );
+                _drawOneGraph(
+                    dc,
+                    graphType,
+                    lineColor,
+                    data,
+                    _graphX,
+                    _graphW,
+                    y,
+                    _graphH,
+                    minV,
+                    range,
+                    gradMinV,
+                    gradRange,
+                    maxGap
+                );
+                if (field == FIELD_HR) {
+                    _drawHrZones(dc, _graphX, _graphW, y, _graphH, minV, range);
+                }
+            } finally {
+                _haloSuppressed = false;
             }
             return false;
         }
@@ -6937,7 +6969,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     public function onExitSleep() as Void {
         _lowPower = false;
         _justWoke = true;
-        _nowcast.onWake();
         _rotation.reset(Time.now().value());
         WatchUi.requestUpdate();
     }

@@ -96,6 +96,9 @@ module FieldMeta {
     }
 
     function graphStaleSec(field as Number) as Number {
+        if (field == FIELD_WX_NOWCAST) {
+            return SECS_PER_MIN;
+        }
         return pointStaleSec(field) / 2;
     }
 

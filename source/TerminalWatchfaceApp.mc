@@ -2,6 +2,7 @@ import Toybox.Application;
 import Toybox.Application.Storage;
 import Toybox.Lang;
 import Toybox.System;
+import Toybox.Time;
 import Toybox.WatchUi;
 
 (:background)
@@ -33,6 +34,7 @@ class TerminalWatchfaceApp extends Application.AppBase {
             return;
         }
         Storage.setValue("rnData", data);
+        Storage.setValue("rnTime", Time.now().value());
         if (_view != null) {
             (_view as TerminalWatchfaceView).reloadNowcast();
         }

@@ -133,19 +133,19 @@ const FIELD_SOLAR = 602;
 const FIELD_SOLAR_BATTERY = 603;
 
 // Rotation phase p (1..size) reads slot ROTATE_SLOT_NAMES[p - 1]; phase 0 is PS_PRIMARY.
-const ROTATE_SLOT_NAMES = ["2", "3", "4", "5"] as Array<String>;
+const ROTATE_SLOT_NAMES =
+    ["2", "3", "4", "5"] as Array<String>;
 
 // Index is the SecondaryField property value.
-const GRAPH_SEC_FIELDS =
-    [
-        FIELD_HR,
-        FIELD_SPO2,
-        FIELD_BODY_BAT,
-        FIELD_STRESS,
-        FIELD_WRIST_TEMP,
-        FIELD_ELEVATION,
-        FIELD_PRESSURE,
-    ] as Array<Number>;
+const GRAPH_SEC_FIELDS = [
+    FIELD_HR,
+    FIELD_SPO2,
+    FIELD_BODY_BAT,
+    FIELD_STRESS,
+    FIELD_WRIST_TEMP,
+    FIELD_ELEVATION,
+    FIELD_PRESSURE,
+] as Array<Number>;
 
 // Property keys; see the key comment in generate_resources.py.
 const P_FONT_CHOICE = "f";
@@ -223,12 +223,14 @@ const PS_VIEW_MODE = "y";
 const PS_DAYS = "d";
 const PS_BAR_GROUP = "u";
 const PS_BAR_GROUP_AGG = "z";
-const PS_FETCH_MODE = "p";
 const PS_FETCH_INTERVAL = "i";
 const PS_PRIMARY = "1";
 
 module FieldTables {
-    function lineSlotDefaultField(pk as String, slotName as String) as Number {
+    function lineSlotDefaultField(
+        pk as String,
+        slotName as String
+    ) as Number {
         if (pk.equals("x")) {
             if (slotName.equals("1")) {
                 return FIELD_WX_FCST_TEMP;
@@ -391,141 +393,113 @@ module FieldTables {
         }
     }
 
-    function compTypes(field as Number) as Array<Complications.Type>? {
+    function compTypes(
+        field as Number
+    ) as Array<Complications.Type>? {
         switch (field) {
             case FIELD_WEEKLY_RUN:
-                return (
-                    [Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE,
+                ] as Array<Complications.Type>;
             case FIELD_WEEKLY_BIKE:
-                return (
-                    [Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE,
+                ] as Array<Complications.Type>;
             case FIELD_WEEKLY_DISTANCES:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE,
-                        Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE,
+                    Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE,
+                ] as Array<Complications.Type>;
             case FIELD_SOLAR:
             case FIELD_SOLAR_BATTERY:
-                return (
-                    [Complications.COMPLICATION_TYPE_SOLAR_INPUT] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SOLAR_INPUT,
+                ] as Array<Complications.Type>;
             case FIELD_SLEEP:
             case FIELD_SLEEP_RECOVERY:
-                return (
-                    [Complications.COMPLICATION_TYPE_SLEEP_SCORE] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SLEEP_SCORE,
+                ] as Array<Complications.Type>;
             case FIELD_TRAINING_STATUS:
             case FIELD_VO2_TRAINING:
-                return (
-                    [Complications.COMPLICATION_TYPE_TRAINING_STATUS] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_TRAINING_STATUS,
+                ] as Array<Complications.Type>;
             case FIELD_SUNRISE:
-                return (
-                    [Complications.COMPLICATION_TYPE_SUNRISE] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SUNRISE,
+                ] as Array<Complications.Type>;
             case FIELD_SUNSET:
-                return (
-                    [Complications.COMPLICATION_TYPE_SUNSET] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SUNSET,
+                ] as Array<Complications.Type>;
             case FIELD_SUNRISE_SUNSET:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_SUNRISE,
-                        Complications.COMPLICATION_TYPE_SUNSET,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SUNRISE,
+                    Complications.COMPLICATION_TYPE_SUNSET,
+                ] as Array<Complications.Type>;
             case FIELD_CALENDAR:
-                return (
-                    [Complications.COMPLICATION_TYPE_CALENDAR_EVENTS] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_CALENDAR_EVENTS,
+                ] as Array<Complications.Type>;
             case FIELD_NOTIFICATIONS:
-                return (
-                    [Complications.COMPLICATION_TYPE_NOTIFICATION_COUNT] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_NOTIFICATION_COUNT,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_5K:
-                return (
-                    [Complications.COMPLICATION_TYPE_RACE_PREDICTOR_5K] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PREDICTOR_5K,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_10K:
-                return (
-                    [Complications.COMPLICATION_TYPE_RACE_PREDICTOR_10K] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PREDICTOR_10K,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_HALF:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_RACE_PREDICTOR_HALF_MARATHON,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PREDICTOR_HALF_MARATHON,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_MARATHON:
-                return (
-                    [Complications.COMPLICATION_TYPE_RACE_PREDICTOR_MARATHON] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PREDICTOR_MARATHON,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_PACE_5K:
-                return (
-                    [Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_5K] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_5K,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_PACE_10K:
-                return (
-                    [Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_10K] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_10K,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_PACE_HALF:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_HALF_MARATHON,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_HALF_MARATHON,
+                ] as Array<Complications.Type>;
             case FIELD_RACE_PACE_MARATHON:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_MARATHON,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_RACE_PACE_PREDICTOR_MARATHON,
+                ] as Array<Complications.Type>;
             case FIELD_WX_SEA_PRESS:
-                return (
-                    [Complications.COMPLICATION_TYPE_SEA_LEVEL_PRESSURE] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_SEA_LEVEL_PRESSURE,
+                ] as Array<Complications.Type>;
             case FIELD_WX_COND_FCST_1D:
             case FIELD_WX_FCST_COND_1D:
-                return (
-                    [Complications.COMPLICATION_TYPE_FORECAST_WEATHER_1DAY] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_FORECAST_WEATHER_1DAY,
+                ] as Array<Complications.Type>;
             case FIELD_WX_FCST_COND_12D:
-                return (
-                    [
-                        Complications.COMPLICATION_TYPE_FORECAST_WEATHER_1DAY,
-                        Complications.COMPLICATION_TYPE_FORECAST_WEATHER_2DAY,
-                    ] as Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_FORECAST_WEATHER_1DAY,
+                    Complications.COMPLICATION_TYPE_FORECAST_WEATHER_2DAY,
+                ] as Array<Complications.Type>;
             case FIELD_WX_FCST_COND_2D:
-                return (
-                    [Complications.COMPLICATION_TYPE_FORECAST_WEATHER_2DAY] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_FORECAST_WEATHER_2DAY,
+                ] as Array<Complications.Type>;
             case FIELD_WX_FCST_COND_3D:
-                return (
-                    [Complications.COMPLICATION_TYPE_FORECAST_WEATHER_3DAY] as
-                    Array<Complications.Type>
-                );
+                return [
+                    Complications.COMPLICATION_TYPE_FORECAST_WEATHER_3DAY,
+                ] as Array<Complications.Type>;
             default:
                 return null;
         }

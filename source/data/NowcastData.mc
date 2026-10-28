@@ -13,10 +13,8 @@ class NowcastData {
     private var _idx as Number = -2;
     private var _lastMin as Number = -1;
     private var _loc as String = "";
-    private var _onWake as Boolean = true;
     private var _intervalSec as Number = 300;
-    // Set once a shown field has asked for data, so a wake only fetches while the nowcast is in use.
-    private var _active as Boolean = false;
+    private var _fetchSec as Number = 0;
 
     public function initialize() {
         _loadSettings();
@@ -26,8 +24,14 @@ class NowcastData {
     public function reload() as Boolean {
         var raw = Storage.getValue("rnData");
         _raw = raw instanceof Lang.Array ? raw : null;
+        var t = Storage.getValue("rnTime");
+        _fetchSec = t instanceof Lang.Number ? t : 0;
         _idx = -2;
         return _slice();
+    }
+
+    public function ageSec() as Number {
+        return _fetchSec > 0 ? Time.now().value() - _fetchSec : -1;
     }
 
     public function isDue(nowMin as Number) as Boolean {
@@ -45,42 +49,27 @@ class NowcastData {
     public function invalidate() as Void {
         _lastMin = -1;
         _idx = -2;
-        _active = false;
         Background.deleteTemporalEvent();
         _loadSettings();
     }
 
-    // Periodic: without data, a one-shot Moment fetches as soon as the platform's 5-minute spacing allows;
+    // Without data, a one-shot Moment fetches as soon as the platform's 5-minute spacing allows;
     // with data, the repeating Duration takes over, counted from that fetch.
-    // On wake: only ever an immediate one-shot, so nothing fires while the screen is off.
     public function schedule() as Void {
-        _active = true;
-        var reg = Background.getTemporalEventRegisteredTime();
-        if (_onWake) {
-            if (reg instanceof Time.Duration) {
-                Background.deleteTemporalEvent();
-            }
-            _registerOneShot(
-                data != null ? _intervalSec : NOWCAST_STEP_SEC,
-                false
-            );
-            return;
-        }
         if (data != null) {
-            if (!(reg instanceof Time.Duration)) {
+            if (
+                !(
+                    Background.getTemporalEventRegisteredTime() instanceof
+                    Time.Duration
+                )
+            ) {
                 Background.registerForTemporalEvent(
                     new Time.Duration(_intervalSec)
                 );
             }
             return;
         }
-        _registerOneShot(NOWCAST_STEP_SEC, true);
-    }
-
-    public function onWake() as Void {
-        if (_active && _onWake) {
-            schedule();
-        }
+        _registerOneShot();
     }
 
     public function setLocation(loc as Position.Location) as Void {
@@ -116,11 +105,8 @@ class NowcastData {
         return raining ? "rain" : "dry";
     }
 
-    // gapSec is at least NOWCAST_STEP_SEC, the platform's minimum spacing, which throws if broken.
-    private function _registerOneShot(
-        gapSec as Number,
-        allowFuture as Boolean
-    ) as Void {
+    // Spaced NOWCAST_STEP_SEC from the last event, the platform's minimum spacing, which throws if broken.
+    private function _registerOneShot() as Void {
         var now = Time.now();
         var reg = Background.getTemporalEventRegisteredTime();
         if (
@@ -141,14 +127,12 @@ class NowcastData {
             }
             return;
         }
-        var next = last.add(new Time.Duration(gapSec));
-        if (allowFuture || next.value() <= now.value()) {
-            Background.registerForTemporalEvent(next);
-        }
+        Background.registerForTemporalEvent(
+            last.add(new Time.Duration(NOWCAST_STEP_SEC))
+        );
     }
 
     private function _loadSettings() as Void {
-        _onWake = Props.getNum(PP_WX_NOWCAST + PS_FETCH_MODE, 0) == 0;
         var m = Props.getNum(PP_WX_NOWCAST + PS_FETCH_INTERVAL, 5);
         _intervalSec = (m < 5 ? 5 : m) * SECS_PER_MIN;
     }

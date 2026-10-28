@@ -3374,12 +3374,6 @@
         <listEntry value="16">@Strings.GraphWidth16</listEntry>
       </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.qp" title="@Strings.WxNowcastFetchMode">
-      <settingConfig type="list">
-        <listEntry value="0">@Strings.NowcastFetchOnWake</listEntry>
-        <listEntry value="1">@Strings.NowcastFetchPeriodic</listEntry>
-      </settingConfig>
-    </setting>
     <setting propertyKey="@Properties.qi" title="@Strings.WxNowcastFetchInterval">
       <settingConfig type="list">
         <listEntry value="5">@Strings.NowcastFetch5m</listEntry>

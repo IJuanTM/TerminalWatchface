@@ -464,11 +464,6 @@ NOWCAST_VALUE_MODE_OPTIONS = [
     (2, "NowcastValueMax", "Max rate"),
 ]
 
-NOWCAST_FETCH_MODE_OPTIONS = [
-    (0, "NowcastFetchOnWake", "On screen wake (default)"),
-    (1, "NowcastFetchPeriodic", "Periodic, also with screen off"),
-]
-
 # The platform allows at most one background fetch per 5 minutes.
 NOWCAST_FETCH_INTERVAL_OPTIONS = [
     (5, "NowcastFetch5m", "5 minutes (default)"),
@@ -709,7 +704,6 @@ SUF = {
     "Days": "d",
     "BarGroup": "u",
     "BarGroupAgg": "z",
-    "FetchMode": "p",
     "FetchInterval": "i",
 }
 ROT = {
@@ -1136,7 +1130,6 @@ def gen_properties():
         prop(f"{PFX['wxForecastDaily']}{SUF['GraphWidth']}", "number", 8))
 
     lines.append(hourly_forecast_props(NOWCAST))
-    lines.append(prop(f"{PFX[NOWCAST.key]}{SUF['FetchMode']}", "number", 0))
     lines.append(
         prop(f"{PFX[NOWCAST.key]}{SUF['FetchInterval']}", "number", 5))
 
@@ -1334,10 +1327,7 @@ def gen_strings():
     lines.append(hourly_forecast_strings(NOWCAST))
     lines.extend(option_strings(NOWCAST_TIME_FRAMES))
     lines.extend(option_strings(NOWCAST_VALUE_MODE_OPTIONS))
-    lines.append(s("WxNowcastFetchMode", "Rain Nowcast: Update"))
-    lines.append(
-        s("WxNowcastFetchInterval", "Rain Nowcast: Min. Time Between Updates"))
-    lines.extend(option_strings(NOWCAST_FETCH_MODE_OPTIONS))
+    lines.append(s("WxNowcastFetchInterval", "Rain Nowcast: Update Interval"))
     lines.extend(option_strings(NOWCAST_FETCH_INTERVAL_OPTIONS))
 
     lines.append("\n  <!-- Debug -->")
@@ -1771,12 +1761,6 @@ def gen_settings():
             NOWCAST.key,
             f"{NOWCAST.skey}Group",
             hourly_forecast_settings(NOWCAST, indent=2),
-            setting_list(
-                f"{PFX[NOWCAST.key]}{SUF['FetchMode']}",
-                "WxNowcastFetchMode",
-                entries(NOWCAST_FETCH_MODE_OPTIONS),
-                indent=2,
-            ),
             setting_list(
                 f"{PFX[NOWCAST.key]}{SUF['FetchInterval']}",
                 "WxNowcastFetchInterval",

@@ -511,10 +511,7 @@
   <string id="NowcastValueNext">Next change</string>
   <string id="NowcastValueCurrent">Current rate</string>
   <string id="NowcastValueMax">Max rate</string>
-  <string id="WxNowcastFetchMode">Rain Nowcast: Update</string>
-  <string id="WxNowcastFetchInterval">Rain Nowcast: Min. Time Between Updates</string>
-  <string id="NowcastFetchOnWake">On screen wake (default)</string>
-  <string id="NowcastFetchPeriodic">Periodic, also with screen off</string>
+  <string id="WxNowcastFetchInterval">Rain Nowcast: Update Interval</string>
   <string id="NowcastFetch5m">5 minutes (default)</string>
   <string id="NowcastFetch15m">15 minutes</string>
   <string id="NowcastFetch30m">30 minutes</string>
