@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-const APP_VERSION = "0.59.3";
+const APP_VERSION = "0.59.4";
 
 // FIELD_* constants live in generated source/FieldIds.mc - never hand-edit that file.
 
@@ -101,9 +101,6 @@ const GLOW_FRACTION = [0.0, 0.08, 0.14, 0.2] as Array<Float>;
 
 // Glow offset (px); diagonal everywhere except the line-ribbon glow (self-intersection risk).
 const GLOW_SPREAD = 1;
-
-// Small cap - shares the constrained graphics memory pool with graph/halo bitmaps.
-const GLOW_GLYPH_CACHE_CAP = 16;
 
 const DASH_ALPHA = 0x80;
 

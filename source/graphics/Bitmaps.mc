@@ -64,6 +64,23 @@ module Bitmaps {
         }
     }
 
+    // A fresh bitmap reports isCached() false, so resolveRef would reject it; get() locks it in the pool while the object is held.
+    function createLocked(
+        w as Number,
+        h as Number
+    ) as [Graphics.BufferedBitmapReference, Graphics.BufferedBitmap]? {
+        var ref = tryCreate(w, h);
+        if (ref == null) {
+            return null;
+        }
+        try {
+            var bmp = ref.get() as Graphics.BufferedBitmap?;
+            return bmp != null ? [ref, bmp] : null;
+        } catch (e instanceof Lang.Exception) {
+            return null;
+        }
+    }
+
     // Graphics.createBufferedBitmap() can also throw under memory pressure.
     function tryCreate(
         w as Number,

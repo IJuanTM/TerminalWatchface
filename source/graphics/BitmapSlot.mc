@@ -25,14 +25,14 @@ class BitmapSlot {
         ) {
             return null;
         }
-        var created = Bitmaps.resolveRef(Bitmaps.tryCreate(w, h));
-        if (created != null) {
-            bmp = created;
-            _failMin = -1;
-        } else {
+        var created = Bitmaps.createLocked(w, h);
+        if (created == null) {
             _failMin = nowMin;
+            return null;
         }
-        return created;
+        bmp = created[1];
+        _failMin = -1;
+        return bmp;
     }
 
     public function draw(

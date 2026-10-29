@@ -144,10 +144,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     private var _pendingEffPeriod as Number = 0;
     private var _bmpCreateFailMin as Number = -1;
 
-    // _glowText halo-copy cache, round-robin evicted so repeat-hit labels survive high-cardinality live-value churn.
-    private var _glowGlyphCache as Dictionary = {};
-    private var _glowGlyphKeys as Array<String?> = new [GLOW_GLYPH_CACHE_CAP];
-    private var _glowGlyphIdx as Number = 0;
     // True while rendering a graph bitmap offscreen (halo coords would be bitmap-local, not screen-space).
     private var _haloSuppressed as Boolean = false;
     // Non-null while baking a graph's cached glow bitmap - redirects every _glow*Shape call's target dc here instead of the shared per-frame _halo (bake is a rare cache-miss event, not a per-frame cost).
@@ -190,9 +186,6 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         _lastUpdateMin = -1;
         _settingsMin = -1;
         _graphs.clear();
-        _glowGlyphCache = {};
-        _glowGlyphKeys = new [GLOW_GLYPH_CACHE_CAP];
-        _glowGlyphIdx = 0;
         _lastDateDay = -1;
         _cachedTimeMin = -1;
         _wx.lastMin = -1;
@@ -968,16 +961,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         if (w <= 0 || h <= 0 || _bmpCreateFailMin == _nowUnixMin) {
             return null;
         }
-        var newRef = Bitmaps.tryCreate(w, h);
-        var bmp = Bitmaps.resolveRef(newRef);
-        if (bmp == null) {
+        var made = Bitmaps.createLocked(w, h);
+        if (made == null) {
             _bmpCreateFailMin = _nowUnixMin;
             return null;
         }
-        var bmpDc = bmp.getDc();
+        var bmpDc = made[1].getDc();
         bmpDc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
         bmpDc.clear();
-        return [newRef, bmp];
+        return made;
     }
 
     private function _haloActive() as Boolean {
@@ -1043,69 +1035,11 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var hdc = _activeHaloDc();
         if (hdc != null) {
-            var tinted = _glowColor(color);
-            var w = dc.getTextWidthInPixels(text, font);
-            var leftX = x;
-            if (justify == Graphics.TEXT_JUSTIFY_RIGHT) {
-                leftX = x - w;
-            } else if (justify == Graphics.TEXT_JUSTIFY_CENTER) {
-                leftX = x - w / 2;
-            }
-            var bmp = _glowGlyphBmp(dc, font, text, tinted, w);
-            if (bmp != null) {
-                hdc.drawBitmap(leftX + GLOW_SPREAD, y + GLOW_SPREAD, bmp);
-            } else {
-                hdc.setColor(tinted, Graphics.COLOR_TRANSPARENT);
-                hdc.drawText(
-                    x + GLOW_SPREAD,
-                    y + GLOW_SPREAD,
-                    font,
-                    text,
-                    justify
-                );
-            }
+            hdc.setColor(_glowColor(color), Graphics.COLOR_TRANSPARENT);
+            hdc.drawText(x + GLOW_SPREAD, y + GLOW_SPREAD, font, text, justify);
         }
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, font, text, justify);
-    }
-
-    private function _glowGlyphBmp(
-        dc as Dc,
-        font as Graphics.FontType,
-        text as String,
-        tinted as Number,
-        w as Number
-    ) as Graphics.BufferedBitmap? {
-        var key = text + "\t" + font.toString() + "\t" + tinted.toString();
-        var cachedRef =
-            _glowGlyphCache.get(key) as Graphics.BufferedBitmapReference?;
-        if (cachedRef != null) {
-            var cached = Bitmaps.resolveRef(cachedRef);
-            if (cached != null) {
-                return cached;
-            }
-        }
-        var made = _newClearedBitmap(w, dc.getFontHeight(font));
-        if (made == null) {
-            return null;
-        }
-        var ref = made[0];
-        var bmp = made[1];
-        var bmpDc = bmp.getDc();
-        bmpDc.setColor(tinted, Graphics.COLOR_TRANSPARENT);
-        bmpDc.drawText(0, 0, font, text, Graphics.TEXT_JUSTIFY_LEFT);
-
-        // A reclaimed entry keeps its existing ring slot; only new keys claim (and evict) one.
-        if (cachedRef == null) {
-            var evictKey = _glowGlyphKeys[_glowGlyphIdx];
-            if (evictKey != null) {
-                _glowGlyphCache.remove(evictKey as String);
-            }
-            _glowGlyphKeys[_glowGlyphIdx] = key;
-            _glowGlyphIdx = (_glowGlyphIdx + 1) % GLOW_GLYPH_CACHE_CAP;
-        }
-        _glowGlyphCache.put(key, ref);
-        return bmp;
     }
 
     private function _glowLine(
@@ -4594,6 +4528,16 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var lastY = 0;
         var lastV = 0.0 as Float;
         var lastI = -1;
+        // _glowLine/_glowRect inlined with the halo Dc and solid colors resolved once: this loop runs live every frame while bitmaps fail.
+        var hdc = _activeHaloDc();
+        var grad = colorIdx >= COLOR_GRAD_TRI;
+        var solid = ColorUtils.colorFromIdx(colorIdx);
+        if (!grad) {
+            dc.setColor(solid, Graphics.COLOR_TRANSPARENT);
+            if (hdc != null) {
+                hdc.setColor(_glowColor(solid), Graphics.COLOR_TRANSPARENT);
+            }
+        }
         for (var i = 0; i < n; i++) {
             if (data[i] == null) {
                 continue;
@@ -4602,35 +4546,55 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             var x = _linePointX(gx, gw, n1, i);
             var py = _linePointY(y, gh, v, minV, range, ghf);
             if (lastX >= 0 && i - lastI <= maxGap) {
-                _glowLine(
-                    dc,
-                    x,
-                    py,
-                    lastX,
-                    lastY,
-                    ColorUtils.gradColor(
+                if (grad) {
+                    var segColor = ColorUtils.gradColor(
                         colorIdx,
                         NumUtils.fracClamp(
                             (v + lastV) / 2.0,
                             gradMinV,
                             gradRange
                         )
-                    )
-                );
+                    );
+                    if (hdc != null) {
+                        hdc.setColor(
+                            _glowColor(segColor),
+                            Graphics.COLOR_TRANSPARENT
+                        );
+                    }
+                    dc.setColor(segColor, Graphics.COLOR_TRANSPARENT);
+                }
+                if (hdc != null) {
+                    hdc.drawLine(
+                        x + GLOW_SPREAD,
+                        py + GLOW_SPREAD,
+                        lastX + GLOW_SPREAD,
+                        lastY + GLOW_SPREAD
+                    );
+                }
+                dc.drawLine(x, py, lastX, lastY);
             } else if (lastX >= 0 && _debugGraphGaps) {
                 _drawDebugGapLine(dc, lastX, lastY, x, py);
+                if (!grad) {
+                    dc.setColor(solid, Graphics.COLOR_TRANSPARENT);
+                }
             }
-            _glowRect(
-                dc,
-                x,
-                py,
-                1,
-                1,
-                ColorUtils.gradColor(
+            if (grad) {
+                var ptColor = ColorUtils.gradColor(
                     colorIdx,
                     NumUtils.fracClamp(v, gradMinV, gradRange)
-                )
-            );
+                );
+                if (hdc != null) {
+                    hdc.setColor(
+                        _glowColor(ptColor),
+                        Graphics.COLOR_TRANSPARENT
+                    );
+                }
+                dc.setColor(ptColor, Graphics.COLOR_TRANSPARENT);
+            }
+            if (hdc != null) {
+                _haloFillDiagSpread(hdc, x, py, 1, 1);
+            }
+            dc.fillRectangle(x, py, 1, 1);
             lastX = x;
             lastY = py;
             lastV = v;
@@ -4680,23 +4644,38 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
     ) as Void {
         var n = data.size();
         var ghf = gh.toFloat();
+        var hdc = _activeHaloDc();
+        var grad = colorIdx >= COLOR_GRAD_TRI;
+        if (!grad) {
+            var solid = ColorUtils.colorFromIdx(colorIdx);
+            dc.setColor(solid, Graphics.COLOR_TRANSPARENT);
+            if (hdc != null) {
+                hdc.setColor(_glowColor(solid), Graphics.COLOR_TRANSPARENT);
+            }
+        }
         for (var i = 0; i < n; i++) {
             if (data[i] == null) {
                 continue;
             }
             var v = data[i] as Float;
             var r = _barRect(gx, gw, y, gh, i, n, v, minV, range, ghf);
-            _glowRect(
-                dc,
-                r[0],
-                r[1],
-                r[2],
-                r[3],
-                ColorUtils.gradColor(
+            if (grad) {
+                var barColor = ColorUtils.gradColor(
                     colorIdx,
                     NumUtils.fracClamp(v, gradMinV, gradRange)
-                )
-            );
+                );
+                if (hdc != null) {
+                    hdc.setColor(
+                        _glowColor(barColor),
+                        Graphics.COLOR_TRANSPARENT
+                    );
+                }
+                dc.setColor(barColor, Graphics.COLOR_TRANSPARENT);
+            }
+            if (hdc != null) {
+                _haloFillDiagSpread(hdc, r[0], r[1], r[2], r[3]);
+            }
+            dc.fillRectangle(r[0], r[1], r[2], r[3]);
         }
     }
 
@@ -4754,6 +4733,13 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var n2 = data2.size();
         var count = n < n2 ? n : n2;
         var ghf = gh.toFloat();
+        var hdc = _activeHaloDc();
+        var grad1 = colorIdx1 >= COLOR_GRAD_TRI;
+        var grad2 = colorIdx2 >= COLOR_GRAD_TRI;
+        var c1 = ColorUtils.colorFromIdx(colorIdx1);
+        var c2 = ColorUtils.colorFromIdx(colorIdx2);
+        var g1 = _glowColor(c1);
+        var g2 = _glowColor(c2);
         for (var i = 0; i < count; i++) {
             if (data[i] != null) {
                 var v1 = data[i] as Float;
@@ -4770,17 +4756,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     true
                 );
-                _glowRect(
-                    dc,
-                    r1[0],
-                    r1[1],
-                    r1[2],
-                    r1[3],
-                    ColorUtils.gradColor(
+                if (grad1) {
+                    c1 = ColorUtils.gradColor(
                         colorIdx1,
                         NumUtils.fracClamp(v1, gradMinV1, gradRange1)
-                    )
-                );
+                    );
+                    g1 = hdc != null ? _glowColor(c1) : g1;
+                }
+                if (hdc != null) {
+                    hdc.setColor(g1, Graphics.COLOR_TRANSPARENT);
+                    _haloFillDiagSpread(hdc, r1[0], r1[1], r1[2], r1[3]);
+                }
+                dc.setColor(c1, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(r1[0], r1[1], r1[2], r1[3]);
             }
             if (data2[i] != null) {
                 var v2 = data2[i] as Float;
@@ -4797,17 +4785,19 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     ghf,
                     false
                 );
-                _glowRect(
-                    dc,
-                    r2[0],
-                    r2[1],
-                    r2[2],
-                    r2[3],
-                    ColorUtils.gradColor(
+                if (grad2) {
+                    c2 = ColorUtils.gradColor(
                         colorIdx2,
                         NumUtils.fracClamp(v2, gradMinV2, gradRange2)
-                    )
-                );
+                    );
+                    g2 = hdc != null ? _glowColor(c2) : g2;
+                }
+                if (hdc != null) {
+                    hdc.setColor(g2, Graphics.COLOR_TRANSPARENT);
+                    _haloFillDiagSpread(hdc, r2[0], r2[1], r2[2], r2[3]);
+                }
+                dc.setColor(c2, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(r2[0], r2[1], r2[2], r2[3]);
             }
         }
     }
@@ -5116,6 +5106,14 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
         var prevPY = 0;
         var prevV = 0.0 as Float;
         var prevI = -1;
+        var grad = colorIdx >= COLOR_GRAD_TRI;
+        var solidStroke = ColorUtils.withAlpha(
+            ColorUtils.colorFromIdx(colorIdx),
+            _areaOpacity
+        );
+        if (!grad) {
+            dc.setStroke(solidStroke);
+        }
         for (var i = 0; i < n; i++) {
             if (data[i] == null) {
                 continue;
@@ -5131,17 +5129,24 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
             if (prevX >= 0 && i - prevI <= maxGap) {
                 // < not <=: prevX's column was already drawn last iteration.
                 for (var px = x; px < prevX; px++) {
-                    var lerpV =
-                        v + ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
-                    dc.setStroke(
-                        ColorUtils.withAlpha(
-                            ColorUtils.gradColor(
-                                colorIdx,
-                                NumUtils.fracClamp(lerpV, gradMinV, gradRange)
-                            ),
-                            _areaOpacity
-                        )
-                    );
+                    if (grad) {
+                        var lerpV =
+                            v +
+                            ((px - x).toFloat() * (prevV - v)) / dx.toFloat();
+                        dc.setStroke(
+                            ColorUtils.withAlpha(
+                                ColorUtils.gradColor(
+                                    colorIdx,
+                                    NumUtils.fracClamp(
+                                        lerpV,
+                                        gradMinV,
+                                        gradRange
+                                    )
+                                ),
+                                _areaOpacity
+                            )
+                        );
+                    }
                     dc.drawLine(
                         px,
                         py + ((px - x) * (prevPY - py)) / dx,
@@ -5162,13 +5167,15 @@ class TerminalWatchfaceView extends WatchUi.WatchFace {
                     }
                 }
                 dc.setStroke(
-                    ColorUtils.withAlpha(
-                        ColorUtils.gradColor(
-                            colorIdx,
-                            NumUtils.fracClamp(v, gradMinV, gradRange)
-                        ),
-                        _areaOpacity
-                    )
+                    grad
+                        ? ColorUtils.withAlpha(
+                              ColorUtils.gradColor(
+                                  colorIdx,
+                                  NumUtils.fracClamp(v, gradMinV, gradRange)
+                              ),
+                              _areaOpacity
+                          )
+                        : solidStroke
                 );
                 dc.drawLine(x, py, x, fillBottom);
             }
